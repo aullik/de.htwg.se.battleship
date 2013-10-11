@@ -2,9 +2,18 @@ package de.htwg.se.battleship;
 
 public class Battleship {
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+	private static Battleship instance = null;
 
+	public static Battleship getInstance() {
+		if (instance == null) instance = new Battleship();
+		return instance;
+	}
+
+	public Battleship() {
+	}
+	
+	public static void main(String[] args) {
+		Battleship.getInstance();
 	}
 
 }
