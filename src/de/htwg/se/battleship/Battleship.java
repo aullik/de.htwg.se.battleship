@@ -1,19 +1,22 @@
 package de.htwg.se.battleship;
 
-public class Battleship {
+public final class Battleship {
 
-	private static Battleship instance = null;
+    private static Battleship instance = null;
 
-	public static Battleship getInstance() {
-		if (instance == null) instance = new Battleship();
-		return instance;
-	}
+    public static Battleship getInstance() {
+        if (instance == null) {
+            instance = new Battleship();
+        }
 
-	public Battleship() {
-	}
-	
-	public static void main(String[] args) {
-		Battleship.getInstance();
-	}
+        return instance;
+    }
+
+    private Battleship() {
+    }
+
+    public static void main(String[] args) {
+        Battleship.getInstance();
+    }
 
 }

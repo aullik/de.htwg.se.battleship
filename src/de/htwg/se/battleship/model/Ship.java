@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package de.htwg.se.battleship.model;
 
@@ -11,14 +11,14 @@ import java.util.List;
  */
 public class Ship {
 
-	private final List<Cell> ships;
+    private final List<Cell> ships;
 
-	public Ship(List<Cell> ships) {
-		this.ships = ships;
-	}
+    public Ship(List<Cell> ships) {
+        this.ships = ships;
+    }
 
-	public List<Cell> getCells() {
-		return ships;
-	}
+    public List<Cell> getCells() {
+        return ships;
+    }
 
 }
