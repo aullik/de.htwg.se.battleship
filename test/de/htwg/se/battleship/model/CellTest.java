@@ -9,7 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * @author phdaniel
+ * @author Philipp Daniels<philipp.daniels@gmail.com>
  * 
  */
 public class CellTest {
@@ -27,15 +27,65 @@ public class CellTest {
     }
 
     @Test
-    public void testGetX() {
+    public void testX() {
         assertEquals(1, c1.getX());
         assertEquals(12, c2.getX());
     }
 
     @Test
-    public void testGetY() {
+    public void testY() {
         assertEquals(2, c1.getY());
         assertEquals(8, c2.getY());
     }
 
+    @Test
+    public void testKey() {
+        assertEquals("1.2", c1.getKey());
+        assertEquals("12.8", c2.getKey());
+    }
+
+    @Test
+    public void testGrid() {
+        assertEquals(null, c1.getGrid());
+        assertEquals(null, c2.getGrid());
+
+        Grid g1 = new Grid(10);
+        Grid g2 = new Grid(13);
+
+        c1.setGrid(g1);
+        assertEquals(g1, c1.getGrid());
+
+        c1.setGrid(g2);
+        assertEquals(g2, c1.getGrid());
+    }
+
+    @Test
+    public void testPlayer() {
+        Player p1 = new Player("test1");
+        assertFalse(c1.containsPlayer(p1));
+        c1.addPlayer(p1);
+        assertTrue(c1.containsPlayer(p1));
+
+        Player p2 = new Player("test2");
+        assertFalse(c1.containsPlayer(p2));
+        c1.addPlayer(p2);
+        assertTrue(c1.containsPlayer(p2));
+
+        assertTrue(c1.containsPlayer(p1));
+    }
+
+    @Test
+    public void testShip() {
+        Ship s1 = new Ship();
+        assertFalse(c1.containsShip(s1));
+        c1.addShip(s1);
+        assertTrue(c1.containsShip(s1));
+
+        Ship s2 = new Ship();
+        assertFalse(c1.containsShip(s2));
+        c1.addShip(s2);
+        assertTrue(c1.containsShip(s2));
+
+        assertTrue(c1.containsShip(s1));
+    }
 }
