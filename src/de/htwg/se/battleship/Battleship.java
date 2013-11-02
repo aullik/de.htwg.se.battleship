@@ -1,19 +1,35 @@
 package de.htwg.se.battleship;
 
-public class Battleship {
+/**
+ * Initial class to start java program
+ * @author Philipp Daniels<philipp.daniels@gmail.com>
+ *
+ */
+public final class Battleship {
 
-	private static Battleship instance = null;
+    private static Battleship instance = null;
 
-	public static Battleship getInstance() {
-		if (instance == null) instance = new Battleship();
-		return instance;
-	}
+    private Battleship() {
+    }
 
-	public Battleship() {
-	}
-	
-	public static void main(String[] args) {
-		Battleship.getInstance();
-	}
+    /**
+     * Return always the same instance of Battleship
+     * @return Battleship instance
+     */
+    public static Battleship getInstance() {
+        if (instance == null) {
+            instance = new Battleship();
+        }
+
+        return instance;
+    }
+
+    /**
+     * Start java program
+     * @param args
+     */
+    public static void main(String[] args) {
+        Battleship.getInstance();
+    }
 
 }
