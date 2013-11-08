@@ -14,11 +14,6 @@
         <configuration>
           <source>1.7</source>
           <target>1.7</target>
-          <toolchains>
-            <jdk>
-              <version>1.7</version>
-            </jdk>
-          </toolchains>
         </configuration>
       </plugin>
     </plugins>
