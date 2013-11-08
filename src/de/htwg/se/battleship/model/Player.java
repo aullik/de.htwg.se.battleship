@@ -10,8 +10,9 @@ import java.util.Map;
 
 /**
  * This class contains all data for an Player
+ * 
  * @author Philipp Daniels<philipp.daniels@gmail.com>
- *
+ * 
  */
 public class Player {
 
@@ -21,16 +22,19 @@ public class Player {
 
     /**
      * Create a new Player instance with name and Map for Cell instances
-     * @param name Player name
+     * 
+     * @param name
+     *            Player name
      */
     public Player(final String name) {
         this.name = name;
-        this.ships = new ArrayList<>();
-        this.cells = new HashMap<>();
+        this.ships = new ArrayList<Ship>();
+        this.cells = new HashMap<String, Cell>();
     }
 
     /**
      * Returns the Player name
+     * 
      * @return Player name
      */
     public String getName() {
@@ -39,7 +43,9 @@ public class Player {
 
     /**
      * Add new Ship instance to Player and set Player at Ship (1:n relationship)
-     * @param ship Instance of Ship
+     * 
+     * @param ship
+     *            Instance of Ship
      */
     public void addShip(final Ship ship) {
         if (containsShip(ship)) {
@@ -52,7 +58,9 @@ public class Player {
 
     /**
      * Returns true, when Player has already an instance of this Ship.
-     * @param ship Instance of Ship
+     * 
+     * @param ship
+     *            Instance of Ship
      * @return True/False
      */
     public boolean containsShip(final Ship ship) {
@@ -61,7 +69,9 @@ public class Player {
 
     /**
      * Add new Cell instance to Player and add Player to Ship (n:m relationship)
-     * @param cell Instance of Cell
+     * 
+     * @param cell
+     *            Instance of Cell
      */
     public void addCell(final Cell cell) {
         if (cells.containsKey(cell.getKey())) {
@@ -74,8 +84,11 @@ public class Player {
 
     /**
      * Get a single Cell instance from the Player.
-     * @param x X-Coordinate
-     * @param y Y-Coordinate
+     * 
+     * @param x
+     *            X-Coordinate
+     * @param y
+     *            Y-Coordinate
      * @return Null/Cell instance
      */
     public Cell getCell(final int x, final int y) {

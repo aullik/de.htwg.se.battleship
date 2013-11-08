@@ -8,8 +8,9 @@ import java.util.List;
 
 /**
  * This class contains all data of a single Cell
+ * 
  * @author Philipp Daniels<philipp.daniels@gmail.com>
- *
+ * 
  */
 public class Cell {
 
@@ -21,20 +22,25 @@ public class Cell {
     private final List<Ship> ships;
 
     /**
-     * Create a new Cell instance with coordinates and initialize list for Ship and Player.
-     * @param x X-Coordinate
-     * @param y Y-Coordinate
+     * Create a new Cell instance with coordinates and initialize list for Ship
+     * and Player.
+     * 
+     * @param x
+     *            X-Coordinate
+     * @param y
+     *            Y-Coordinate
      */
     public Cell(int x, int y) {
         this.x = x;
         this.y = y;
         this.key = Cell.createKey(x, y);
-        this.players = new ArrayList<>();
-        this.ships = new ArrayList<>();
+        this.players = new ArrayList<Player>();
+        this.ships = new ArrayList<Ship>();
     }
 
     /**
      * Returns the x-coordinate of this Cell.
+     * 
      * @return X-Coordinate
      */
     public int getX() {
@@ -43,6 +49,7 @@ public class Cell {
 
     /**
      * Returns the y-coordinate of this Cell.
+     * 
      * @return Y-Coordinate
      */
     public int getY() {
@@ -51,6 +58,7 @@ public class Cell {
 
     /**
      * Return the key for Cell identification
+     * 
      * @return Key
      */
     public String getKey() {
@@ -59,7 +67,9 @@ public class Cell {
 
     /**
      * Set a Grid instance for this Cell and add Cell to Grid (n:1 relationship)
-     * @param grid Instance of a Grid
+     * 
+     * @param grid
+     *            Instance of a Grid
      */
     public void setGrid(final Grid grid) {
         this.grid = grid;
@@ -68,6 +78,7 @@ public class Cell {
 
     /**
      * Returns Grid instance.
+     * 
      * @return Grid instance
      */
     public Grid getGrid() {
@@ -76,7 +87,9 @@ public class Cell {
 
     /**
      * Add new Ship instance to the Cell and add Cell to Ship (n:m relationship)
-     * @param ship Instance of a ship
+     * 
+     * @param ship
+     *            Instance of a ship
      */
     public void addShip(final Ship ship) {
         if (containsShip(ship)) {
@@ -89,7 +102,9 @@ public class Cell {
 
     /**
      * Returns true, when Cell has already an instance of this Ship.
-     * @param ship Instance of an ship
+     * 
+     * @param ship
+     *            Instance of an ship
      * @return True/False
      */
     public boolean containsShip(final Ship ship) {
@@ -97,8 +112,11 @@ public class Cell {
     }
 
     /**
-     * Add new Player instance to the Cell and add cell to Player (n:m relationship)
-     * @param player Instance of a Player
+     * Add new Player instance to the Cell and add cell to Player (n:m
+     * relationship)
+     * 
+     * @param player
+     *            Instance of a Player
      */
     public void addPlayer(final Player player) {
         if (containsPlayer(player)) {
@@ -111,7 +129,9 @@ public class Cell {
 
     /**
      * Returns true, when Cell has already an instance of this Player.
-     * @param player Instance of a Player
+     * 
+     * @param player
+     *            Instance of a Player
      * @return True/False
      */
     public boolean containsPlayer(final Player player) {
@@ -120,8 +140,11 @@ public class Cell {
 
     /**
      * Create with x- and y-coordinate a key for a Map
-     * @param x X-Coordinate
-     * @param y Y-Coordinate
+     * 
+     * @param x
+     *            X-Coordinate
+     * @param y
+     *            Y-Coordinate
      * @return Key of the cell
      */
     public static String createKey(final int x, final int y) {
