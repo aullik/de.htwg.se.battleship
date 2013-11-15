@@ -5,6 +5,7 @@ import org.apache.log4j.PropertyConfigurator;
 import org.junit.Before;
 import org.junit.Test;
 
+import de.htwg.se.battleship.controller.IntController;
 import de.htwg.se.battleship.controller.impl.Controller;
 
 public class TextUITest {
@@ -14,7 +15,7 @@ public class TextUITest {
     private static String HELLOWORLD = "Hello World";
     @SuppressWarnings("unused")
     private TextUI tui1;
-    private Controller controller1;
+    private IntController controller1;
 
     @Before
     public void setUp() {

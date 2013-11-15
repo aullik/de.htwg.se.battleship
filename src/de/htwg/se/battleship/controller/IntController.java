@@ -7,9 +7,11 @@ package de.htwg.se.battleship.controller;
 import de.htwg.se.battleship.util.observer.IObservable;
 
 /**
- *
+ * 
  * @author aullik
  */
 public interface IntController extends IObservable {
-    
+
+    public void test();
+
 }
