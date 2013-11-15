@@ -3,3 +3,7 @@
 /.project
 /.sonar
 /target
+/build/
+/nbproject
+/battleship.log
+/coverage.ec
