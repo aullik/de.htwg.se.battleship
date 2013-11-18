@@ -27,7 +27,7 @@ public class TextUITest {
 
     @Test
     public void test() {
-        controller1.test();
+        controller1.updateNotify();
 
     }
 
