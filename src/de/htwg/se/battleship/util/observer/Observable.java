@@ -14,7 +14,7 @@ public class Observable implements IObservable {
     /**
      * List of Observers
      */
-    private final List<IObserver> subscribers = new ArrayList<IObserver>(2);
+    private final List<IObserver> subscribers = new ArrayList<IObserver>(1);
 
     @Override
     public void addObserver(IObserver s) {

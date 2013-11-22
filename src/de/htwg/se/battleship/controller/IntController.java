@@ -24,6 +24,7 @@ public interface IntController extends IObservable {
      * 
      * @param size
      */
-    public void newgame(int size);
+    public void newgame(int size, final String playername1,
+            final String playername2);
 
 }
