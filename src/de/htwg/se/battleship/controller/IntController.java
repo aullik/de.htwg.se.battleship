@@ -14,4 +14,16 @@ public interface IntController extends IObservable {
      */
     public void updateNotify();
 
+    /**
+     * Initialize game
+     */
+    public void newgame();
+
+    /**
+     * Initialize game with grid size: size
+     * 
+     * @param size
+     */
+    public void newgame(int size);
+
 }
