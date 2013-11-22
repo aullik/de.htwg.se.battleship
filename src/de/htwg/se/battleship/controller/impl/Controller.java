@@ -12,10 +12,11 @@ import de.htwg.se.battleship.util.observer.Observable;
  */
 public class Controller extends Observable implements IntController {
 
-    private Player player1;
-    private Player player2;
-    private Grid   grid1;
-    private Grid   grid2;
+    private Player     player1;
+    private Player     player2;
+    private Grid       grid1;
+    private Grid       grid2;
+    private static int STDFIELDSIZE = 10;
 
     @Override
     public void updateNotify() {
@@ -24,7 +25,7 @@ public class Controller extends Observable implements IntController {
 
     @Override
     public void newgame() {
-        newgame(10);
+        newgame(STDFIELDSIZE);
 
     }
 
