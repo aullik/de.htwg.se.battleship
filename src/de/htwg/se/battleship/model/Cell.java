@@ -11,11 +11,16 @@ package de.htwg.se.battleship.model;
  */
 public class Cell {
 
+    private final static int STATUS_NORMAL = 0;
+    private final static int STATUS_SHOT   = 1;
+    private final static int STATUS_HIT    = 2;
+
     private final int x;
     private final int y;
     private final String key;
     private Grid grid;
     private Ship ship;
+    private int status;
 
     /**
      * Create a new Cell instance with coordinates and initialize list for Ship
@@ -28,6 +33,7 @@ public class Cell {
         this.x = x;
         this.y = y;
         this.key = Cell.createKey(x, y);
+        this.status = STATUS_NORMAL;
     }
 
     /**
@@ -104,5 +110,46 @@ public class Cell {
      */
     public static String createKey(final int x, final int y) {
         return x + "." + y;
+    }
+
+    /**
+     * Returns true, when the Player has made nothing with this Cell.
+     * 
+     * @return Boolean
+     */
+    public boolean isNormal() {
+        return (status == STATUS_NORMAL);
+    }
+
+    /**
+     * Returns true, when the Player has hit a ship on this Cell.
+     * 
+     * @return Boolean
+     */
+    public boolean isHit() {
+        return (status == STATUS_HIT);
+    }
+
+    /**
+     * Returns true, when the Player has made previously a shot on this Cell.
+     * 
+     * @return Boolean
+     */
+    public boolean isShot() {
+        return (status == STATUS_SHOT);
+    }
+
+    /**
+     * Set status of this Cell to HIT (Player has hit a ship on this Cell).
+     */
+    public void setToHit() {
+        status = STATUS_HIT;
+    }
+
+    /**
+     * Set status of this Cell to SHOT (Player has made a shot on this Cell).
+     */
+    public void setToShot() {
+        status = STATUS_SHOT;
     }
 }

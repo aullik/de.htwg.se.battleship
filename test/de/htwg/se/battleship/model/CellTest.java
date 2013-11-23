@@ -73,4 +73,21 @@ public class CellTest {
 
         assertEquals(c1.getShip(), s1);
     }
+
+    @Test
+    public void testStatus() {
+        assertTrue(c1.isNormal());
+        assertFalse(c1.isHit());
+        assertFalse(c1.isShot());
+
+        c1.setToHit();
+        assertFalse(c1.isNormal());
+        assertTrue(c1.isHit());
+        assertFalse(c1.isShot());
+
+        c1.setToShot();
+        assertFalse(c1.isNormal());
+        assertFalse(c1.isHit());
+        assertTrue(c1.isShot());
+    }
 }
