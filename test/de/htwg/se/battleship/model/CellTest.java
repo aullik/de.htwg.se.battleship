@@ -62,15 +62,15 @@ public class CellTest {
     @Test
     public void testShip() {
         Ship s1 = new Ship();
-        assertFalse(c1.containsShip(s1));
-        c1.addShip(s1);
-        assertTrue(c1.containsShip(s1));
+        assertNull(c1.getShip());
+        c1.setShip(s1);
+        assertEquals(c1.getShip(), s1);
 
         Ship s2 = new Ship();
-        assertFalse(c1.containsShip(s2));
-        c1.addShip(s2);
-        assertTrue(c1.containsShip(s2));
+        assertNull(c2.getShip());
+        c2.setShip(s2);
+        assertEquals(c2.getShip(), s2);
 
-        assertTrue(c1.containsShip(s1));
+        assertEquals(c1.getShip(), s1);
     }
 }
