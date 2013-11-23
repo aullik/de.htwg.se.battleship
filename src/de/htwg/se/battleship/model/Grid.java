@@ -28,6 +28,16 @@ public class Grid {
         this.cells  = new HashMap<String, Cell>();
         this.player = player;
         player.setGrid(this);
+
+        initCells();
+    }
+
+    private void initCells() {
+        for (int i = 0; i < this.size; i++) {
+            for (int j = 0; j < this.size; j++) {
+                addCell(new Cell(i, j, this));
+            }
+        }
     }
 
     /**
@@ -39,16 +49,8 @@ public class Grid {
         return size;
     }
 
-    /**
-     * Add Cell instance to the Grid and set Grid of Cell (1:n relationship)
-     * 
-     * @param cell Instance of a Cell
-     */
-    public void addCell(final Cell cell) {
-        if (!cells.containsKey(cell.getKey())) {
-            cells.put(cell.getKey(), cell);
-            cell.setGrid(this);
-        }
+    private void addCell(final Cell cell) {
+        cells.put(cell.getKey(), cell);
     }
 
     /**

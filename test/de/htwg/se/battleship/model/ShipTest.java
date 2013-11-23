@@ -38,12 +38,12 @@ public class ShipTest {
 
     @Test
     public void testCell() {
-        Cell c1 = new Cell(1, 2);
+        Cell c1 = new Cell(1, 2, new Grid(1, new Player("")));
         assertNull(s.getCell(c1.getX(), c1.getY()));
         s.addCell(c1);
         assertEquals(c1, s.getCell(c1.getX(), c1.getY()));
 
-        Cell c2 = new Cell(2, 3);
+        Cell c2 = new Cell(2, 3, new Grid(1, new Player("")));
         assertNull(s.getCell(c2.getX(), c2.getY()));
         s.addCell(c2);
         assertEquals(c2, s.getCell(c2.getX(), c2.getY()));

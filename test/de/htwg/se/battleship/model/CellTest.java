@@ -16,14 +16,18 @@ public class CellTest {
 
     private Cell c1;
     private Cell c2;
+    private Grid g1;
+    private Grid g2;
 
     /**
      * @throws java.lang.Exception
      */
     @Before
     public void setUp() throws Exception {
-        c1 = new Cell(1, 2);
-        c2 = new Cell(12, 8);
+        g1 = new Grid(1, new Player(""));
+        g2 = new Grid(1, new Player(""));
+        c1 = new Cell(1, 2, g1);
+        c2 = new Cell(12, 8, g2);
     }
 
     @Test
@@ -46,17 +50,8 @@ public class CellTest {
 
     @Test
     public void testGrid() {
-        assertEquals(null, c1.getGrid());
-        assertEquals(null, c2.getGrid());
-
-        Grid g1 = new Grid(10, new Player(""));
-        Grid g2 = new Grid(13, new Player(""));
-
-        c1.setGrid(g1);
         assertEquals(g1, c1.getGrid());
-
-        c1.setGrid(g2);
-        assertEquals(g2, c1.getGrid());
+        assertEquals(g2, c2.getGrid());
     }
 
     @Test

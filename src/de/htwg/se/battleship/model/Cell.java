@@ -18,7 +18,7 @@ public class Cell {
     private final int x;
     private final int y;
     private final String key;
-    private Grid grid;
+    private final Grid grid;
     private Ship ship;
     private int status;
 
@@ -29,11 +29,12 @@ public class Cell {
      * @param x X-Coordinate
      * @param y Y-Coordinate
      */
-    public Cell(int x, int y) {
+    public Cell(int x, int y, Grid grid) {
         this.x = x;
         this.y = y;
         this.key = Cell.createKey(x, y);
         this.status = STATUS_NORMAL;
+        this.grid = grid;
     }
 
     /**
@@ -61,16 +62,6 @@ public class Cell {
      */
     public String getKey() {
         return key;
-    }
-
-    /**
-     * Set a Grid instance for this Cell and add Cell to Grid (n:1 relationship)
-     * 
-     * @param grid Instance of a Grid
-     */
-    public void setGrid(final Grid grid) {
-        this.grid = grid;
-        grid.addCell(this);
     }
 
     /**
