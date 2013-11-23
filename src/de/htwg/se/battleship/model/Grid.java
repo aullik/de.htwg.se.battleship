@@ -42,12 +42,12 @@ public class Grid {
      * @param cell Instance of a Cell
      */
     public void addCell(final Cell cell) {
-        if (cells.containsKey(cell.getKey())) {
-            return;
+        if (!cells.containsKey(cell.getKey())) {
+            cells.put(cell.getKey(), cell);
+            cell.setGrid(this);
         }
 
-        cells.put(cell.getKey(), cell);
-        cell.setGrid(this);
+
     }
 
     /**
@@ -59,9 +59,12 @@ public class Grid {
      */
     public Cell getCell(final int x, final int y) {
         String key = Cell.createKey(x, y);
+        Cell cell = null;
+
         if (cells.containsKey(key)) {
-            return cells.get(key);
+            cell = cells.get(key);
         }
-        return null;
+
+        return cell;
     }
 }

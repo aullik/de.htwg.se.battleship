@@ -88,12 +88,10 @@ public class Cell {
      * @param ship Instance of a ship
      */
     public void addShip(final Ship ship) {
-        if (containsShip(ship)) {
-            return;
+        if (!containsShip(ship)) {
+            ships.add(ship);
+            ship.addCell(this);
         }
-
-        ships.add(ship);
-        ship.addCell(this);
     }
 
     /**
@@ -113,12 +111,10 @@ public class Cell {
      * @param player Instance of a Player
      */
     public void addPlayer(final Player player) {
-        if (containsPlayer(player)) {
-            return;
+        if (!containsPlayer(player)) {
+            players.add(player);
+            player.addCell(this);
         }
-
-        players.add(player);
-        player.addCell(this);
     }
 
     /**

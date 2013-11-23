@@ -46,12 +46,10 @@ public class Player {
      * @param ship Instance of Ship
      */
     public void addShip(final Ship ship) {
-        if (containsShip(ship)) {
-            return;
+        if (!containsShip(ship)) {
+            ships.add(ship);
+            ship.setPlayer(this);
         }
-
-        ships.add(ship);
-        ship.setPlayer(this);
     }
 
     /**
@@ -70,12 +68,10 @@ public class Player {
      * @param cell Instance of Cell
      */
     public void addCell(final Cell cell) {
-        if (cells.containsKey(cell.getKey())) {
-            return;
+        if (!cells.containsKey(cell.getKey())) {
+            cells.put(cell.getKey(), cell);
+            cell.addPlayer(this);
         }
-
-        cells.put(cell.getKey(), cell);
-        cell.addPlayer(this);
     }
 
     /**
@@ -87,9 +83,12 @@ public class Player {
      */
     public Cell getCell(final int x, final int y) {
         String key = Cell.createKey(x, y);
+        Cell cell = null;
+
         if (cells.containsKey(key)) {
-            return cells.get(key);
+            cell = cells.get(key);
         }
-        return null;
+
+        return cell;
     }
 }
