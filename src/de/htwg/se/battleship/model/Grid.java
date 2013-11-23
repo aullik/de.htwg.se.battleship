@@ -20,8 +20,7 @@ public class Grid {
     /**
      * Create new instance of a Grid with his size.
      * 
-     * @param size
-     *            Number of cell for width/height
+     * @param size Number of cell for width/height
      */
     public Grid(final int size) {
         this.size = size;
@@ -40,8 +39,7 @@ public class Grid {
     /**
      * Add Cell instance to the Grid and set Grid of Cell (1:n relationship)
      * 
-     * @param cell
-     *            Instance of a Cell
+     * @param cell Instance of a Cell
      */
     public void addCell(final Cell cell) {
         if (cells.containsKey(cell.getKey())) {
@@ -55,10 +53,8 @@ public class Grid {
     /**
      * Get a single Cell instance from the Grid.
      * 
-     * @param x
-     *            X-Coordinate
-     * @param y
-     *            Y-Coordinate
+     * @param x X-Coordinate
+     * @param y Y-Coordinate
      * @return Null/Cell instance
      */
     public Cell getCell(final int x, final int y) {
