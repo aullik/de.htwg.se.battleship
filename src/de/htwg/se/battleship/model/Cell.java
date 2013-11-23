@@ -11,9 +11,9 @@ package de.htwg.se.battleship.model;
  */
 public class Cell {
 
-    private final static int STATUS_NORMAL = 0;
-    private final static int STATUS_SHOT   = 1;
-    private final static int STATUS_HIT    = 2;
+    private static final int STATUS_NORMAL = 0;
+    private static final int STATUS_SHOT   = 1;
+    private static final int STATUS_HIT    = 2;
 
     private final int x;
     private final int y;
