@@ -3,9 +3,6 @@
  */
 package de.htwg.se.battleship.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * This class contains all data of a single Cell
  * 
@@ -18,7 +15,7 @@ public class Cell {
     private final int y;
     private final String key;
     private Grid grid;
-    private final List<Ship> ships;
+    private Ship ship;
 
     /**
      * Create a new Cell instance with coordinates and initialize list for Ship
@@ -31,7 +28,6 @@ public class Cell {
         this.x = x;
         this.y = y;
         this.key = Cell.createKey(x, y);
-        this.ships = new ArrayList<Ship>();
     }
 
     /**
@@ -81,25 +77,22 @@ public class Cell {
     }
 
     /**
-     * Add new Ship instance to the Cell and add Cell to Ship (n:m relationship)
+     * Set relationship between Ship and cell (n:1 relationship)
      * 
      * @param ship Instance of a ship
      */
-    public void addShip(final Ship ship) {
-        if (!containsShip(ship)) {
-            ships.add(ship);
-            ship.addCell(this);
-        }
+    public void setShip(final Ship ship) {
+        this.ship=ship;
+        ship.addCell(this);
     }
 
     /**
      * Returns true, when Cell has already an instance of this Ship.
      * 
-     * @param ship Instance of an ship
-     * @return True/False
+     * @return Instance of ship
      */
-    public boolean containsShip(final Ship ship) {
-        return ships.contains(ship);
+    public Ship getShip() {
+        return ship;
     }
 
     /**

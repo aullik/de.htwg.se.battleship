@@ -44,14 +44,14 @@ public class Ship {
     }
 
     /**
-     * Add Cell instance to Ship and add Ship to Cell (n:m relationship)
+     * Add Cell instance to Ship and add Ship to Cell (1:n relationship)
      * 
      * @param cell Instance of a Cell
      */
     public void addCell(final Cell cell) {
         if (!cells.containsKey(cell.getKey())) {
             cells.put(cell.getKey(), cell);
-            cell.addShip(this);
+            cell.setShip(this);
         }
     }
 
