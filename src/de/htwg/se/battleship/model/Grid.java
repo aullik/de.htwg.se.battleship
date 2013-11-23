@@ -27,6 +27,7 @@ public class Grid {
         this.size   = size;
         this.cells  = new HashMap<String, Cell>();
         this.player = player;
+        player.setGrid(this);
     }
 
     /**

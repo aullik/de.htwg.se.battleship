@@ -67,4 +67,13 @@ public class PlayerTest {
 
         assertEquals(c1, p1.getCell(c1.getX(), c1.getY()));
     }
+
+    @Test
+    public void testGrid() {
+        Grid g1 = new Grid(1, p1);
+        assertEquals(p1.getGrid(), g1);
+
+        Grid g2 = new Grid(1, p2);
+        assertEquals(p2.getGrid(), g2);
+    }
 }

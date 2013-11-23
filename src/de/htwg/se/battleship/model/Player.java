@@ -19,6 +19,7 @@ public class Player {
     private final String name;
     private final List<Ship> ships;
     private final Map<String, Cell> cells;
+    private Grid grid;
 
     /**
      * Create a new Player instance with name and Map for Cell instances
@@ -90,5 +91,21 @@ public class Player {
         }
 
         return cell;
+    }
+
+    /**
+     * Set relation between Grid and Player
+     * @param grid Instance of Grid
+     */
+    public void setGrid(final Grid grid) {
+        this.grid = grid;
+    }
+
+    /**
+     * Returns an instance of the player's grid
+     * @return Instance of Grid
+     */
+    public Grid getGrid() {
+        return grid;
     }
 }
