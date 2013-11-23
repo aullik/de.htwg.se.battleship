@@ -16,15 +16,17 @@ public class Grid {
 
     private final int size;
     private final Map<String, Cell> cells;
+    private final Player player;
 
     /**
      * Create new instance of a Grid with his size.
      * 
      * @param size Number of cell for width/height
      */
-    public Grid(final int size) {
-        this.size = size;
-        this.cells = new HashMap<String, Cell>();
+    public Grid(final int size, final Player player) {
+        this.size   = size;
+        this.cells  = new HashMap<String, Cell>();
+        this.player = player;
     }
 
     /**
@@ -46,8 +48,6 @@ public class Grid {
             cells.put(cell.getKey(), cell);
             cell.setGrid(this);
         }
-
-
     }
 
     /**
@@ -66,5 +66,14 @@ public class Grid {
         }
 
         return cell;
+    }
+
+    /**
+     * Get the owner/player of this grid.
+     * 
+     * @return Player instance
+     */
+    public Player getPlayer() {
+        return player;
     }
 }

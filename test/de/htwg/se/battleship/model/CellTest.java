@@ -49,8 +49,8 @@ public class CellTest {
         assertEquals(null, c1.getGrid());
         assertEquals(null, c2.getGrid());
 
-        Grid g1 = new Grid(10);
-        Grid g2 = new Grid(13);
+        Grid g1 = new Grid(10, new Player(""));
+        Grid g2 = new Grid(13, new Player(""));
 
         c1.setGrid(g1);
         assertEquals(g1, c1.getGrid());
