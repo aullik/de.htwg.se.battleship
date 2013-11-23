@@ -4,9 +4,7 @@
 package de.htwg.se.battleship.model;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * This class contains all data for an Player
@@ -18,7 +16,6 @@ public class Player {
 
     private final String name;
     private final List<Ship> ships;
-    private final Map<String, Cell> cells;
     private Grid grid;
 
     /**
@@ -29,7 +26,6 @@ public class Player {
     public Player(final String name) {
         this.name = name;
         this.ships = new ArrayList<Ship>();
-        this.cells = new HashMap<String, Cell>();
     }
 
     /**
@@ -61,36 +57,6 @@ public class Player {
      */
     public boolean containsShip(final Ship ship) {
         return ships.contains(ship);
-    }
-
-    /**
-     * Add new Cell instance to Player and add Player to Ship (n:m relationship)
-     * 
-     * @param cell Instance of Cell
-     */
-    public void addCell(final Cell cell) {
-        if (!cells.containsKey(cell.getKey())) {
-            cells.put(cell.getKey(), cell);
-            cell.addPlayer(this);
-        }
-    }
-
-    /**
-     * Get a single Cell instance from the Player.
-     * 
-     * @param x X-Coordinate
-     * @param y Y-Coordinate
-     * @return Null/Cell instance
-     */
-    public Cell getCell(final int x, final int y) {
-        String key = Cell.createKey(x, y);
-        Cell cell = null;
-
-        if (cells.containsKey(key)) {
-            cell = cells.get(key);
-        }
-
-        return cell;
     }
 
     /**

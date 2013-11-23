@@ -18,7 +18,6 @@ public class Cell {
     private final int y;
     private final String key;
     private Grid grid;
-    private final List<Player> players;
     private final List<Ship> ships;
 
     /**
@@ -32,7 +31,6 @@ public class Cell {
         this.x = x;
         this.y = y;
         this.key = Cell.createKey(x, y);
-        this.players = new ArrayList<Player>();
         this.ships = new ArrayList<Ship>();
     }
 
@@ -102,29 +100,6 @@ public class Cell {
      */
     public boolean containsShip(final Ship ship) {
         return ships.contains(ship);
-    }
-
-    /**
-     * Add new Player instance to the Cell and add cell to Player (n:m
-     * relationship)
-     * 
-     * @param player Instance of a Player
-     */
-    public void addPlayer(final Player player) {
-        if (!containsPlayer(player)) {
-            players.add(player);
-            player.addCell(this);
-        }
-    }
-
-    /**
-     * Returns true, when Cell has already an instance of this Player.
-     * 
-     * @param player Instance of a Player
-     * @return True/False
-     */
-    public boolean containsPlayer(final Player player) {
-        return players.contains(player);
     }
 
     /**

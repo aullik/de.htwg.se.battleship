@@ -60,21 +60,6 @@ public class CellTest {
     }
 
     @Test
-    public void testPlayer() {
-        Player p1 = new Player("test1");
-        assertFalse(c1.containsPlayer(p1));
-        c1.addPlayer(p1);
-        assertTrue(c1.containsPlayer(p1));
-
-        Player p2 = new Player("test2");
-        assertFalse(c1.containsPlayer(p2));
-        c1.addPlayer(p2);
-        assertTrue(c1.containsPlayer(p2));
-
-        assertTrue(c1.containsPlayer(p1));
-    }
-
-    @Test
     public void testShip() {
         Ship s1 = new Ship();
         assertFalse(c1.containsShip(s1));
