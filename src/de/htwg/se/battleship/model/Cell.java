@@ -3,9 +3,6 @@
  */
 package de.htwg.se.battleship.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * This class contains all data of a single Cell
  * 
@@ -14,28 +11,30 @@ import java.util.List;
  */
 public class Cell {
 
+    private static final int STATUS_NORMAL = 0;
+    private static final int STATUS_SHOT   = 1;
+    private static final int STATUS_HIT    = 2;
+
     private final int x;
     private final int y;
     private final String key;
-    private Grid grid;
-    private final List<Player> players;
-    private final List<Ship> ships;
+    private final Grid grid;
+    private Ship ship;
+    private int status;
 
     /**
      * Create a new Cell instance with coordinates and initialize list for Ship
      * and Player.
      * 
-     * @param x
-     *            X-Coordinate
-     * @param y
-     *            Y-Coordinate
+     * @param x X-Coordinate
+     * @param y Y-Coordinate
      */
-    public Cell(int x, int y) {
+    public Cell(int x, int y, Grid grid) {
         this.x = x;
         this.y = y;
         this.key = Cell.createKey(x, y);
-        this.players = new ArrayList<Player>();
-        this.ships = new ArrayList<Ship>();
+        this.status = STATUS_NORMAL;
+        this.grid = grid;
     }
 
     /**
@@ -66,17 +65,6 @@ public class Cell {
     }
 
     /**
-     * Set a Grid instance for this Cell and add Cell to Grid (n:1 relationship)
-     * 
-     * @param grid
-     *            Instance of a Grid
-     */
-    public void setGrid(final Grid grid) {
-        this.grid = grid;
-        grid.addCell(this);
-    }
-
-    /**
      * Returns Grid instance.
      * 
      * @return Grid instance
@@ -86,68 +74,73 @@ public class Cell {
     }
 
     /**
-     * Add new Ship instance to the Cell and add Cell to Ship (n:m relationship)
+     * Set relationship between Ship and cell (n:1 relationship)
      * 
-     * @param ship
-     *            Instance of a ship
+     * @param ship Instance of a ship
      */
-    public void addShip(final Ship ship) {
-        if (containsShip(ship)) {
-            return;
-        }
-
-        ships.add(ship);
+    public void setShip(final Ship ship) {
+        this.ship=ship;
         ship.addCell(this);
     }
 
     /**
      * Returns true, when Cell has already an instance of this Ship.
      * 
-     * @param ship
-     *            Instance of an ship
-     * @return True/False
+     * @return Instance of ship
      */
-    public boolean containsShip(final Ship ship) {
-        return ships.contains(ship);
-    }
-
-    /**
-     * Add new Player instance to the Cell and add cell to Player (n:m
-     * relationship)
-     * 
-     * @param player
-     *            Instance of a Player
-     */
-    public void addPlayer(final Player player) {
-        if (containsPlayer(player)) {
-            return;
-        }
-
-        players.add(player);
-        player.addCell(this);
-    }
-
-    /**
-     * Returns true, when Cell has already an instance of this Player.
-     * 
-     * @param player
-     *            Instance of a Player
-     * @return True/False
-     */
-    public boolean containsPlayer(final Player player) {
-        return players.contains(player);
+    public Ship getShip() {
+        return ship;
     }
 
     /**
      * Create with x- and y-coordinate a key for a Map
      * 
-     * @param x
-     *            X-Coordinate
-     * @param y
-     *            Y-Coordinate
+     * @param x X-Coordinate
+     * @param y Y-Coordinate
      * @return Key of the cell
      */
     public static String createKey(final int x, final int y) {
         return x + "." + y;
+    }
+
+    /**
+     * Returns true, when the Player has made nothing with this Cell.
+     * 
+     * @return Boolean
+     */
+    public boolean isNormal() {
+        return (status == STATUS_NORMAL);
+    }
+
+    /**
+     * Returns true, when the Player has hit a ship on this Cell.
+     * 
+     * @return Boolean
+     */
+    public boolean isHit() {
+        return (status == STATUS_HIT);
+    }
+
+    /**
+     * Returns true, when the Player has made previously a shot on this Cell.
+     * 
+     * @return Boolean
+     */
+    public boolean isShot() {
+        return (status == STATUS_SHOT);
+    }
+
+    /**
+     * Set status of this Cell to HIT (Player has hit a ship on this Cell).
+     */
+    public void setToHit() {
+        status = STATUS_HIT;
+    }
+
+    /**
+     * Set status of this Cell to SHOT (Player has made a shot on this Cell).
+     */
+    public void setToShot() {
+        status = STATUS_SHOT;
     }
 }

@@ -27,8 +27,7 @@ public class Ship {
      * Set a owner (Player) for this Ship and add the Ship to the Player (n:1
      * relationship)
      * 
-     * @param player
-     *            Instance of Player
+     * @param player Instance of Player
      */
     public void setPlayer(final Player player) {
         this.player = player;
@@ -45,34 +44,32 @@ public class Ship {
     }
 
     /**
-     * Add Cell instance to Ship and add Ship to Cell (n:m relationship)
+     * Add Cell instance to Ship and add Ship to Cell (1:n relationship)
      * 
-     * @param cell
-     *            Instance of a Cell
+     * @param cell Instance of a Cell
      */
     public void addCell(final Cell cell) {
-        if (cells.containsKey(cell.getKey())) {
-            return;
+        if (!cells.containsKey(cell.getKey())) {
+            cells.put(cell.getKey(), cell);
+            cell.setShip(this);
         }
-
-        cells.put(cell.getKey(), cell);
-        cell.addShip(this);
     }
 
     /**
      * Get a single Cell instance from the Ship.
      * 
-     * @param x
-     *            X-Coordinate
-     * @param y
-     *            Y-Coordinate
+     * @param x X-Coordinate
+     * @param y Y-Coordinate
      * @return Null/Cell instance
      */
     public Cell getCell(final int x, final int y) {
         String key = Cell.createKey(x, y);
+        Cell cell = null;
+
         if (cells.containsKey(key)) {
-            return cells.get(key);
+            cell = cells.get(key);
         }
-        return null;
+
+        return cell;
     }
 }

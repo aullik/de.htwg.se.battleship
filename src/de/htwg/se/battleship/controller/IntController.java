@@ -14,6 +14,7 @@ public interface IntController extends IObservable {
      */
     public void updateNotify();
 
+
     /**
      * Initialize game
      */

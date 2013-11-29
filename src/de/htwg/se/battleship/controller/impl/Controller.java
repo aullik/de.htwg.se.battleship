@@ -35,8 +35,8 @@ public class Controller extends Observable implements IntController {
     @Override
     public void newgame(final int size, final String playername1,
             final String playername2) {
-        grid1 = new Grid(size);
-        grid2 = new Grid(size);
+        grid1 = new Grid(size, player1);
+        grid2 = new Grid(size, player2);
         player1 = new Player(playername1);
         player2 = new Player(playername2);
     }

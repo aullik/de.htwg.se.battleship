@@ -53,18 +53,11 @@ public class PlayerTest {
     }
 
     @Test
-    public void testCell() {
+    public void testGrid() {
+        Grid g1 = new Grid(1, p1);
+        assertEquals(p1.getGrid(), g1);
 
-        Cell c1 = new Cell(1, 2);
-        assertNull(p1.getCell(c1.getX(), c1.getY()));
-        p1.addCell(c1);
-        assertEquals(c1, p1.getCell(c1.getX(), c1.getY()));
-
-        Cell c2 = new Cell(3, 4);
-        assertNull(p1.getCell(c2.getX(), c2.getY()));
-        p1.addCell(c2);
-        assertEquals(c2, p1.getCell(c2.getX(), c2.getY()));
-
-        assertEquals(c1, p1.getCell(c1.getX(), c1.getY()));
+        Grid g2 = new Grid(1, p2);
+        assertEquals(p2.getGrid(), g2);
     }
 }

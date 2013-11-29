@@ -16,14 +16,18 @@ public class CellTest {
 
     private Cell c1;
     private Cell c2;
+    private Grid g1;
+    private Grid g2;
 
     /**
      * @throws java.lang.Exception
      */
     @Before
     public void setUp() throws Exception {
-        c1 = new Cell(1, 2);
-        c2 = new Cell(12, 8);
+        g1 = new Grid(1, new Player(""));
+        g2 = new Grid(1, new Player(""));
+        c1 = new Cell(1, 2, g1);
+        c2 = new Cell(12, 8, g2);
     }
 
     @Test
@@ -46,46 +50,39 @@ public class CellTest {
 
     @Test
     public void testGrid() {
-        assertEquals(null, c1.getGrid());
-        assertEquals(null, c2.getGrid());
-
-        Grid g1 = new Grid(10);
-        Grid g2 = new Grid(13);
-
-        c1.setGrid(g1);
         assertEquals(g1, c1.getGrid());
-
-        c1.setGrid(g2);
-        assertEquals(g2, c1.getGrid());
-    }
-
-    @Test
-    public void testPlayer() {
-        Player p1 = new Player("test1");
-        assertFalse(c1.containsPlayer(p1));
-        c1.addPlayer(p1);
-        assertTrue(c1.containsPlayer(p1));
-
-        Player p2 = new Player("test2");
-        assertFalse(c1.containsPlayer(p2));
-        c1.addPlayer(p2);
-        assertTrue(c1.containsPlayer(p2));
-
-        assertTrue(c1.containsPlayer(p1));
+        assertEquals(g2, c2.getGrid());
     }
 
     @Test
     public void testShip() {
         Ship s1 = new Ship();
-        assertFalse(c1.containsShip(s1));
-        c1.addShip(s1);
-        assertTrue(c1.containsShip(s1));
+        assertNull(c1.getShip());
+        c1.setShip(s1);
+        assertEquals(c1.getShip(), s1);
 
         Ship s2 = new Ship();
-        assertFalse(c1.containsShip(s2));
-        c1.addShip(s2);
-        assertTrue(c1.containsShip(s2));
+        assertNull(c2.getShip());
+        c2.setShip(s2);
+        assertEquals(c2.getShip(), s2);
 
-        assertTrue(c1.containsShip(s1));
+        assertEquals(c1.getShip(), s1);
+    }
+
+    @Test
+    public void testStatus() {
+        assertTrue(c1.isNormal());
+        assertFalse(c1.isHit());
+        assertFalse(c1.isShot());
+
+        c1.setToHit();
+        assertFalse(c1.isNormal());
+        assertTrue(c1.isHit());
+        assertFalse(c1.isShot());
+
+        c1.setToShot();
+        assertFalse(c1.isNormal());
+        assertFalse(c1.isHit());
+        assertTrue(c1.isShot());
     }
 }
