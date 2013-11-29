@@ -17,12 +17,12 @@ public class Controller extends Observable implements IntController {
     private Grid   grid1;
     private Grid   grid2;
 
-    @Override
+    
     public void updateNotify() {
         notifyObservers(null);
     }
 
-    @Override
+    
     public void newgame() {
         final int stdFieldSize = 10;
         final String playername1 = "Player1";
@@ -32,7 +32,7 @@ public class Controller extends Observable implements IntController {
 
     }
 
-    @Override
+    
     public void newgame(final int size, final String playername1,
             final String playername2) {
         grid1 = new Grid(size, player1);

@@ -12,20 +12,20 @@ public interface IntController extends IObservable {
     /**
      * just an notify to update Observers
      */
-    public void updateNotify();
+    void updateNotify();
 
 
     /**
      * Initialize game
      */
-    public void newgame();
+    void newgame();
 
     /**
      * Initialize game with grid size: size
      * 
      * @param size
      */
-    public void newgame(int size, final String playername1,
+    void newgame(int size, final String playername1,
             final String playername2);
 
 }

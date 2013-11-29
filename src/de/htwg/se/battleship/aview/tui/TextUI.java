@@ -13,14 +13,14 @@ import de.htwg.se.battleship.util.observer.IObserver;
  */
 public class TextUI implements IObserver {
 
-    private static String       HELLOWORLD = "Hello World";
+    private final static String       HELLOWORLD = "Hello World";
     private final String        newLine    = System.getProperty("line.separator");
     private final Logger        logger     = Logger.getLogger("de.htwg.se.battleship.aview.tui");
     @SuppressWarnings("unused")
-    private final IntController controller;
+    private final IntController mycontroller;
 
     public TextUI(IntController controller) {
-        this.controller = controller;
+        this.mycontroller = controller;
         controller.addObserver(this);
 
     }
@@ -34,8 +34,9 @@ public class TextUI implements IObserver {
      * prints status to stdout and logger
      */
     private void printTUI() {
-        logger.info(newLine + HELLOWORLD);
-        System.out.println(HELLOWORLD);
+    	System.out.println(HELLOWORLD);
+    	logger.info(newLine + HELLOWORLD);
+        
     }
 
 }

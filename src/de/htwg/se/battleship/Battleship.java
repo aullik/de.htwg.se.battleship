@@ -15,7 +15,6 @@ public final class Battleship {
 
     private static Battleship    instance = null;
 
-    @SuppressWarnings("unused")
     private static TextUI        tui;
     private static IntController controller;
 
@@ -31,7 +30,7 @@ public final class Battleship {
         return instance;
     }
 
-    public Battleship() {
+    private Battleship() {
         // Set up logging through log4j
         PropertyConfigurator.configure("log4j.properties");
         controller = new Controller();
