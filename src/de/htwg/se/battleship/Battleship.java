@@ -1,10 +1,12 @@
 package de.htwg.se.battleship;
 
+import java.util.Scanner;
+
 import org.apache.log4j.PropertyConfigurator;
 
 import de.htwg.se.battleship.aview.tui.TextUI;
 import de.htwg.se.battleship.controller.IntController;
-import de.htwg.se.battleship.controller.impl.Controller;
+import de.htwg.se.battleship.controller.input.InputController;
 
 /**
  * Initial class to start java program
@@ -14,8 +16,10 @@ import de.htwg.se.battleship.controller.impl.Controller;
 public final class Battleship {
 
     private static Battleship    instance = null;
-
-    private static TextUI        tui;
+    
+    private static Scanner       scanner;
+    @SuppressWarnings("unused")
+	private static TextUI        tui;
     private static IntController controller;
 
     /**
@@ -29,11 +33,16 @@ public final class Battleship {
         }
         return instance;
     }
+    
+    /**
+     * close main
+     */
+
 
     private Battleship() {
         // Set up logging through log4j
         PropertyConfigurator.configure("log4j.properties");
-        controller = new Controller();
+        controller = new InputController();
         tui = new TextUI(controller);
 
     }
@@ -46,6 +55,11 @@ public final class Battleship {
 
     public static void main(String[] args) {
         Battleship.getInstance();
+        
+        scanner = new Scanner(System.in);
+
+        while (controller.processInputLine(scanner.next())) {
+        }
     }
 
 }

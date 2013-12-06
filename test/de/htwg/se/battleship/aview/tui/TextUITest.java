@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import de.htwg.se.battleship.controller.IntController;
-import de.htwg.se.battleship.controller.impl.Controller;
+import de.htwg.se.battleship.controller.input.InputController;
 
 public class TextUITest {
 
@@ -20,7 +20,7 @@ public class TextUITest {
     @Before
     public void setUp() {
         PropertyConfigurator.configure("log4j.properties");
-        controller1 = new Controller();
+        controller1 = new InputController();
         tui1 = new TextUI(controller1);
 
     }
