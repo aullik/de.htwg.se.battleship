@@ -1,10 +1,14 @@
 /**
  *
  */
-package de.htwg.se.battleship.model;
+package de.htwg.se.battleship.model.impl;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import de.htwg.se.battleship.model.ICell;
+import de.htwg.se.battleship.model.IGrid;
+import de.htwg.se.battleship.model.IPlayer;
 
 /**
  * This class contains all data for the Grid
@@ -12,20 +16,20 @@ import java.util.Map;
  * @author Philipp Daniels<philipp.daniels@gmail.com>
  * 
  */
-public class Grid {
+public class Grid implements IGrid {
 
     private final int size;
-    private final Map<String, Cell> cells;
-    private final Player player;
+    private final Map<String, ICell> cells;
+    private final IPlayer player;
 
     /**
      * Create new instance of a Grid with his size.
      * 
      * @param size Number of cell for width/height
      */
-    public Grid(final int size, final Player player) {
-        this.size   = size;
-        this.cells  = new HashMap<String, Cell>();
+    public Grid(final int size, final IPlayer player) {
+        this.size = size;
+        this.cells = new HashMap<String, ICell>();
         this.player = player;
         player.setGrid(this);
 
@@ -40,11 +44,7 @@ public class Grid {
         }
     }
 
-    /**
-     * Returns the size of the Grid instance
-     * 
-     * @return Number of cells for width/height
-     */
+    @Override
     public int getWidth() {
         return size;
     }
@@ -53,16 +53,10 @@ public class Grid {
         cells.put(cell.getKey(), cell);
     }
 
-    /**
-     * Get a single Cell instance from the Grid.
-     * 
-     * @param x X-Coordinate
-     * @param y Y-Coordinate
-     * @return Null/Cell instance
-     */
-    public Cell getCell(final int x, final int y) {
+    @Override
+    public ICell getCell(final int x, final int y) {
         String key = Cell.createKey(x, y);
-        Cell cell = null;
+        ICell cell = null;
 
         if (cells.containsKey(key)) {
             cell = cells.get(key);
@@ -71,12 +65,8 @@ public class Grid {
         return cell;
     }
 
-    /**
-     * Get the owner/player of this grid.
-     * 
-     * @return Player instance
-     */
-    public Player getPlayer() {
+    @Override
+    public IPlayer getPlayer() {
         return player;
     }
 }
