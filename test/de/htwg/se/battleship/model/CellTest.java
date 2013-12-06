@@ -78,7 +78,7 @@ public class CellTest {
         c1.setToHit();
         assertFalse(c1.isNormal());
         assertTrue(c1.isHit());
-        assertFalse(c1.isShot());
+        assertTrue(c1.isShot());
 
         c1.setToShot();
         assertFalse(c1.isNormal());

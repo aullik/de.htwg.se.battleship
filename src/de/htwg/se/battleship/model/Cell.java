@@ -12,8 +12,8 @@ package de.htwg.se.battleship.model;
 public class Cell {
 
     private static final int STATUS_NORMAL = 0;
-    private static final int STATUS_SHOT   = 1;
-    private static final int STATUS_HIT    = 2;
+    private static final int STATUS_SHOT = 1;
+    private static final int STATUS_HIT = 2;
 
     private final int x;
     private final int y;
@@ -26,8 +26,10 @@ public class Cell {
      * Create a new Cell instance with coordinates and initialize list for Ship
      * and Player.
      * 
-     * @param x X-Coordinate
-     * @param y Y-Coordinate
+     * @param x
+     *            X-Coordinate
+     * @param y
+     *            Y-Coordinate
      */
     public Cell(int x, int y, Grid grid) {
         this.x = x;
@@ -76,10 +78,11 @@ public class Cell {
     /**
      * Set relationship between Ship and cell (n:1 relationship)
      * 
-     * @param ship Instance of a ship
+     * @param ship
+     *            Instance of a ship
      */
     public void setShip(final Ship ship) {
-        this.ship=ship;
+        this.ship = ship;
         ship.addCell(this);
     }
 
@@ -95,8 +98,10 @@ public class Cell {
     /**
      * Create with x- and y-coordinate a key for a Map
      * 
-     * @param x X-Coordinate
-     * @param y Y-Coordinate
+     * @param x
+     *            X-Coordinate
+     * @param y
+     *            Y-Coordinate
      * @return Key of the cell
      */
     public static String createKey(final int x, final int y) {
@@ -127,7 +132,7 @@ public class Cell {
      * @return Boolean
      */
     public boolean isShot() {
-        return (status == STATUS_SHOT);
+        return (status == STATUS_SHOT || isHit());
     }
 
     /**
