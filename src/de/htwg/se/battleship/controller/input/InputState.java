@@ -7,6 +7,6 @@ public interface InputState {
 
 	Event getEvent();
 
-	Event[] processInput(InputController input, String word);
+	Event[] processInput(InputController controller, String line);
 	
 }

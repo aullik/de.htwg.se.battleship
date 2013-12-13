@@ -21,29 +21,17 @@ public class SelectState implements InputState{
 
 
 	@Override
-	public Event[] processInput(InputController input, String line) {
+	public Event[] processInput(InputController controller, String line) {
 		Event[] array = new Event[2];
-		String[] in = input.splitInput(line,command);
+		String[] in = controller.splitInput(line,command);
+		
 		if(in[1].equals(command[0])){
-			array[0] =  input.setState(new InitGame());	
+			array[0] =  controller.setState(new InitGame());	
 			if(!in[2].isEmpty()){
 				array[1] = new ContinueEvent(in[2]);
 			}
 		}else if(in[1].equals(command[1])){
-			array[0] =  input.setState(new Close()); // ersetze durch manuellen befehl
-		} else{
-			array[0] = new ErrorEvent("input didnt match: "+line);
-		}
-		
-		
-		if(line.startsWith(InitGame.getCommand())){
-			array[0] =  input.setState(new InitGame());
-			String tmp =line.replace(InitGame.getCommand(),"");
-			if(!tmp.isEmpty()){
-				array[1] = new ContinueEvent(tmp);
-			}
-		} else if(line.startsWith(Close.getCommand())){
-			array[0] =  input.setState(new Close());
+			array[0] =  controller.setState(new Close()); // ersetze durch manuellen befehl
 		} else{
 			array[0] = new ErrorEvent("input didnt match: "+line);
 		}
