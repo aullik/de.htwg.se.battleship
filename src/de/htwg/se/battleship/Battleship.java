@@ -55,10 +55,11 @@ public final class Battleship {
 
     public static void main(String[] args) {
         Battleship.getInstance();
+       
         
         scanner = new Scanner(System.in);
 
-        while (controller.processInputLine(scanner.next())) {
+        while (controller.processInputLine(scanner.nextLine())) {
         }
     }
 

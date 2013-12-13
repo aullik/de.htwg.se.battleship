@@ -5,6 +5,9 @@ import de.htwg.se.battleship.controller.IntController;
 import de.htwg.se.battleship.util.observer.Event;
 import de.htwg.se.battleship.util.observer.Observable;
 import de.htwg.se.battleship.util.observer.Events.CloseEvent;
+import de.htwg.se.battleship.util.observer.Events.ContinueEvent;
+import de.htwg.se.battleship.util.observer.Events.ErrorEvent;
+import de.htwg.se.battleship.util.observer.Events.StandardEvent;
 public class InputController  extends Observable implements IntController {
 
 	
@@ -20,16 +23,24 @@ public class InputController  extends Observable implements IntController {
 		
 	@Override
 	public boolean processInputLine(String line){
-		Event e;
-		String words[] = line.split(" ");
-		for (String word :words){
-			e=currentState.processInput(this, word);
-			notifyObservers(e);
-			if(e!=null&& e instanceof CloseEvent){
+		Event[]array;
+		boolean out = true;
+
+		array=currentState.processInput(this, line);
+		for (Event e:array){
+			if (array == null){
+			}else if(e instanceof CloseEvent){
+				notifyObservers(e);
 				return false;
+			}else if(e instanceof StandardEvent){
+				notifyObservers(e);
+			}else if(e instanceof ErrorEvent){
+				notifyObservers(e);
+			}else if(e instanceof ContinueEvent){
+				 out&=processInputLine(e.getMessage());
 			}
-		}
-		return true;
+		}	
+		return out;
 	}
 	
 	
@@ -37,6 +48,32 @@ public class InputController  extends Observable implements IntController {
 	public void updateNotify() {
 		notifyObservers(currentState.getEvent());
 		
+	}
+	public String[] splitInput(String line, String[] command){
+		String[] split = new String[3];
+		int first = -1;
+		String tmp = null;
+  
+
+		for(String s:command){
+			int i;
+			i =line.indexOf(s);
+			if(i>-1&&(i<first||first==-1)){
+				first = i;
+				tmp = s;
+			}
+		}
+		if(first==-1){
+			split[0] = line;
+			split[1] = "";
+			split[2] = "";
+		}else{
+			split[0]=line.substring(0,first).trim();
+			split[1]=tmp;
+			split[2]=line.substring(first+tmp.length()).trim();
+			
+		}
+		return split;
 	}
 	
 

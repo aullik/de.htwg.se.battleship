@@ -6,12 +6,12 @@ import de.htwg.se.battleship.util.observer.Events.CloseEvent;
 public class Close implements InputState {
 	
 
-	private final static String command = "close";
+	private final static String command = "-close";
 	
 
 	@Override
-	public Event processInput(InputController input, String word) {
-		// TODO Auto-generated method stub
+	public Event[] processInput(InputController input, String word) {
+
 	return null;	
 	}
 
