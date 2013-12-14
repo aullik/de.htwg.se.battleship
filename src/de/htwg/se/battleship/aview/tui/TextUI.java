@@ -13,8 +13,7 @@ import de.htwg.se.battleship.util.observer.IObserver;
  */
 public class TextUI implements IObserver {
 
-    private final String        newLine    = System.getProperty("line.separator");
-    private final Logger        logger     = Logger.getLogger("de.htwg.se.battleship.aview.tui");
+    private final Logger        logger = Logger.getLogger("de.htwg.se.battleship.aview.tui");
     private final IntController mycontroller;
 
     public TextUI(IntController controller) {
@@ -25,47 +24,20 @@ public class TextUI implements IObserver {
     }
 
     /**
-     * switches thought input to get commands
-     * 
-     * @param in input from console
+     * prints status to stdout and logger
      */
-//    public boolean processInput(final String in) {
-//    	boolean toReturn = true;
-//        switch (in) {
-//        case "close":
-//            logger.info(newLine + "terminated");
-//            toReturn = false;
-//            break;
-//        case "start":
-//            mycontroller.newgame();
-//            mycontroller.newgame(10,"hans","berta");
-//            break;
-//        default:
-//            System.out.println("Unknown Input: " + in);
-//
-//        }
-//        return toReturn;
-//
-//    }
-
     @Override
     public void update(Event e) {
-    	if(e==null){
-    		System.out.println("error");
-    	}else{
-    		logger.info(newLine + e.getMessage());	
-    	}
-    	
+        if (e == null) {
+            System.out.println("error");
+        } else {
+            logger.info(e.getMessage());
+        }
+
     }
 
     /**
      * prints status to stdout and logger
      */
-//    private void printTUI() {
-//    	System.out.println(HELLOWORLD);
-//    	logger.info(newLine + HELLOWORLD);
-//        
-//    }
 
-    
-	}
+}

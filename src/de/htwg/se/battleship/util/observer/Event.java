@@ -6,10 +6,7 @@ package de.htwg.se.battleship.util.observer;
  * @author aullik
  */
 public interface Event {
-	
-		
-	String getMessage();
-	
-	
-	
+
+    String getMessage();
+
 }

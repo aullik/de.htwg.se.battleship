@@ -14,8 +14,6 @@ public interface IntController extends IObservable {
      */
     void updateNotify();
 
-	boolean processInputLine(String line);
+    boolean processInputLine(String line);
 
 }
-
-

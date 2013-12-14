@@ -16,10 +16,10 @@ import de.htwg.se.battleship.controller.input.InputController;
 public final class Battleship {
 
     private static Battleship    instance = null;
-    
+
     private static Scanner       scanner;
     @SuppressWarnings("unused")
-	private static TextUI        tui;
+    private static TextUI        tui;
     private static IntController controller;
 
     /**
@@ -33,11 +33,10 @@ public final class Battleship {
         }
         return instance;
     }
-    
+
     /**
      * close main
      */
-
 
     private Battleship() {
         // Set up logging through log4j
@@ -55,8 +54,7 @@ public final class Battleship {
 
     public static void main(String[] args) {
         Battleship.getInstance();
-       
-        
+
         scanner = new Scanner(System.in);
 
         while (controller.processInputLine(scanner.nextLine())) {
