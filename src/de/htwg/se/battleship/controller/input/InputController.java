@@ -50,8 +50,10 @@ public class InputController extends Observable implements IntController {
 
     }
 
-    public String[] splitInput(String line, String[] command) {
-        String[] split = new String[3];
+    public String[] splitInput(String line, InputState state) {
+        final int maxSplitNo = 3;
+        String[] command = state.getCommands();
+        String[] split = new String[maxSplitNo];
         int first = -1;
         String tmp = null;
 
@@ -75,5 +77,4 @@ public class InputController extends Observable implements IntController {
         }
         return split;
     }
-
 }

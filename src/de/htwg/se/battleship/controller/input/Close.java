@@ -22,4 +22,10 @@ public class Close implements InputState {
         return new CloseEvent();
     }
 
+    @Override
+    public String[] getCommands() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }

@@ -26,7 +26,7 @@ public class InGame implements InputState {
         grid1 = new Grid(fieldsize, player1);
         grid2 = new Grid(fieldsize, player2);
         command = new String[] { "-win" };
-        event = new StandardEvent("Type:" + "\n -win to win");
+        event = new StandardEvent("Type:" + "\n-win to win");
 
     }
 
@@ -39,7 +39,7 @@ public class InGame implements InputState {
     @Override
     public Event[] processInput(InputController controller, String line) {
         Event array[] = new Event[2];
-        String[] in = controller.splitInput(line, command);
+        String[] in = controller.splitInput(line, this);
 
         if (in[1].equals(command[0])) {
             array[0] = new StandardEvent("you won!");
@@ -53,6 +53,11 @@ public class InGame implements InputState {
 
     protected static String getCommand() {
         return OPENCOMMAND;
+    }
+
+    @Override
+    public String[] getCommands() {
+        return command;
     }
 
 }
