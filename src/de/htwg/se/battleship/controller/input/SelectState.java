@@ -7,7 +7,7 @@ import de.htwg.se.battleship.util.observer.events.StandardEvent;
 
 public class SelectState implements InputState {
 
-    private final static String opencommand = "selectstate";
+    private static final String Opencommand = "selectstate";
     private final Event         event;
     private final String[]      command;
 
@@ -29,8 +29,7 @@ public class SelectState implements InputState {
                 array[1] = new ContinueEvent(in[2]);
             }
         } else if (in[1].equals(command[1])) {
-            array[0] = controller.setState(new Close()); // ersetze durch
-                                                         // manuellen befehl
+            array[0] = controller.setState(new Close());
         } else {
             array[0] = new ErrorEvent("input didnt match: " + line);
         }
@@ -38,7 +37,7 @@ public class SelectState implements InputState {
     }
 
     protected static String getCommand() {
-        return opencommand;
+        return Opencommand;
     }
 
     @Override

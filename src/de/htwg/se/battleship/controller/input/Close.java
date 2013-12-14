@@ -5,7 +5,7 @@ import de.htwg.se.battleship.util.observer.events.CloseEvent;
 
 public class Close implements InputState {
 
-    private final static String command = "-close";
+    private static final String OPENCOMMAND = "-close";
 
     @Override
     public Event[] processInput(InputController input, String word) {
@@ -14,7 +14,7 @@ public class Close implements InputState {
     }
 
     protected static String getCommand() {
-        return command;
+        return OPENCOMMAND;
     }
 
     @Override

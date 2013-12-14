@@ -9,7 +9,7 @@ import de.htwg.se.battleship.util.observer.events.StandardEvent;
 
 public class InGame implements InputState {
 
-    private final static String opencommand = "-start";
+    private static final String OPENCOMMAND = "-start";
 
     private final String[]      command;
     private final Event         event;
@@ -52,7 +52,7 @@ public class InGame implements InputState {
     }
 
     protected static String getCommand() {
-        return opencommand;
+        return OPENCOMMAND;
     }
 
 }

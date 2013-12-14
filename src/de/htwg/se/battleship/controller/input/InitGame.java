@@ -7,7 +7,8 @@ import de.htwg.se.battleship.util.observer.events.StandardEvent;
 
 public class InitGame implements InputState {
 
-    private final static String opencommand = "-newgame";
+    private static final String OPENCOMMAND  = "-newgame";
+    private static final int    STDFIELDSIZE = 10;
     private final Event         event;
     private String              player1;
     private String              player2;
@@ -17,7 +18,7 @@ public class InitGame implements InputState {
     protected InitGame() {
         player1 = "Player 1";
         player2 = "Player 2";
-        fieldsize = 10;
+        fieldsize = STDFIELDSIZE;
         command = new String[] { "-p1", "-p2", "-field", InGame.getCommand() };
 
         event = new StandardEvent("Type:" + "\n" + command[0]
@@ -82,7 +83,7 @@ public class InitGame implements InputState {
     }
 
     protected static String getCommand() {
-        return opencommand;
+        return OPENCOMMAND;
     }
 
     @Override

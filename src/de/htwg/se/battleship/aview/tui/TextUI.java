@@ -29,7 +29,7 @@ public class TextUI implements IObserver {
     @Override
     public void update(Event e) {
         if (e == null) {
-            System.out.println("error");
+            logger.info("Nullpointer error");
         } else {
             logger.info(e.getMessage());
         }

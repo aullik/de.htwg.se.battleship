@@ -29,6 +29,7 @@ public class InputController extends Observable implements IntController {
         array = currentState.processInput(this, line);
         for (Event e : array) {
             if (array == null) {
+                continue;
             } else if (e instanceof CloseEvent) {
                 notifyObservers(e);
                 return false;

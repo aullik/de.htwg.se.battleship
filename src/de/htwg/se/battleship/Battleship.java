@@ -56,9 +56,11 @@ public final class Battleship {
         Battleship.getInstance();
 
         scanner = new Scanner(System.in);
+        boolean condition;
+        do {
+            condition = controller.processInputLine(scanner.nextLine());
+        } while (condition);
 
-        while (controller.processInputLine(scanner.nextLine())) {
-        }
     }
 
 }
