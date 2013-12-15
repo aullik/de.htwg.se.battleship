@@ -10,8 +10,13 @@ import de.htwg.se.battleship.util.observer.IObservable;
 public interface IntController extends IObservable {
 
     /**
-     * just an notify to update Observers
+     * Signal all user-interface to close for program exit
      */
-    public void updateNotify();
+    void exit();
+
+    /**
+     * Start new game
+     */
+    void newGame();
 
 }

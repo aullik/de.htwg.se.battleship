@@ -1,10 +1,7 @@
 package de.htwg.se.battleship;
 
-import org.apache.log4j.PropertyConfigurator;
-
-import de.htwg.se.battleship.aview.tui.TextUI;
-import de.htwg.se.battleship.controller.IntController;
 import de.htwg.se.battleship.controller.impl.Controller;
+import de.htwg.se.battleship.view.tui.MainMenu;
 
 /**
  * Initial class to start java program
@@ -13,40 +10,17 @@ import de.htwg.se.battleship.controller.impl.Controller;
  */
 public final class Battleship {
 
-    private static Battleship    instance = null;
-
-    @SuppressWarnings("unused")
-    private static TextUI        tui;
-    private static IntController controller;
-
-    /**
-     * Return always the same instance of Battleship
-     * 
-     * @return Battleship instance
-     */
-    public static Battleship getInstance() {
-        if (instance == null) {
-            instance = new Battleship();
-        }
-        return instance;
-    }
-
-    public Battleship() {
-        // Set up logging through log4j
-        PropertyConfigurator.configure("log4j.properties");
-        controller = new Controller();
-        tui = new TextUI(controller);
-
+    private Battleship() {
+        new MainMenu(new Controller(), System.in, System.out);
     }
 
     /**
-     * Start java program
+     * Start java program. Init Controller and UIs
      * 
      * @param args
      */
-
     public static void main(String[] args) {
-        Battleship.getInstance();
+        new Battleship();
     }
 
 }

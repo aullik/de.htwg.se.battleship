@@ -6,6 +6,7 @@ package de.htwg.se.battleship.util.observer;
  * @author aullik
  */
 public interface IObserver {
+
     /**
      * Updates specified to e whenever it got notified
      * 
