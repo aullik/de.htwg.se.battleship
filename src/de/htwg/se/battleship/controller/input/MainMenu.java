@@ -65,7 +65,42 @@ public class MainMenu implements INT_InputState {
 
     @Override
     public String getMenuName() {
-        return MENU_NAME;
+        return getHeader() + MENU_NAME;
+    }
+
+    /*
+     * Game name as ASCII-Art:
+     * http://patorjk.com/software/taag/#p=display&f=Big&t=Battleship
+     */
+    private String getHeader() {
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("***********************************************************")
+                .append("\n");
+        sb.append("*      ____        _   _   _           _     _            *")
+                .append("\n");
+        sb.append(
+                "*     |  _ \\      | | | | | |         | |   (_)           *")
+                .append("\n");
+        sb.append("*     | |_) | __ _| |_| |_| | ___  ___| |__  _ _ __       *")
+                .append("\n");
+        sb.append(
+                "*     |  _ < / _` | __| __| |/ _ \\/ __| '_ \\| | '_ \\      *")
+                .append("\n");
+        sb.append(
+                "*     | |_) | (_| | |_| |_| |  __/\\__ \\ | | | | |_) |     *")
+                .append("\n");
+        sb.append(
+                "*     |____/ \\__,_|\\__|\\__|_|\\___||___/_| |_|_| .__/      *")
+                .append("\n");
+        sb.append("*                                             | |         *")
+                .append("\n");
+        sb.append("*                                             |_|         *")
+                .append("\n");
+        sb.append("***********************************************************")
+                .append("\n");
+        sb.append("\n");
+        return sb.toString();
     }
 
 }
