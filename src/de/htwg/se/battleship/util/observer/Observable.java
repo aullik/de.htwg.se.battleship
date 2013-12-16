@@ -1,6 +1,5 @@
 package de.htwg.se.battleship.util.observer;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -52,7 +51,7 @@ public class Observable implements IObservable {
                 /* This method is not the best solution, but avoids many instanceofs within the update method */
                 Method update = observer.getClass().getMethod("update", e.getClass());
                 update.invoke(observer, e);
-            } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e1) {
+            } catch (Exception e1) {
                 observer.update(e);
             }
         }
