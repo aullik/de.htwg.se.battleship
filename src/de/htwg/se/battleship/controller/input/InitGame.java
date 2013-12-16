@@ -5,8 +5,8 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeMap;
 
-import de.htwg.se.battleship.controller.INT_Commands;
-import de.htwg.se.battleship.controller.INT_InputState;
+import de.htwg.se.battleship.controller.INTCommands;
+import de.htwg.se.battleship.controller.INTInputState;
 import de.htwg.se.battleship.controller.InputController;
 import de.htwg.se.battleship.controller.commands.ChangeFieldsize;
 import de.htwg.se.battleship.controller.commands.RenamePlayer;
@@ -14,7 +14,7 @@ import de.htwg.se.battleship.controller.commands.StartGame;
 import de.htwg.se.battleship.util.observer.Event;
 import de.htwg.se.battleship.util.observer.events.ErrorEvent;
 
-public class InitGame implements INT_InputState {
+public class InitGame implements INTInputState {
 
     private static final String       OPENCOMMAND  = "-newgame";
     private static final String       MENU_NAME    = "Pre-Game Menu";
@@ -25,7 +25,7 @@ public class InitGame implements INT_InputState {
     private String[]                  player;
     private int                       fieldsize;
 
-    private Map<String, INT_Commands> commands;
+    private Map<String, INTCommands> commands;
 
     public InitGame() {
         player = new String[] { "Player 1", "Player 2" };
@@ -37,8 +37,8 @@ public class InitGame implements INT_InputState {
     }
 
     private void initCommands() {
-        commands = new TreeMap<String, INT_Commands>();
-        INT_Commands com;
+        commands = new TreeMap<String, INTCommands>();
+        INTCommands com;
         com = new RenamePlayer(PLAYER1, this);
         commands.put(com.getCommand(), com);
         com = new RenamePlayer(PLAYER2, this);
@@ -70,16 +70,18 @@ public class InitGame implements INT_InputState {
         return event;
     }
 
-    public String getPlayerName(int player_no) {
-        if (player_no > player.length || player_no <= 0)
+    public String getPlayerName(int playerNo) {
+        if (playerNo > player.length || playerNo <= 0) {
             throw new IndexOutOfBoundsException();
-        return player[player_no - 1];
+        }
+        return player[playerNo - 1];
     }
 
-    public void setPlayerName(int player_no, String name) {
-        if (player_no > player.length || player_no <= 0)
+    public void setPlayerName(int playerNo, String name) {
+        if (playerNo > player.length || playerNo <= 0) {
             throw new IndexOutOfBoundsException();
-        player[player_no - 1] = name;
+        }
+        player[playerNo - 1] = name;
     }
 
     public int getFieldSize() {
@@ -87,8 +89,9 @@ public class InitGame implements INT_InputState {
     }
 
     public void setFieldSize(int size) {
-        if (size < 1)
+        if (size < 1) {
             throw new IllegalArgumentException();
+        }
         this.fieldsize = size;
     }
 
@@ -98,7 +101,7 @@ public class InitGame implements INT_InputState {
     }
 
     @Override
-    public Set<Entry<String, INT_Commands>> getEntrySet() {
+    public Set<Entry<String, INTCommands>> getEntrySet() {
         return commands.entrySet();
     }
 

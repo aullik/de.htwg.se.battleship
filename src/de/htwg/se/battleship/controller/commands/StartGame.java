@@ -1,14 +1,14 @@
 package de.htwg.se.battleship.controller.commands;
 
-import de.htwg.se.battleship.controller.INT_Commands;
-import de.htwg.se.battleship.controller.INT_InputState;
+import de.htwg.se.battleship.controller.INTCommands;
+import de.htwg.se.battleship.controller.INTInputState;
 import de.htwg.se.battleship.controller.InputController;
 import de.htwg.se.battleship.controller.input.InGame;
 import de.htwg.se.battleship.controller.input.InitGame;
 import de.htwg.se.battleship.util.observer.Event;
 import de.htwg.se.battleship.util.observer.events.ContinueEvent;
 
-public class StartGame implements INT_Commands {
+public class StartGame implements INTCommands {
 
     private final InitGame      init;
     private static final String COMMAND     = InGame.getCommand();
@@ -32,7 +32,7 @@ public class StartGame implements INT_Commands {
     }
 
     @Override
-    public Event[] action(String[] in, INT_InputState state,
+    public Event[] action(String[] in, INTInputState state,
             InputController controller) {
         Event[] array = new Event[2];
 

@@ -1,7 +1,7 @@
 package de.htwg.se.battleship.controller.commands;
 
-import de.htwg.se.battleship.controller.INT_Commands;
-import de.htwg.se.battleship.controller.INT_InputState;
+import de.htwg.se.battleship.controller.INTCommands;
+import de.htwg.se.battleship.controller.INTInputState;
 import de.htwg.se.battleship.controller.InputController;
 import de.htwg.se.battleship.controller.input.InitGame;
 import de.htwg.se.battleship.util.observer.Event;
@@ -9,7 +9,7 @@ import de.htwg.se.battleship.util.observer.events.ContinueEvent;
 import de.htwg.se.battleship.util.observer.events.ErrorEvent;
 import de.htwg.se.battleship.util.observer.events.StandardEvent;
 
-public class ChangeFieldsize implements INT_Commands {
+public class ChangeFieldsize implements INTCommands {
 
     private static final String COMMAND     = "-field";
     private static final String DESCRIPTION = "set fieldsize to argument, currently: ";
@@ -30,7 +30,7 @@ public class ChangeFieldsize implements INT_Commands {
     }
 
     @Override
-    public Event[] action(String[] in, INT_InputState state,
+    public Event[] action(String[] in, INTInputState state,
             InputController controller) {
         Event[] array = new Event[2];
         String[] input = InputController.splitInput(in[2], state.getKeySet());

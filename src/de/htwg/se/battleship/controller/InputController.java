@@ -13,13 +13,13 @@ import de.htwg.se.battleship.util.observer.events.StandardEvent;
 
 public class InputController extends Observable implements IntController {
 
-    private INT_InputState currentState;
+    private INTInputState currentState;
 
     public InputController() {
         currentState = new MainMenu();
     }
 
-    public Event setState(INT_InputState i) {
+    public Event setState(INTInputState i) {
         currentState = i;
         return currentState.getEvent();
     }
@@ -80,10 +80,10 @@ public class InputController extends Observable implements IntController {
         return split;
     }
 
-    public static Event welcomeEvent(INT_InputState state) {
+    public static Event welcomeEvent(INTInputState state) {
         StringBuilder sb = new StringBuilder(state.getMenuName());
         sb.append(":\n");
-        for (Entry<String, INT_Commands> e : state.getEntrySet()) {
+        for (Entry<String, INTCommands> e : state.getEntrySet()) {
             sb.append(e.getValue().getCommand());
             sb.append("\t- ");
             sb.append(e.getValue().getDescription());

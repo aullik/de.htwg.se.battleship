@@ -5,25 +5,25 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeMap;
 
-import de.htwg.se.battleship.controller.INT_Commands;
-import de.htwg.se.battleship.controller.INT_InputState;
+import de.htwg.se.battleship.controller.INTCommands;
+import de.htwg.se.battleship.controller.INTInputState;
 import de.htwg.se.battleship.controller.InputController;
 import de.htwg.se.battleship.controller.commands.CloseGame;
 import de.htwg.se.battleship.controller.commands.NewGame;
 import de.htwg.se.battleship.util.observer.Event;
 import de.htwg.se.battleship.util.observer.events.ErrorEvent;
 
-public class MainMenu implements INT_InputState {
+public class MainMenu implements INTInputState {
 
     private static final String       OPENCOMMAND = "mainmenu";
     private static final String       MENU_NAME   = "Main Menu";
     private final Event               event;
 
-    private Map<String, INT_Commands> commands;
+    private Map<String, INTCommands> commands;
 
     public MainMenu() {
-        commands = new TreeMap<String, INT_Commands>();
-        INT_Commands com;
+        commands = new TreeMap<String, INTCommands>();
+        INTCommands com;
         com = new NewGame();
         commands.put(com.getCommand(), com);
         com = new CloseGame();
@@ -38,9 +38,9 @@ public class MainMenu implements INT_InputState {
         String[] in = InputController.splitInput(line, commands.keySet());
 
         array = commands.get(in[1]).action(in, this, controller);
-        if (array == null)
+        if (array == null) {
             array = new Event[] { new ErrorEvent("input didnt match: " + line) };
-
+        }
         return array;
     }
 
@@ -59,7 +59,7 @@ public class MainMenu implements INT_InputState {
     }
 
     @Override
-    public Set<Entry<String, INT_Commands>> getEntrySet() {
+    public Set<Entry<String, INTCommands>> getEntrySet() {
         return commands.entrySet();
     }
 

@@ -1,12 +1,12 @@
 package de.htwg.se.battleship.controller.commands;
 
-import de.htwg.se.battleship.controller.INT_Commands;
-import de.htwg.se.battleship.controller.INT_InputState;
+import de.htwg.se.battleship.controller.INTCommands;
+import de.htwg.se.battleship.controller.INTInputState;
 import de.htwg.se.battleship.controller.InputController;
 import de.htwg.se.battleship.util.observer.Event;
 import de.htwg.se.battleship.util.observer.events.CloseEvent;
 
-public class CloseGame implements INT_Commands {
+public class CloseGame implements INTCommands {
 
     private static final String COMMAND     = "-close";
     private static final String DESCRIPTION = "terminates the instance";
@@ -22,7 +22,7 @@ public class CloseGame implements INT_Commands {
     }
 
     @Override
-    public Event[] action(String[] in, INT_InputState state,
+    public Event[] action(String[] in, INTInputState state,
             InputController controller) {
 
         return new Event[] { new CloseEvent() };

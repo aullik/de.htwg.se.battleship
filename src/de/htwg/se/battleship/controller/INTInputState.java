@@ -5,11 +5,11 @@ import java.util.Set;
 
 import de.htwg.se.battleship.util.observer.Event;
 
-public interface INT_InputState {
+public interface INTInputState {
 
     Set<String> getKeySet();
 
-    Set<Entry<String, INT_Commands>> getEntrySet();
+    Set<Entry<String, INTCommands>> getEntrySet();
 
     Event getEvent();
 

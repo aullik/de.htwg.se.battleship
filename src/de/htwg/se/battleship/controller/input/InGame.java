@@ -5,8 +5,8 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeMap;
 
-import de.htwg.se.battleship.controller.INT_Commands;
-import de.htwg.se.battleship.controller.INT_InputState;
+import de.htwg.se.battleship.controller.INTCommands;
+import de.htwg.se.battleship.controller.INTInputState;
 import de.htwg.se.battleship.controller.InputController;
 import de.htwg.se.battleship.controller.commands.GameWon;
 import de.htwg.se.battleship.model.Grid;
@@ -14,12 +14,12 @@ import de.htwg.se.battleship.model.Player;
 import de.htwg.se.battleship.util.observer.Event;
 import de.htwg.se.battleship.util.observer.events.ErrorEvent;
 
-public class InGame implements INT_InputState {
+public class InGame implements INTInputState {
 
     private static final String       OPENCOMMAND = "-start";
     private static final String       MENU_NAME   = "Ingame Menu";
 
-    private Map<String, INT_Commands> commands;
+    private Map<String, INTCommands> commands;
     private final Event               event;
     private final Player              player1;
     private final Player              player2;
@@ -39,8 +39,8 @@ public class InGame implements INT_InputState {
     }
 
     private void initCommands() {
-        commands = new TreeMap<String, INT_Commands>();
-        INT_Commands com;
+        commands = new TreeMap<String, INTCommands>();
+        INTCommands com;
         com = new GameWon();
         commands.put(com.getCommand(), com);
 
@@ -74,7 +74,7 @@ public class InGame implements INT_InputState {
     }
 
     @Override
-    public Set<Entry<String, INT_Commands>> getEntrySet() {
+    public Set<Entry<String, INTCommands>> getEntrySet() {
         return commands.entrySet();
     }
 
