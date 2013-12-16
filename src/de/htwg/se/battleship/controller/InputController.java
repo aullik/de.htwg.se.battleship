@@ -1,6 +1,9 @@
-package de.htwg.se.battleship.controller.input;
+package de.htwg.se.battleship.controller;
 
-import de.htwg.se.battleship.controller.IntController;
+import java.util.Map.Entry;
+import java.util.Set;
+
+import de.htwg.se.battleship.controller.input.MainMenu;
 import de.htwg.se.battleship.util.observer.Event;
 import de.htwg.se.battleship.util.observer.Observable;
 import de.htwg.se.battleship.util.observer.events.CloseEvent;
@@ -10,13 +13,13 @@ import de.htwg.se.battleship.util.observer.events.StandardEvent;
 
 public class InputController extends Observable implements IntController {
 
-    private InputState currentState;
+    private INT_InputState currentState;
 
     public InputController() {
-        currentState = new SelectState();
+        currentState = new MainMenu();
     }
 
-    protected Event setState(InputState i) {
+    public Event setState(INT_InputState i) {
         currentState = i;
         return currentState.getEvent();
     }
@@ -50,14 +53,13 @@ public class InputController extends Observable implements IntController {
 
     }
 
-    public String[] splitInput(String line, InputState state) {
+    public static String[] splitInput(String line, Set<String> set) {
         final int maxSplitNo = 3;
-        String[] command = state.getCommands();
         String[] split = new String[maxSplitNo];
         int first = -1;
         String tmp = null;
 
-        for (String s : command) {
+        for (String s : set) {
             int i;
             i = line.indexOf(s);
             if (i > -1 && (i < first || first == -1)) {
@@ -77,4 +79,17 @@ public class InputController extends Observable implements IntController {
         }
         return split;
     }
+
+    public static Event welcomeEvent(INT_InputState state) {
+        StringBuilder sb = new StringBuilder(state.getMenuName());
+        sb.append(":\n");
+        for (Entry<String, INT_Commands> e : state.getEntrySet()) {
+            sb.append(e.getValue().getCommand());
+            sb.append("\t- ");
+            sb.append(e.getValue().getDescription());
+            sb.append("\n");
+        }
+        return new StandardEvent(sb.toString());
+    }
+
 }

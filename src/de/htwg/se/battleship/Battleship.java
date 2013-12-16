@@ -5,8 +5,8 @@ import java.util.Scanner;
 import org.apache.log4j.PropertyConfigurator;
 
 import de.htwg.se.battleship.aview.tui.TextUI;
+import de.htwg.se.battleship.controller.InputController;
 import de.htwg.se.battleship.controller.IntController;
-import de.htwg.se.battleship.controller.input.InputController;
 
 /**
  * Initial class to start java program

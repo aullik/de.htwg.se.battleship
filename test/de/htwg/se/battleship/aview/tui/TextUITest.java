@@ -5,8 +5,8 @@ import org.apache.log4j.PropertyConfigurator;
 import org.junit.Before;
 import org.junit.Test;
 
+import de.htwg.se.battleship.controller.InputController;
 import de.htwg.se.battleship.controller.IntController;
-import de.htwg.se.battleship.controller.input.InputController;
 
 public class TextUITest {
 
