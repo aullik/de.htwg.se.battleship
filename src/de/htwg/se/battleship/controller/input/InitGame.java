@@ -14,19 +14,27 @@ import de.htwg.se.battleship.controller.commands.StartGame;
 import de.htwg.se.battleship.util.observer.Event;
 import de.htwg.se.battleship.util.observer.events.ErrorEvent;
 
+/**
+ * Gamestate Initiate Game
+ * 
+ * @author aullik
+ */
 public class InitGame implements INTInputState {
 
-    private static final String       OPENCOMMAND  = "-newgame";
-    private static final String       MENU_NAME    = "Pre-Game Menu";
-    private static final int          STDFIELDSIZE = 10;
-    private static final int          PLAYER1      = 1;
-    private static final int          PLAYER2      = 2;
-    private final Event               event;
-    private String[]                  player;
-    private int                       fieldsize;
+    private static final String      OPENCOMMAND  = "-newgame";
+    private static final String      MENU_NAME    = "Pre-Game Menu";
+    private static final int         STDFIELDSIZE = 10;
+    private static final int         PLAYER1      = 1;
+    private static final int         PLAYER2      = 2;
+    private final Event              event;
+    private String[]                 player;
+    private int                      fieldsize;
 
     private Map<String, INTCommands> commands;
 
+    /**
+     * sets Standard values
+     */
     public InitGame() {
         player = new String[] { "Player 1", "Player 2" };
         fieldsize = STDFIELDSIZE;
@@ -61,6 +69,11 @@ public class InitGame implements INTInputState {
         return array;
     }
 
+    /**
+     * return command to open;
+     * 
+     * @return Opencommand
+     */
     public static String getCommand() {
         return OPENCOMMAND;
     }
@@ -70,6 +83,12 @@ public class InitGame implements INTInputState {
         return event;
     }
 
+    /**
+     * returns the current player name of the player with the specified no.
+     * 
+     * @param playerNo specified no.
+     * @return current player name
+     */
     public String getPlayerName(int playerNo) {
         if (playerNo > player.length || playerNo <= 0) {
             throw new IndexOutOfBoundsException();
@@ -77,6 +96,12 @@ public class InitGame implements INTInputState {
         return player[playerNo - 1];
     }
 
+    /**
+     * set name of player with specific number to 'name'
+     * 
+     * @param playerNo specific number for player
+     * @param name new name
+     */
     public void setPlayerName(int playerNo, String name) {
         if (playerNo > player.length || playerNo <= 0) {
             throw new IndexOutOfBoundsException();
@@ -84,10 +109,20 @@ public class InitGame implements INTInputState {
         player[playerNo - 1] = name;
     }
 
+    /**
+     * return fieldsize for the gamefield
+     * 
+     * @return fieldsize
+     */
     public int getFieldSize() {
         return fieldsize;
     }
 
+    /**
+     * set fieldsize
+     * 
+     * @param size, size to set the field to
+     */
     public void setFieldSize(int size) {
         if (size < 1) {
             throw new IllegalArgumentException();

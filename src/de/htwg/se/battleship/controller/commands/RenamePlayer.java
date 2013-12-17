@@ -9,12 +9,21 @@ import de.htwg.se.battleship.util.observer.events.ContinueEvent;
 import de.htwg.se.battleship.util.observer.events.ErrorEvent;
 import de.htwg.se.battleship.util.observer.events.StandardEvent;
 
+/**
+ * Rename a certain Player
+ * 
+ * @author aullik
+ */
 public class RenamePlayer implements INTCommands {
 
     private final int           playerNo;
-    private static final String PRE_COM = "-p";
+    private static final String PRE_COMMAND = "-p";
     private final InitGame      init;
 
+    /**
+     * @param no of Player whose to rename
+     * @param state of InitGame in which a player is to rename
+     */
     public RenamePlayer(int no, InitGame state) {
         this.playerNo = no;
         this.init = state;
@@ -22,7 +31,7 @@ public class RenamePlayer implements INTCommands {
 
     @Override
     public String getCommand() {
-        return PRE_COM + playerNo;
+        return PRE_COMMAND + playerNo;
     }
 
     @Override

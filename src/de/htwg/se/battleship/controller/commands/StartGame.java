@@ -8,6 +8,11 @@ import de.htwg.se.battleship.controller.input.InitGame;
 import de.htwg.se.battleship.util.observer.Event;
 import de.htwg.se.battleship.util.observer.events.ContinueEvent;
 
+/**
+ * command to start the game, change to GameState InGame
+ * 
+ * @author aullik
+ */
 public class StartGame implements INTCommands {
 
     private final InitGame      init;
@@ -16,6 +21,9 @@ public class StartGame implements INTCommands {
     private static final int    PLAYER1     = 1;
     private static final int    PLAYER2     = 2;
 
+    /**
+     * @param init the current Stage InitGame
+     */
     public StartGame(InitGame init) {
 
         this.init = init;

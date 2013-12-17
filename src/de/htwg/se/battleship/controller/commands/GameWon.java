@@ -7,6 +7,11 @@ import de.htwg.se.battleship.controller.input.MainMenu;
 import de.htwg.se.battleship.util.observer.Event;
 import de.htwg.se.battleship.util.observer.events.StandardEvent;
 
+/**
+ * command for GameWon, sets State to MainMenu
+ * 
+ * @author aullik
+ */
 public class GameWon implements INTCommands {
 
     private static final String COMMAND     = "-win";

@@ -16,6 +16,9 @@ public class TextUI implements IObserver {
     private final Logger        logger = Logger.getLogger("de.htwg.se.battleship.aview.tui");
     private final IntController mycontroller;
 
+    /**
+     * @param controller controller to observe
+     */
     public TextUI(IntController controller) {
         this.mycontroller = controller;
         mycontroller.addObserver(this);

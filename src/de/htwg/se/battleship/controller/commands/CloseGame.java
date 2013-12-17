@@ -6,6 +6,11 @@ import de.htwg.se.battleship.controller.InputController;
 import de.htwg.se.battleship.util.observer.Event;
 import de.htwg.se.battleship.util.observer.events.CloseEvent;
 
+/**
+ * Closes instance of Game
+ * 
+ * @author aullik
+ */
 public class CloseGame implements INTCommands {
 
     private static final String COMMAND     = "-close";

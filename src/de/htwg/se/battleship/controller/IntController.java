@@ -14,6 +14,12 @@ public interface IntController extends IObservable {
      */
     void updateNotify();
 
+    /**
+     * process logic from input
+     * 
+     * @param line inputline
+     * @return true while there is no CloseEvent
+     */
     boolean processInputLine(String line);
 
 }

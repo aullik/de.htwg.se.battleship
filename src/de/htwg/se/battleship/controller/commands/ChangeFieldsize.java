@@ -9,12 +9,20 @@ import de.htwg.se.battleship.util.observer.events.ContinueEvent;
 import de.htwg.se.battleship.util.observer.events.ErrorEvent;
 import de.htwg.se.battleship.util.observer.events.StandardEvent;
 
+/**
+ * chagne the fieldsize
+ * 
+ * @author aullik
+ */
 public class ChangeFieldsize implements INTCommands {
 
     private static final String COMMAND     = "-field";
     private static final String DESCRIPTION = "set fieldsize to argument, currently: ";
     private final InitGame      init;
 
+    /**
+     * @param init State in which to change size
+     */
     public ChangeFieldsize(InitGame init) {
         this.init = init;
     }

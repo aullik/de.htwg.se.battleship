@@ -13,23 +13,41 @@ import de.htwg.se.battleship.controller.commands.NewGame;
 import de.htwg.se.battleship.util.observer.Event;
 import de.htwg.se.battleship.util.observer.events.ErrorEvent;
 
+/**
+ * the GameState MainMenu
+ * 
+ * @author aullik
+ */
 public class MainMenu implements INTInputState {
 
-    private static final String       OPENCOMMAND = "mainmenu";
-    private static final String       MENU_NAME   = "Main Menu";
-    private final Event               event;
+    private static final String      OPENCOMMAND = "-mainmenu";
+    private static final String      MENU_NAME   = "Main Menu";
+    private final Event              stdEvent;
 
     private Map<String, INTCommands> commands;
 
+    /**
+     * initiates commands and event
+     */
     public MainMenu() {
+        initCommands();
         commands = new TreeMap<String, INTCommands>();
         INTCommands com;
         com = new NewGame();
         commands.put(com.getCommand(), com);
         com = new CloseGame();
         commands.put(com.getCommand(), com);
-        event = InputController.welcomeEvent(this);
+        stdEvent = InputController.welcomeEvent(this);
 
+    }
+
+    private void initCommands() {
+        commands = new TreeMap<String, INTCommands>();
+        INTCommands com;
+        com = new NewGame();
+        commands.put(com.getCommand(), com);
+        com = new CloseGame();
+        commands.put(com.getCommand(), com);
     }
 
     @Override
@@ -44,13 +62,18 @@ public class MainMenu implements INTInputState {
         return array;
     }
 
-    protected static String getCommand() {
+    /**
+     * get open command
+     * 
+     * @return command to open this State
+     */
+    public static String getCommand() {
         return OPENCOMMAND;
     }
 
     @Override
     public Event getEvent() {
-        return event;
+        return stdEvent;
     }
 
     @Override

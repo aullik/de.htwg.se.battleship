@@ -14,19 +14,29 @@ import de.htwg.se.battleship.model.Player;
 import de.htwg.se.battleship.util.observer.Event;
 import de.htwg.se.battleship.util.observer.events.ErrorEvent;
 
+/**
+ * Gamestate InGame
+ * 
+ * @author aullik
+ */
 public class InGame implements INTInputState {
 
-    private static final String       OPENCOMMAND = "-start";
-    private static final String       MENU_NAME   = "Ingame Menu";
+    private static final String      OPENCOMMAND = "-start";
+    private static final String      MENU_NAME   = "Ingame Menu";
 
     private Map<String, INTCommands> commands;
-    private final Event               event;
-    private final Player              player1;
-    private final Player              player2;
-    private final int                 fieldsize;
-    private final Grid                grid1;
-    private final Grid                grid2;
+    private final Event              event;
+    private final Player             player1;
+    private final Player             player2;
+    private final int                fieldsize;
+    private final Grid               grid1;
+    private final Grid               grid2;
 
+    /**
+     * @param size fieldsize
+     * @param playername1 name for Player1
+     * @param playername2 name for Player2
+     */
     public InGame(int size, String playername1, String playername2) {
         this.fieldsize = size;
         this.player1 = new Player(playername1);
@@ -64,6 +74,11 @@ public class InGame implements INTInputState {
         return array;
     }
 
+    /**
+     * get open command
+     * 
+     * @return command to open this State
+     */
     public static String getCommand() {
         return OPENCOMMAND;
     }

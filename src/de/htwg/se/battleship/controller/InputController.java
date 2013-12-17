@@ -11,14 +11,28 @@ import de.htwg.se.battleship.util.observer.events.ContinueEvent;
 import de.htwg.se.battleship.util.observer.events.ErrorEvent;
 import de.htwg.se.battleship.util.observer.events.StandardEvent;
 
+/**
+ * Controller for the game
+ * 
+ * @author aullik
+ */
 public class InputController extends Observable implements IntController {
 
     private INTInputState currentState;
 
+    /**
+     * sets currentstate to standart, mainmenu
+     */
     public InputController() {
         currentState = new MainMenu();
     }
 
+    /**
+     * change currentState
+     * 
+     * @param i State to change currentStaet to
+     * @return Standardevent of new state
+     */
     public Event setState(INTInputState i) {
         currentState = i;
         return currentState.getEvent();
@@ -53,6 +67,13 @@ public class InputController extends Observable implements IntController {
 
     }
 
+    /**
+     * splits input line on first command into precommand, command, postcommand
+     * 
+     * @param line input, line of text
+     * @param set set of commands
+     * @return array with precommand, command, postcommand
+     */
     public static String[] splitInput(String line, Set<String> set) {
         final int maxSplitNo = 3;
         String[] split = new String[maxSplitNo];
@@ -80,6 +101,12 @@ public class InputController extends Observable implements IntController {
         return split;
     }
 
+    /**
+     * creates header for every menu
+     * 
+     * @param state class for whom it shall create a header
+     * @return header
+     */
     public static Event welcomeEvent(INTInputState state) {
         StringBuilder sb = new StringBuilder(state.getMenuName());
         sb.append(":\n");

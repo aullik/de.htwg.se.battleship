@@ -7,6 +7,11 @@ import de.htwg.se.battleship.controller.input.InitGame;
 import de.htwg.se.battleship.util.observer.Event;
 import de.htwg.se.battleship.util.observer.events.ContinueEvent;
 
+/**
+ * Starts new Game
+ * 
+ * @author aullik
+ */
 public class NewGame implements INTCommands {
 
     private static final String COMMAND     = InitGame.getCommand();

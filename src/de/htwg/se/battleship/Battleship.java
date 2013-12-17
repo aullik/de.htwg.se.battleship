@@ -39,7 +39,6 @@ public final class Battleship {
      */
 
     private Battleship() {
-        // Set up logging through log4j
         PropertyConfigurator.configure("log4j.properties");
         controller = new InputController();
         tui = new TextUI(controller);
