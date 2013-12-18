@@ -10,7 +10,7 @@ import de.htwg.se.battleship.util.observer.IObservable;
 public interface IntController extends IObservable {
 
     /**
-     * just an notify to update Observers
+     * just an notify to update Observers with standard event
      */
     void updateNotify();
 

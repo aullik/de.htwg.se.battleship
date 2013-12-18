@@ -30,7 +30,7 @@ public class CloseGame implements INTCommands {
     public Event[] action(String[] in, INTInputState state,
             InputController controller) {
 
-        return new Event[] { new CloseEvent() };
+        return new Event[] { new CloseEvent(), null };
     }
 
 }

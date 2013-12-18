@@ -10,11 +10,9 @@ import de.htwg.se.battleship.controller.IntController;
 
 public class TextUITest {
 
-    static Logger logger = Logger.getLogger(TextUITest.class);
+    static Logger         logger = Logger.getLogger(TextUITest.class);
     @SuppressWarnings("unused")
-    private static String HELLOWORLD = "Hello World";
-    @SuppressWarnings("unused")
-    private TextUI tui1;
+    private TextUI        tui1;
     private IntController controller1;
 
     @Before
@@ -27,8 +25,10 @@ public class TextUITest {
 
     @Test
     public void test() {
-        controller1.updateNotify();
+        try {
+            controller1.notifyObservers(null);
+        } catch (NullPointerException n) {
 
+        }
     }
-
 }

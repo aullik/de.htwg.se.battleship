@@ -53,10 +53,11 @@ public class MainMenu implements INTInputState {
     @Override
     public Event[] processInput(InputController controller, String line) {
         Event[] array;
-        String[] in = InputController.splitInput(line, commands.keySet());
+        String[] in = InputController.splitInput(line, this);
 
-        array = commands.get(in[1]).action(in, this, controller);
-        if (array == null) {
+        try {
+            array = commands.get(in[1]).action(in, this, controller);
+        } catch (NullPointerException n) {
             array = new Event[] { new ErrorEvent("input didnt match: " + line) };
         }
         return array;

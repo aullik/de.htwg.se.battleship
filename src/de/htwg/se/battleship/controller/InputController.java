@@ -42,12 +42,13 @@ public class InputController extends Observable implements IntController {
     public boolean processInputLine(String line) {
         Event[] array;
         boolean out = true;
+        if (line == null) {
+            return out;
+        }
 
         array = currentState.processInput(this, line);
         for (Event e : array) {
-            if (array == null) {
-                continue;
-            } else if (e instanceof CloseEvent) {
+            if (e instanceof CloseEvent) {
                 notifyObservers(e);
                 return false;
             } else if (e instanceof StandardEvent) {
@@ -64,6 +65,18 @@ public class InputController extends Observable implements IntController {
     @Override
     public void updateNotify() {
         notifyObservers(currentState.getEvent());
+
+    }
+
+    /**
+     * splits input line on first command into precommand, command, postcommand
+     * 
+     * @param line input, line of text
+     * @param state INTInputState
+     * @return array with precommand, command, postcommand
+     */
+    public static String[] splitInput(String line, INTInputState state) {
+        return splitInput(line, state.getKeySet());
 
     }
 

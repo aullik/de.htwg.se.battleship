@@ -50,7 +50,7 @@ public class ChangeFieldsize implements INTCommands {
             array[0] = new StandardEvent("changed fieldsize to "
                     + init.getFieldSize());
         } else {
-            array[0] = new ErrorEvent(input[0] + "is no number");
+            array[0] = new ErrorEvent(input[0] + " is no number");
         }
         if (input[1] != null && !input[1].isEmpty()) {
             array[1] = new ContinueEvent(input[1] + input[2]);

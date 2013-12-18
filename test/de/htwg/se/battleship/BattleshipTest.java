@@ -1,6 +1,6 @@
 package de.htwg.se.battleship;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
@@ -13,6 +13,8 @@ public class BattleshipTest {
         Battleship object2 = Battleship.getInstance();
 
         assertEquals(object1, object2);
+        Battleship.main(null);
+
     }
 
 }

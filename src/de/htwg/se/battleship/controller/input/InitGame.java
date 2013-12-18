@@ -60,9 +60,10 @@ public class InitGame implements INTInputState {
     @Override
     public Event[] processInput(InputController controller, String line) {
         Event[] array;
-        String[] in = InputController.splitInput(line, commands.keySet());
-        array = commands.get(in[1]).action(in, this, controller);
-        if (array == null) {
+        String[] in = InputController.splitInput(line, this);
+        try {
+            array = commands.get(in[1]).action(in, this, controller);
+        } catch (NullPointerException n) {
             array = new Event[] { new ErrorEvent("input didnt match: " + line) };
         }
 
