@@ -7,9 +7,4 @@ package de.htwg.se.battleship.util.observer;
  */
 public interface Event {
 
-    /**
-     * @return message from event
-     */
-    String getMessage();
-
 }
