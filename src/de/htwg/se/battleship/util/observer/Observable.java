@@ -54,8 +54,6 @@ public class Observable implements IObservable {
             } catch (Exception e1) {
                 observer.update(e);
             }
-
-            observer.update(e);
         }
     }
 }
