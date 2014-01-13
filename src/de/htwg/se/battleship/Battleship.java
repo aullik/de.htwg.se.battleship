@@ -41,7 +41,7 @@ public final class Battleship {
      * 
      * @param args
      */
-    public static void main() {
+    public static void main(String[] args) {
         Battleship.getInstance();
     }
 
