@@ -23,10 +23,8 @@ public class BattleshipTest {
 
         CloseGame close = new CloseGame();
         InputStream oldIn = System.in;
-        // PrintStream oldOut = System.out;
-        String s = close.getCommand() + System.lineSeparator();
+        String s = close.getCommand() + System.getProperty("line.separator");
 
-        // System.setOut(new PrintStream(new ByteArrayOutputStream()));
         try {
             System.setIn(new ByteArrayInputStream(s.getBytes("UTF-8")));
         } catch (UnsupportedEncodingException e) {
@@ -37,8 +35,6 @@ public class BattleshipTest {
         Battleship.main(new String[0]);
 
         System.setIn(oldIn);
-        // System.setOut(oldOut);
-
     }
 
 }
