@@ -10,8 +10,16 @@ import de.htwg.se.battleship.util.observer.IObservable;
 public interface IntController extends IObservable {
 
     /**
-     * just an notify to update Observers
+     * just an notify to update Observers with standard event
      */
-    public void updateNotify();
+    void updateNotify();
+
+    /**
+     * process logic from input
+     * 
+     * @param line inputline
+     * @return true while there is no CloseEvent
+     */
+    boolean processInputLine(String line);
 
 }

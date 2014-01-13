@@ -5,5 +5,11 @@ package de.htwg.se.battleship.util.observer;
  * 
  * @author aullik
  */
-public abstract class Event {
+public interface Event {
+
+    /**
+     * @return message from event
+     */
+    String getMessage();
+
 }
