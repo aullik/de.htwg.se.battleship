@@ -1,5 +1,6 @@
 package de.htwg.se.battleship.util.observer;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -40,6 +41,20 @@ public class Observable implements IObservable {
     public void notifyObservers(Event e) {
         for (Iterator<IObserver> iter = subscribers.iterator(); iter.hasNext();) {
             IObserver observer = iter.next();
+
+            if (e == null) {
+                observer.update(e);
+                continue;
+            }
+
+            try {
+                /* This method is not the best solution, but avoids many instanceofs within the update method */
+                Method update = observer.getClass().getMethod("update", e.getClass());
+                update.invoke(observer, e);
+            } catch (Exception e1) {
+                observer.update(e);
+            }
+
             observer.update(e);
         }
     }
