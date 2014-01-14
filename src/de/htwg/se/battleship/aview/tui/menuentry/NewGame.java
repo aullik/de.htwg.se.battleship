@@ -14,6 +14,8 @@ import de.htwg.se.battleship.controller.IController;
 public class NewGame implements IMenuEntry {
 
     private final IController controller;
+    public static final String CMD  = "-newgame";
+    public static final String DESC = "Start a new game";
 
     /**
      * The NewGame is the menu entry, that start a new game
@@ -31,12 +33,12 @@ public class NewGame implements IMenuEntry {
 
     @Override
     public String command() {
-        return "-newgame";
+        return CMD;
     }
 
     @Override
     public String description() {
-        return "Start a new game";
+        return DESC;
     }
 
 }
