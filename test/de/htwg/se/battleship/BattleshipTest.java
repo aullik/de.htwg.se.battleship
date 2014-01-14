@@ -21,8 +21,7 @@ public class BattleshipTest {
     public void setUp() throws UnsupportedEncodingException {
         backup = System.in;
 
-        Close close = new Close(null);
-        String s = close.command() + System.getProperty("line.separator");
+        String s = Close.CMD + System.getProperty("line.separator");
         System.setIn(new ByteArrayInputStream(s.getBytes("UTF-8")));
     }
 
