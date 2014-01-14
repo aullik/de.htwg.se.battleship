@@ -13,6 +13,8 @@ import de.htwg.se.battleship.controller.IController;
 public class Close implements IMenuEntry {
 
     private final IController controller;
+    public static final String CMD  = "-close";
+    public static final String DESC = "Terminates program";
 
     /**
      * Close is the menu entry, that start exit the program
@@ -28,12 +30,12 @@ public class Close implements IMenuEntry {
 
     @Override
     public String command() {
-        return "-close";
+        return CMD;
     }
 
     @Override
     public String description() {
-        return "Terminates program";
+        return DESC;
     }
 
 }
