@@ -13,15 +13,9 @@ import de.htwg.se.battleship.util.observer.Observable;
  */
 public class Controller extends Observable implements IController {
 
-    /**
-     * The controller is responsible for the main menu
-     */
-    public Controller() {
-    }
-
     @Override
     public void newGame() {
-        notifyObservers(new InitGame());
+        notifyObservers(new InitGame(new InitGameController()));
     }
 
     @Override

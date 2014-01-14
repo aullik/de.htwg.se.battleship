@@ -5,27 +5,25 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-import org.apache.log4j.Logger;
 
 import de.htwg.se.battleship.aview.tui.menuEntry.Close;
 import de.htwg.se.battleship.aview.tui.menuEntry.NewGame;
 import de.htwg.se.battleship.controller.IController;
 import de.htwg.se.battleship.controller.event.CloseProgamm;
-import de.htwg.se.battleship.util.observer.Event;
-import de.htwg.se.battleship.util.observer.IObserver;
+import de.htwg.se.battleship.controller.event.InitGame;
 
 /**
  * Text User Interface is an Observer
  * 
  * @author aullik
  */
-public class TextUI implements IObserver {
+public class TextUI extends UserInterface  {
 
     public static final String MSG_INPUT_NOTE   = "Please choice a menu: ";
     public static final String MSG_DEFAULT_MENU = "Sorry bro, but '%s' has no menu entry!%n";
     public static final String MSG_EXIT         = "This is the end my friend!";
 
-    private final Logger        logger = Logger.getLogger("de.htwg.se.battleship.aview.tui");
+
     private final IController controller;
     private final Map<String, IMenuEntry> menu;
 
@@ -35,6 +33,8 @@ public class TextUI implements IObserver {
      * @param controller controller to observe
      */
     public TextUI(IController controller, InputStream stream) {
+        super(stream);
+
         this.controller = controller;
         controller.addObserver(this);
 
@@ -42,7 +42,7 @@ public class TextUI implements IObserver {
         initMenuEntry();
 
         logger.info(header());
-        processInput(stream);
+        processInput();
     }
 
     private void initMenuEntry() {
@@ -54,7 +54,7 @@ public class TextUI implements IObserver {
         menu.put(entry.command(), entry);
     }
 
-    private void processInput(InputStream stream) {
+    private void processInput() {
         String input;
         Scanner scanner = new Scanner(stream);
 
@@ -62,8 +62,6 @@ public class TextUI implements IObserver {
             logger.info(menu());
             logger.info(MSG_INPUT_NOTE);
             input = scanner.nextLine();
-
-            logger.info(header());
 
             executeInput(input);
         }
@@ -75,17 +73,12 @@ public class TextUI implements IObserver {
         IMenuEntry e = menu.get(input);
 
         if (e == null) {
+            logger.info(header());
             logger.info(String.format(MSG_DEFAULT_MENU, input));
         } else {
-            logger.debug(e.getClass());
             e.action();
         }
 
-    }
-
-    @Override
-    public void update(Event e) {
-        throw new IllegalArgumentException("This class has no listener for " + e.getClass().toString());
     }
 
     /**
@@ -93,28 +86,18 @@ public class TextUI implements IObserver {
      * @param e CloseProgamm
      */
     public void update(CloseProgamm e) {
+        logger.info(header());
         process = false;
         logger.info(MSG_EXIT);
     }
 
     /**
-     * Game name as ASCII-Art:
-     * http://patorjk.com/software/taag/#p=display&f=Big&t=Battleship
+     * Start TUI for game initialization
+     * @param e InitGame
      */
-    private String header() {
-
-        StringBuilder sb = new StringBuilder();
-        sb.append("***********************************************************").append("\n");
-        sb.append("*      ____        _   _   _           _     _            *").append("\n");
-        sb.append("*     |  _ \\      | | | | | |         | |   (_)           *").append("\n");
-        sb.append("*     | |_) | __ _| |_| |_| | ___  ___| |__  _ _ __       *").append("\n");
-        sb.append("*     |  _ < / _` | __| __| |/ _ \\/ __| '_ \\| | '_ \\      *").append("\n");
-        sb.append("*     | |_) | (_| | |_| |_| |  __/\\__ \\ | | | | |_) |     *").append("\n");
-        sb.append("*     |____/ \\__,_|\\__|\\__|_|\\___||___/_| |_|_| .__/      *").append("\n");
-        sb.append("*                                             | |         *").append("\n");
-        sb.append("*                                             |_|         *").append("\n");
-        sb.append("***********************************************************").append("\n");
-        return sb.toString();
+    public void update(InitGame e) {
+        new InitGameUI(e.getController(), stream);
+        e.getController().init();
     }
 
 
