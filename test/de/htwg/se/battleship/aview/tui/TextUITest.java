@@ -1,34 +1,57 @@
 package de.htwg.se.battleship.aview.tui;
 
+import static org.junit.Assert.assertTrue;
+
+import java.io.ByteArrayInputStream;
+import java.io.UnsupportedEncodingException;
+import java.util.Scanner;
+
 import org.apache.log4j.Logger;
-import org.apache.log4j.PropertyConfigurator;
 import org.junit.Before;
 import org.junit.Test;
 
-import de.htwg.se.battleship.controller.InputController;
-import de.htwg.se.battleship.controller.IntController;
+import de.htwg.se.battleship.aview.tui.menuentry.Close;
+import de.htwg.se.battleship.controller.Controller;
+
 
 public class TextUITest {
 
-    static Logger         logger = Logger.getLogger(TextUITest.class);
-    @SuppressWarnings("unused")
-    private TextUI        tui1;
-    private IntController controller1;
+    private TestAppender testAppender;
 
     @Before
     public void setUp() {
-        PropertyConfigurator.configure("log4j.properties");
-        controller1 = new InputController();
-        tui1 = new TextUI(controller1);
-
+        testAppender = new TestAppender();
+        Logger.getRootLogger().addAppender(testAppender);
     }
 
     @Test
-    public void test() {
-        try {
-            controller1.notifyObservers(null);
-        } catch (NullPointerException n) {
+    public void testOnlyExit() throws UnsupportedEncodingException {
+        StringBuilder sb = new StringBuilder();
+        sb.append(Close.CMD);
+        sb.append(System.getProperty("line.separator"));
 
-        }
+        Scanner scanner = new Scanner(new ByteArrayInputStream(sb.toString().getBytes("UTF-8")));
+        new TextUI(new Controller(), scanner);
+
+        String log = testAppender.getLog().toString();
+        assertTrue(log.contains(TextUI.MSG_EXIT));
+    }
+
+    @Test
+    public void testMenuEntryNotExist() throws UnsupportedEncodingException {
+        String s = "test";
+
+        StringBuilder sb = new StringBuilder();
+        sb.append(s);
+        sb.append(System.getProperty("line.separator"));
+        sb.append(Close.CMD);
+        sb.append(System.getProperty("line.separator"));
+
+        Scanner scanner = new Scanner(new ByteArrayInputStream(sb.toString().getBytes("UTF-8")));
+        new TextUI(new Controller(), scanner);
+
+        String log = testAppender.getLog().toString();
+        assertTrue(log.contains(String.format(TextUI.MSG_DEFAULT_MENU, s)));
+        assertTrue(log.contains(TextUI.MSG_EXIT));
     }
 }

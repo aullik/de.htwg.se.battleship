@@ -74,6 +74,10 @@ public class TextUI extends UserInterface  {
             e.action();
         }
 
+        if (!getScanner().hasNextLine()) {
+            process = false;
+        }
+
     }
 
     /**
