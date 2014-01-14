@@ -3,7 +3,7 @@
  */
 package de.htwg.se.battleship.aview.tui;
 
-import java.io.InputStream;
+import java.util.Scanner;
 
 import org.apache.log4j.Logger;
 
@@ -16,20 +16,36 @@ import de.htwg.se.battleship.util.observer.IObserver;
  */
 public abstract class UserInterface implements IObserver {
 
-    protected final Logger logger = Logger.getLogger("de.htwg.se.battleship.aview.tui");
-    protected final InputStream stream;
+    private final Logger logger = Logger.getLogger("de.htwg.se.battleship.aview.tui");
+    private final Scanner scanner;
 
     /**
      * Initiate input stream
      * @param stream InputStream
      */
-    public UserInterface(InputStream stream) {
-        this.stream = stream;
+    public UserInterface(Scanner scanner) {
+        this.scanner = scanner;
+    }
+
+    /**
+     * Returns Logger instance
+     * @return Logger
+     */
+    protected Logger getLogger() {
+        return logger;
+    }
+
+    /**
+     * Returns Scanner instance
+     * @return Scanner
+     */
+    protected Scanner getScanner() {
+        return scanner;
     }
 
     @Override
     public void update(Event e) {
-        throw new IllegalArgumentException("This class has no listener for " + e.getClass().toString());
+        throw new IllegalArgumentException(this.getClass().toString() + " has no listener for " + e.getClass().toString());
     }
 
     /**

@@ -3,10 +3,10 @@
  */
 package de.htwg.se.battleship.aview.tui;
 
-import java.io.InputStream;
 
+import java.util.Scanner;
 
-import de.htwg.se.battleship.controller.InitGameController;
+import de.htwg.se.battleship.controller.IInitGameController;
 import de.htwg.se.battleship.controller.event.SetPlayer;
 
 /**
@@ -15,13 +15,17 @@ import de.htwg.se.battleship.controller.event.SetPlayer;
  */
 public class InitGameUI extends UserInterface {
 
-    private final InitGameController controller;
+    private final IInitGameController controller;
+
+    public static final String MSG_INPUT_NOTE   = "Name for player %s: ";
+    public static final String MSG_INPUT_EMPTY  = "Sorry your input was empty, please try again!";
+    public static final String MSG_NAME_NOTE    = "Great player %s your name is '%s'!";
 
     /**
      * 
      */
-    public InitGameUI(InitGameController controller, InputStream stream) {
-        super(stream);
+    public InitGameUI(IInitGameController controller, Scanner scanner) {
+        super(scanner);
 
         this.controller = controller;
         controller.addObserver(this);
@@ -32,8 +36,31 @@ public class InitGameUI extends UserInterface {
      * @param e SetPlayer
      */
     public void update(SetPlayer e) {
-        logger.info(header());
-        logger.info("This feature is not yet implemented");
+
+        getLogger().info(header());
+
+        String player1 = playername("one");
+        String player2 = playername("two");
+        controller.player(player1, player2);
+    }
+
+    private String playername(String no) {
+        String name;
+
+        do {
+            getLogger().info(String.format(MSG_INPUT_NOTE, no));
+            name = getScanner().nextLine();
+
+            if (name.equals("")) {
+                getLogger().info(MSG_INPUT_EMPTY);
+            } else {
+                break;
+            }
+
+        } while(true);
+
+        getLogger().info(String.format(MSG_NAME_NOTE, no, name));
+        return name;
     }
 
 }

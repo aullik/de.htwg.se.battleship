@@ -1,5 +1,7 @@
 package de.htwg.se.battleship;
 
+import java.util.Scanner;
+
 import org.apache.log4j.PropertyConfigurator;
 
 import de.htwg.se.battleship.aview.tui.TextUI;
@@ -33,7 +35,7 @@ public final class Battleship {
     private Battleship() {
         PropertyConfigurator.configure("log4j.properties");
         IController controller = new Controller();
-        new TextUI(controller, System.in);
+        new TextUI(controller, new Scanner(System.in));
     }
 
     /**

@@ -1,13 +1,13 @@
 package de.htwg.se.battleship.aview.tui;
 
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
 
-import de.htwg.se.battleship.aview.tui.menuEntry.Close;
-import de.htwg.se.battleship.aview.tui.menuEntry.NewGame;
+
+import de.htwg.se.battleship.aview.tui.menuentry.Close;
+import de.htwg.se.battleship.aview.tui.menuentry.NewGame;
 import de.htwg.se.battleship.controller.IController;
 import de.htwg.se.battleship.controller.event.CloseProgamm;
 import de.htwg.se.battleship.controller.event.InitGame;
@@ -32,8 +32,8 @@ public class TextUI extends UserInterface  {
     /**
      * @param controller controller to observe
      */
-    public TextUI(IController controller, InputStream stream) {
-        super(stream);
+    public TextUI(IController controller, Scanner scanner) {
+        super(scanner);
 
         this.controller = controller;
         controller.addObserver(this);
@@ -41,7 +41,7 @@ public class TextUI extends UserInterface  {
         menu = new HashMap<String, IMenuEntry>();
         initMenuEntry();
 
-        logger.info(header());
+        getLogger().info(header());
         processInput();
     }
 
@@ -55,26 +55,21 @@ public class TextUI extends UserInterface  {
     }
 
     private void processInput() {
-        String input;
-        Scanner scanner = new Scanner(stream);
-
         while (process) {
-            logger.info(menu());
-            logger.info(MSG_INPUT_NOTE);
-            input = scanner.nextLine();
+            getLogger().info(menu());
+            getLogger().info(MSG_INPUT_NOTE);
+            String input = getScanner().nextLine();
 
             executeInput(input);
         }
-
-        scanner.close();
     }
 
     private void executeInput(String input) {
         IMenuEntry e = menu.get(input);
 
         if (e == null) {
-            logger.info(header());
-            logger.info(String.format(MSG_DEFAULT_MENU, input));
+            getLogger().info(header());
+            getLogger().info(String.format(MSG_DEFAULT_MENU, input));
         } else {
             e.action();
         }
@@ -86,9 +81,9 @@ public class TextUI extends UserInterface  {
      * @param e CloseProgamm
      */
     public void update(CloseProgamm e) {
-        logger.info(header());
+        getLogger().info(header());
         process = false;
-        logger.info(MSG_EXIT);
+        getLogger().info(MSG_EXIT);
     }
 
     /**
@@ -96,7 +91,7 @@ public class TextUI extends UserInterface  {
      * @param e InitGame
      */
     public void update(InitGame e) {
-        new InitGameUI(e.getController(), stream);
+        new InitGameUI(e.getController(), getScanner());
         e.getController().init();
     }
 

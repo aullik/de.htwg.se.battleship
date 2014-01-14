@@ -1,39 +1,42 @@
 /**
  * 
  */
-package de.htwg.se.battleship.aview.tui.menuEntry;
+package de.htwg.se.battleship.aview.tui.menuentry;
 
 import de.htwg.se.battleship.aview.tui.IMenuEntry;
 import de.htwg.se.battleship.controller.IController;
 
 /**
+ * 
+ * 
  * @author Philipp Daniels<philipp.daniels@gmail.com>
- *
  */
-public class Close implements IMenuEntry {
+public class NewGame implements IMenuEntry {
 
     private final IController controller;
 
     /**
-     * Close is the menu entry, that start exit the program
+     * The NewGame is the menu entry, that start a new game
+     * initiation at the controller
+     * @param controller
      */
-    public Close(IController controller) {
+    public NewGame(IController controller) {
         this.controller = controller;
     }
 
     @Override
     public void action() {
-        controller.close();
+        controller.newGame();
     }
 
     @Override
     public String command() {
-        return "-close";
+        return "-newgame";
     }
 
     @Override
     public String description() {
-        return "Terminates program";
+        return "Start a new game";
     }
 
 }

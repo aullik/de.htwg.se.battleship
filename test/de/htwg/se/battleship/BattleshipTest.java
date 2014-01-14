@@ -7,7 +7,7 @@ import java.io.InputStream;
 
 import org.junit.Test;
 
-import de.htwg.se.battleship.aview.tui.menuEntry.Close;
+import de.htwg.se.battleship.aview.tui.menuentry.Close;
 
 public class BattleshipTest {
 
