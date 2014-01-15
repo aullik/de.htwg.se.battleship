@@ -15,7 +15,7 @@ public class OberservableTest {
     private TestObserver observer;
     private Observable observable;
 
-    class TestObserver implements IObserver {
+    private class TestObserver implements IObserver {
         @Override
         public void update(Event e) {
             ping=true;
@@ -24,6 +24,18 @@ public class OberservableTest {
         public void update(TestEvent2 e) {
             pong=true;
         }
+    }
+
+    private class TestObserverException implements IObserver {
+
+        @Override
+        public void update(Event e) {
+        }
+
+        public void update(TestEvent1 e) {
+            throw new IllegalArgumentException();
+        }
+
     }
 
     class TestEvent1 implements Event {}
@@ -73,6 +85,12 @@ public class OberservableTest {
         observable.removeAllObservers();
         observable.notifyObservers();
         assertFalse(ping);
+    }
+
+    @Test
+    public void testInvocationTargetException() {
+        observable.addObserver(new TestObserverException());
+        observable.notifyObservers(new TestEvent1());
     }
 
 }
