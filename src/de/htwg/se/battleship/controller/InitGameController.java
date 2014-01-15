@@ -5,8 +5,6 @@ package de.htwg.se.battleship.controller;
 
 import de.htwg.se.battleship.controller.event.SetPlayer;
 import de.htwg.se.battleship.controller.event.SetShips;
-import de.htwg.se.battleship.model.IPlayer;
-import de.htwg.se.battleship.model.impl.Player;
 import de.htwg.se.battleship.util.observer.Observable;
 
 /**
@@ -29,8 +27,6 @@ public class InitGameController extends Observable implements IInitGameControlle
         checkEmpty(p1, String.format(MSG_PLAYER_EMPTY, P1));
         checkEmpty(p2, String.format(MSG_PLAYER_EMPTY, P2));
 
-        IPlayer player1 = new Player(p1);
-        IPlayer player2 = new Player(p2);
         notifyObservers(new SetShips());
     }
 

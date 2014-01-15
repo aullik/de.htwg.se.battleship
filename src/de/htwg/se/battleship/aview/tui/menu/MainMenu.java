@@ -18,7 +18,7 @@ import de.htwg.se.battleship.controller.IController;
  */
 public class MainMenu implements IMenu {
 
-    public final Map<String, IMenuEntry> list;
+    private final Map<String, IMenuEntry> list;
 
     public MainMenu(IController controller) {
         list = new HashMap<String, IMenuEntry>();
