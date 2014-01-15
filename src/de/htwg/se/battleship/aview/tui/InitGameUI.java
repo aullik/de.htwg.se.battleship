@@ -7,6 +7,7 @@ package de.htwg.se.battleship.aview.tui;
 import java.util.Scanner;
 
 import de.htwg.se.battleship.controller.IInitGameController;
+import de.htwg.se.battleship.controller.InitGameController;
 import de.htwg.se.battleship.controller.event.SetPlayer;
 
 /**
@@ -20,8 +21,6 @@ public class InitGameUI extends UserInterface {
     public static final String MSG_INPUT_NOTE   = "Name for player %s: ";
     public static final String MSG_INPUT_EMPTY  = "Sorry your input was empty, please try again!";
     public static final String MSG_NAME_NOTE    = "Great player %s your name is '%s'!";
-    public static final String P1               = "one";
-    public static final String P2               = "two";
 
     /**
      * 
@@ -41,8 +40,8 @@ public class InitGameUI extends UserInterface {
 
         getLogger().info(header());
 
-        String player1 = playername(P1);
-        String player2 = playername(P2);
+        String player1 = playername(InitGameController.P1);
+        String player2 = playername(InitGameController.P2);
         controller.player(player1, player2);
     }
 

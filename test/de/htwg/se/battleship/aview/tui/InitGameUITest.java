@@ -14,6 +14,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import de.htwg.se.battleship.controller.IInitGameController;
+import de.htwg.se.battleship.controller.InitGameController;
 import de.htwg.se.battleship.controller.event.SetPlayer;
 import de.htwg.se.battleship.util.observer.Observable;
 
@@ -70,11 +71,11 @@ public class InitGameUITest {
 
         String log = testAppender.getLog();
 
-        assertTrue(log.contains(String.format(InitGameUI.MSG_INPUT_NOTE, InitGameUI.P1)));
-        assertTrue(log.contains(String.format(InitGameUI.MSG_INPUT_NOTE, InitGameUI.P2)));
+        assertTrue(log.contains(String.format(InitGameUI.MSG_INPUT_NOTE, InitGameController.P1)));
+        assertTrue(log.contains(String.format(InitGameUI.MSG_INPUT_NOTE, InitGameController.P2)));
 
-        assertTrue(log.contains(String.format(InitGameUI.MSG_NAME_NOTE, InitGameUI.P1, p1)));
-        assertTrue(log.contains(String.format(InitGameUI.MSG_NAME_NOTE, InitGameUI.P2, p2)));
+        assertTrue(log.contains(String.format(InitGameUI.MSG_NAME_NOTE, InitGameController.P1, p1)));
+        assertTrue(log.contains(String.format(InitGameUI.MSG_NAME_NOTE, InitGameController.P2, p2)));
         assertFalse(log.contains(InitGameUI.MSG_INPUT_EMPTY));
     }
 
@@ -98,11 +99,11 @@ public class InitGameUITest {
 
         String log = testAppender.getLog();
 
-        assertTrue(log.contains(String.format(InitGameUI.MSG_INPUT_NOTE, InitGameUI.P1)));
-        assertTrue(log.contains(String.format(InitGameUI.MSG_INPUT_NOTE, InitGameUI.P2)));
+        assertTrue(log.contains(String.format(InitGameUI.MSG_INPUT_NOTE, InitGameController.P1)));
+        assertTrue(log.contains(String.format(InitGameUI.MSG_INPUT_NOTE, InitGameController.P2)));
 
-        assertTrue(log.contains(String.format(InitGameUI.MSG_NAME_NOTE, InitGameUI.P1, p1)));
-        assertTrue(log.contains(String.format(InitGameUI.MSG_NAME_NOTE, InitGameUI.P2, p2)));
+        assertTrue(log.contains(String.format(InitGameUI.MSG_NAME_NOTE, InitGameController.P1, p1)));
+        assertTrue(log.contains(String.format(InitGameUI.MSG_NAME_NOTE, InitGameController.P2, p2)));
         assertTrue(log.contains(InitGameUI.MSG_INPUT_EMPTY));
     }
 

@@ -14,6 +14,10 @@ import de.htwg.se.battleship.util.observer.Observable;
  */
 public class InitGameController extends Observable implements IInitGameController {
 
+    public static final String MSG_PLAYER_EMPTY = "Player %s name is empty";
+    public static final String P1               = "one";
+    public static final String P2               = "two";
+
     private IPlayer p1;
     private IPlayer p2;
 
@@ -24,8 +28,8 @@ public class InitGameController extends Observable implements IInitGameControlle
 
     @Override
     public void player(String p1, String p2) {
-        checkEmpty(p1, "Player one name is empty");
-        checkEmpty(p2, "Player two name is empty");
+        checkEmpty(p1, String.format(MSG_PLAYER_EMPTY, P1));
+        checkEmpty(p2, String.format(MSG_PLAYER_EMPTY, P2));
 
         this.p1 = new Player(p1);
         this.p2 = new Player(p2);
