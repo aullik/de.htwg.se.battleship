@@ -7,8 +7,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import de.htwg.se.battleship.controller.IControllerFactory;
 import de.htwg.se.battleship.controller.IInitGameController;
-import de.htwg.se.battleship.util.observer.Observable;
 
 /**
  * @author Philipp
@@ -16,27 +16,19 @@ import de.htwg.se.battleship.util.observer.Observable;
  */
 public class InitGameTest {
 
-    private class TestClass extends Observable implements IInitGameController {
+    private class TestClass implements IControllerFactory {
 
         @Override
-        public void init() { }
-
-        @Override
-        public void player(String p1, String p2) {}
+        public IInitGameController createIInitGameController() {
+            return null;
+        }
     }
 
     @Test
     public void test() {
-        IInitGameController c1 = new TestClass();
-        IInitGameController c2 = new TestClass();
-
-        assertNotEquals(c1, c2);
-
-        InitGame e1 = new InitGame(c1);
-        InitGame e2 = new InitGame(c2);
-
-        assertEquals(c1, e1.getController());
-        assertEquals(c2, e2.getController());
+        IControllerFactory f = new TestClass();
+        InitGame e = new InitGame(f);
+        assertEquals(f, e.getFactory());
     }
 
 }

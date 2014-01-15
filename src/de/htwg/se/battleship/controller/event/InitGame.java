@@ -3,7 +3,7 @@
  */
 package de.htwg.se.battleship.controller.event;
 
-import de.htwg.se.battleship.controller.IInitGameController;
+import de.htwg.se.battleship.controller.IControllerFactory;
 import de.htwg.se.battleship.util.observer.Event;
 
 /**
@@ -12,21 +12,21 @@ import de.htwg.se.battleship.util.observer.Event;
  */
 public class InitGame implements Event {
 
-    private final IInitGameController controller;
+    private final IControllerFactory factory;
 
     /**
      * Controller for game initialization.
-     * @param controller
+     * @param factory IControllerFactory
      */
-    public InitGame(IInitGameController controller) {
-        this.controller = controller;
+    public InitGame(IControllerFactory factory) {
+        this.factory = factory;
     }
 
     /**
-     * Return Controller.
-     * @return IInitGameController
+     * Return instance of IControllerFactory implementation.
+     * @return IControllerFactory
      */
-    public IInitGameController getController() {
-        return controller;
+    public IControllerFactory getFactory() {
+        return factory;
     }
 }

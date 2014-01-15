@@ -4,7 +4,9 @@ import java.util.Map;
 import java.util.Scanner;
 
 
+
 import de.htwg.se.battleship.controller.IController;
+import de.htwg.se.battleship.controller.IInitGameController;
 import de.htwg.se.battleship.controller.event.CloseProgamm;
 import de.htwg.se.battleship.controller.event.InitGame;
 
@@ -78,8 +80,9 @@ public class TextUI extends UserInterface  {
      * @param e InitGame
      */
     public void update(InitGame e) {
-        new InitGameUI(e.getController(), getScanner());
-        e.getController().init();
+        IInitGameController c = e.getFactory().createIInitGameController();
+        new InitGameUI(c, getScanner());
+        c.init();
     }
 
 

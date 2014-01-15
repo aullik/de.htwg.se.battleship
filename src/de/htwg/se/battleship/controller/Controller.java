@@ -15,7 +15,7 @@ public class Controller extends Observable implements IController {
 
     @Override
     public void newGame() {
-        notifyObservers(new InitGame(new InitGameController()));
+        notifyObservers(new InitGame(new ControllerFactory()));
     }
 
     @Override
