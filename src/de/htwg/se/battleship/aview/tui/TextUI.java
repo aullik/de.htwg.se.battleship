@@ -1,13 +1,9 @@
 package de.htwg.se.battleship.aview.tui;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
 
-
-import de.htwg.se.battleship.aview.tui.menuentry.Close;
-import de.htwg.se.battleship.aview.tui.menuentry.NewGame;
 import de.htwg.se.battleship.controller.IController;
 import de.htwg.se.battleship.controller.event.CloseProgamm;
 import de.htwg.se.battleship.controller.event.InitGame;
@@ -24,7 +20,6 @@ public class TextUI extends UserInterface  {
     public static final String MSG_EXIT         = "This is the end my friend!";
 
 
-    private final IController controller;
     private final Map<String, IMenuEntry> menu;
 
     private boolean process = true;
@@ -32,26 +27,14 @@ public class TextUI extends UserInterface  {
     /**
      * @param controller controller to observe
      */
-    public TextUI(IController controller, Scanner scanner) {
+    public TextUI(IController controller, Scanner scanner, Map<String, IMenuEntry> menu) {
         super(scanner);
-
-        this.controller = controller;
         controller.addObserver(this);
 
-        menu = new HashMap<String, IMenuEntry>();
-        initMenuEntry();
+        this.menu = menu;
 
         getLogger().info(header());
         processInput();
-    }
-
-    private void initMenuEntry() {
-        add(new NewGame(controller));
-        add(new Close(controller));
-    }
-
-    private void add(IMenuEntry entry) {
-        menu.put(entry.command(), entry);
     }
 
     private void processInput() {

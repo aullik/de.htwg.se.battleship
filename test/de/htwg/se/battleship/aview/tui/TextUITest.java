@@ -10,8 +10,10 @@ import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 
+import de.htwg.se.battleship.aview.tui.menu.MainMenu;
 import de.htwg.se.battleship.aview.tui.menuentry.Close;
 import de.htwg.se.battleship.controller.Controller;
+import de.htwg.se.battleship.controller.IController;
 
 
 public class TextUITest {
@@ -32,7 +34,8 @@ public class TextUITest {
         sb.append(System.getProperty("line.separator"));
 
         Scanner scanner = new Scanner(new ByteArrayInputStream(sb.toString().getBytes("UTF-8")));
-        new TextUI(new Controller(), scanner);
+        IController c = new Controller();
+        new TextUI(c, scanner, new MainMenu(c).get());
 
         String log = testAppender.getLog().toString();
         assertTrue(log.contains(TextUI.MSG_EXIT));
@@ -49,7 +52,8 @@ public class TextUITest {
         sb.append(System.getProperty("line.separator"));
 
         Scanner scanner = new Scanner(new ByteArrayInputStream(sb.toString().getBytes("UTF-8")));
-        new TextUI(new Controller(), scanner);
+        IController c = new Controller();
+        new TextUI(c, scanner, new MainMenu(c).get());
 
         String log = testAppender.getLog().toString();
         assertTrue(log.contains(String.format(TextUI.MSG_DEFAULT_MENU, s)));

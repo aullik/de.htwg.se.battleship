@@ -5,6 +5,7 @@ import java.util.Scanner;
 import org.apache.log4j.PropertyConfigurator;
 
 import de.htwg.se.battleship.aview.tui.TextUI;
+import de.htwg.se.battleship.aview.tui.menu.MainMenu;
 import de.htwg.se.battleship.controller.Controller;
 import de.htwg.se.battleship.controller.IController;
 
@@ -35,7 +36,7 @@ public final class Battleship {
     private Battleship() {
         PropertyConfigurator.configure("log4j.properties");
         IController controller = new Controller();
-        new TextUI(controller, new Scanner(System.in));
+        new TextUI(controller, new Scanner(System.in), new MainMenu(controller).get());
     }
 
     /**

@@ -1,7 +1,6 @@
 package de.htwg.se.battleship;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -32,12 +31,7 @@ public class BattleshipTest {
 
     @Test
     public void test() {
-        try {
-            Battleship.main(null);
-        } catch (Exception e) {
-            fail(e.getMessage());
-        }
-
+        Battleship.main(new String[0]);
     }
 
     @Test
