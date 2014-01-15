@@ -21,6 +21,7 @@ public class TextUITest {
     @Before
     public void setUp() {
         testAppender = new TestAppender();
+        Logger.getRootLogger().removeAllAppenders();
         Logger.getRootLogger().addAppender(testAppender);
     }
 
