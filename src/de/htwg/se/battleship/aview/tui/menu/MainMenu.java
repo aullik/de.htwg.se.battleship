@@ -20,6 +20,10 @@ public class MainMenu implements IMenu {
 
     private final Map<String, IMenuEntry> list;
 
+    /**
+     * Initial MainMenu with list of MenuEnty.
+     * @param controller IController
+     */
     public MainMenu(IController controller) {
         list = new HashMap<String, IMenuEntry>();
         add(new NewGame(controller));
