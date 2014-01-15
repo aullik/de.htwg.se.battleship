@@ -12,8 +12,8 @@ import org.junit.Test;
 
 import de.htwg.se.battleship.aview.tui.menu.MainMenu;
 import de.htwg.se.battleship.aview.tui.menuentry.Close;
-import de.htwg.se.battleship.controller.Controller;
 import de.htwg.se.battleship.controller.IController;
+import de.htwg.se.battleship.controller.impl.Controller;
 
 
 public class TextUITest {

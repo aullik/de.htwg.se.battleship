@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import de.htwg.se.battleship.controller.event.SetPlayer;
 import de.htwg.se.battleship.controller.event.SetShips;
+import de.htwg.se.battleship.controller.impl.InitGameController;
 import de.htwg.se.battleship.util.observer.Event;
 import de.htwg.se.battleship.util.observer.IObserver;
 

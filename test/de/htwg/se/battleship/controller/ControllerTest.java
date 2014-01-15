@@ -2,11 +2,11 @@ package de.htwg.se.battleship.controller;
 
 import static org.junit.Assert.*;
 
-
 import org.junit.Test;
 
 import de.htwg.se.battleship.controller.event.CloseProgamm;
 import de.htwg.se.battleship.controller.event.InitGame;
+import de.htwg.se.battleship.controller.impl.Controller;
 import de.htwg.se.battleship.util.observer.Event;
 import de.htwg.se.battleship.util.observer.IObserver;
 

@@ -7,8 +7,8 @@ package de.htwg.se.battleship.aview.tui;
 import java.util.Scanner;
 
 import de.htwg.se.battleship.controller.IInitGameController;
-import de.htwg.se.battleship.controller.InitGameController;
 import de.htwg.se.battleship.controller.event.SetPlayer;
+import de.htwg.se.battleship.controller.impl.InitGameController;
 
 /**
  * @author Philipp Daniels<philipp.daniels@gmail.com>
