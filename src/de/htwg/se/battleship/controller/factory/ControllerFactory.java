@@ -1,8 +1,10 @@
 /**
  * 
  */
-package de.htwg.se.battleship.controller;
+package de.htwg.se.battleship.controller.factory;
 
+import de.htwg.se.battleship.controller.IControllerFactory;
+import de.htwg.se.battleship.controller.IInitGameController;
 import de.htwg.se.battleship.controller.impl.InitGameController;
 
 /**
