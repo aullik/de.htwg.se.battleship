@@ -4,6 +4,7 @@
 package de.htwg.se.battleship.aview.tui;
 
 import de.htwg.se.battleship.controller.event.SetPlayer;
+import de.htwg.se.battleship.controller.event.SetPlayerSuccess;
 import de.htwg.se.battleship.controller.event.SetShip;
 
 /**
@@ -20,7 +21,13 @@ public interface IInitGameUI {
 
     /**
      * Let a player choose the position of his ships.
-     * @param e
+     * @param e SetShip
      */
     void update(SetShip e);
+
+    /**
+     * Event to signal that player are added successful.
+     * @param e SetPlayerSuccess
+     */
+    void update(SetPlayerSuccess e);
 }

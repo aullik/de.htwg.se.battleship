@@ -15,7 +15,15 @@ import org.junit.Test;
 
 import de.htwg.se.battleship.controller.IInitGameController;
 import de.htwg.se.battleship.controller.event.SetPlayer;
+import de.htwg.se.battleship.controller.event.SetPlayerSuccess;
+import de.htwg.se.battleship.controller.event.SetShip;
 import de.htwg.se.battleship.controller.impl.InitGameController;
+import de.htwg.se.battleship.model.IGrid;
+import de.htwg.se.battleship.model.IPlayer;
+import de.htwg.se.battleship.model.IRound;
+import de.htwg.se.battleship.model.impl.Grid;
+import de.htwg.se.battleship.model.impl.Player;
+import de.htwg.se.battleship.model.impl.Round;
 import de.htwg.se.battleship.util.observer.Observable;
 
 /**
@@ -24,7 +32,8 @@ import de.htwg.se.battleship.util.observer.Observable;
  */
 public class InitGameUITest {
 
-    private boolean ping = false;
+    private boolean ping;
+    private String shipCoords;
 
     private class TestClass extends Observable implements IInitGameController {
 
@@ -37,7 +46,9 @@ public class InitGameUITest {
         }
 
         @Override
-        public void ship(int startX, int startY, int endX, int endY) {}
+        public void ship(int startX, int startY, int endX, int endY) {
+            shipCoords = startX + "," + startY + "," + endX + "," + endY;
+        }
     }
 
     private class TestFactory implements IScannerFactory {
@@ -58,6 +69,9 @@ public class InitGameUITest {
 
     @Before
     public void setUp() {
+        ping = false;
+        shipCoords = "";
+
         testAppender = new TestAppender();
         Logger.getRootLogger().removeAllAppenders();
         Logger.getRootLogger().addAppender(testAppender);
@@ -113,6 +127,49 @@ public class InitGameUITest {
 
         assertTrue(log.contains(String.format(InitGameUI.MSG_NAME_NOTE, InitGameController.P1, String.format(InitGameUI.DEFAULT_NAME, 1))));
         assertTrue(log.contains(String.format(InitGameUI.MSG_NAME_NOTE, InitGameController.P2, String.format(InitGameUI.DEFAULT_NAME, 2))));
+    }
+
+    @Test
+    public void testPlayerSuccess() throws UnsupportedEncodingException {
+
+        IPlayer p1 = new Player("test1");
+        IGrid g1 = new Grid(Grid.DEFAULT_SIZE, p1);
+        IPlayer p2 = new Player("test2");
+        IGrid g2 = new Grid(Grid.DEFAULT_SIZE, p2);
+
+        IRound r = new Round(g1, g2);
+
+        SetPlayerSuccess e = new SetPlayerSuccess(r);
+        InitGameUI ui = new InitGameUI(new TestClass(), new TestFactory(new StringBuilder()));
+        ui.update(e);
+
+        String log = testAppender.getLog();
+        assertTrue(log.contains(String.format(InitGameUI.MSG_PLAYER_ADD, p1.getName(), p2.getName())));
+    }
+
+    @Test
+    public void testSetShip() throws UnsupportedEncodingException {
+        IPlayer p1 = new Player("test1");
+        IGrid g1 = new Grid(Grid.DEFAULT_SIZE, p1);
+        IPlayer p2 = new Player("test2");
+        IGrid g2 = new Grid(Grid.DEFAULT_SIZE, p2);
+        IRound r = new Round(g1, g2);
+
+
+        SetShip e = new SetShip(r);
+        StringBuilder sb = new StringBuilder();
+        sb.append(1);
+        sb.append(System.getProperty("line.separator"));
+        sb.append(2);
+        sb.append(System.getProperty("line.separator"));
+        sb.append(3);
+        sb.append(System.getProperty("line.separator"));
+        sb.append(4);
+        sb.append(System.getProperty("line.separator"));
+        InitGameUI ui = new InitGameUI(new TestClass(), new TestFactory(sb));
+        ui.update(e);
+
+        assertEquals("1,2,3,4", shipCoords);
     }
 
 }
