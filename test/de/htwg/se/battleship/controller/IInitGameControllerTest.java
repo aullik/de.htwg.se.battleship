@@ -5,11 +5,13 @@ package de.htwg.se.battleship.controller;
 
 import static org.junit.Assert.*;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import de.htwg.se.battleship.controller.event.SetPlayer;
 import de.htwg.se.battleship.controller.event.SetShips;
 import de.htwg.se.battleship.controller.impl.InitGameController;
+import de.htwg.se.battleship.model.impl.ModelFabric;
 import de.htwg.se.battleship.util.observer.Event;
 import de.htwg.se.battleship.util.observer.IObserver;
 
@@ -38,11 +40,16 @@ public class IInitGameControllerTest {
 
     }
 
+    private IInitGameController c;
+
+    @Before
+    public void setUp() {
+        c = new InitGameController(new ModelFabric());
+        c.addObserver(new TestClass());
+    }
+
     @Test
     public void testInit() {
-        IInitGameController c = new InitGameController();
-        c.addObserver(new TestClass());
-
         assertEquals(0, check);
         c.init();
         assertEquals(2, check);
@@ -51,9 +58,6 @@ public class IInitGameControllerTest {
 
     @Test
     public void testPlayer() {
-        IInitGameController c = new InitGameController();
-        c.addObserver(new TestClass());
-
         assertEquals(0, check);
         c.player("test1", "test2");
         assertEquals(3, check);
@@ -61,16 +65,12 @@ public class IInitGameControllerTest {
 
     @Test(expected=IllegalArgumentException.class)
     public void testPlayerEmpty() {
-        IInitGameController c = new InitGameController();
-        c.addObserver(new TestClass());
         c.player("", "test2");
     }
 
     @Test(expected=IllegalArgumentException.class)
     public void testPlayerNull() {
-        IInitGameController c = new InitGameController();
-        c.addObserver(new TestClass());
-        c.player(null, "test2");
+        c.player("test1", null);
     }
 
 }
