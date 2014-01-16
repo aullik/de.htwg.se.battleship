@@ -49,11 +49,13 @@ public class PlayerTest {
         HashMap<String, ICell> map = new HashMap<String, ICell>();
 
         Ship s1 = new Ship(p1, map);
+        p1.addShip(s1);
         assertTrue(p1.containsShip(s1));
+
 
         Ship s2 = new Ship(p1, map);
         assertTrue(p1.containsShip(s2));
-
+        p1.addShip(s2);
         assertTrue(p1.containsShip(s1));
     }
 

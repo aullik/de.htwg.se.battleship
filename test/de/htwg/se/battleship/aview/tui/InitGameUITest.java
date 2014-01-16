@@ -158,18 +158,21 @@ public class InitGameUITest {
 
         SetShip e = new SetShip(r);
         StringBuilder sb = new StringBuilder();
-        sb.append(1);
-        sb.append(System.getProperty("line.separator"));
-        sb.append(2);
-        sb.append(System.getProperty("line.separator"));
-        sb.append(3);
-        sb.append(System.getProperty("line.separator"));
-        sb.append(4);
-        sb.append(System.getProperty("line.separator"));
+        sb.append(1 + System.getProperty("line.separator"));
+        sb.append(2 + System.getProperty("line.separator"));
+        sb.append(3 + System.getProperty("line.separator"));
+        sb.append(4 + System.getProperty("line.separator"));
+        sb.append(5 + System.getProperty("line.separator"));
+        sb.append(6 + System.getProperty("line.separator"));
+        sb.append(7 + System.getProperty("line.separator"));
+        sb.append(8 + System.getProperty("line.separator"));
         InitGameUI ui = new InitGameUI(new TestClass(), new TestFactory(sb));
-        ui.update(e);
 
+        ui.update(e);
         assertEquals("1,2,3,4", shipCoords);
+
+        ui.update(e);
+        assertEquals("5,6,7,8", shipCoords);
     }
 
 }
