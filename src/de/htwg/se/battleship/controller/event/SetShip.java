@@ -4,29 +4,19 @@
 package de.htwg.se.battleship.controller.event;
 
 import de.htwg.se.battleship.model.IRound;
-import de.htwg.se.battleship.util.observer.Event;
 
 /**
  * @author Philipp Daniels<philipp.daniels@gmail.com>
  *
  */
-public class SetShip implements Event {
-
-    private final IRound round;
+public class SetShip extends AbstractEvent {
 
     /**
-     * Create instance of SetShip.
+     * Create an instance of SetShip
      * @param round IRound
      */
     public SetShip(IRound round) {
-        this.round = round;
+        super(round);
     }
 
-    /**
-     * Returns a instance of IRound.
-     * @return IRound
-     */
-    public IRound getRound() {
-        return round;
-    }
 }
