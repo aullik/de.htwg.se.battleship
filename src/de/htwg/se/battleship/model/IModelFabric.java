@@ -3,6 +3,8 @@
  */
 package de.htwg.se.battleship.model;
 
+import java.util.Map;
+
 /**
  * @author Philipp Daniels<philipp.daniels@gmail.com>
  *
@@ -22,4 +24,13 @@ public interface IModelFabric {
      * @return IGrid
      */
     IGrid createGrid(IPlayer player);
+
+
+    /**
+     * Create an instance of an IShip implementation.
+     * @param player IPlayer
+     * @param cells  List of cells of the ship.
+     * @return IShip
+     */
+    IShip createShip(IPlayer player, Map<String, ICell> cells);
 }
