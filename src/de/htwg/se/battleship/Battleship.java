@@ -1,13 +1,12 @@
 package de.htwg.se.battleship;
 
-import java.util.Scanner;
 
 import org.apache.log4j.PropertyConfigurator;
 
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+
 import de.htwg.se.battleship.aview.tui.TextUI;
-import de.htwg.se.battleship.aview.tui.menu.MainMenu;
-import de.htwg.se.battleship.controller.IController;
-import de.htwg.se.battleship.controller.impl.Controller;
 
 /**
  * Initial class to start java program
@@ -35,8 +34,12 @@ public final class Battleship {
      */
     private Battleship() {
         PropertyConfigurator.configure("log4j.properties");
-        IController controller = new Controller();
-        new TextUI(controller, new Scanner(System.in), new MainMenu(controller).get());
+
+        Injector injector = Guice.createInjector(new BattleshipModule());
+
+        injector.getInstance(TextUI.class);
+
+        System.exit(0);
     }
 
     /**

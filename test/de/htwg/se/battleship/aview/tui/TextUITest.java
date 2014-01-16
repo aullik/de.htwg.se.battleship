@@ -20,6 +20,21 @@ public class TextUITest {
 
     private TestAppender testAppender;
 
+    private class TestClass implements IScannerFactory {
+
+        private final Scanner scanner;
+
+        public TestClass(StringBuilder sb) throws UnsupportedEncodingException {
+            scanner = new Scanner(new ByteArrayInputStream(sb.toString().getBytes("UTF-8")));
+        }
+
+        @Override
+        public Scanner getScanner() {
+            return scanner;
+        }
+
+    }
+
     @Before
     public void setUp() {
         testAppender = new TestAppender();
@@ -33,9 +48,9 @@ public class TextUITest {
         sb.append(Close.CMD);
         sb.append(System.getProperty("line.separator"));
 
-        Scanner scanner = new Scanner(new ByteArrayInputStream(sb.toString().getBytes("UTF-8")));
+        IScannerFactory f = new TestClass(sb);
         IController c = new Controller();
-        new TextUI(c, scanner, new MainMenu(c).get());
+        new TextUI(c, f, new MainMenu(c));
 
         String log = testAppender.getLog().toString();
         assertTrue(log.contains(TextUI.MSG_EXIT));
@@ -51,9 +66,9 @@ public class TextUITest {
         sb.append(Close.CMD);
         sb.append(System.getProperty("line.separator"));
 
-        Scanner scanner = new Scanner(new ByteArrayInputStream(sb.toString().getBytes("UTF-8")));
+        IScannerFactory f = new TestClass(sb);
         IController c = new Controller();
-        new TextUI(c, scanner, new MainMenu(c).get());
+        new TextUI(c, f, new MainMenu(c));
 
         String log = testAppender.getLog().toString();
         assertTrue(log.contains(String.format(TextUI.MSG_DEFAULT_MENU, s)));

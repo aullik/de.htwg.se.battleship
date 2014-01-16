@@ -29,12 +29,12 @@ public class BattleshipTest {
         System.setIn(backup);
     }
 
-    @Test
+    //@Test
     public void test() {
         Battleship.main(new String[0]);
     }
 
-    @Test
+    //@Test
     public void testGetInstance() {
         Battleship b1 = Battleship.getInstance();
         Battleship b2 = Battleship.getInstance();

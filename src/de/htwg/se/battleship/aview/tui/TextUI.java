@@ -1,10 +1,9 @@
 package de.htwg.se.battleship.aview.tui;
 
 import java.util.Map;
-import java.util.Scanner;
 
-
-
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
 import de.htwg.se.battleship.controller.ControllerFactory;
 import de.htwg.se.battleship.controller.IController;
@@ -17,6 +16,7 @@ import de.htwg.se.battleship.controller.event.InitGame;
  * 
  * @author aullik
  */
+@Singleton
 public class TextUI extends UserInterface  {
 
     public static final String MSG_INPUT_NOTE   = "Please choice a menu: ";
@@ -31,11 +31,12 @@ public class TextUI extends UserInterface  {
     /**
      * @param controller controller to observe
      */
-    public TextUI(IController controller, Scanner scanner, Map<String, IMenuEntry> menu) {
-        super(scanner);
+    @Inject
+    public TextUI(IController controller, IScannerFactory sf, IMenu menu) {
+        super(sf.getScanner());
         controller.addObserver(this);
 
-        this.menu = menu;
+        this.menu = menu.get();
 
         getLogger().info(header());
         processInput();
@@ -59,10 +60,6 @@ public class TextUI extends UserInterface  {
             getLogger().info(String.format(MSG_DEFAULT_MENU, input));
         } else {
             e.action();
-        }
-
-        if (!getScanner().hasNextLine()) {
-            process = false;
         }
 
     }
