@@ -35,7 +35,20 @@ public class InitGameUITest {
         public void player(String p1, String p2) {
             ping = true;
         }
+    }
 
+    private class TestFactory implements IScannerFactory {
+
+        private final Scanner scanner;
+
+        public TestFactory(StringBuilder sb) throws UnsupportedEncodingException {
+            this.scanner = new Scanner(new ByteArrayInputStream(sb.toString().getBytes("UTF-8")));
+        }
+
+        @Override
+        public Scanner getScanner() {
+            return scanner;
+        }
     }
 
     private TestAppender testAppender;
@@ -48,8 +61,8 @@ public class InitGameUITest {
     }
 
     private void ui(StringBuilder sb) throws UnsupportedEncodingException {
-        Scanner scanner = new Scanner(new ByteArrayInputStream(sb.toString().getBytes("UTF-8")));
-        InitGameUI ui = new InitGameUI(new TestClass(), scanner);
+        IScannerFactory f = new TestFactory(sb);
+        InitGameUI ui = new InitGameUI(new TestClass(), f);
         ui.update(new SetPlayer());
     }
 

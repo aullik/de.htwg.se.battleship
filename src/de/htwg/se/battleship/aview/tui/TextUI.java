@@ -9,7 +9,6 @@ import de.htwg.se.battleship.controller.IController;
 import de.htwg.se.battleship.controller.IInitGameController;
 import de.htwg.se.battleship.controller.event.CloseProgamm;
 import de.htwg.se.battleship.controller.event.InitGame;
-import de.htwg.se.battleship.controller.impl.ControllerFactory;
 
 /**
  * Text User Interface is an Observer
@@ -25,18 +24,23 @@ public class TextUI extends UserInterface  {
 
 
     private final Map<String, IMenuEntry> menu;
-
+    private final IInitGameController igc;
     private boolean process = true;
 
     /**
      * @param controller controller to observe
      */
     @Inject
-    public TextUI(IController controller, IScannerFactory sf, IMenu menu) {
+    public TextUI(IController controller, IScannerFactory sf, IMenu menu, IInitGameController igc, IInitGameUI ui) {
         super(sf.getScanner());
         controller.addObserver(this);
 
         this.menu = menu.get();
+        this.igc = igc;
+
+        if (ui == null) {
+            throw new IllegalArgumentException(IInitGameUI.class + " cannot be empty");
+        }
 
         getLogger().info(header());
         processInput();
@@ -79,9 +83,7 @@ public class TextUI extends UserInterface  {
      * @param e InitGame
      */
     public void update(InitGame e) {
-        IInitGameController c = ControllerFactory.createIInitGameController();
-        new InitGameUI(c, getScanner());
-        c.init();
+        igc.init();
     }
 
 

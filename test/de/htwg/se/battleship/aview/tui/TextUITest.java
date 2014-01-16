@@ -1,6 +1,7 @@
 package de.htwg.se.battleship.aview.tui;
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 import java.io.ByteArrayInputStream;
 import java.io.UnsupportedEncodingException;
@@ -13,7 +14,11 @@ import org.junit.Test;
 import de.htwg.se.battleship.aview.tui.menu.MainMenu;
 import de.htwg.se.battleship.aview.tui.menuentry.Close;
 import de.htwg.se.battleship.controller.IController;
+import de.htwg.se.battleship.controller.IInitGameController;
+import de.htwg.se.battleship.controller.event.InitGame;
+import de.htwg.se.battleship.controller.event.SetPlayer;
 import de.htwg.se.battleship.controller.impl.Controller;
+import de.htwg.se.battleship.util.observer.Observable;
 
 
 public class TextUITest {
@@ -32,11 +37,31 @@ public class TextUITest {
         public Scanner getScanner() {
             return scanner;
         }
+    }
 
+    private boolean ping;
+
+    private class TestController extends Observable implements IInitGameController {
+
+        @Override
+        public void init() {
+            ping = true;
+        }
+
+        @Override
+        public void player(String p1, String p2) {}
+
+    }
+
+    private class TestUi implements IInitGameUI {
+        @Override
+        public void update(SetPlayer e) {}
     }
 
     @Before
     public void setUp() {
+        ping = false;
+
         testAppender = new TestAppender();
         Logger.getRootLogger().removeAllAppenders();
         Logger.getRootLogger().addAppender(testAppender);
@@ -50,10 +75,14 @@ public class TextUITest {
 
         IScannerFactory f = new TestClass(sb);
         IController c = new Controller();
-        new TextUI(c, f, new MainMenu(c));
+        TextUI t = new TextUI(c, f, new MainMenu(c), new TestController(), new TestUi());
 
         String log = testAppender.getLog().toString();
         assertTrue(log.contains(TextUI.MSG_EXIT));
+
+        assertFalse(ping);
+        t.update(new InitGame());
+        assertTrue(ping);
     }
 
     @Test
@@ -68,10 +97,21 @@ public class TextUITest {
 
         IScannerFactory f = new TestClass(sb);
         IController c = new Controller();
-        new TextUI(c, f, new MainMenu(c));
+        new TextUI(c, f, new MainMenu(c), null, new TestUi());
 
         String log = testAppender.getLog().toString();
         assertTrue(log.contains(String.format(TextUI.MSG_DEFAULT_MENU, s)));
         assertTrue(log.contains(TextUI.MSG_EXIT));
+    }
+
+    @Test(expected=IllegalArgumentException.class)
+    public void testException() throws UnsupportedEncodingException  {
+        StringBuilder sb = new StringBuilder();
+        sb.append(Close.CMD);
+        sb.append(System.getProperty("line.separator"));
+
+        IScannerFactory f = new TestClass(sb);
+        IController c = new Controller();
+        new TextUI(c, f, new MainMenu(c), new TestController(), null);
     }
 }

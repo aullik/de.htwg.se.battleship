@@ -3,6 +3,8 @@
  */
 package de.htwg.se.battleship.controller.impl;
 
+import com.google.inject.Singleton;
+
 import de.htwg.se.battleship.controller.IInitGameController;
 import de.htwg.se.battleship.controller.event.SetPlayer;
 import de.htwg.se.battleship.controller.event.SetShips;
@@ -12,6 +14,7 @@ import de.htwg.se.battleship.util.observer.Observable;
  * @author Philipp Daniels<philipp.daniels@gmail.com>
  *
  */
+@Singleton
 public class InitGameController extends Observable implements IInitGameController {
 
     public static final String MSG_PLAYER_EMPTY = "Player %s name is empty";

@@ -4,7 +4,7 @@
 package de.htwg.se.battleship.aview.tui;
 
 
-import java.util.Scanner;
+import com.google.inject.Inject;
 
 import de.htwg.se.battleship.controller.IInitGameController;
 import de.htwg.se.battleship.controller.event.SetPlayer;
@@ -14,7 +14,7 @@ import de.htwg.se.battleship.controller.impl.InitGameController;
  * @author Philipp Daniels<philipp.daniels@gmail.com>
  *
  */
-public class InitGameUI extends UserInterface {
+public class InitGameUI extends UserInterface implements IInitGameUI {
 
     private final IInitGameController controller;
 
@@ -25,17 +25,15 @@ public class InitGameUI extends UserInterface {
     /**
      * 
      */
-    public InitGameUI(IInitGameController controller, Scanner scanner) {
-        super(scanner);
+    @Inject
+    public InitGameUI(IInitGameController controller, IScannerFactory sf) {
+        super(sf.getScanner());
 
         this.controller = controller;
         controller.addObserver(this);
     }
 
-    /**
-     * Read input for new player
-     * @param e SetPlayer
-     */
+    @Override
     public void update(SetPlayer e) {
 
         getLogger().info(header());
