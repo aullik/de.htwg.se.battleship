@@ -69,8 +69,8 @@ public class CellTest {
 
         HashMap<String, ICell> map1 = new HashMap<String, ICell>();
         map1.put(Cell.createKey(c1.getX(), c1.getY()), c1);
-        Ship s1 = new Ship(p, map1);
         assertNull(c1.getShip());
+        Ship s1 = new Ship(p, map1);
         c1.setShip(s1);
         assertEquals(c1.getShip(), s1);
 
