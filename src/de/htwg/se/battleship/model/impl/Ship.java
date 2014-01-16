@@ -17,6 +17,8 @@ import de.htwg.se.battleship.model.IShip;
  */
 public class Ship implements IShip {
 
+    public static final int NUMBER_OF_CELLS = 30;
+
     private final Map<String, ICell> cells;
     private IPlayer player;
 
