@@ -1,13 +1,14 @@
 /**
  * 
  */
-package de.htwg.se.battleship.controller;
+package de.htwg.se.battleship.controller.impl;
 
 import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import de.htwg.se.battleship.controller.IInitGameController;
 import de.htwg.se.battleship.controller.event.SetPlayer;
 import de.htwg.se.battleship.controller.event.SetShips;
 import de.htwg.se.battleship.controller.impl.InitGameController;

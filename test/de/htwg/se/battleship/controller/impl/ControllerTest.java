@@ -1,9 +1,10 @@
-package de.htwg.se.battleship.controller;
+package de.htwg.se.battleship.controller.impl;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import de.htwg.se.battleship.controller.IController;
 import de.htwg.se.battleship.controller.event.CloseProgamm;
 import de.htwg.se.battleship.controller.event.InitGame;
 import de.htwg.se.battleship.controller.impl.Controller;
