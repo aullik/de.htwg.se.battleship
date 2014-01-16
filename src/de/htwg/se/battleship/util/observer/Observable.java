@@ -1,5 +1,7 @@
 package de.htwg.se.battleship.util.observer;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -57,7 +59,10 @@ public class Observable implements IObservable {
                 Method update = observer.getClass().getMethod("update", e.getClass());
                 update.invoke(observer, e);
             } catch (InvocationTargetException e1) {
-                logger.error(e1.getStackTrace());
+                StringWriter sw = new StringWriter();
+                PrintWriter pw = new PrintWriter(sw);
+                e1.printStackTrace(pw);
+                logger.error(sw.toString());
             } catch (Exception e1) {
                 observer.update(e);
             }
