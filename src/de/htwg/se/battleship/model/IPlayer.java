@@ -13,38 +13,44 @@ package de.htwg.se.battleship.model;
 public interface IPlayer {
 
     /**
-     * Returns the Player name
+     * Returns the IPlayer name
      * 
-     * @return Player name
+     * @return IPlayer name
      */
     String getName();
 
     /**
-     * Add new Ship instance to Player and set Player at Ship (1:n relationship)
+     * Add new IShip instance to IPlayer and set IPlayer at IShip (1:n relationship)
      * 
-     * @param ship Instance of Ship
+     * @param ship Instance of IShip
      */
     void addShip(final IShip ship);
 
     /**
-     * Returns true, when Player has already an instance of this Ship.
+     * Returns true, when IPlayer has already an instance of this IShip.
      * 
-     * @param ship Instance of Ship
+     * @param ship Instance of IShip
      * @return True/False
      */
     boolean containsShip(final IShip ship);
 
     /**
-     * Set relation between Grid and Player
+     * Set relation between IGrid and IPlayer
      * 
-     * @param grid Instance of Grid
+     * @param grid Instance of IGrid
      */
     void setGrid(final IGrid grid);
 
     /**
-     * Returns an instance of the player's grid
+     * Returns an instance of the IPlayer IGrid
      * 
-     * @return Instance of Grid
+     * @return Instance of IGrid
      */
     IGrid getGrid();
+
+    /**
+     * Return the number of fields for all IShip of an IPlayer
+     * @return int
+     */
+    int getNumberOfShipCells();
 }

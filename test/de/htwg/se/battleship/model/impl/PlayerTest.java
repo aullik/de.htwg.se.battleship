@@ -51,12 +51,14 @@ public class PlayerTest {
         Ship s1 = new Ship(p1, map);
         p1.addShip(s1);
         assertTrue(p1.containsShip(s1));
+        assertEquals(0, p1.getNumberOfShipCells());
 
-
+        map.put(Cell.createKey(1, 1), new Cell(1, 1, new Grid(Grid.DEFAULT_SIZE, p1)));
         Ship s2 = new Ship(p1, map);
         assertTrue(p1.containsShip(s2));
         p1.addShip(s2);
         assertTrue(p1.containsShip(s1));
+        assertEquals(1, p1.getNumberOfShipCells());
     }
 
     @Test

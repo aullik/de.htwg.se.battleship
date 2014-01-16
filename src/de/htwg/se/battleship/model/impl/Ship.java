@@ -63,4 +63,9 @@ public class Ship implements IShip {
 
         return cell;
     }
+
+    @Override
+    public int getNumberOfCells() {
+        return cells.size();
+    }
 }
