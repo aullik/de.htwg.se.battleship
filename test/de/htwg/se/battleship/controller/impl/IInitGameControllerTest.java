@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import de.htwg.se.battleship.controller.IInitGameController;
 import de.htwg.se.battleship.controller.event.SetPlayer;
+import de.htwg.se.battleship.controller.event.SetPlayerSuccess;
 import de.htwg.se.battleship.controller.event.SetShip;
 import de.htwg.se.battleship.controller.impl.InitGameController;
 import de.htwg.se.battleship.model.impl.ModelFabric;
@@ -22,21 +23,25 @@ import de.htwg.se.battleship.util.observer.IObserver;
  */
 public class IInitGameControllerTest {
 
-    private int check = 0;
+    private boolean setPlayer;
+    private boolean setShip;
+    private boolean setPlayerSuccess;
 
     public class TestClass implements IObserver {
 
         @Override
-        public void update(Event e) {
-            check = 1;
-        }
+        public void update(Event e) {}
 
         public void update(SetPlayer e) {
-            check = 2;
+            setPlayer = true;
+        }
+
+        public void update(SetPlayerSuccess e) {
+            setPlayerSuccess = true;
         }
 
         public void update(SetShip e) {
-            check = 3;
+            setShip = true;
         }
 
     }
@@ -45,23 +50,34 @@ public class IInitGameControllerTest {
 
     @Before
     public void setUp() {
+        setPlayer = false;
+        setShip = false;
+        setPlayerSuccess = false;
         c = new InitGameController(new ModelFabric());
         c.addObserver(new TestClass());
     }
 
     @Test
     public void testInit() {
-        assertEquals(0, check);
+        assertFalse(setPlayer);
+        assertFalse(setPlayerSuccess);
+        assertFalse(setShip);
         c.init();
-        assertEquals(2, check);
+        assertTrue(setPlayer);
+        assertFalse(setPlayerSuccess);
+        assertTrue(setShip);
     }
 
 
     @Test
     public void testPlayer() {
-        assertEquals(0, check);
+        assertFalse(setPlayer);
+        assertFalse(setPlayerSuccess);
+        assertFalse(setShip);
         c.player("test1", "test2");
-        assertEquals(3, check);
+        assertFalse(setPlayer);
+        assertTrue(setPlayerSuccess);
+        assertFalse(setShip);
     }
 
     @Test(expected=IllegalArgumentException.class)
@@ -72,6 +88,11 @@ public class IInitGameControllerTest {
     @Test(expected=IllegalArgumentException.class)
     public void testPlayerNull() {
         c.player("test1", null);
+    }
+
+    @Test
+    public void testShip() {
+        c.ship(0, 0, 1, 1);
     }
 
 }

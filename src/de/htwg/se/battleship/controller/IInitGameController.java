@@ -22,4 +22,13 @@ public interface IInitGameController extends IObservable {
      * @param p2 Name of player two
      */
     void player(String p1, String p2);
+
+    /**
+     * Create instance of IShip implementation and add to IPlayer.
+     * @param startX  X-position of start point
+     * @param startY  Y-position of start point
+     * @param endX    X-position of end point
+     * @param endY    Y-position of end point
+     */
+    void ship(int startX, int startY, int endX, int endY);
 }

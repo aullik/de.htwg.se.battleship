@@ -35,6 +35,9 @@ public class InitGameUITest {
         public void player(String p1, String p2) {
             ping = true;
         }
+
+        @Override
+        public void ship(int startX, int startY, int endX, int endY) {}
     }
 
     private class TestFactory implements IScannerFactory {

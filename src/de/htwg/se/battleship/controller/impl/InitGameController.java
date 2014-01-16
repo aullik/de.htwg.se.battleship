@@ -8,6 +8,7 @@ import com.google.inject.Singleton;
 
 import de.htwg.se.battleship.controller.IInitGameController;
 import de.htwg.se.battleship.controller.event.SetPlayer;
+import de.htwg.se.battleship.controller.event.SetPlayerSuccess;
 import de.htwg.se.battleship.controller.event.SetShip;
 import de.htwg.se.battleship.model.IGrid;
 import de.htwg.se.battleship.model.IModelFabric;
@@ -41,6 +42,7 @@ public class InitGameController extends Observable implements IInitGameControlle
     @Override
     public void init() {
         notifyObservers(new SetPlayer());
+        notifyObservers(new SetShip(round));
     }
 
     @Override
@@ -55,7 +57,7 @@ public class InitGameController extends Observable implements IInitGameControlle
         IGrid g2 = fabric.createGrid(player2);
         round = fabric.createRound(g1, g2);
 
-        notifyObservers(new SetShip(round));
+        notifyObservers(new SetPlayerSuccess(round));
     }
 
     private void checkEmpty(String s, String message) {
@@ -63,5 +65,10 @@ public class InitGameController extends Observable implements IInitGameControlle
             //TODO should not be done with an exception, because only requested TUI gets it
             throw new IllegalArgumentException(message);
         }
+    }
+
+    @Override
+    public void ship(int startX, int startY, int endX, int endY) {
+
     }
 }
