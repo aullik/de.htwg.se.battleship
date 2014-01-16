@@ -6,7 +6,6 @@ package de.htwg.se.battleship.controller.impl;
 import de.htwg.se.battleship.controller.IController;
 import de.htwg.se.battleship.controller.event.CloseProgamm;
 import de.htwg.se.battleship.controller.event.InitGame;
-import de.htwg.se.battleship.controller.factory.ControllerFactory;
 import de.htwg.se.battleship.util.observer.Observable;
 
 /**
@@ -17,7 +16,7 @@ public class Controller extends Observable implements IController {
 
     @Override
     public void newGame() {
-        notifyObservers(new InitGame(new ControllerFactory()));
+        notifyObservers(new InitGame());
     }
 
     @Override

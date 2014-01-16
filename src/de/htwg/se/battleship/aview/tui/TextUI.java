@@ -5,6 +5,8 @@ import java.util.Scanner;
 
 
 
+
+import de.htwg.se.battleship.controller.ControllerFactory;
 import de.htwg.se.battleship.controller.IController;
 import de.htwg.se.battleship.controller.IInitGameController;
 import de.htwg.se.battleship.controller.event.CloseProgamm;
@@ -80,7 +82,7 @@ public class TextUI extends UserInterface  {
      * @param e InitGame
      */
     public void update(InitGame e) {
-        IInitGameController c = e.getFactory().createIInitGameController();
+        IInitGameController c = ControllerFactory.createIInitGameController();
         new InitGameUI(c, getScanner());
         c.init();
     }
