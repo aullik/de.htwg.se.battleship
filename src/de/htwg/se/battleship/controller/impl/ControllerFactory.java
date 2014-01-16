@@ -1,9 +1,9 @@
 /**
  * 
  */
-package de.htwg.se.battleship.controller;
+package de.htwg.se.battleship.controller.impl;
 
-import de.htwg.se.battleship.controller.impl.InitGameController;
+import de.htwg.se.battleship.controller.IInitGameController;
 
 /**
  * @author Philipp Daniels<philipp.daniels@gmail.com>

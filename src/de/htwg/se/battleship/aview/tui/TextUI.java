@@ -5,11 +5,11 @@ import java.util.Map;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
-import de.htwg.se.battleship.controller.ControllerFactory;
 import de.htwg.se.battleship.controller.IController;
 import de.htwg.se.battleship.controller.IInitGameController;
 import de.htwg.se.battleship.controller.event.CloseProgamm;
 import de.htwg.se.battleship.controller.event.InitGame;
+import de.htwg.se.battleship.controller.impl.ControllerFactory;
 
 /**
  * Text User Interface is an Observer
