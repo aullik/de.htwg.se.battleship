@@ -11,6 +11,7 @@ import de.htwg.se.battleship.model.ICell;
 import de.htwg.se.battleship.model.IGrid;
 import de.htwg.se.battleship.model.IModelFabric;
 import de.htwg.se.battleship.model.IPlayer;
+import de.htwg.se.battleship.model.IRound;
 import de.htwg.se.battleship.model.IShip;
 
 public class ModelFabricTest {
@@ -31,6 +32,9 @@ public class ModelFabricTest {
         map.put(Cell.createKey(c.getX(), c.getY()), c);
         IShip s = fab.createShip(p, map);
         assertEquals(p, s.getPlayer());
+
+        IRound r = fab.createRound(g, null);
+        assertEquals(g, r.getGrid());
     }
 
 }

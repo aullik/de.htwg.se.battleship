@@ -33,4 +33,13 @@ public interface IModelFabric {
      * @return IShip
      */
     IShip createShip(IPlayer player, Map<String, ICell> cells);
+
+    /**
+     * Create an instance of an IRound implementation.
+     * @param g1 IGrid
+     * @param g2 IGrid
+     * @return IRound
+     */
+    IRound createRound(IGrid g1, IGrid g2);
+
 }
