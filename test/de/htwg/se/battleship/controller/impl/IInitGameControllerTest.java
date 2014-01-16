@@ -10,7 +10,7 @@ import org.junit.Test;
 
 import de.htwg.se.battleship.controller.IInitGameController;
 import de.htwg.se.battleship.controller.event.SetPlayer;
-import de.htwg.se.battleship.controller.event.SetShips;
+import de.htwg.se.battleship.controller.event.SetShip;
 import de.htwg.se.battleship.controller.impl.InitGameController;
 import de.htwg.se.battleship.model.impl.ModelFabric;
 import de.htwg.se.battleship.util.observer.Event;
@@ -35,7 +35,7 @@ public class IInitGameControllerTest {
             check = 2;
         }
 
-        public void update(SetShips e) {
+        public void update(SetShip e) {
             check = 3;
         }
 

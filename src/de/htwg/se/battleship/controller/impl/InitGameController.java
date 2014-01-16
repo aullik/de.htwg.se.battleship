@@ -8,7 +8,7 @@ import com.google.inject.Singleton;
 
 import de.htwg.se.battleship.controller.IInitGameController;
 import de.htwg.se.battleship.controller.event.SetPlayer;
-import de.htwg.se.battleship.controller.event.SetShips;
+import de.htwg.se.battleship.controller.event.SetShip;
 import de.htwg.se.battleship.model.IGrid;
 import de.htwg.se.battleship.model.IModelFabric;
 import de.htwg.se.battleship.model.IPlayer;
@@ -49,7 +49,7 @@ public class InitGameController extends Observable implements IInitGameControlle
         grids[0] = fabric.createGrid(player1);
         grids[1] = fabric.createGrid(player2);
 
-        notifyObservers(new SetShips());
+        notifyObservers(new SetShip());
     }
 
     private void checkEmpty(String s, String message) {

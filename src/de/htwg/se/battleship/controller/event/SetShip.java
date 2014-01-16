@@ -9,6 +9,6 @@ import de.htwg.se.battleship.util.observer.Event;
  * @author Philipp Daniels<philipp.daniels@gmail.com>
  *
  */
-public class SetShips implements Event {
+public class SetShip implements Event {
 
 }
