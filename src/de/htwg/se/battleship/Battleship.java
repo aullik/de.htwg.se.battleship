@@ -38,8 +38,6 @@ public final class Battleship {
         Injector injector = Guice.createInjector(new BattleshipModule());
 
         injector.getInstance(TextUI.class);
-
-        System.exit(0);
     }
 
     /**
