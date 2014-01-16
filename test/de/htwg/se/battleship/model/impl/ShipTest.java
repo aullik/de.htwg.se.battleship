@@ -1,7 +1,7 @@
 /**
  * 
  */
-package de.htwg.se.battleship.model;
+package de.htwg.se.battleship.model.impl;
 
 import static org.junit.Assert.*;
 
