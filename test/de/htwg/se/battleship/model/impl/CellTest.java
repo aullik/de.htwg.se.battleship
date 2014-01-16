@@ -5,9 +5,13 @@ package de.htwg.se.battleship.model.impl;
 
 import static org.junit.Assert.*;
 
+import java.util.HashMap;
+
 import org.junit.Before;
 import org.junit.Test;
 
+import de.htwg.se.battleship.model.ICell;
+import de.htwg.se.battleship.model.IPlayer;
 import de.htwg.se.battleship.model.impl.Cell;
 import de.htwg.se.battleship.model.impl.Grid;
 import de.htwg.se.battleship.model.impl.Player;
@@ -61,12 +65,18 @@ public class CellTest {
 
     @Test
     public void testShip() {
-        Ship s1 = new Ship();
+        IPlayer p = new Player("test");
+
+        HashMap<String, ICell> map1 = new HashMap<String, ICell>();
+        map1.put(Cell.createKey(c1.getX(), c1.getY()), c1);
+        Ship s1 = new Ship(p, map1);
         assertNull(c1.getShip());
         c1.setShip(s1);
         assertEquals(c1.getShip(), s1);
 
-        Ship s2 = new Ship();
+        HashMap<String, ICell> map2 = new HashMap<String, ICell>();
+        map1.put(Cell.createKey(c2.getX(), c2.getY()), c2);
+        Ship s2 = new Ship(p, map2);
         assertNull(c2.getShip());
         c2.setShip(s2);
         assertEquals(c2.getShip(), s2);

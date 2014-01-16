@@ -41,7 +41,6 @@ public class Player implements IPlayer {
     public void addShip(final IShip ship) {
         if (!containsShip(ship)) {
             ships.add(ship);
-            ship.setPlayer(this);
         }
     }
 

@@ -23,27 +23,31 @@ public class Ship implements IShip {
     /**
      * Create an instance of Ship and add a Map for Cell instances
      */
-    public Ship() {
+    public Ship(final IPlayer player, Map<String, ICell> cells) {
         this.cells = new HashMap<String, ICell>();
+
+        for (ICell cell : cells.values()) {
+            addCell(cell);
+        }
+
+        setPlayer(player);
     }
 
-    @Override
-    public void setPlayer(final IPlayer player) {
+    private void setPlayer(final IPlayer player) {
         this.player = player;
         player.addShip(this);
+    }
+
+    private void addCell(final ICell cell) {
+        if (!cells.containsKey(cell.getKey())) {
+            cells.put(cell.getKey(), cell);
+            cell.setShip(this);
+        }
     }
 
     @Override
     public IPlayer getPlayer() {
         return player;
-    }
-
-    @Override
-    public void addCell(final ICell cell) {
-        if (!cells.containsKey(cell.getKey())) {
-            cells.put(cell.getKey(), cell);
-            cell.setShip(this);
-        }
     }
 
     @Override

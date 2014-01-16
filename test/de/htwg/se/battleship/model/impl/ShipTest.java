@@ -5,9 +5,11 @@ package de.htwg.se.battleship.model.impl;
 
 import static org.junit.Assert.*;
 
-import org.junit.Before;
+import java.util.HashMap;
+
 import org.junit.Test;
 
+import de.htwg.se.battleship.model.ICell;
 import de.htwg.se.battleship.model.impl.Cell;
 import de.htwg.se.battleship.model.impl.Grid;
 import de.htwg.se.battleship.model.impl.Player;
@@ -19,41 +21,18 @@ import de.htwg.se.battleship.model.impl.Ship;
  */
 public class ShipTest {
 
-    private Ship s;
-
-    /**
-     * @throws java.lang.Exception
-     */
-    @Before
-    public void setUp() throws Exception {
-        s = new Ship();
-    }
-
     @Test
     public void testPlayer() {
-        Player p1 = new Player("test1");
-        assertNull(s.getPlayer());
-        s.setPlayer(p1);
-        assertEquals(p1, s.getPlayer());
 
-        Player p2 = new Player("test2");
-        s.setPlayer(p2);
-        assertEquals(p2, s.getPlayer());
-    }
+        Player p = new Player("test1");
+        Cell c = new Cell(1, 1, new Grid(Grid.DEFAULT_SIZE, p));
 
-    @Test
-    public void testCell() {
-        Cell c1 = new Cell(1, 2, new Grid(1, new Player("")));
-        assertNull(s.getCell(c1.getX(), c1.getY()));
-        s.addCell(c1);
-        assertEquals(c1, s.getCell(c1.getX(), c1.getY()));
+        HashMap<String, ICell> map = new HashMap<String, ICell>();
+        map.put(Cell.createKey(c.getX(), c.getY()), c);
 
-        Cell c2 = new Cell(2, 3, new Grid(1, new Player("")));
-        assertNull(s.getCell(c2.getX(), c2.getY()));
-        s.addCell(c2);
-        assertEquals(c2, s.getCell(c2.getX(), c2.getY()));
+        Ship s = new Ship(p, map);
 
-
-        assertEquals(c1, s.getCell(c1.getX(), c1.getY()));
+        assertEquals(p, s.getPlayer());
+        assertEquals(c, s.getCell(c.getX(), c.getY()));
     }
 }
