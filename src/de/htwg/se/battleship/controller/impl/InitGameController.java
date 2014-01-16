@@ -12,6 +12,7 @@ import de.htwg.se.battleship.controller.event.SetShip;
 import de.htwg.se.battleship.model.IGrid;
 import de.htwg.se.battleship.model.IModelFabric;
 import de.htwg.se.battleship.model.IPlayer;
+import de.htwg.se.battleship.model.IRound;
 import de.htwg.se.battleship.util.observer.Observable;
 
 /**
@@ -26,7 +27,12 @@ public class InitGameController extends Observable implements IInitGameControlle
     public static final String P2               = "two";
 
     private final IModelFabric fabric;
+    private IRound round;
 
+    /**
+     * Create InitGameController with an instance of IModelFabric.
+     * @param fabric IModelFabric
+     */
     @Inject
     public InitGameController(IModelFabric fabric) {
         this.fabric = fabric;
@@ -45,11 +51,11 @@ public class InitGameController extends Observable implements IInitGameControlle
         IPlayer player1 = fabric.createPlayer(p1);
         IPlayer player2 = fabric.createPlayer(p2);
 
-        IGrid[] grids = new IGrid[2];
-        grids[0] = fabric.createGrid(player1);
-        grids[1] = fabric.createGrid(player2);
+        IGrid g1 = fabric.createGrid(player1);
+        IGrid g2 = fabric.createGrid(player2);
+        round = fabric.createRound(g1, g2);
 
-        notifyObservers(new SetShip());
+        notifyObservers(new SetShip(round));
     }
 
     private void checkEmpty(String s, String message) {

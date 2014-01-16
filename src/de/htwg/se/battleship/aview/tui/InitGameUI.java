@@ -20,8 +20,9 @@ public class InitGameUI extends UserInterface implements IInitGameUI {
     private final IInitGameController controller;
 
     public static final String MSG_INPUT_NOTE   = "Name for player %s (default: Player %s): ";
-    public static final String MSG_NAME_NOTE    = "Great player %s your name is '%s'!";
+    public static final String MSG_NAME_NOTE    = "Great player %s your name is '%s'!%n";
     public static final String DEFAULT_NAME     = "Player %d";
+    public static final String MSG_WELCOME      = "Hallo '%s'. It's your turn!";
 
     /**
      * 
@@ -60,7 +61,9 @@ public class InitGameUI extends UserInterface implements IInitGameUI {
 
     @Override
     public void update(SetShip e) {
-        getLogger().info("awesome");
+        getLogger().info(header());
+
+        getLogger().info(String.format(MSG_WELCOME, e.getRound().getGrid().getPlayer().getName()));
     }
 
 }
