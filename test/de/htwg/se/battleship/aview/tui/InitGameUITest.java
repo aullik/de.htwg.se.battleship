@@ -60,14 +60,14 @@ public class InitGameUITest {
         Logger.getRootLogger().addAppender(testAppender);
     }
 
-    private void ui(StringBuilder sb) throws UnsupportedEncodingException {
+    private void uiPlayer(StringBuilder sb) throws UnsupportedEncodingException {
         IScannerFactory f = new TestFactory(sb);
         InitGameUI ui = new InitGameUI(new TestClass(), f);
         ui.update(new SetPlayer());
     }
 
     @Test
-    public void test() throws UnsupportedEncodingException {
+    public void testPlayer() throws UnsupportedEncodingException {
 
         String p1 = "1337";
         String p2 = "test player 2";
@@ -79,45 +79,37 @@ public class InitGameUITest {
         sb.append(System.getProperty("line.separator"));
 
         assertFalse(ping);
-        ui(sb);
+        uiPlayer(sb);
         assertTrue(ping);
 
         String log = testAppender.getLog();
 
-        assertTrue(log.contains(String.format(InitGameUI.MSG_INPUT_NOTE, InitGameController.P1)));
-        assertTrue(log.contains(String.format(InitGameUI.MSG_INPUT_NOTE, InitGameController.P2)));
+        assertTrue(log.contains(String.format(InitGameUI.MSG_INPUT_NOTE, InitGameController.P1, 1)));
+        assertTrue(log.contains(String.format(InitGameUI.MSG_INPUT_NOTE, InitGameController.P2, 2)));
 
         assertTrue(log.contains(String.format(InitGameUI.MSG_NAME_NOTE, InitGameController.P1, p1)));
         assertTrue(log.contains(String.format(InitGameUI.MSG_NAME_NOTE, InitGameController.P2, p2)));
-        assertFalse(log.contains(InitGameUI.MSG_INPUT_EMPTY));
     }
 
 
     @Test
-    public void testEmptyInput() throws UnsupportedEncodingException {
-
-        String p1 = "nikolas";
-        String p2 = "philipp";
+    public void testPlayerEmptyInput() throws UnsupportedEncodingException {
 
         StringBuilder sb = new StringBuilder();
         sb.append(System.getProperty("line.separator"));
-        sb.append(p1);
-        sb.append(System.getProperty("line.separator"));
-        sb.append(p2);
         sb.append(System.getProperty("line.separator"));
 
         assertFalse(ping);
-        ui(sb);
+        uiPlayer(sb);
         assertTrue(ping);
 
         String log = testAppender.getLog();
 
-        assertTrue(log.contains(String.format(InitGameUI.MSG_INPUT_NOTE, InitGameController.P1)));
-        assertTrue(log.contains(String.format(InitGameUI.MSG_INPUT_NOTE, InitGameController.P2)));
+        assertTrue(log.contains(String.format(InitGameUI.MSG_INPUT_NOTE, InitGameController.P1, 1)));
+        assertTrue(log.contains(String.format(InitGameUI.MSG_INPUT_NOTE, InitGameController.P2, 2)));
 
-        assertTrue(log.contains(String.format(InitGameUI.MSG_NAME_NOTE, InitGameController.P1, p1)));
-        assertTrue(log.contains(String.format(InitGameUI.MSG_NAME_NOTE, InitGameController.P2, p2)));
-        assertTrue(log.contains(InitGameUI.MSG_INPUT_EMPTY));
+        assertTrue(log.contains(String.format(InitGameUI.MSG_NAME_NOTE, InitGameController.P1, String.format(InitGameUI.DEFAULT_NAME, 1))));
+        assertTrue(log.contains(String.format(InitGameUI.MSG_NAME_NOTE, InitGameController.P2, String.format(InitGameUI.DEFAULT_NAME, 2))));
     }
 
 }

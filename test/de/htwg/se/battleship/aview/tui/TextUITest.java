@@ -17,6 +17,7 @@ import de.htwg.se.battleship.controller.IController;
 import de.htwg.se.battleship.controller.IInitGameController;
 import de.htwg.se.battleship.controller.event.InitGame;
 import de.htwg.se.battleship.controller.event.SetPlayer;
+import de.htwg.se.battleship.controller.event.SetShips;
 import de.htwg.se.battleship.controller.impl.Controller;
 import de.htwg.se.battleship.util.observer.Observable;
 
@@ -56,6 +57,9 @@ public class TextUITest {
     private class TestUi implements IInitGameUI {
         @Override
         public void update(SetPlayer e) {}
+
+        @Override
+        public void update(SetShips e) {}
     }
 
     @Before
