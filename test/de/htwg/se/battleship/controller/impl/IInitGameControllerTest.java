@@ -90,9 +90,4 @@ public class IInitGameControllerTest {
         c.player("test1", null);
     }
 
-    @Test
-    public void testShip() {
-        c.ship(0, 0, 1, 1);
-    }
-
 }
