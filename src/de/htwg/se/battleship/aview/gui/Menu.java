@@ -272,12 +272,14 @@ public class Menu extends JPanel implements ActionListener, IObserver {
             gameState = GAMESTATE_SPGAME;
             parent.resetButtons();
             controller.newGame();
+            parent.initGamefield();
             return;
         }
         if (s == multiplayerButton) {
             gameState = GAMESTATE_MPGAME;
             parent.resetButtons();
             controller.newGame();
+            parent.initGamefield();
             return;
         }
         if (s == continueButton) {
@@ -308,7 +310,6 @@ public class Menu extends JPanel implements ActionListener, IObserver {
 
     @Override
     public void update(Event e) {
-        // TODO Auto-generated method stub
 
     }
 }

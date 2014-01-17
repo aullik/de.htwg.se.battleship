@@ -10,12 +10,14 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
+import java.util.List;
 
 import javax.swing.JPanel;
 
 import de.htwg.se.battleship.controller.IInitGameController;
 import de.htwg.se.battleship.controller.event.SetShip;
 import de.htwg.se.battleship.controller.event.SetShipSuccess;
+import de.htwg.se.battleship.model.ICell;
 import de.htwg.se.battleship.model.IPlayer;
 import de.htwg.se.battleship.util.observer.Event;
 import de.htwg.se.battleship.util.observer.IObserver;
@@ -28,7 +30,7 @@ import de.htwg.se.battleship.util.observer.IObserver;
 public class Gamefield extends JPanel implements MouseListener,
         MouseMotionListener, IObserver {
 
-    private final IPlayer       player;
+    private IPlayer             player;
     private Graphics2D          grid;
     private BufferedImage       backup;
     private BufferedImage       background;
@@ -47,10 +49,8 @@ public class Gamefield extends JPanel implements MouseListener,
     private boolean             setShips;
 
     public Gamefield(int sidelength, int sqrtCells, MainFrame parent,
-            IInitGameController initC, IPlayer player) {
+            IInitGameController initC) {
 
-        this.setShips = true;
-        this.player = player;
         this.side = round(sidelength, sqrtCells);
         this.sqrtCells = sqrtCells;
         this.cellsize = side / (sqrtCells + 1);
@@ -97,6 +97,12 @@ public class Gamefield extends JPanel implements MouseListener,
         return g;
     }
 
+    protected void setPlayer(IPlayer player) {
+        if (this.player == null) {
+            this.player = player;
+        }
+    }
+
     public void selectable(boolean b) {
         this.selectable = b;
     }
@@ -120,7 +126,8 @@ public class Gamefield extends JPanel implements MouseListener,
         int[] cords2 = getCords(p2);
 
         g.fillOval(cords1[0] - cellsize / 3, cords1[1] - cellsize / 3,
-                cords2[0] - cellsize / 3, cords2[1] - cellsize / 3);
+                cords2[0] - cords1[0] + cellsize / 3 * 2, cords2[1] - cords1[1]
+                        + cellsize / 3 * 2);
         grid = initiateGrid();
     }
 
@@ -158,6 +165,35 @@ public class Gamefield extends JPanel implements MouseListener,
                 selectsize, selectsize, 0, 360);
         isSelected = idx;
 
+    }
+
+    public void miss(int[] idx) {
+        int[] cords = getCords(idx);
+
+        Graphics2D g = background.createGraphics();
+        g.setColor(Color.green);
+        g.setStroke(new BasicStroke(2));
+        int selectsize = cellsize / 3 * 2;
+        g.drawArc(cords[0] - selectsize / 2, cords[1] - selectsize / 2,
+                selectsize, selectsize, 0, 360);
+        grid = initiateGrid();
+
+    }
+
+    public void hit(int[] idx) {
+        int[] cords = getCords(idx);
+
+        Graphics2D g = background.createGraphics();
+        g.setColor(Color.green);
+        g.setStroke(new BasicStroke(2));
+        int selectsize = cellsize / 3;
+        int x1 = cords[0] - selectsize;
+        int x2 = cords[0] + selectsize;
+        int y1 = cords[1] - selectsize;
+        int y2 = cords[1] + selectsize;
+        g.drawLine(x1, y1, x2, y2);
+        g.drawLine(x2, y1, x1, y2);
+        grid = initiateGrid();
     }
 
     private int[] getCords(int[] idx) {
@@ -221,6 +257,7 @@ public class Gamefield extends JPanel implements MouseListener,
             setShips = false;
             initC.ship(shipStart[0], shipStart[1], idx[0], idx[1]);
             shipStart = null;
+            isSelected = null;
         }
         parent.repaint();
     }
@@ -273,12 +310,35 @@ public class Gamefield extends JPanel implements MouseListener,
     public void update(SetShip e) {
         if (e.getPlayer().equals(player)) {
             this.setShips = true;
+            System.out.println("success");
         }
 
     }
 
     public void update(SetShipSuccess e) {
         if (e.getPlayer().equals(player)) {
+            List<ICell> list = e.getShip().getCells();
+            ICell cell;
+            int[] p1 = null;
+            int[] p2 = null;
+            int[] comp;
+            while (!list.isEmpty()) {
+                cell = list.remove(0);
+                comp = new int[] { cell.getX(), cell.getY() };
+                if (p2 == null) {
+                    p2 = comp;
+                } else if (comp[0] > p2[0] || comp[1] > p2[1]) {
+                    p2 = comp;
+                }
+                if (p1 == null) {
+                    p1 = comp;
+                } else if (comp[0] < p1[0] || comp[1] < p1[1]) {
+                    p1 = comp;
+                }
+
+            }
+
+            drawShip(p1, p2);
 
         }
 
