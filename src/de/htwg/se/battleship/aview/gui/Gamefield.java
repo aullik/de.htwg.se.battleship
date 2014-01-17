@@ -12,11 +12,14 @@ import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.util.List;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import de.htwg.se.battleship.controller.IInitGameController;
 import de.htwg.se.battleship.controller.event.SetShip;
 import de.htwg.se.battleship.controller.event.SetShipSuccess;
+import de.htwg.se.battleship.controller.event.SetShot;
+import de.htwg.se.battleship.controller.event.WrongCoordinate;
 import de.htwg.se.battleship.model.ICell;
 import de.htwg.se.battleship.model.IPlayer;
 import de.htwg.se.battleship.util.observer.Event;
@@ -41,21 +44,24 @@ public class Gamefield extends JPanel implements MouseListener,
     private Integer             fromBorder;
     private Integer             toBorder;
     private MainFrame           parent;
-    private boolean             selectable;
+
     private int[]               isSelected;
     private int[]               shipStart;
 
     private IInitGameController initC;
     private boolean             setShips;
+    private boolean             mayshoot;
 
     public Gamefield(int sidelength, int sqrtCells, MainFrame parent,
             IInitGameController initC) {
 
+        this.mayshoot = false;
+        this.setShips = false;
         this.side = round(sidelength, sqrtCells);
         this.sqrtCells = sqrtCells;
         this.cellsize = side / (sqrtCells + 1);
         this.parent = parent;
-        this.selectable = false;
+
         size = new Dimension(side, side);
         this.setPreferredSize(size);
         grid = initiateGrid();
@@ -101,10 +107,6 @@ public class Gamefield extends JPanel implements MouseListener,
         if (this.player == null) {
             this.player = player;
         }
-    }
-
-    public void selectable(boolean b) {
-        this.selectable = b;
     }
 
     @Override
@@ -267,15 +269,19 @@ public class Gamefield extends JPanel implements MouseListener,
         if (setShips) {
             setShip(e);
         }
-        if (selectable) {
+        if (mayshoot) {
 
             int[] idx = getidx(e.getPoint());
 
             if (idx != null) {
-                grid = initiateGrid();
 
-                isSelected = null;
-                select(idx);
+                if (isSelected != null && idx[0] == isSelected[0]
+                        && idx[1] == isSelected[1]) {
+                    // TODO: shoot
+                } else {
+                    grid = initiateGrid();
+                    select(idx);
+                }
 
                 parent.repaint();
 
@@ -342,6 +348,19 @@ public class Gamefield extends JPanel implements MouseListener,
 
         }
 
+    }
+
+    public void update(SetShot e) {
+        if (e.getPlayer().equals(player)) {
+            this.mayshoot = true;
+        }
+    }
+
+    public void update(WrongCoordinate e) {
+        if (e.getPlayer().equals(player)) {
+            JOptionPane.showMessageDialog(this, e.getMessage(),
+                    "Wrong Coordinates", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     @Override
