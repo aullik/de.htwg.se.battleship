@@ -35,6 +35,7 @@ public class InitGameController extends Observable implements IInitGameControlle
     public static final String P1               = "one";
     public static final String P2               = "two";
 
+    public static final String ERROR_INPUT       = "Your input must be a NUMBER";
     public static final String ERROR_COORDS_GRID = "One or both coordinates are not within the grid";
     public static final String ERROR_COORDS      = "Coordinates can only be set horizontal or vertical";
     public static final String ERROR_SAME_COORDS = "Coordinates can not be the same";
@@ -55,7 +56,6 @@ public class InitGameController extends Observable implements IInitGameControlle
     @Override
     public void init() {
         notifyObservers(new SetPlayer());
-        notifyObservers(new SetShip(round));
     }
 
     @Override
@@ -63,6 +63,7 @@ public class InitGameController extends Observable implements IInitGameControlle
         checkEmpty(p1, String.format(MSG_PLAYER_EMPTY, P1));
         checkEmpty(p2, String.format(MSG_PLAYER_EMPTY, P2));
 
+        //TODO throw errorEvent instead of event
         IPlayer player1 = fabric.createPlayer(p1);
         IPlayer player2 = fabric.createPlayer(p2);
 
@@ -71,43 +72,55 @@ public class InitGameController extends Observable implements IInitGameControlle
         round = fabric.createRound(g1, g2);
 
         notifyObservers(new SetPlayerSuccess(round));
+        notifyObservers(new SetShip(round));
     }
 
     private void checkEmpty(String s, String message) {
         if (s == null || s.equals("")) {
-            //TODO should not be done with an exception, because only requested TUI gets it
+            //TODO should not be done with an exception, because only requested UI gets it
             throw new IllegalArgumentException(message);
         }
     }
 
     @Override
-    public void ship(int startX, int startY, int endX, int endY) {
-        ICell start = round.getGrid().getCell(startX, startY);
-        ICell end   = round.getGrid().getCell(endX, endY);
-
+    public void ship(Integer startX, Integer startY, Integer endX, Integer endY) {
         try {
-            if (start == null || end == null) {
-                throw new IllegalArgumentException(ERROR_COORDS_GRID);
+            if (startX == null || startY == null || endX == null || endY == null) {
+                throw new IllegalArgumentException(ERROR_INPUT);
             }
 
-            if (start.getX() != end.getX() && start.getY() != end.getY()) {
-                throw new IllegalArgumentException(ERROR_COORDS);
-            }
+            ICell start = round.getGrid().getCell(startX, startY);
+            ICell end   = round.getGrid().getCell(endX, endY);
 
-            if (start.getX() == end.getX() && start.getY() == end.getY()) {
-                throw new IllegalArgumentException(ERROR_SAME_COORDS);
-            }
-
-            int rest = Ship.NUMBER_OF_CELLS - round.getGrid().getPlayer().getNumberOfShipCells();
-            int diff = diff(start, end);
-            if (diff > rest) {
-                throw new IllegalArgumentException(String.format(ERROR_TO_MANY, rest, diff));
-            }
+            shipValidateSimple(start, end);
+            shipValidateComplex(start, end);
 
             IShip ship = fabric.createShip(round.getGrid().getPlayer(), getCells(start, end));
             notifyObservers(new SetShipSuccess(round, ship));
         } catch(IllegalArgumentException e) {
             notifyObservers(new WrongCoordinate(round, e.getMessage()));
+        }
+    }
+
+    private void shipValidateSimple(ICell start, ICell end) {
+        if (start == null || end == null) {
+            throw new IllegalArgumentException(ERROR_COORDS_GRID);
+        }
+
+        if (start.getX() != end.getX() && start.getY() != end.getY()) {
+            throw new IllegalArgumentException(ERROR_COORDS);
+        }
+    }
+
+    private void shipValidateComplex(ICell start, ICell end) {
+        if (start.getX() == end.getX() && start.getY() == end.getY()) {
+            throw new IllegalArgumentException(ERROR_SAME_COORDS);
+        }
+
+        int rest = Ship.NUMBER_OF_CELLS - round.getGrid().getPlayer().getNumberOfShipCells();
+        int diff = diff(start, end);
+        if (diff > rest) {
+            throw new IllegalArgumentException(String.format(ERROR_TO_MANY, rest, diff));
         }
     }
 

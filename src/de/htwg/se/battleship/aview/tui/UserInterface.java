@@ -3,8 +3,6 @@
  */
 package de.htwg.se.battleship.aview.tui;
 
-import java.util.Scanner;
-
 import org.apache.log4j.Logger;
 
 import de.htwg.se.battleship.util.observer.Event;
@@ -19,15 +17,6 @@ public abstract class UserInterface implements IObserver {
     public static final String MSG_EXCEPTION = "%s has no listener for %s";
 
     private final Logger logger = Logger.getLogger("de.htwg.se.battleship.aview.tui");
-    private final Scanner scanner;
-
-    /**
-     * Initiate input stream
-     * @param stream InputStream
-     */
-    public UserInterface(Scanner scanner) {
-        this.scanner = scanner;
-    }
 
     /**
      * Returns Logger instance
@@ -35,14 +24,6 @@ public abstract class UserInterface implements IObserver {
      */
     protected Logger getLogger() {
         return logger;
-    }
-
-    /**
-     * Returns Scanner instance
-     * @return Scanner
-     */
-    protected Scanner getScanner() {
-        return scanner;
     }
 
     @Override
@@ -70,5 +51,24 @@ public abstract class UserInterface implements IObserver {
         sb.append("***********************************************************").append("\n");
         return sb.toString();
     }
+
+    /**
+     * Show Some Hints for the user
+     */
+    public abstract void showText();
+
+    /**
+     * Send input to UI.
+     * @param input String
+     * @return boolean
+     */
+    public abstract boolean executeInput(String input);
+
+
+    /**
+     * Return UserInterface for next input.
+     * @return UserInterface
+     */
+    public abstract UserInterface getUI();
 
 }

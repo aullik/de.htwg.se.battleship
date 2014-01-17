@@ -40,5 +40,6 @@ public class ShipTest {
         assertEquals(c, s.getCell(c.getX(), c.getY()));
         assertNull(s.getCell(-1, -1));
         assertEquals(1, s.getNumberOfCells());
+        assertNotEquals(null, s.getCells());
     }
 }

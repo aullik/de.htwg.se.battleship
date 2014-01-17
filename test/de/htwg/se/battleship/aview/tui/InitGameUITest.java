@@ -7,6 +7,8 @@ import static org.junit.Assert.*;
 
 import java.io.ByteArrayInputStream;
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 import org.apache.log4j.Logger;
@@ -17,13 +19,16 @@ import de.htwg.se.battleship.controller.IInitGameController;
 import de.htwg.se.battleship.controller.event.SetPlayer;
 import de.htwg.se.battleship.controller.event.SetPlayerSuccess;
 import de.htwg.se.battleship.controller.event.SetShip;
+import de.htwg.se.battleship.controller.event.SetShipSuccess;
 import de.htwg.se.battleship.controller.impl.InitGameController;
+import de.htwg.se.battleship.model.ICell;
 import de.htwg.se.battleship.model.IGrid;
 import de.htwg.se.battleship.model.IPlayer;
 import de.htwg.se.battleship.model.IRound;
 import de.htwg.se.battleship.model.impl.Grid;
 import de.htwg.se.battleship.model.impl.Player;
 import de.htwg.se.battleship.model.impl.Round;
+import de.htwg.se.battleship.model.impl.Ship;
 import de.htwg.se.battleship.util.observer.Observable;
 
 /**
@@ -46,7 +51,7 @@ public class InitGameUITest {
         }
 
         @Override
-        public void ship(int startX, int startY, int endX, int endY) {
+        public void ship(Integer startX, Integer startY, Integer endX, Integer endY) {
             shipCoords = startX + "," + startY + "," + endX + "," + endY;
         }
     }
@@ -175,4 +180,42 @@ public class InitGameUITest {
         assertEquals("5,6,7,8", shipCoords);
     }
 
+    @Test
+    public void testSetShipNoInt() throws UnsupportedEncodingException {
+        IPlayer p1 = new Player("test1");
+        IGrid g1 = new Grid(Grid.DEFAULT_SIZE, p1);
+        IPlayer p2 = new Player("test2");
+        IGrid g2 = new Grid(Grid.DEFAULT_SIZE, p2);
+        IRound r = new Round(g1, g2);
+
+        SetShip e = new SetShip(r);
+        StringBuilder sb = new StringBuilder();
+        sb.append("test" + System.getProperty("line.separator"));
+        sb.append(2 + System.getProperty("line.separator"));
+        sb.append(3 + System.getProperty("line.separator"));
+        sb.append(4 + System.getProperty("line.separator"));
+        InitGameUI ui = new InitGameUI(new TestClass(), new TestFactory(sb));
+
+        ui.update(e);
+        assertEquals("null,2,3,4", shipCoords);
+    }
+
+    @Test
+    public void testShipSuccess() throws UnsupportedEncodingException {
+        IPlayer p1 = new Player("test1");
+        IGrid g1 = new Grid(Grid.DEFAULT_SIZE, p1);
+        IPlayer p2 = new Player("test2");
+        IGrid g2 = new Grid(Grid.DEFAULT_SIZE, p2);
+        IRound r = new Round(g1, g2);
+
+        Map<String, ICell> map = new HashMap<String, ICell>();
+        ICell c = g1.getCell(0, 0);
+        map.put(c.getKey(), c);
+        SetShipSuccess e = new SetShipSuccess(r, new Ship(p1, map));
+        InitGameUI ui = new InitGameUI(new TestClass(), new TestFactory(new StringBuilder()));
+        ui.update(e);
+
+        String log = testAppender.getLog();
+        assertTrue(log.contains(String.format(InitGameUI.MSG_SHIP_SUCCESS, "")));
+    }
 }

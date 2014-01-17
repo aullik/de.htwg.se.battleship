@@ -19,4 +19,10 @@ public interface IRound {
      * @return IGrid
      */
     IGrid getGrid();
+
+    /**
+     * Get instance of Opponent IGrid.
+     * @return IGrid
+     */
+    IGrid getOpponentGrid();
 }

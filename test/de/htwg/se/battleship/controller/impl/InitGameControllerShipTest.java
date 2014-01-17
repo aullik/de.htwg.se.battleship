@@ -7,19 +7,16 @@ import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.omg.PortableInterceptor.SUCCESSFUL;
 
 import de.htwg.se.battleship.controller.IInitGameController;
-import de.htwg.se.battleship.controller.event.SetPlayerSuccess;
 import de.htwg.se.battleship.controller.event.SetShipSuccess;
 import de.htwg.se.battleship.controller.event.WrongCoordinate;
-import de.htwg.se.battleship.controller.impl.IInitGameControllerTest.TestClass;
 import de.htwg.se.battleship.model.impl.ModelFabric;
 import de.htwg.se.battleship.util.observer.Event;
 import de.htwg.se.battleship.util.observer.IObserver;
 
 /**
- * @author Philipp
+ * @author Philipp Daniels<philipp.daniels@gmail.com>
  *
  */
 public class InitGameControllerShipTest {
@@ -31,7 +28,7 @@ public class InitGameControllerShipTest {
     public class TestClass implements IObserver {
 
         @Override
-        public void update(Event e) {System.out.println(e.getClass());}
+        public void update(Event e) {}
 
         public void update(WrongCoordinate e) {
             message = e.getMessage();
@@ -52,9 +49,33 @@ public class InitGameControllerShipTest {
     }
 
     @Test
-    public void testShipSuccess() {
+    public void testShipSuccess1() {
         assertFalse(pong);
         c.ship(0, 0, 0, 1);
+        assertEquals("", message);
+        assertTrue(pong);
+    }
+
+    @Test
+    public void testShipSuccess2() {
+        assertFalse(pong);
+        c.ship(0, 0, 1, 0);
+        assertEquals("", message);
+        assertTrue(pong);
+    }
+
+    @Test
+    public void testShipSuccess3() {
+        assertFalse(pong);
+        c.ship(0, 1, 0, 0);
+        assertEquals("", message);
+        assertTrue(pong);
+    }
+
+    @Test
+    public void testShipSuccess4() {
+        assertFalse(pong);
+        c.ship(1, 0, 0, 0);
         assertEquals("", message);
         assertTrue(pong);
     }
@@ -85,6 +106,39 @@ public class InitGameControllerShipTest {
         c.ship(0, 0, 0, 0);
         assertFalse(pong);
         assertEquals(InitGameController.ERROR_SAME_COORDS, message);
+    }
+
+    @Test
+    public void testShipMany() {
+        c.ship(0, 0, 0, 7);
+        c.ship(1, 0, 1, 7);
+        c.ship(2, 0, 2, 7);
+        c.ship(2, 0, 2, 7);
+        assertEquals(String.format(InitGameController.ERROR_TO_MANY, 6, 8), message);
+    }
+
+    @Test
+    public void testCoordNull1() {
+        c.ship(null, 0, 0, 0);
+        assertEquals(InitGameController.ERROR_INPUT, message);
+    }
+
+    @Test
+    public void testCoordNull2() {
+        c.ship(0, null, 0, 0);
+        assertEquals(InitGameController.ERROR_INPUT, message);
+    }
+
+    @Test
+    public void testCoordNull3() {
+        c.ship(0, 0, null, 0);
+        assertEquals(InitGameController.ERROR_INPUT, message);
+    }
+
+    @Test
+    public void testCoordNull4() {
+        c.ship(0, 0, 0, null);
+        assertEquals(InitGameController.ERROR_INPUT, message);
     }
 
 }

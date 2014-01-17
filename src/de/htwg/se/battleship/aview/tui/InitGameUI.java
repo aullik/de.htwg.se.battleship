@@ -10,8 +10,11 @@ import de.htwg.se.battleship.controller.IInitGameController;
 import de.htwg.se.battleship.controller.event.SetPlayer;
 import de.htwg.se.battleship.controller.event.SetPlayerSuccess;
 import de.htwg.se.battleship.controller.event.SetShip;
+import de.htwg.se.battleship.controller.event.SetShipSuccess;
 import de.htwg.se.battleship.controller.impl.InitGameController;
+import de.htwg.se.battleship.model.ICell;
 import de.htwg.se.battleship.model.IPlayer;
+import de.htwg.se.battleship.util.observer.Event;
 
 /**
  * @author Philipp Daniels<philipp.daniels@gmail.com>
@@ -32,29 +35,49 @@ public class InitGameUI extends UserInterface implements IInitGameUI {
     public static final String MSG_SHIP_START_Y = "Start-point y-coordinate:";
     public static final String MSG_SHIP_END_X   = "End-point x-coordinate:";
     public static final String MSG_SHIP_END_Y   = "End-point y-coordinate:";
+    public static final String MSG_SHIP_SUCCESS = "Added successfull a new ship: %s";
+
+    private static final int ZERO = 0;
+    private static final int FIRST = 1;
+    private static final int SECOND = 2;
+    private static final int THIRD = 3;
+    private static final int FOURTH = 4;
+
+
+
+    private Event lastEvent;
+    private String output;
+    private int playerIndex;
+    private String playerNo;
+    private String playerName;
+    private int shipIndex;
+    private final Integer[] shipCoords;
 
     /**
      * 
      */
     @Inject
-    public InitGameUI(IInitGameController controller, IScannerFactory sf) {
-        super(sf.getScanner());
-
+    public InitGameUI(IInitGameController controller) {
         this.controller = controller;
         controller.addObserver(this);
 
         player = null;
+        lastEvent = null;
+        output = "";
+        playerIndex = 0;
+        playerName = "";
+        shipIndex = 0;
+        shipCoords = new Integer[FOURTH];
     }
 
     @Override
     public void update(SetPlayer e) {
-
-        getLogger().info(header());
-
-        String player1 = playername(InitGameController.P1, 1);
-        String player2 = playername(InitGameController.P2, 2);
-        controller.player(player1, player2);
+        lastEvent = e;
+        playerIndex = 1;
+        playerNo = InitGameController.P1;
+        output = header() + String.format(MSG_INPUT_NOTE, playerNo, playerIndex);
     }
+
 
     @Override
     public void update(SetPlayerSuccess e) {
@@ -66,43 +89,94 @@ public class InitGameUI extends UserInterface implements IInitGameUI {
         getLogger().info(String.format(MSG_PLAYER_ADD, p1.getName(), p2.getName()));
     }
 
-    private String playername(String no, int index) {
-        String name;
-
-        getLogger().info(String.format(MSG_INPUT_NOTE, no, index));
-        name = getScanner().nextLine();
-
-        if (name.equals("")) {
-            name = String.format(DEFAULT_NAME, index);
-        }
-
-        getLogger().info(String.format(MSG_NAME_NOTE, no, name));
-        return name;
-    }
-
     @Override
     public void update(SetShip e) {
 
-        getLogger().info(header());
-
-        if (!e.getPlayer().equals(player)) {
-            getLogger().info(String.format(MSG_WELCOME, e.getPlayer().getName()));
-        }
+        lastEvent = e;
+        shipIndex = ZERO;
+        output = header();
+        shipOut(MSG_SHIP_START_X);
         player = e.getPlayer();
-
-        getLogger().info(MSG_SHIP);
-
-        int sx = readCoordinate(MSG_SHIP_START_X);
-        int sy = readCoordinate(MSG_SHIP_START_Y);
-        int ex = readCoordinate(MSG_SHIP_END_X);
-        int ey = readCoordinate(MSG_SHIP_END_Y);
-
-        controller.ship(sx, sy, ex, ey);
     }
 
-    private int readCoordinate(String msg) {
-        getLogger().info(msg);
-        return getScanner().nextInt();
+    private void shipOut(String s) {
+        if (!((SetShip)lastEvent).getPlayer().equals(player)) {
+            output += String.format(MSG_WELCOME, ((SetShip)lastEvent).getPlayer().getName());
+        }
+        output += "\n" + MSG_SHIP;
+        output += "\n" + s;
+    }
+
+    @Override
+    public void update(SetShipSuccess e) {
+        StringBuilder sb = new StringBuilder();
+
+        for (ICell cell : e.getShip().getCells()) {
+            sb.append("(").append(cell.getKey()).append("),");
+        }
+
+        getLogger().info(String.format(MSG_SHIP_SUCCESS, sb.toString()));
+    }
+
+    @Override
+    public void showText() {
+        getLogger().info(output);
+
+    }
+
+    @Override
+    public boolean executeInput(String input) {
+
+        if (lastEvent instanceof SetPlayer) {
+            String pName = input;
+
+            if (pName.equals("")) {
+                pName = String.format(DEFAULT_NAME, playerIndex);
+            }
+
+            getLogger().info(String.format(MSG_NAME_NOTE, playerNo, pName));
+
+            playerIndex++;
+            playerNo = InitGameController.P2;
+            output = String.format(MSG_INPUT_NOTE, playerNo, playerIndex);
+
+            if (playerIndex > 2) {
+                lastEvent = null;
+                controller.player(playerName, pName);
+            } else {
+                playerName = pName;
+            }
+        } else if (lastEvent instanceof SetShip) {
+
+            try {
+                shipCoords[shipIndex] = Integer.parseInt(input);
+            } catch(NumberFormatException e) {
+                shipCoords[shipIndex] = null;
+            }
+            shipIndex++;
+
+            output = "";
+            if (shipIndex == FIRST) {
+                shipOut(MSG_SHIP_START_Y);
+            }
+            if (shipIndex == SECOND) {
+                shipOut(MSG_SHIP_END_X);
+            }
+            if (shipIndex == THIRD) {
+                shipOut(MSG_SHIP_END_Y);
+            }
+
+            if (shipIndex > THIRD) {
+                lastEvent = null;
+                controller.ship(shipCoords[ZERO], shipCoords[FIRST], shipCoords[SECOND], shipCoords[THIRD]);
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public UserInterface getUI() {
+        return this;
     }
 
 }

@@ -3,6 +3,8 @@
  */
 package de.htwg.se.battleship.model;
 
+import java.util.List;
+
 /**
  * The IShip interface contains all public methods for a IShip implementation.
  * 
@@ -31,4 +33,10 @@ public interface IShip {
      * @return int
      */
     int getNumberOfCells();
+
+    /**
+     * Returns List of ICell.
+     * @return List<ICell>
+     */
+    List<ICell> getCells();
 }
