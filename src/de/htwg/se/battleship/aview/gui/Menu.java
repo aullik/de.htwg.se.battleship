@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import de.htwg.se.battleship.controller.IController;
 import de.htwg.se.battleship.controller.IInitGameController;
 import de.htwg.se.battleship.controller.event.SetPlayerSuccess;
+import de.htwg.se.battleship.controller.event.Winner;
 import de.htwg.se.battleship.model.IPlayer;
 import de.htwg.se.battleship.util.observer.Event;
 import de.htwg.se.battleship.util.observer.IObserver;
@@ -261,10 +262,10 @@ public class Menu extends JPanel implements ActionListener, IObserver {
         if (s == resetgameButton) {
             int n = JOptionPane.showConfirmDialog(this.getParent(),
                     "Are you sure you want to abort current Game?",
-                    "Confirm Dialog", JOptionPane.YES_NO_OPTION);
+                    resetgameButton.getText(), JOptionPane.YES_NO_OPTION);
 
             if (n == JOptionPane.YES_OPTION) {
-                // TODO:
+                controller.reset();
             }
             return;
         }
@@ -306,6 +307,16 @@ public class Menu extends JPanel implements ActionListener, IObserver {
         parent.newGame(player1, e.getPlayer());
         e.getRound().next();
         parent.swapPanel();
+    }
+
+    public void update(Winner e) {
+        this.gameState = GAMESTATE_NOGAME;
+        clear();
+        setButtons();
+        currentPlayer_1 = STDPLAYER_1;
+        currentPlayer_2 = STDPLAYER_2;
+        parent.repaint();
+
     }
 
     @Override

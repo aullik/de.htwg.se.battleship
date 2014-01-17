@@ -16,9 +16,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import de.htwg.se.battleship.controller.IInitGameController;
+import de.htwg.se.battleship.controller.event.IsShot;
 import de.htwg.se.battleship.controller.event.SetShip;
 import de.htwg.se.battleship.controller.event.SetShipSuccess;
 import de.htwg.se.battleship.controller.event.SetShot;
+import de.htwg.se.battleship.controller.event.Winner;
 import de.htwg.se.battleship.controller.event.WrongCoordinate;
 import de.htwg.se.battleship.model.ICell;
 import de.htwg.se.battleship.model.IPlayer;
@@ -63,6 +65,7 @@ public class Gamefield extends JPanel implements MouseListener,
         this.sqrtCells = sqrtCells;
         this.cellsize = side / (sqrtCells + 1);
         this.parent = parent;
+        init();
 
         size = new Dimension(side, side);
         this.setPreferredSize(size);
@@ -72,6 +75,16 @@ public class Gamefield extends JPanel implements MouseListener,
         initC.addObserver(this);
 
         this.setOpaque(false);
+
+    }
+
+    private void init() {
+        this.mayshoot = false;
+        this.setShips = false;
+        this.isHuman = false;
+        this.backup = null;
+        this.player = null;
+        grid = initiateGrid();
 
     }
 
@@ -175,7 +188,7 @@ public class Gamefield extends JPanel implements MouseListener,
     public void miss(int[] idx) {
         int[] cords = getCords(idx);
 
-        Graphics2D g = background.createGraphics();
+        Graphics2D g = backup.createGraphics();
         g.setColor(Color.green);
         g.setStroke(new BasicStroke(2));
         int selectsize = cellsize / 3 * 2;
@@ -188,8 +201,8 @@ public class Gamefield extends JPanel implements MouseListener,
     public void hit(int[] idx) {
         int[] cords = getCords(idx);
 
-        Graphics2D g = background.createGraphics();
-        g.setColor(Color.green);
+        Graphics2D g = backup.createGraphics();
+        g.setColor(Color.RED);
         g.setStroke(new BasicStroke(2));
         int selectsize = cellsize / 3;
         int x1 = cords[0] - selectsize;
@@ -281,6 +294,8 @@ public class Gamefield extends JPanel implements MouseListener,
                 if (isSelected != null && idx[0] == isSelected[0]
                         && idx[1] == isSelected[1]) {
                     initC.shot(idx[0], idx[1]);
+                    mayshoot = false;
+                    System.out.println(idx[0] + ", " + idx[1] + "is shot");
                 } else {
                     grid = initiateGrid();
                     select(idx);
@@ -353,6 +368,20 @@ public class Gamefield extends JPanel implements MouseListener,
 
     }
 
+    public void update(IsShot e) {
+        if (e.getPlayer().equals(player)) {
+            ICell cell = e.getCell();
+            if (cell.isHit()) {
+                System.out.println("is Hit");
+                hit(new int[] { cell.getX(), cell.getY() });
+            } else {
+                System.out.println("no Hit");
+                miss(new int[] { cell.getX(), cell.getY() });
+            }
+            parent.repaint();
+        }
+    }
+
     public void update(SetShot e) {
         if (e.getPlayer().equals(player) && isHuman) {
             this.mayshoot = true;
@@ -366,9 +395,19 @@ public class Gamefield extends JPanel implements MouseListener,
         }
     }
 
+    public void update(Winner e) {
+        if (e.getRound() != null) {
+            String winner = e.getPlayer().getName();
+            JOptionPane.showMessageDialog(this, winner + " has Won!", winner,
+                    JOptionPane.INFORMATION_MESSAGE);
+
+        }
+        init();
+        parent.repaint();
+    }
+
     @Override
     public void update(Event e) {
-        // TODO Auto-generated method stub
 
     }
 }

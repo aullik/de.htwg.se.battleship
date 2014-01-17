@@ -25,6 +25,7 @@ import de.htwg.se.battleship.controller.IController;
 import de.htwg.se.battleship.controller.IInitGameController;
 import de.htwg.se.battleship.controller.event.CloseProgamm;
 import de.htwg.se.battleship.controller.event.InitGame;
+import de.htwg.se.battleship.controller.event.Winner;
 import de.htwg.se.battleship.model.IPlayer;
 import de.htwg.se.battleship.util.observer.Event;
 import de.htwg.se.battleship.util.observer.IObserver;
@@ -260,6 +261,17 @@ public class MainFrame extends JFrame implements WindowListener, KeyListener,
         if (e.getSource() == openMenueButton) {
             swapPanel();
         }
+    }
+
+    public void update(Winner e) {
+        gameState = JPANEL_INGAME;
+        swapPanel();
+        field1 = null;
+        field2 = null;
+        this.getContentPane().validate();
+        repaint();
+        pack();
+
     }
 
     @Override
