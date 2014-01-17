@@ -14,6 +14,7 @@ import de.htwg.se.battleship.controller.event.SetPlayer;
 import de.htwg.se.battleship.controller.event.SetPlayerSuccess;
 import de.htwg.se.battleship.controller.event.SetShip;
 import de.htwg.se.battleship.controller.event.SetShipSuccess;
+import de.htwg.se.battleship.controller.event.SetShot;
 import de.htwg.se.battleship.controller.event.WrongCoordinate;
 import de.htwg.se.battleship.model.ICell;
 import de.htwg.se.battleship.model.IGrid;
@@ -43,6 +44,7 @@ public class InitGameController extends Observable implements IInitGameControlle
 
     private final IModelFabric fabric;
     private IRound round;
+    private int shipPlayerCount;
 
     /**
      * Create InitGameController with an instance of IModelFabric.
@@ -72,6 +74,8 @@ public class InitGameController extends Observable implements IInitGameControlle
         round = fabric.createRound(g1, g2);
 
         notifyObservers(new SetPlayerSuccess(round));
+
+        shipPlayerCount = 0;
         notifyObservers(new SetShip(round));
     }
 
@@ -99,6 +103,18 @@ public class InitGameController extends Observable implements IInitGameControlle
             notifyObservers(new SetShipSuccess(round, ship));
         } catch(IllegalArgumentException e) {
             notifyObservers(new WrongCoordinate(round, e.getMessage()));
+        } finally {
+
+            if (round.getGrid().getPlayer().getNumberOfShipCells() == Ship.NUMBER_OF_CELLS) {
+                round.next();
+                shipPlayerCount++;
+            }
+
+            if (shipPlayerCount < 2) {
+                notifyObservers(new SetShip(round));
+            } else {
+                notifyObservers(new SetShot(round));
+            }
         }
     }
 
