@@ -71,11 +71,14 @@ public class MainFrame extends JFrame implements WindowListener, KeyListener,
 
     }
 
+    protected void initGamefield() {
+        field1 = new Gamefield(image.getWidth() / 8, 10, this, initC);
+        field2 = new Gamefield(image.getWidth() / 8, 10, this, initC);
+    }
+
     protected void newGame(IPlayer player1, IPlayer player2) {
-        field1 = new Gamefield(image.getWidth() / 8, 10, this, initC, player1);
-        field1.selectable(false);
-        field2 = new Gamefield(image.getWidth() / 8, 10, this, initC, player2);
-        field2.selectable(false);
+        field1.setPlayer(player1);
+        field2.setPlayer(player2);
         JPanel fieldpanel = new JPanel();
         fieldpanel.setLayout(new BoxLayout(fieldpanel, BoxLayout.X_AXIS));
         fieldpanel.add(new JPanel());

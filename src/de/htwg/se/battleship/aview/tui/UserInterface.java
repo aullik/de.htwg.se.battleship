@@ -10,14 +10,14 @@ import de.htwg.se.battleship.util.observer.IObserver;
 
 /**
  * @author Philipp
- *
  */
 public abstract class UserInterface implements IObserver {
 
-    private final Logger logger = Logger.getLogger("de.htwg.se.battleship.aview.tui");
+    private final Logger       logger        = Logger.getLogger("de.htwg.se.battleship.aview.tui");
 
     /**
      * Returns Logger instance
+     * 
      * @return Logger
      */
     protected Logger getLogger() {
@@ -26,6 +26,7 @@ public abstract class UserInterface implements IObserver {
 
     @Override
     public void update(Event e) {
+  
 
     }
 
@@ -37,16 +38,30 @@ public abstract class UserInterface implements IObserver {
 
         StringBuilder sb = new StringBuilder();
         sb.append("\n");
-        sb.append("***********************************************************").append("\n");
-        sb.append("*      ____        _   _   _           _     _            *").append("\n");
-        sb.append("*     |  _ \\      | | | | | |         | |   (_)           *").append("\n");
-        sb.append("*     | |_) | __ _| |_| |_| | ___  ___| |__  _ _ __       *").append("\n");
-        sb.append("*     |  _ < / _` | __| __| |/ _ \\/ __| '_ \\| | '_ \\      *").append("\n");
-        sb.append("*     | |_) | (_| | |_| |_| |  __/\\__ \\ | | | | |_) |     *").append("\n");
-        sb.append("*     |____/ \\__,_|\\__|\\__|_|\\___||___/_| |_|_| .__/      *").append("\n");
-        sb.append("*                                             | |         *").append("\n");
-        sb.append("*                                             |_|         *").append("\n");
-        sb.append("***********************************************************").append("\n");
+        sb.append("***********************************************************")
+                .append("\n");
+        sb.append("*      ____        _   _   _           _     _            *")
+                .append("\n");
+        sb.append(
+                "*     |  _ \\      | | | | | |         | |   (_)           *")
+                .append("\n");
+        sb.append("*     | |_) | __ _| |_| |_| | ___  ___| |__  _ _ __       *")
+                .append("\n");
+        sb.append(
+                "*     |  _ < / _` | __| __| |/ _ \\/ __| '_ \\| | '_ \\      *")
+                .append("\n");
+        sb.append(
+                "*     | |_) | (_| | |_| |_| |  __/\\__ \\ | | | | |_) |     *")
+                .append("\n");
+        sb.append(
+                "*     |____/ \\__,_|\\__|\\__|_|\\___||___/_| |_|_| .__/      *")
+                .append("\n");
+        sb.append("*                                             | |         *")
+                .append("\n");
+        sb.append("*                                             |_|         *")
+                .append("\n");
+        sb.append("***********************************************************")
+                .append("\n");
         return sb.toString();
     }
 
@@ -57,14 +72,15 @@ public abstract class UserInterface implements IObserver {
 
     /**
      * Send input to UI.
+     * 
      * @param input String
      * @return boolean
      */
     public abstract boolean executeInput(String input);
 
-
     /**
      * Return UserInterface for next input.
+     * 
      * @return UserInterface
      */
     public abstract UserInterface getUI();
