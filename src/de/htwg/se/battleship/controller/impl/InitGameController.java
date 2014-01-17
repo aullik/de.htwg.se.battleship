@@ -4,6 +4,7 @@
 package de.htwg.se.battleship.controller.impl;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.google.inject.Inject;
@@ -16,6 +17,7 @@ import de.htwg.se.battleship.controller.event.SetPlayerSuccess;
 import de.htwg.se.battleship.controller.event.SetShip;
 import de.htwg.se.battleship.controller.event.SetShipSuccess;
 import de.htwg.se.battleship.controller.event.SetShot;
+import de.htwg.se.battleship.controller.event.Winner;
 import de.htwg.se.battleship.controller.event.WrongCoordinate;
 import de.htwg.se.battleship.model.ICell;
 import de.htwg.se.battleship.model.IGrid;
@@ -204,7 +206,28 @@ public class InitGameController extends Observable implements IInitGameControlle
         }
 
         round.next();
-        notifyObservers(new IsShot(round, cell));
-        notifyObservers(new SetShot(round));
+
+        if (checkWinner()) {
+            round.next();
+            notifyObservers(new Winner(round));
+        } else {
+            notifyObservers(new IsShot(round, cell));
+            notifyObservers(new SetShot(round));
+        }
+    }
+
+    private boolean checkWinner() {
+        List<IShip> list = round.getGrid().getPlayer().getShips();
+        boolean check = true;
+
+        for(IShip ship: list) {
+            for (ICell cell: ship.getCells()) {
+                if (!cell.isShot()) {
+                    check = false;
+                }
+            }
+        }
+
+        return check;
     }
 }
