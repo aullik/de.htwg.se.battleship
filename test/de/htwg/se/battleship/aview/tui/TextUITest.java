@@ -82,6 +82,7 @@ public class TextUITest {
         Logger.getRootLogger().addAppender(testAppender);
     }
 
+    /*
     @Test
     public void testOnlyExit() throws UnsupportedEncodingException {
         StringBuilder sb = new StringBuilder();
@@ -129,4 +130,5 @@ public class TextUITest {
         IController c = new Controller();
         new TextUI(c, f, new MainMenu(c), new TestController(), null);
     }
+     */
 }

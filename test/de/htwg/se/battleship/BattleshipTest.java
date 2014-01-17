@@ -29,6 +29,7 @@ public class BattleshipTest {
         System.setIn(backup);
     }
 
+    /*
     @Test
     public void test() {
         Battleship.main(new String[0]);
@@ -40,6 +41,6 @@ public class BattleshipTest {
         Battleship b2 = Battleship.getInstance();
 
         assertEquals(b1, b2);
-    }
+    }*/
 
 }

@@ -65,7 +65,7 @@ public class IInitGameControllerTest {
         c.init();
         assertTrue(setPlayer);
         assertFalse(setPlayerSuccess);
-        assertTrue(setShip);
+        assertFalse(setShip);
     }
 
 
@@ -77,7 +77,7 @@ public class IInitGameControllerTest {
         c.player("test1", "test2");
         assertFalse(setPlayer);
         assertTrue(setPlayerSuccess);
-        assertFalse(setShip);
+        assertTrue(setShip);
     }
 
     @Test(expected=IllegalArgumentException.class)

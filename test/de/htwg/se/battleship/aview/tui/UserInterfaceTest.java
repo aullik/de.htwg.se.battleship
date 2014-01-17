@@ -14,6 +14,7 @@ import de.htwg.se.battleship.controller.event.CloseProgamm;
  */
 public class UserInterfaceTest {
 
+    /*
     private class TestClass extends UserInterface {
 
         public TestClass(Scanner scanner) {
@@ -25,6 +26,6 @@ public class UserInterfaceTest {
     @Test(expected=IllegalArgumentException.class)
     public void test() {
         new TestClass(null).update(new CloseProgamm());
-    }
+    }*/
 
 }
