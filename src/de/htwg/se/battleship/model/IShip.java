@@ -4,40 +4,31 @@
 package de.htwg.se.battleship.model;
 
 /**
- * The IShip interface contains all public methods for a ship implementation.
+ * The IShip interface contains all public methods for a IShip implementation.
  * 
  * @author Philipp Daniels<philipp.daniels@gmail.com>
  */
 public interface IShip {
 
     /**
-     * Set a owner (Player) for this Ship and add the Ship to the Player (n:1
-     * relationship)
+     * Returns the owner (IPlayer) of this IShip
      * 
-     * @param player Instance of Player
-     */
-    void setPlayer(final IPlayer player);
-
-    /**
-     * Returns the owner (Player) of this Ship
-     * 
-     * @return Player instance
+     * @return IPlayer instance
      */
     IPlayer getPlayer();
 
     /**
-     * Add Cell instance to Ship and add Ship to Cell (1:n relationship)
-     * 
-     * @param cell Instance of a Cell
-     */
-    void addCell(final ICell cell);
-
-    /**
-     * Get a single Cell instance from the Ship.
+     * Get a single ICell instance from the IShip.
      * 
      * @param x X-Coordinate
      * @param y Y-Coordinate
-     * @return Null/Cell instance
+     * @return Null/ICell instance
      */
     ICell getCell(final int x, final int y);
+
+    /**
+     * Returns the number of ICell from this IShip
+     * @return int
+     */
+    int getNumberOfCells();
 }

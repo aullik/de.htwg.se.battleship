@@ -41,7 +41,6 @@ public class Player implements IPlayer {
     public void addShip(final IShip ship) {
         if (!containsShip(ship)) {
             ships.add(ship);
-            ship.setPlayer(this);
         }
     }
 
@@ -59,4 +58,15 @@ public class Player implements IPlayer {
     public IGrid getGrid() {
         return grid;
     }
+
+    @Override
+    public int getNumberOfShipCells() {
+        int sum = 0;
+
+        for (IShip ship : ships) {
+            sum += ship.getNumberOfCells();
+        }
+        return sum;
+    }
+
 }

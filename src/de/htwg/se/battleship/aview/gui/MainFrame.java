@@ -19,9 +19,13 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import com.google.inject.Inject;
+
+import de.htwg.se.battleship.controller.IController;
+
 @SuppressWarnings("serial")
 public class MainFrame extends JFrame implements WindowListener, KeyListener,
-        ActionListener {
+ActionListener {
 
     private static final String  TITLE            = "Ballteship";
     private static final String  FILENAME         = "ocean_battleship.jpg";
@@ -37,7 +41,8 @@ public class MainFrame extends JFrame implements WindowListener, KeyListener,
     private Integer              gameState;
     private JButton              openMenueButton;
 
-    public MainFrame() {
+    @Inject
+    public MainFrame(IController controller) {
 
         createImage();
 

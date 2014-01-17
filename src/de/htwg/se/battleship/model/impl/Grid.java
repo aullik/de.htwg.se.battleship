@@ -18,6 +18,8 @@ import de.htwg.se.battleship.model.IPlayer;
  */
 public class Grid implements IGrid {
 
+    public static final int DEFAULT_SIZE = 10;
+
     private final int size;
     private final Map<String, ICell> cells;
     private final IPlayer player;

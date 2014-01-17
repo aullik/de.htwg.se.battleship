@@ -10,46 +10,87 @@ import de.htwg.se.battleship.util.observer.IObserver;
 import de.htwg.se.battleship.util.observer.Observable;
 
 public class OberservableTest {
-	private boolean ping=false;
-	private TestObserver testObserver;
-	private Observable testObservable;
-	
-	class TestObserver implements IObserver {
-		//@Override
-		public void update(Event e) {
-			ping=true;
-		}
-		
-	}
+    private boolean ping=false;
+    private boolean pong=false;
+    private TestObserver observer;
+    private Observable observable;
 
-	@Before
-	public void setUp() throws Exception {
-		testObserver = new TestObserver();
-		testObservable = new Observable();
-		testObservable.addObserver(testObserver);
-	}
+    private class TestObserver implements IObserver {
+        @Override
+        public void update(Event e) {
+            ping=true;
+        }
 
-	@Test
-	public void testNotify() {
-		assertFalse(ping);
-		testObservable.notifyObservers();
-		assertTrue(ping);
-	}
-	
-	@Test
-	public void testRemove() {
-		assertFalse(ping);
-		testObservable.removeObserver(testObserver);
-		testObservable.notifyObservers();
-		assertFalse(ping);
-	}
-	
-	@Test
-	public void testRemoveAll() {
-		assertFalse(ping);
-		testObservable.removeAllObservers();
-		testObservable.notifyObservers();
-		assertFalse(ping);
-	}
+        public void update(TestEvent2 e) {
+            pong=true;
+        }
+    }
+
+    private class TestObserverException implements IObserver {
+
+        @Override
+        public void update(Event e) {
+        }
+
+        public void update(TestEvent1 e) {
+            throw new IllegalArgumentException();
+        }
+
+    }
+
+    class TestEvent1 implements Event {}
+    class TestEvent2 implements Event {}
+
+    @Before
+    public void setUp() throws Exception {
+        observer = new TestObserver();
+        observable = new Observable();
+        observable.addObserver(observer);
+    }
+
+    @Test
+    public void testNotifyNull() {
+        assertFalse(ping);
+        observable.notifyObservers();
+        assertTrue(ping);
+    }
+
+    @Test
+    public void testNotifyEvent() {
+        assertFalse(ping);
+        observable.notifyObservers(new TestEvent1());
+        assertTrue(ping);
+    }
+
+    @Test
+    public void testNotifyTestEvent() {
+        assertFalse(ping);
+        assertFalse(pong);
+        observable.notifyObservers(new TestEvent2());
+        assertFalse(ping);
+        assertTrue(pong);
+    }
+
+    @Test
+    public void testRemove() {
+        assertFalse(ping);
+        observable.removeObserver(observer);
+        observable.notifyObservers();
+        assertFalse(ping);
+    }
+
+    @Test
+    public void testRemoveAll() {
+        assertFalse(ping);
+        observable.removeAllObservers();
+        observable.notifyObservers();
+        assertFalse(ping);
+    }
+
+    @Test
+    public void testInvocationTargetException() {
+        observable.addObserver(new TestObserverException());
+        observable.notifyObservers(new TestEvent1());
+    }
 
 }

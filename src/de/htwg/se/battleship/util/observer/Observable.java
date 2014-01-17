@@ -1,8 +1,14 @@
 package de.htwg.se.battleship.util.observer;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import org.apache.log4j.Logger;
 
 /**
  * Observsable Class
@@ -10,6 +16,8 @@ import java.util.List;
  * @author aullik
  */
 public class Observable implements IObservable {
+
+    private final Logger logger = Logger.getLogger("de.htwg.se.battleship.util.observer");
 
     /**
      * List of Observers
@@ -40,7 +48,24 @@ public class Observable implements IObservable {
     public void notifyObservers(Event e) {
         for (Iterator<IObserver> iter = subscribers.iterator(); iter.hasNext();) {
             IObserver observer = iter.next();
-            observer.update(e);
+
+            if (e == null) {
+                observer.update(e);
+                continue;
+            }
+
+            try {
+                /* This method is not the best solution, but avoids many instanceofs within the update method */
+                Method update = observer.getClass().getMethod("update", e.getClass());
+                update.invoke(observer, e);
+            } catch (InvocationTargetException e1) {
+                StringWriter sw = new StringWriter();
+                PrintWriter pw = new PrintWriter(sw);
+                e1.printStackTrace(pw);
+                logger.error(sw.toString());
+            } catch (Exception e1) {
+                observer.update(e);
+            }
         }
     }
 }

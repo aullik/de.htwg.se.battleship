@@ -64,7 +64,6 @@ public class Cell implements ICell {
     @Override
     public void setShip(final IShip ship) {
         this.ship = ship;
-        ship.addCell(this);
     }
 
     @Override
