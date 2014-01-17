@@ -20,4 +20,10 @@ public interface IController extends IObservable  {
      * Close programm
      */
     void close();
+
+
+    /**
+     * Notify with empty Winner event.
+     */
+    void reset();
 }
