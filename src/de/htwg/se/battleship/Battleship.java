@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import org.apache.log4j.PropertyConfigurator;
 
+import de.htwg.se.battleship.aview.gui.MainFrame;
 import de.htwg.se.battleship.aview.tui.TextUI;
 import de.htwg.se.battleship.controller.InputController;
 import de.htwg.se.battleship.controller.IntController;
@@ -21,6 +22,7 @@ public final class Battleship {
     @SuppressWarnings("unused")
     private static TextUI        tui;
     private static IntController controller;
+    MainFrame                    gui;
 
     /**
      * Return always the same instance of Battleship
@@ -42,6 +44,7 @@ public final class Battleship {
         PropertyConfigurator.configure("log4j.properties");
         controller = new InputController();
         tui = new TextUI(controller);
+        gui = new MainFrame();
 
     }
 
