@@ -51,12 +51,14 @@ public class Gamefield extends JPanel implements MouseListener,
     private IInitGameController initC;
     private boolean             setShips;
     private boolean             mayshoot;
+    private boolean             isHuman;
 
     public Gamefield(int sidelength, int sqrtCells, MainFrame parent,
             IInitGameController initC) {
 
         this.mayshoot = false;
         this.setShips = false;
+        this.isHuman = false;
         this.side = round(sidelength, sqrtCells);
         this.sqrtCells = sqrtCells;
         this.cellsize = side / (sqrtCells + 1);
@@ -106,6 +108,7 @@ public class Gamefield extends JPanel implements MouseListener,
     protected void setPlayer(IPlayer player) {
         if (this.player == null) {
             this.player = player;
+            this.isHuman = player.isHuman();
         }
     }
 
@@ -277,7 +280,7 @@ public class Gamefield extends JPanel implements MouseListener,
 
                 if (isSelected != null && idx[0] == isSelected[0]
                         && idx[1] == isSelected[1]) {
-                    // TODO: shoot
+                    initC.shot(idx[0], idx[1]);
                 } else {
                     grid = initiateGrid();
                     select(idx);
@@ -314,7 +317,7 @@ public class Gamefield extends JPanel implements MouseListener,
     }
 
     public void update(SetShip e) {
-        if (e.getPlayer().equals(player)) {
+        if (e.getPlayer().equals(player) && isHuman) {
             this.setShips = true;
             System.out.println("success");
         }
@@ -322,7 +325,7 @@ public class Gamefield extends JPanel implements MouseListener,
     }
 
     public void update(SetShipSuccess e) {
-        if (e.getPlayer().equals(player)) {
+        if (e.getPlayer().equals(player) && isHuman) {
             List<ICell> list = e.getShip().getCells();
             ICell cell;
             int[] p1 = null;
@@ -351,13 +354,13 @@ public class Gamefield extends JPanel implements MouseListener,
     }
 
     public void update(SetShot e) {
-        if (e.getPlayer().equals(player)) {
+        if (e.getPlayer().equals(player) && isHuman) {
             this.mayshoot = true;
         }
     }
 
     public void update(WrongCoordinate e) {
-        if (e.getPlayer().equals(player)) {
+        if (e.getPlayer().equals(player) && isHuman) {
             JOptionPane.showMessageDialog(this, e.getMessage(),
                     "Wrong Coordinates", JOptionPane.ERROR_MESSAGE);
         }

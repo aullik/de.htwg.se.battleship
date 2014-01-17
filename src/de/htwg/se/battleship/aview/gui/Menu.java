@@ -46,8 +46,8 @@ public class Menu extends JPanel implements ActionListener, IObserver {
     private JPanel              renameP1ButtonPanel;
     private JButton             renameP2Button;
     private JPanel              renameP2ButtonPanel;
-    private JButton             endgameButton;
-    private JPanel              endgameButtonPanel;
+    private JButton             resetgameButton;
+    private JPanel              resetgameButtonPanel;
     private JButton             singleplayerButton;
     private JPanel              singleplayerButtonPanel;
     private JButton             multiplayerButton;
@@ -102,8 +102,8 @@ public class Menu extends JPanel implements ActionListener, IObserver {
         renameP1Button.setSelected(false);
         renameP2Button.setSelected(true);
         renameP2Button.setSelected(false);
-        endgameButton.setSelected(true);
-        endgameButton.setSelected(false);
+        resetgameButton.setSelected(true);
+        resetgameButton.setSelected(false);
         singleplayerButton.setSelected(true);
         singleplayerButton.setSelected(false);
         multiplayerButton.setSelected(true);
@@ -156,13 +156,13 @@ public class Menu extends JPanel implements ActionListener, IObserver {
                 BoxLayout.X_AXIS));
         renameP2ButtonPanel.add(renameP2Button);
 
-        endgameButton = new JButton("End Game");
-        endgameButton.setFont(myFont);
-        endgameButton.addActionListener(this);
-        endgameButtonPanel = new JPanel();
-        endgameButtonPanel.setLayout(new BoxLayout(endgameButtonPanel,
+        resetgameButton = new JButton("Reset Game");
+        resetgameButton.setFont(myFont);
+        resetgameButton.addActionListener(this);
+        resetgameButtonPanel = new JPanel();
+        resetgameButtonPanel.setLayout(new BoxLayout(resetgameButtonPanel,
                 BoxLayout.X_AXIS));
-        endgameButtonPanel.add(endgameButton);
+        resetgameButtonPanel.add(resetgameButton);
 
         singleplayerButton = new JButton("SinglePlayer");
         singleplayerButton.setFont(myFont);
@@ -192,7 +192,7 @@ public class Menu extends JPanel implements ActionListener, IObserver {
         if (gameState == GAMESTATE_SPGAME) {
             this.add(startButtonPanel);
             this.add(renameP1ButtonPanel);
-            // this.add(endgameButtonPanel);
+            this.add(resetgameButtonPanel);
             this.add(closeButtonPanel);
             return;
         }
@@ -200,19 +200,19 @@ public class Menu extends JPanel implements ActionListener, IObserver {
             this.add(startButtonPanel);
             this.add(renameP1ButtonPanel);
             this.add(renameP2ButtonPanel);
-            // this.add(endgameButtonPanel);
+            this.add(resetgameButtonPanel);
             this.add(closeButtonPanel);
             return;
         }
         if (gameState == GAMESTATE_SPSETSHIP) {
             this.add(continueButtonPanel);
-            // this.add(endgameButtonPanel);
+            this.add(resetgameButtonPanel);
             this.add(closeButtonPanel);
             return;
         }
         if (gameState == GAMESTATE_MPSETSHIP) {
             this.add(continueButtonPanel);
-            // this.add(endgameButtonPanel);
+            this.add(resetgameButtonPanel);
             this.add(closeButtonPanel);
         }
     }
@@ -258,7 +258,7 @@ public class Menu extends JPanel implements ActionListener, IObserver {
             parent.repaint();
             return;
         }
-        if (s == endgameButton) {
+        if (s == resetgameButton) {
             int n = JOptionPane.showConfirmDialog(this.getParent(),
                     "Are you sure you want to abort current Game?",
                     "Confirm Dialog", JOptionPane.YES_NO_OPTION);
