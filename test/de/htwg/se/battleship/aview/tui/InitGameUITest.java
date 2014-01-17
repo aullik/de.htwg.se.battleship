@@ -54,6 +54,12 @@ public class InitGameUITest {
         public void ship(Integer startX, Integer startY, Integer endX, Integer endY) {
             shipCoords = startX + "," + startY + "," + endX + "," + endY;
         }
+
+        @Override
+        public void shot(Integer x, Integer y) {
+            // TODO Auto-generated method stub
+
+        }
     }
 
     private class TestFactory implements IScannerFactory {

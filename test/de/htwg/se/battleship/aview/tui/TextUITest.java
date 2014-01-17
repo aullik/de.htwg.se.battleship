@@ -57,6 +57,12 @@ public class TextUITest {
         @Override
         public void ship(Integer startX, Integer startY, Integer endX, Integer endY) {}
 
+        @Override
+        public void shot(Integer x, Integer y) {
+            // TODO Auto-generated method stub
+
+        }
+
     }
 
     private class TestUi implements IInitGameUI {

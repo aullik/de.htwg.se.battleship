@@ -27,6 +27,12 @@ public class NewGameTest {
 
         @Override
         public void close() {}
+
+        @Override
+        public void reset() {
+            // TODO Auto-generated method stub
+
+        }
     }
 
     @Test
