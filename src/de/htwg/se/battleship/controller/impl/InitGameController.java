@@ -35,6 +35,7 @@ public class InitGameController extends Observable implements IInitGameControlle
     public static final String P1               = "one";
     public static final String P2               = "two";
 
+    public static final String ERROR_INPUT       = "Your input must be a NUMBER";
     public static final String ERROR_COORDS_GRID = "One or both coordinates are not within the grid";
     public static final String ERROR_COORDS      = "Coordinates can only be set horizontal or vertical";
     public static final String ERROR_SAME_COORDS = "Coordinates can not be the same";
@@ -63,6 +64,7 @@ public class InitGameController extends Observable implements IInitGameControlle
         checkEmpty(p1, String.format(MSG_PLAYER_EMPTY, P1));
         checkEmpty(p2, String.format(MSG_PLAYER_EMPTY, P2));
 
+        //TODO throw errorEvent instead of event
         IPlayer player1 = fabric.createPlayer(p1);
         IPlayer player2 = fabric.createPlayer(p2);
 
@@ -81,11 +83,15 @@ public class InitGameController extends Observable implements IInitGameControlle
     }
 
     @Override
-    public void ship(int startX, int startY, int endX, int endY) {
-        ICell start = round.getGrid().getCell(startX, startY);
-        ICell end   = round.getGrid().getCell(endX, endY);
-
+    public void ship(Integer startX, Integer startY, Integer endX, Integer endY) {
         try {
+            if (startX == null || startY == null || endX == null || endY == null) {
+                throw new IllegalArgumentException(ERROR_INPUT);
+            }
+
+            ICell start = round.getGrid().getCell(startX, startY);
+            ICell end   = round.getGrid().getCell(endX, endY);
+
             if (start == null || end == null) {
                 throw new IllegalArgumentException(ERROR_COORDS_GRID);
             }

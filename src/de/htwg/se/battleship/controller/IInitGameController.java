@@ -30,5 +30,5 @@ public interface IInitGameController extends IObservable {
      * @param endX    X-position of end point
      * @param endY    Y-position of end point
      */
-    void ship(int startX, int startY, int endX, int endY);
+    void ship(Integer startX, Integer startY, Integer endX, Integer endY);
 }

@@ -10,7 +10,9 @@ import de.htwg.se.battleship.controller.IInitGameController;
 import de.htwg.se.battleship.controller.event.SetPlayer;
 import de.htwg.se.battleship.controller.event.SetPlayerSuccess;
 import de.htwg.se.battleship.controller.event.SetShip;
+import de.htwg.se.battleship.controller.event.SetShipSuccess;
 import de.htwg.se.battleship.controller.impl.InitGameController;
+import de.htwg.se.battleship.model.ICell;
 import de.htwg.se.battleship.model.IPlayer;
 
 /**
@@ -32,6 +34,7 @@ public class InitGameUI extends UserInterface implements IInitGameUI {
     public static final String MSG_SHIP_START_Y = "Start-point y-coordinate:";
     public static final String MSG_SHIP_END_X   = "End-point x-coordinate:";
     public static final String MSG_SHIP_END_Y   = "End-point y-coordinate:";
+    public static final String MSG_SHIP_SUCCESS = "Added successfull a new ship: %s";
 
     /**
      * 
@@ -56,15 +59,7 @@ public class InitGameUI extends UserInterface implements IInitGameUI {
         controller.player(player1, player2);
     }
 
-    @Override
-    public void update(SetPlayerSuccess e) {
-        IPlayer p1 = e.getPlayer();
-        e.getRound().next();
-        IPlayer p2 = e.getPlayer();
-        e.getRound().next();
 
-        getLogger().info(String.format(MSG_PLAYER_ADD, p1.getName(), p2.getName()));
-    }
 
     private String playername(String no, int index) {
         String name;
@@ -81,6 +76,16 @@ public class InitGameUI extends UserInterface implements IInitGameUI {
     }
 
     @Override
+    public void update(SetPlayerSuccess e) {
+        IPlayer p1 = e.getPlayer();
+        e.getRound().next();
+        IPlayer p2 = e.getPlayer();
+        e.getRound().next();
+
+        getLogger().info(String.format(MSG_PLAYER_ADD, p1.getName(), p2.getName()));
+    }
+
+    @Override
     public void update(SetShip e) {
 
         getLogger().info(header());
@@ -92,17 +97,36 @@ public class InitGameUI extends UserInterface implements IInitGameUI {
 
         getLogger().info(MSG_SHIP);
 
-        int sx = readCoordinate(MSG_SHIP_START_X);
-        int sy = readCoordinate(MSG_SHIP_START_Y);
-        int ex = readCoordinate(MSG_SHIP_END_X);
-        int ey = readCoordinate(MSG_SHIP_END_Y);
+        Integer sx = readCoordinate(MSG_SHIP_START_X);
+        Integer sy = readCoordinate(MSG_SHIP_START_Y);
+        Integer ex = readCoordinate(MSG_SHIP_END_X);
+        Integer ey = readCoordinate(MSG_SHIP_END_Y);
 
         controller.ship(sx, sy, ex, ey);
     }
 
-    private int readCoordinate(String msg) {
+    private Integer readCoordinate(String msg) {
         getLogger().info(msg);
-        return getScanner().nextInt();
+        Integer coordinate = null;
+        String s = getScanner().nextLine();
+
+        try {
+            coordinate = Integer.parseInt(s);
+        } catch(NumberFormatException e) {
+
+        }
+        return coordinate;
+    }
+
+    @Override
+    public void update(SetShipSuccess e) {
+        StringBuilder sb = new StringBuilder();
+
+        for (ICell cell : e.getShip().getCells()) {
+            sb.append("(").append(cell.getKey()).append("),");
+        }
+
+        getLogger().info(String.format(MSG_SHIP_SUCCESS, sb.toString()));
     }
 
 }

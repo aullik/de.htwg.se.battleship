@@ -19,6 +19,7 @@ import de.htwg.se.battleship.controller.event.InitGame;
 import de.htwg.se.battleship.controller.event.SetPlayer;
 import de.htwg.se.battleship.controller.event.SetPlayerSuccess;
 import de.htwg.se.battleship.controller.event.SetShip;
+import de.htwg.se.battleship.controller.event.SetShipSuccess;
 import de.htwg.se.battleship.controller.impl.Controller;
 import de.htwg.se.battleship.util.observer.Observable;
 
@@ -54,7 +55,7 @@ public class TextUITest {
         public void player(String p1, String p2) {}
 
         @Override
-        public void ship(int startX, int startY, int endX, int endY) {}
+        public void ship(Integer startX, Integer startY, Integer endX, Integer endY) {}
 
     }
 
@@ -67,6 +68,9 @@ public class TextUITest {
 
         @Override
         public void update(SetPlayerSuccess e) {}
+
+        @Override
+        public void update(SetShipSuccess e) {}
     }
 
     @Before

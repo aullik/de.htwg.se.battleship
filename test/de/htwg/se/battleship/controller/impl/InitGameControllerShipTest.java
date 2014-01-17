@@ -16,7 +16,7 @@ import de.htwg.se.battleship.util.observer.Event;
 import de.htwg.se.battleship.util.observer.IObserver;
 
 /**
- * @author Philipp
+ * @author Philipp Daniels<philipp.daniels@gmail.com>
  *
  */
 public class InitGameControllerShipTest {
@@ -28,7 +28,7 @@ public class InitGameControllerShipTest {
     public class TestClass implements IObserver {
 
         @Override
-        public void update(Event e) {System.out.println(e.getClass());}
+        public void update(Event e) {}
 
         public void update(WrongCoordinate e) {
             message = e.getMessage();
@@ -115,6 +115,30 @@ public class InitGameControllerShipTest {
         c.ship(2, 0, 2, 7);
         c.ship(2, 0, 2, 7);
         assertEquals(String.format(InitGameController.ERROR_TO_MANY, 6, 8), message);
+    }
+
+    @Test
+    public void testCoordNull1() {
+        c.ship(null, 0, 0, 0);
+        assertEquals(InitGameController.ERROR_INPUT, message);
+    }
+
+    @Test
+    public void testCoordNull2() {
+        c.ship(0, null, 0, 0);
+        assertEquals(InitGameController.ERROR_INPUT, message);
+    }
+
+    @Test
+    public void testCoordNull3() {
+        c.ship(0, 0, null, 0);
+        assertEquals(InitGameController.ERROR_INPUT, message);
+    }
+
+    @Test
+    public void testCoordNull4() {
+        c.ship(0, 0, 0, null);
+        assertEquals(InitGameController.ERROR_INPUT, message);
     }
 
 }
