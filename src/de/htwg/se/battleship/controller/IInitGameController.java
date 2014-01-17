@@ -31,4 +31,11 @@ public interface IInitGameController extends IObservable {
      * @param endY    Y-position of end point
      */
     void ship(Integer startX, Integer startY, Integer endX, Integer endY);
+
+    /**
+     * Shot on field.
+     * @param x X-position
+     * @param y Y-position
+     */
+    void shot(Integer x, Integer y);
 }

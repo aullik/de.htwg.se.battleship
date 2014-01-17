@@ -53,4 +53,10 @@ public interface IPlayer {
      * @return int
      */
     int getNumberOfShipCells();
+
+    /**
+     * Return his human status.
+     * @return boolean
+     */
+    boolean isHuman();
 }

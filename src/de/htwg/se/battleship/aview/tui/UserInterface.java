@@ -13,8 +13,6 @@ import de.htwg.se.battleship.util.observer.IObserver;
  */
 public abstract class UserInterface implements IObserver {
 
-    public static final String MSG_EXCEPTION = "%s has no listener for %s";
-
     private final Logger       logger        = Logger.getLogger("de.htwg.se.battleship.aview.tui");
 
     /**
@@ -28,8 +26,8 @@ public abstract class UserInterface implements IObserver {
 
     @Override
     public void update(Event e) {
-        // throw new IllegalArgumentException(String.format(MSG_EXCEPTION,
-        // this.getClass().toString(), e.getClass().toString()));
+  
+
     }
 
     /**

@@ -69,4 +69,9 @@ public class Player implements IPlayer {
         return sum;
     }
 
+    @Override
+    public boolean isHuman() {
+        return true;
+    }
+
 }
