@@ -99,6 +99,13 @@ public class InitGameController extends Observable implements IInitGameControlle
             notifyObservers(new SetShipSuccess(round, ship));
         } catch(IllegalArgumentException e) {
             notifyObservers(new WrongCoordinate(round, e.getMessage()));
+        } finally {
+
+            if (round.getGrid().getPlayer().getNumberOfShipCells() == Ship.NUMBER_OF_CELLS) {
+                round.next();
+            }
+
+            notifyObservers(new SetShip(round));
         }
     }
 
