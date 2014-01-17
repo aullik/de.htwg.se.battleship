@@ -10,6 +10,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 import de.htwg.se.battleship.controller.IInitGameController;
+import de.htwg.se.battleship.controller.event.IsShot;
 import de.htwg.se.battleship.controller.event.SetPlayer;
 import de.htwg.se.battleship.controller.event.SetPlayerSuccess;
 import de.htwg.se.battleship.controller.event.SetShip;
@@ -194,5 +195,16 @@ public class InitGameController extends Observable implements IInitGameControlle
     @Override
     public void shot(Integer x, Integer y) {
 
+        ICell cell = round.getOpponentGrid().getCell(x, y);
+
+        if(cell.getShip() != null) {
+            cell.setToHit();
+        } else {
+            cell.setToShot();
+        }
+
+        round.next();
+        notifyObservers(new IsShot(round, cell));
+        notifyObservers(new SetShot(round));
     }
 }
