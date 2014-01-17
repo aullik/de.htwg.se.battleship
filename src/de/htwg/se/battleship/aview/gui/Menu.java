@@ -192,7 +192,7 @@ public class Menu extends JPanel implements ActionListener, IObserver {
         if (gameState == GAMESTATE_SPGAME) {
             this.add(startButtonPanel);
             this.add(renameP1ButtonPanel);
-            this.add(endgameButtonPanel);
+            // this.add(endgameButtonPanel);
             this.add(closeButtonPanel);
             return;
         }
@@ -200,19 +200,19 @@ public class Menu extends JPanel implements ActionListener, IObserver {
             this.add(startButtonPanel);
             this.add(renameP1ButtonPanel);
             this.add(renameP2ButtonPanel);
-            this.add(endgameButtonPanel);
+            // this.add(endgameButtonPanel);
             this.add(closeButtonPanel);
             return;
         }
         if (gameState == GAMESTATE_SPSETSHIP) {
             this.add(continueButtonPanel);
-            this.add(endgameButtonPanel);
+            // this.add(endgameButtonPanel);
             this.add(closeButtonPanel);
             return;
         }
         if (gameState == GAMESTATE_MPSETSHIP) {
             this.add(continueButtonPanel);
-            this.add(endgameButtonPanel);
+            // this.add(endgameButtonPanel);
             this.add(closeButtonPanel);
         }
     }
