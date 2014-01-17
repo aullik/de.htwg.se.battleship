@@ -29,12 +29,21 @@ public class Round implements IRound {
 
     @Override
     public void next() {
-        index = (index + 1) % 2;
+        index = calc();
+    }
+
+    private int calc() {
+        return (index + 1) % 2;
     }
 
     @Override
     public IGrid getGrid() {
         return grids[index];
+    }
+
+    @Override
+    public IGrid getOpponentGrid() {
+        return grids[calc()];
     }
 
 }

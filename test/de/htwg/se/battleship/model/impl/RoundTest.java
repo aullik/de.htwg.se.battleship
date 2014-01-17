@@ -26,6 +26,7 @@ public class RoundTest {
         IRound r = new Round(g1, g2);
 
         assertEquals(g1, r.getGrid());
+        assertEquals(g2, r.getOpponentGrid());
         r.next();
         assertEquals(g2, r.getGrid());
         r.next();

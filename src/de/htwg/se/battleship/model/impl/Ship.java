@@ -4,6 +4,8 @@
 package de.htwg.se.battleship.model.impl;
 
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import de.htwg.se.battleship.model.ICell;
@@ -67,5 +69,14 @@ public class Ship implements IShip {
     @Override
     public int getNumberOfCells() {
         return cells.size();
+    }
+
+    @Override
+    public List<ICell> getCells() {
+        List<ICell> list = new LinkedList<ICell>();
+        for (ICell cell : cells.values()) {
+            list.add(cell);
+        }
+        return list;
     }
 }
