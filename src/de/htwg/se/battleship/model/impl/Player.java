@@ -74,4 +74,9 @@ public class Player implements IPlayer {
         return true;
     }
 
+    @Override
+    public List<IShip> getShips() {
+        return ships;
+    }
+
 }

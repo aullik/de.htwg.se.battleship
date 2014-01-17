@@ -3,6 +3,8 @@
  */
 package de.htwg.se.battleship.model;
 
+import java.util.List;
+
 /**
  * The IPlayer interface contains all public methods for a player
  * implementation.
@@ -59,4 +61,10 @@ public interface IPlayer {
      * @return boolean
      */
     boolean isHuman();
+
+    /**
+     * Returns a list of IPlayer IShip
+     * @return List<IShip>
+     */
+    List<IShip> getShips();
 }
