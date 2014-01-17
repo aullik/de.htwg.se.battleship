@@ -190,4 +190,9 @@ public class InitGameController extends Observable implements IInitGameControlle
         }
         return map;
     }
+
+    @Override
+    public void shot(Integer x, Integer y) {
+
+    }
 }
