@@ -27,6 +27,12 @@ public class CloseTest {
         public void close() {
             ping = true;
         }
+
+        @Override
+        public void reset() {
+            // TODO Auto-generated method stub
+
+        }
     }
 
     @Test
