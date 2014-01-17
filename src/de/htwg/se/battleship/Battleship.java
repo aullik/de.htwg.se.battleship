@@ -1,12 +1,12 @@
 package de.htwg.se.battleship;
 
-
 import org.apache.log4j.PropertyConfigurator;
+
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 
 import de.htwg.se.battleship.aview.gui.MainFrame;
 import de.htwg.se.battleship.aview.tui.TextUI;
-import com.google.inject.Guice;
-import com.google.inject.Injector;
 
 /**
  * Initial class to start java program
@@ -15,7 +15,7 @@ import com.google.inject.Injector;
  */
 public final class Battleship {
 
-    private static Battleship    instance = null;
+    private static Battleship instance = null;
 
     /**
      * Return always the same instance of Battleship

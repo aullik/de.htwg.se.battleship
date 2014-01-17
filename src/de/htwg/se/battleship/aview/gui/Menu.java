@@ -14,17 +14,28 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import de.htwg.se.battleship.controller.IController;
+import de.htwg.se.battleship.controller.IInitGameController;
+import de.htwg.se.battleship.controller.event.SetPlayerSuccess;
+import de.htwg.se.battleship.model.IPlayer;
+import de.htwg.se.battleship.util.observer.Event;
+import de.htwg.se.battleship.util.observer.IObserver;
+
 /**
  * @author aullik
  */
 @SuppressWarnings("serial")
-public class Menu extends JPanel implements ActionListener {
+public class Menu extends JPanel implements ActionListener, IObserver {
 
     public static final Integer GAMESTATE_NOGAME    = 0;
     public static final Integer GAMESTATE_SPGAME    = 1;
     public static final Integer GAMESTATE_MPGAME    = 2;
     public static final Integer GAMESTATE_SPSETSHIP = 3;
     public static final Integer GAMESTATE_MPSETSHIP = 4;
+    public static final String  STDPLAYER_1         = "Player 1";
+    public static final String  STDPLAYER_2         = "Player 2";
+    private String              currentPlayer_1;
+    private String              currentPlayer_2;
     private JButton             closeButton;
     private JPanel              closeButtonPanel;
     private JButton             startButton;
@@ -43,14 +54,22 @@ public class Menu extends JPanel implements ActionListener {
     private JPanel              multiplayerButtonPanel;
     private Integer             gameState;
     private MainFrame           parent;
+    private IController         controller;
+    private IInitGameController initC;
 
-    public Menu(MainFrame f) {
+    public Menu(MainFrame f, IController controller, IInitGameController initC) {
         this.gameState = GAMESTATE_NOGAME;
         initButtons();
-        addButtons();
+        setButtons();
+        currentPlayer_1 = STDPLAYER_1;
+        currentPlayer_2 = STDPLAYER_2;
         this.setVisible(true);
         this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         this.parent = f;
+        this.controller = controller;
+        controller.addObserver(this);
+        this.initC = initC;
+        initC.addObserver(this);
 
     }
 
@@ -63,10 +82,10 @@ public class Menu extends JPanel implements ActionListener {
         }
         gameState = i;
         clear();
-        addButtons();
+        setButtons();
     }
 
-    private void clear() {
+    protected void clear() {
         for (Component c : this.getComponents()) {
             this.remove(c);
         }
@@ -121,7 +140,7 @@ public class Menu extends JPanel implements ActionListener {
                 BoxLayout.X_AXIS));
         continueButtonPanel.add(continueButton);
 
-        renameP1Button = new JButton("rename Player 1");
+        renameP1Button = new JButton("Rename Player 1");
         renameP1Button.setFont(myFont);
         renameP1Button.addActionListener(this);
         renameP1ButtonPanel = new JPanel();
@@ -129,7 +148,7 @@ public class Menu extends JPanel implements ActionListener {
                 BoxLayout.X_AXIS));
         renameP1ButtonPanel.add(renameP1Button);
 
-        renameP2Button = new JButton("rename Player 2");
+        renameP2Button = new JButton("Rename Player 2");
         renameP2Button.setFont(myFont);
         renameP2Button.addActionListener(this);
         renameP2ButtonPanel = new JPanel();
@@ -163,7 +182,7 @@ public class Menu extends JPanel implements ActionListener {
 
     }
 
-    private void addButtons() {
+    protected void setButtons() {
         if (gameState == GAMESTATE_NOGAME) {
             this.add(singleplayerButtonPanel);
             this.add(multiplayerButtonPanel);
@@ -173,6 +192,7 @@ public class Menu extends JPanel implements ActionListener {
         if (gameState == GAMESTATE_SPGAME) {
             this.add(startButtonPanel);
             this.add(renameP1ButtonPanel);
+            this.add(endgameButtonPanel);
             this.add(closeButtonPanel);
             return;
         }
@@ -180,6 +200,7 @@ public class Menu extends JPanel implements ActionListener {
             this.add(startButtonPanel);
             this.add(renameP1ButtonPanel);
             this.add(renameP2ButtonPanel);
+            this.add(endgameButtonPanel);
             this.add(closeButtonPanel);
             return;
         }
@@ -205,14 +226,36 @@ public class Menu extends JPanel implements ActionListener {
                     JOptionPane.YES_NO_OPTION);
 
             if (n == JOptionPane.YES_OPTION) {
-                System.exit(0);
+                controller.close();
             }
             return;
         }
         if (s == renameP1Button) {
+            String old = currentPlayer_1;
+            currentPlayer_1 = (String) JOptionPane.showInputDialog(this,
+                    "Enter new Player name:", renameP1Button.getText(),
+                    JOptionPane.QUESTION_MESSAGE, null /* icon */,
+                    null /* possibilities */, null /* default */);
+            if (currentPlayer_1.isEmpty()) {
+                currentPlayer_1 = old;
+                return;
+            }
+            renameP1Button.setText("Rename " + currentPlayer_1);
+            parent.repaint();
             return;
         }
         if (s == renameP2Button) {
+            String old = currentPlayer_2;
+            currentPlayer_2 = (String) JOptionPane.showInputDialog(this,
+                    "Enter new Player name:", renameP1Button.getText(),
+                    JOptionPane.QUESTION_MESSAGE, null /* icon */,
+                    null /* possibilities */, null /* default */);
+            if (currentPlayer_2.isEmpty()) {
+                currentPlayer_2 = old;
+                return;
+            }
+            renameP2Button.setText("Rename " + currentPlayer_2);
+            parent.repaint();
             return;
         }
         if (s == endgameButton) {
@@ -226,13 +269,15 @@ public class Menu extends JPanel implements ActionListener {
             return;
         }
         if (s == singleplayerButton) {
-            parent.newGame();
-            parent.swapPanel();
+            gameState = GAMESTATE_SPGAME;
+            parent.resetButtons();
+            controller.newGame();
             return;
         }
         if (s == multiplayerButton) {
-            parent.newGame();
-            parent.swapPanel();
+            gameState = GAMESTATE_MPGAME;
+            parent.resetButtons();
+            controller.newGame();
             return;
         }
         if (s == continueButton) {
@@ -240,6 +285,30 @@ public class Menu extends JPanel implements ActionListener {
             return;
         }
         if (s == startButton) {
+            if (gameState == GAMESTATE_SPGAME) {
+                currentPlayer_2 = null;
+                gameState = GAMESTATE_SPSETSHIP;
+            } else {
+                gameState = GAMESTATE_MPSETSHIP;
+            }
+            initC.player(currentPlayer_1, currentPlayer_2);
+            parent.resetButtons();
+
         }
+    }
+
+    public void update(SetPlayerSuccess e) {
+        IPlayer player1 = e.getPlayer();
+        e.getRound().next();
+
+        parent.newGame(player1, e.getPlayer());
+        e.getRound().next();
+        parent.swapPanel();
+    }
+
+    @Override
+    public void update(Event e) {
+        // TODO Auto-generated method stub
+
     }
 }

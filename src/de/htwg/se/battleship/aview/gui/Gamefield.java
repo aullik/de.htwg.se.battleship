@@ -13,37 +13,55 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
+import de.htwg.se.battleship.controller.IInitGameController;
+import de.htwg.se.battleship.controller.event.SetShip;
+import de.htwg.se.battleship.controller.event.SetShipSuccess;
+import de.htwg.se.battleship.model.IPlayer;
+import de.htwg.se.battleship.util.observer.Event;
+import de.htwg.se.battleship.util.observer.IObserver;
+
+/**
+ * @author aullik
+ */
+
 @SuppressWarnings("serial")
 public class Gamefield extends JPanel implements MouseListener,
-        MouseMotionListener {
+        MouseMotionListener, IObserver {
 
-    private Graphics2D    grid;
-    private BufferedImage backup;
-    private BufferedImage background;
-    private Dimension     size;
-    private Integer       side;
-    private Integer       sqrtCells;
-    private Integer       cellsize;
-    private Integer       fromBorder;
-    private Integer       toBorder;
-    private MainFrame     parent;
-    private boolean       selectable;
-    private int[]         isSelected;
-    private boolean       placeShip;
+    private final IPlayer       player;
+    private Graphics2D          grid;
+    private BufferedImage       backup;
+    private BufferedImage       background;
+    private Dimension           size;
+    private Integer             side;
+    private Integer             sqrtCells;
+    private Integer             cellsize;
+    private Integer             fromBorder;
+    private Integer             toBorder;
+    private MainFrame           parent;
+    private boolean             selectable;
+    private int[]               isSelected;
+    private int[]               shipStart;
 
-    public Gamefield(int sidelength, int sqrtCells, MainFrame parent) {
-        super();
+    private IInitGameController initC;
+    private boolean             setShips;
 
+    public Gamefield(int sidelength, int sqrtCells, MainFrame parent,
+            IInitGameController initC, IPlayer player) {
+
+        this.setShips = true;
+        this.player = player;
         this.side = round(sidelength, sqrtCells);
         this.sqrtCells = sqrtCells;
         this.cellsize = side / (sqrtCells + 1);
         this.parent = parent;
         this.selectable = false;
-        this.placeShip = false;
         size = new Dimension(side, side);
         this.setPreferredSize(size);
         grid = initiateGrid();
         this.addMouseListener(this);
+        this.initC = initC;
+        initC.addObserver(this);
 
         this.setOpaque(false);
 
@@ -96,13 +114,14 @@ public class Gamefield extends JPanel implements MouseListener,
             drawShip(p2, p1);
             return;
         }
-        grid.setColor(Color.GRAY);
-        grid.setStroke(new BasicStroke(2));
+        Graphics2D g = backup.createGraphics();
+        g.setColor(Color.GRAY);
         int[] cords1 = getCords(p1);
         int[] cords2 = getCords(p2);
 
-        grid.fillOval(cords1[0] - cellsize / 3, cords1[1] - cellsize / 3,
+        g.fillOval(cords1[0] - cellsize / 3, cords1[1] - cellsize / 3,
                 cords2[0] - cellsize / 3, cords2[1] - cellsize / 3);
+        grid = initiateGrid();
     }
 
     public void select(int x, int y, Color color) {
@@ -183,21 +202,47 @@ public class Gamefield extends JPanel implements MouseListener,
 
     }
 
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        if (!selectable) {
-            return;
-        }
+    private void setShip(MouseEvent e) {
         int[] idx = getidx(e.getPoint());
 
-        if (idx != null) {
+        if (idx == null) {
+            return;
+        }
+        if (shipStart == null) {
             grid = initiateGrid();
-
+            isSelected = null;
+            select(idx);
+            shipStart = isSelected;
+        }
+        if (idx[0] != shipStart[0] || idx[1] != shipStart[1]) {
             isSelected = null;
             select(idx);
 
-            parent.repaint();
+            setShips = false;
+            initC.ship(shipStart[0], shipStart[1], idx[0], idx[1]);
+            shipStart = null;
+        }
+        parent.repaint();
+    }
 
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        if (setShips) {
+            setShip(e);
+        }
+        if (selectable) {
+
+            int[] idx = getidx(e.getPoint());
+
+            if (idx != null) {
+                grid = initiateGrid();
+
+                isSelected = null;
+                select(idx);
+
+                parent.repaint();
+
+            }
         }
     }
 
@@ -223,5 +268,25 @@ public class Gamefield extends JPanel implements MouseListener,
 
     @Override
     public void mouseMoved(MouseEvent e) {
+    }
+
+    public void update(SetShip e) {
+        if (e.getPlayer().equals(player)) {
+            this.setShips = true;
+        }
+
+    }
+
+    public void update(SetShipSuccess e) {
+        if (e.getPlayer().equals(player)) {
+
+        }
+
+    }
+
+    @Override
+    public void update(Event e) {
+        // TODO Auto-generated method stub
+
     }
 }

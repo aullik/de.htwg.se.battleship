@@ -22,10 +22,20 @@ import javax.swing.JPanel;
 import com.google.inject.Inject;
 
 import de.htwg.se.battleship.controller.IController;
+import de.htwg.se.battleship.controller.IInitGameController;
+import de.htwg.se.battleship.controller.event.CloseProgamm;
+import de.htwg.se.battleship.controller.event.InitGame;
+import de.htwg.se.battleship.model.IPlayer;
+import de.htwg.se.battleship.util.observer.Event;
+import de.htwg.se.battleship.util.observer.IObserver;
+
+/**
+ * @author aullik
+ */
 
 @SuppressWarnings("serial")
 public class MainFrame extends JFrame implements WindowListener, KeyListener,
-ActionListener {
+        ActionListener, IObserver {
 
     private static final String  TITLE            = "Ballteship";
     private static final String  FILENAME         = "ocean_battleship.jpg";
@@ -40,9 +50,15 @@ ActionListener {
     private Menu                 menu;
     private Integer              gameState;
     private JButton              openMenueButton;
+    private IController          controller;
+    private IInitGameController  initC;
 
     @Inject
-    public MainFrame(IController controller) {
+    public MainFrame(IController controller, IInitGameController initC) {
+        this.controller = controller;
+        controller.addObserver(this);
+        this.initC = initC;
+        initC.addObserver(this);
 
         createImage();
 
@@ -51,15 +67,15 @@ ActionListener {
 
         this.getContentPane().validate();
         this.setVisible(true);
-        this.pack();
         repaint();
 
     }
 
-    protected void newGame() {
-        field1 = new Gamefield(image.getWidth() / 8, 10, this);
-        field1.selectable(true);
-        field2 = new Gamefield(image.getWidth() / 8, 10, this);
+    protected void newGame(IPlayer player1, IPlayer player2) {
+        field1 = new Gamefield(image.getWidth() / 8, 10, this, initC, player1);
+        field1.selectable(false);
+        field2 = new Gamefield(image.getWidth() / 8, 10, this, initC, player2);
+        field2.selectable(false);
         JPanel fieldpanel = new JPanel();
         fieldpanel.setLayout(new BoxLayout(fieldpanel, BoxLayout.X_AXIS));
         fieldpanel.add(new JPanel());
@@ -100,7 +116,7 @@ ActionListener {
         this.gameState = JPANEL_MENUPANEL;
         openMenueButton = new JButton("Menu");
         openMenueButton.addActionListener(this);
-        menu = new Menu(this);
+        menu = new Menu(this, controller, initC);
         menuPanel = new JPanel();
 
         JPanel ypanel = new JPanel();
@@ -114,6 +130,14 @@ ActionListener {
         menuPanel.add(new JPanel());
         menuPanel.add(ypanel);
         menuPanel.add(new JPanel());
+
+    }
+
+    protected void resetButtons() {
+        menu.clear();
+        menu.setButtons();
+        this.getContentPane().validate();
+        repaint();
 
     }
 
@@ -148,20 +172,28 @@ ActionListener {
         size = new Dimension(image.getWidth() / 2, image.getHeight() / 2);
     }
 
+    public void update(InitGame e) {
+        initC.init();
+
+    }
+
     @Override
     public void paint(Graphics g) {
+        super.paint(g);
         if (field1 != null) {
             field1.repaint();
         }
         if (field2 != null) {
             field2.repaint();
         }
-        menu.updateButtons();
-        openMenueButton.setSelected(true);
-        openMenueButton.setSelected(false);
-        super.paint(g);
+        this.pack();
+
         g.drawImage(image, 0, 0, this.getWidth(), this.getHeight(), 0, 0,
                 image.getWidth(), image.getHeight(), null);
+        menu.updateButtons();
+
+        openMenueButton.setSelected(true);
+        openMenueButton.setSelected(false);
         this.requestFocus();
 
     }
@@ -181,7 +213,7 @@ ActionListener {
                 JOptionPane.YES_NO_OPTION);
 
         if (n == JOptionPane.YES_OPTION) {
-            System.exit(0);
+            controller.close();
         }
 
     }
@@ -226,4 +258,14 @@ ActionListener {
             swapPanel();
         }
     }
+
+    @Override
+    public void update(Event e) {
+
+    }
+
+    public void update(CloseProgamm e) {
+        System.exit(0);
+    }
+
 }

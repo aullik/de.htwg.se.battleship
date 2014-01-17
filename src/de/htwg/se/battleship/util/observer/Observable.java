@@ -17,7 +17,7 @@ import org.apache.log4j.Logger;
  */
 public class Observable implements IObservable {
 
-    private final Logger logger = Logger.getLogger("de.htwg.se.battleship.util.observer");
+    private final Logger          logger      = Logger.getLogger("de.htwg.se.battleship.util.observer");
 
     /**
      * List of Observers
@@ -55,8 +55,12 @@ public class Observable implements IObservable {
             }
 
             try {
-                /* This method is not the best solution, but avoids many instanceofs within the update method */
-                Method update = observer.getClass().getMethod("update", e.getClass());
+                /*
+                 * This method is not the best solution, but avoids many
+                 * instanceof's within the update method
+                 */
+                Method update = observer.getClass().getMethod("update",
+                        e.getClass());
                 update.invoke(observer, e);
             } catch (InvocationTargetException e1) {
                 StringWriter sw = new StringWriter();

@@ -16,22 +16,22 @@ import de.htwg.se.battleship.controller.event.InitGame;
  * @author aullik
  */
 @Singleton
-public class TextUI extends UserInterface  {
+public class TextUI extends UserInterface {
 
-    public static final String MSG_INPUT_NOTE   = "Please choice a menu: ";
-    public static final String MSG_DEFAULT_MENU = "Sorry bro, but '%s' has no menu entry!%n";
-    public static final String MSG_EXIT         = "This is the end my friend!";
-
+    public static final String            MSG_INPUT_NOTE   = "Please choice a menu: ";
+    public static final String            MSG_DEFAULT_MENU = "Sorry bro, but '%s' has no menu entry!%n";
+    public static final String            MSG_EXIT         = "This is the end my friend!";
 
     private final Map<String, IMenuEntry> menu;
-    private final IInitGameController igc;
-    private boolean process = true;
+    private final IInitGameController     igc;
+    private boolean                       process          = true;
 
     /**
      * @param controller controller to observe
      */
     @Inject
-    public TextUI(IController controller, IScannerFactory sf, IMenu menu, IInitGameController igc, IInitGameUI ui) {
+    public TextUI(IController controller, IScannerFactory sf, IMenu menu,
+            IInitGameController igc, IInitGameUI ui) {
         super(sf.getScanner());
         controller.addObserver(this);
 
@@ -39,7 +39,8 @@ public class TextUI extends UserInterface  {
         this.igc = igc;
 
         if (ui == null) {
-            throw new IllegalArgumentException(IInitGameUI.class + " cannot be empty");
+            throw new IllegalArgumentException(IInitGameUI.class
+                    + " cannot be empty");
         }
 
         getLogger().info(header());
@@ -50,7 +51,7 @@ public class TextUI extends UserInterface  {
         while (process) {
             getLogger().info(menu());
             getLogger().info(MSG_INPUT_NOTE);
-            String input = getScanner().nextLine();
+            String input = getScanner().next();
 
             executeInput(input);
         }
@@ -70,6 +71,7 @@ public class TextUI extends UserInterface  {
 
     /**
      * Shutdown TUI process input
+     * 
      * @param e CloseProgamm
      */
     public void update(CloseProgamm e) {
@@ -80,12 +82,12 @@ public class TextUI extends UserInterface  {
 
     /**
      * Start TUI for game initialization
+     * 
      * @param e InitGame
      */
     public void update(InitGame e) {
         igc.init();
     }
-
 
     private String menu() {
         StringBuilder sb = new StringBuilder();
