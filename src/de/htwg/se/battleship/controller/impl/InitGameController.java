@@ -75,7 +75,7 @@ public class InitGameController extends Observable implements IInitGameControlle
 
     private void checkEmpty(String s, String message) {
         if (s == null || s.equals("")) {
-            //TODO should not be done with an exception, because only requested TUI gets it
+            //TODO should not be done with an exception, because only requested UI gets it
             throw new IllegalArgumentException(message);
         }
     }
