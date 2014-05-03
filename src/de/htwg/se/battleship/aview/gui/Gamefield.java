@@ -33,24 +33,27 @@ import de.htwg.se.battleship.util.observer.IObserver;
 
 @SuppressWarnings("serial")
 public class Gamefield extends JPanel implements MouseListener,
-        MouseMotionListener, IObserver {
+MouseMotionListener, IObserver {
+
+    private static final int FULL_ROTATION_ANGLE = 360;
+    private static final int CELL_SCALING = 3;
 
     private IPlayer             player;
     private Graphics2D          grid;
     private BufferedImage       backup;
     private BufferedImage       background;
-    private Dimension           size;
-    private Integer             side;
-    private Integer             sqrtCells;
-    private Integer             cellsize;
+    private final Dimension           size;
+    private final Integer             side;
+    private final Integer             sqrtCells;
+    private final Integer             cellsize;
     private Integer             fromBorder;
     private Integer             toBorder;
-    private MainFrame           parent;
+    private final MainFrame           parent;
 
     private int[]               isSelected;
     private int[]               shipStart;
 
-    private IInitGameController initC;
+    private final IInitGameController initC;
     private boolean             setShips;
     private boolean             mayshoot;
     private boolean             isHuman;
@@ -143,9 +146,9 @@ public class Gamefield extends JPanel implements MouseListener,
         int[] cords1 = getCords(p1);
         int[] cords2 = getCords(p2);
 
-        g.fillOval(cords1[0] - cellsize / 3, cords1[1] - cellsize / 3,
-                cords2[0] - cords1[0] + cellsize / 3 * 2, cords2[1] - cords1[1]
-                        + cellsize / 3 * 2);
+        g.fillOval(cords1[0] - cellsize / CELL_SCALING, cords1[1] - cellsize / CELL_SCALING,
+                cords2[0] - cords1[0] + cellsize / CELL_SCALING * 2, cords2[1] - cords1[1]
+                        + cellsize / CELL_SCALING * 2);
         grid = initiateGrid();
     }
 
@@ -178,9 +181,9 @@ public class Gamefield extends JPanel implements MouseListener,
         }
         grid.setColor(color);
         grid.setStroke(new BasicStroke(2));
-        int selectsize = cellsize / 3 * 2;
+        int selectsize = cellsize / CELL_SCALING * 2;
         grid.drawArc(cords[0] - selectsize / 2, cords[1] - selectsize / 2,
-                selectsize, selectsize, 0, 360);
+                selectsize, selectsize, 0, FULL_ROTATION_ANGLE);
         isSelected = idx;
 
     }
@@ -191,9 +194,9 @@ public class Gamefield extends JPanel implements MouseListener,
         Graphics2D g = backup.createGraphics();
         g.setColor(Color.green);
         g.setStroke(new BasicStroke(2));
-        int selectsize = cellsize / 3 * 2;
+        int selectsize = cellsize / CELL_SCALING * 2;
         g.drawArc(cords[0] - selectsize / 2, cords[1] - selectsize / 2,
-                selectsize, selectsize, 0, 360);
+                selectsize, selectsize, 0, FULL_ROTATION_ANGLE);
         grid = initiateGrid();
 
     }
@@ -204,7 +207,7 @@ public class Gamefield extends JPanel implements MouseListener,
         Graphics2D g = backup.createGraphics();
         g.setColor(Color.RED);
         g.setStroke(new BasicStroke(2));
-        int selectsize = cellsize / 3;
+        int selectsize = cellsize / CELL_SCALING;
         int x1 = cords[0] - selectsize;
         int x2 = cords[0] + selectsize;
         int y1 = cords[1] - selectsize;

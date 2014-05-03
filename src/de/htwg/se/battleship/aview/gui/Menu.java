@@ -35,6 +35,7 @@ public class Menu extends JPanel implements ActionListener, IObserver {
     public static final Integer GAMESTATE_MPSETSHIP = 4;
     public static final String  STDPLAYER_1         = "Player 1";
     public static final String  STDPLAYER_2         = "Player 2";
+    private static final int FONT_SCALING = 4;
     private String              currentPlayer_1;
     private String              currentPlayer_2;
     private JButton             closeButton;
@@ -54,9 +55,9 @@ public class Menu extends JPanel implements ActionListener, IObserver {
     private JButton             multiplayerButton;
     private JPanel              multiplayerButtonPanel;
     private Integer             gameState;
-    private MainFrame           parent;
-    private IController         controller;
-    private IInitGameController initC;
+    private final MainFrame           parent;
+    private final IController         controller;
+    private final IInitGameController initC;
 
     public Menu(MainFrame f, IController controller, IInitGameController initC) {
         this.gameState = GAMESTATE_NOGAME;
@@ -117,7 +118,7 @@ public class Menu extends JPanel implements ActionListener, IObserver {
         closeButton = new JButton("Close Game");
         Font myFont = closeButton.getFont();
         myFont = new Font(myFont.getName(), myFont.getStyle(),
-                myFont.getSize() * 4);
+                myFont.getSize() * FONT_SCALING);
         closeButton.addActionListener(this);
         closeButton.setFont(myFont);
         closeButtonPanel = new JPanel();

@@ -36,12 +36,14 @@ import de.htwg.se.battleship.util.observer.IObserver;
 
 @SuppressWarnings("serial")
 public class MainFrame extends JFrame implements WindowListener, KeyListener,
-        ActionListener, IObserver {
+ActionListener, IObserver {
 
     private static final String  TITLE            = "Ballteship";
     private static final String  FILENAME         = "ocean_battleship.jpg";
     private static final Integer JPANEL_INGAME    = 0;
     private static final Integer JPANEL_MENUPANEL = 1;
+    private static final int GAMEFIELD_SCALING = 8;
+    private static final int CELL_QUANTITY     = 10;
     private BufferedImage        image;
     private Dimension            size;
     private Gamefield            field1;
@@ -51,8 +53,8 @@ public class MainFrame extends JFrame implements WindowListener, KeyListener,
     private Menu                 menu;
     private Integer              gameState;
     private JButton              openMenueButton;
-    private IController          controller;
-    private IInitGameController  initC;
+    private final IController          controller;
+    private final IInitGameController  initC;
 
     @Inject
     public MainFrame(IController controller, IInitGameController initC) {
@@ -73,8 +75,8 @@ public class MainFrame extends JFrame implements WindowListener, KeyListener,
     }
 
     protected void initGamefield() {
-        field1 = new Gamefield(image.getWidth() / 8, 10, this, initC);
-        field2 = new Gamefield(image.getWidth() / 8, 10, this, initC);
+        field1 = new Gamefield(image.getWidth() / GAMEFIELD_SCALING, CELL_QUANTITY, this, initC);
+        field2 = new Gamefield(image.getWidth() / GAMEFIELD_SCALING, CELL_QUANTITY, this, initC);
     }
 
     protected void newGame(IPlayer player1, IPlayer player2) {
