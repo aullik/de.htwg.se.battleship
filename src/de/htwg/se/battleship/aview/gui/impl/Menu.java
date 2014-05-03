@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates and open the template in
  * the editor.
  */
-package de.htwg.se.battleship.aview.gui;
+package de.htwg.se.battleship.aview.gui.impl;
 
 import java.awt.Component;
 import java.awt.Font;
@@ -15,6 +15,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import de.htwg.se.battleship.aview.gui.Action;
 import de.htwg.se.battleship.aview.gui.action.CloseAction;
 import de.htwg.se.battleship.aview.gui.action.ContinueAction;
 import de.htwg.se.battleship.aview.gui.action.RenamePlayerAction;

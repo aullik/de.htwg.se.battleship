@@ -1,4 +1,4 @@
-package de.htwg.se.battleship.aview.gui;
+package de.htwg.se.battleship.aview.gui.impl;
 
 import java.awt.Dimension;
 import java.awt.Graphics;

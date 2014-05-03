@@ -6,8 +6,8 @@ package de.htwg.se.battleship.aview.gui.action;
 import javax.swing.JOptionPane;
 
 import de.htwg.se.battleship.aview.gui.Action;
-import de.htwg.se.battleship.aview.gui.MainFrame;
-import de.htwg.se.battleship.aview.gui.Menu;
+import de.htwg.se.battleship.aview.gui.impl.MainFrame;
+import de.htwg.se.battleship.aview.gui.impl.Menu;
 import de.htwg.se.battleship.controller.IController;
 
 /**
