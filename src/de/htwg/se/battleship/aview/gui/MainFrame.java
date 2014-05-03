@@ -126,6 +126,7 @@ ActionListener, IObserver {
         openMenueButton = new JButton("Menu");
         openMenueButton.addActionListener(this);
         menu = new Menu(this, controller, initC);
+        menu.addPanels();
         menuPanel = new JPanel();
 
         JPanel ypanel = new JPanel();
@@ -147,10 +148,9 @@ ActionListener, IObserver {
      */
     public void resetButtons() {
         menu.clear();
-        menu.setButtons();
+        menu.addPanels();
         this.getContentPane().validate();
         repaint();
-
     }
 
     /**

@@ -73,8 +73,7 @@ public class Menu extends JPanel implements ActionListener, IObserver {
 
     public Menu(MainFrame f, IController controller, IInitGameController initC) {
         this.gameState = GAMESTATE_NOGAME;
-        initButtons();
-        setButtons();
+
         currentPlayer1 = new StringBuilder(STDPLAYER_1);
         currentPlayer2 = new StringBuilder(STDPLAYER_2);
         this.setVisible(true);
@@ -84,8 +83,8 @@ public class Menu extends JPanel implements ActionListener, IObserver {
         controller.addObserver(this);
         this.initC = initC;
         initC.addObserver(this);
-
         this.actions = new HashMap<JButton, Action>();
+        initButtons();
         initActions();
     }
 
@@ -98,7 +97,7 @@ public class Menu extends JPanel implements ActionListener, IObserver {
         }
         gameState = i;
         clear();
-        setButtons();
+        addPanels();
     }
 
     protected void clear() {
@@ -165,7 +164,10 @@ public class Menu extends JPanel implements ActionListener, IObserver {
         panel.add(button);
     }
 
-    protected void setButtons() {
+    /**
+     * 
+     */
+    public void addPanels() {
         if (gameState == GAMESTATE_NOGAME) {
             this.add(singleplayerButtonPanel);
             this.add(multiplayerButtonPanel);
@@ -232,7 +234,7 @@ public class Menu extends JPanel implements ActionListener, IObserver {
     public void update(Winner e) {
         this.gameState = GAMESTATE_NOGAME;
         clear();
-        setButtons();
+        addPanels();
         currentPlayer1.setLength(0);
         currentPlayer1.append(STDPLAYER_1);
         currentPlayer2.setLength(0);
