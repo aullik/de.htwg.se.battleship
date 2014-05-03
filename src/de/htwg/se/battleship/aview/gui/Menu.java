@@ -32,9 +32,12 @@ import de.htwg.se.battleship.util.observer.IObserver;
 /**
  * @author aullik
  */
-@SuppressWarnings("serial")
 public class Menu extends JPanel implements ActionListener, IObserver {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
     public static final int GAMESTATE_NOGAME    = 0;
     public static final int GAMESTATE_SPGAME    = 1;
     public static final int GAMESTATE_MPGAME    = 2;
