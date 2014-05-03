@@ -298,7 +298,6 @@ MouseMotionListener, IObserver {
                         && idx[1] == isSelected[1]) {
                     initC.shot(idx[0], idx[1]);
                     mayshoot = false;
-                    System.out.println(idx[0] + ", " + idx[1] + "is shot");
                 } else {
                     grid = initiateGrid();
                     select(idx);
@@ -337,7 +336,6 @@ MouseMotionListener, IObserver {
     public void update(SetShip e) {
         if (e.getPlayer().equals(player) && isHuman) {
             this.setShips = true;
-            System.out.println("success");
         }
 
     }
@@ -375,10 +373,8 @@ MouseMotionListener, IObserver {
         if (e.getPlayer().equals(player)) {
             ICell cell = e.getCell();
             if (cell.isHit()) {
-                System.out.println("is Hit");
                 hit(new int[] { cell.getX(), cell.getY() });
             } else {
-                System.out.println("no Hit");
                 miss(new int[] { cell.getX(), cell.getY() });
             }
             parent.repaint();
