@@ -10,7 +10,9 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.net.URI;
+import java.net.URISyntaxException;
 
 import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
@@ -57,7 +59,7 @@ ActionListener, IObserver {
     private final IInitGameController  initC;
 
     @Inject
-    public MainFrame(IController controller, IInitGameController initC) {
+    public MainFrame(IController controller, IInitGameController initC) throws URISyntaxException, IOException {
         this.controller = controller;
         controller.addObserver(this);
         this.initC = initC;
@@ -176,14 +178,11 @@ ActionListener, IObserver {
 
     }
 
-    private void createImage() {
+    private void createImage() throws URISyntaxException, IOException {
         URI uri;
 
-        try {
-            uri = this.getClass().getResource(FILENAME).toURI();
-            image = ImageIO.read(new File(uri.normalize()));
-        } catch (Exception e) {
-        }
+        uri = this.getClass().getResource(FILENAME).toURI();
+        image = ImageIO.read(new File(uri.normalize()));
         size = new Dimension(image.getWidth() / 2, image.getHeight() / 2);
     }
 
