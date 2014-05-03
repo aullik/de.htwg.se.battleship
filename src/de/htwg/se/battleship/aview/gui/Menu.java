@@ -71,6 +71,12 @@ public class Menu extends JPanel implements ActionListener, IObserver {
     private final IInitGameController initC;
     private final Map<JButton, Action> actions;
 
+    /**
+     * 
+     * @param f
+     * @param controller
+     * @param initC
+     */
     public Menu(MainFrame f, IController controller, IInitGameController initC) {
         this.gameState = GAMESTATE_NOGAME;
 
@@ -88,6 +94,10 @@ public class Menu extends JPanel implements ActionListener, IObserver {
         initActions();
     }
 
+    /**
+     * 
+     * @param i
+     */
     public void setGamestate(int i) {
         if (i < GAMESTATE_NOGAME || i > GAMESTATE_MPSETSHIP) {
             return;
@@ -106,6 +116,9 @@ public class Menu extends JPanel implements ActionListener, IObserver {
         }
     }
 
+    /**
+     * 
+     */
     public void updateButtons() {
         closeButton.setSelected(true);
         closeButton.setSelected(false);
@@ -222,6 +235,10 @@ public class Menu extends JPanel implements ActionListener, IObserver {
         }
     }
 
+    /**
+     * 
+     * @param e
+     */
     public void update(SetPlayerSuccess e) {
         IPlayer player1 = e.getPlayer();
         e.getRound().next();
@@ -231,6 +248,10 @@ public class Menu extends JPanel implements ActionListener, IObserver {
         parent.swapPanel();
     }
 
+    /**
+     * 
+     * @param e
+     */
     public void update(Winner e) {
         this.gameState = GAMESTATE_NOGAME;
         clear();

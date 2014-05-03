@@ -31,11 +31,12 @@ import de.htwg.se.battleship.util.observer.IObserver;
 /**
  * @author aullik
  */
+public class Gamefield extends JPanel implements MouseListener, MouseMotionListener, IObserver {
 
-@SuppressWarnings("serial")
-public class Gamefield extends JPanel implements MouseListener,
-MouseMotionListener, IObserver {
-
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
     private static final int FULL_ROTATION_ANGLE = 360;
     private static final int CELL_SCALING = 3;
 
@@ -59,6 +60,13 @@ MouseMotionListener, IObserver {
     private boolean             mayshoot;
     private boolean             isHuman;
 
+    /**
+     * 
+     * @param sidelength
+     * @param sqrtCells
+     * @param parent
+     * @param initC
+     */
     public Gamefield(int sidelength, int sqrtCells, MainFrame parent,
             IInitGameController initC) {
 
@@ -134,6 +142,11 @@ MouseMotionListener, IObserver {
         return size;
     }
 
+    /**
+     * 
+     * @param p1
+     * @param p2
+     */
     public void drawShip(int[] p1, int[] p2) {
         if (p1[0] != p2[0] && p1[1] != p2[1]) {
             return;
@@ -153,26 +166,55 @@ MouseMotionListener, IObserver {
         grid = initiateGrid();
     }
 
+    /**
+     * 
+     * @param x
+     * @param y
+     * @param color
+     */
     public void select(int x, int y, Color color) {
         select(new int[] { x, y }, color);
     }
 
+    /**
+     * 
+     * @param x
+     * @param y
+     */
     public void select(int x, int y) {
         select(new int[] { x, y }, Color.BLUE);
     }
 
+    /**
+     * 
+     * @param idx
+     */
     public void select(int[] idx) {
         select(idx, Color.BLUE);
     }
 
+    /**
+     * 
+     * @param p
+     */
     public void select(Point p) {
         select(new int[] { p.x, p.y }, Color.BLUE);
     }
 
+    /**
+     * 
+     * @param p
+     * @param color
+     */
     public void select(Point p, Color color) {
         select(new int[] { p.x, p.y }, color);
     }
 
+    /**
+     * 
+     * @param idx
+     * @param color
+     */
     public void select(int[] idx, Color color) {
         int[] cords = getCords(idx);
         if (isSelected != null && isSelected[0] == idx[0]
@@ -188,6 +230,10 @@ MouseMotionListener, IObserver {
         isSelected = Arrays.copyOf(idx, idx.length);
     }
 
+    /**
+     * 
+     * @param idx
+     */
     public void miss(int[] idx) {
         int[] cords = getCords(idx);
 
@@ -201,6 +247,10 @@ MouseMotionListener, IObserver {
 
     }
 
+    /**
+     * 
+     * @param idx
+     */
     public void hit(int[] idx) {
         int[] cords = getCords(idx);
 
@@ -333,6 +383,10 @@ MouseMotionListener, IObserver {
     public void mouseMoved(MouseEvent e) {
     }
 
+    /**
+     * 
+     * @param e
+     */
     public void update(SetShip e) {
         if (e.getPlayer().equals(player) && isHuman) {
             this.setShips = true;
@@ -340,6 +394,10 @@ MouseMotionListener, IObserver {
 
     }
 
+    /**
+     * 
+     * @param e
+     */
     public void update(SetShipSuccess e) {
         if (e.getPlayer().equals(player) && isHuman) {
             List<ICell> list = e.getShip().getCells();
@@ -369,6 +427,10 @@ MouseMotionListener, IObserver {
 
     }
 
+    /**
+     * 
+     * @param e
+     */
     public void update(IsShot e) {
         if (e.getPlayer().equals(player)) {
             ICell cell = e.getCell();
@@ -381,12 +443,20 @@ MouseMotionListener, IObserver {
         }
     }
 
+    /**
+     * 
+     * @param e
+     */
     public void update(SetShot e) {
         if (e.getPlayer().equals(player) && isHuman) {
             this.mayshoot = true;
         }
     }
 
+    /**
+     * 
+     * @param e
+     */
     public void update(WrongCoordinate e) {
         if (e.getPlayer().equals(player) && isHuman) {
             JOptionPane.showMessageDialog(this, e.getMessage(),
@@ -394,6 +464,10 @@ MouseMotionListener, IObserver {
         }
     }
 
+    /**
+     * 
+     * @param e
+     */
     public void update(Winner e) {
         if (e.getRound() != null) {
             String winner = e.getPlayer().getName();

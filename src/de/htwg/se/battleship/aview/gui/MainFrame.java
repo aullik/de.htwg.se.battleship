@@ -35,11 +35,12 @@ import de.htwg.se.battleship.util.observer.IObserver;
 /**
  * @author aullik
  */
+public class MainFrame extends JFrame implements WindowListener, KeyListener, ActionListener, IObserver {
 
-@SuppressWarnings("serial")
-public class MainFrame extends JFrame implements WindowListener, KeyListener,
-ActionListener, IObserver {
-
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
     private static final String  TITLE            = "Ballteship";
     private static final String  FILENAME         = "ocean_battleship.jpg";
     private static final int JPANEL_INGAME      = 0;
@@ -58,6 +59,13 @@ ActionListener, IObserver {
     private final IController          controller;
     private final IInitGameController  initC;
 
+    /**
+     * 
+     * @param controller
+     * @param initC
+     * @throws URISyntaxException
+     * @throws IOException
+     */
     @Inject
     public MainFrame(IController controller, IInitGameController initC) throws URISyntaxException, IOException {
         this.controller = controller;
@@ -186,6 +194,10 @@ ActionListener, IObserver {
         size = new Dimension(image.getWidth() / 2, image.getHeight() / 2);
     }
 
+    /**
+     * 
+     * @param e
+     */
     public void update(InitGame e) {
         initC.init();
 
@@ -273,6 +285,10 @@ ActionListener, IObserver {
         }
     }
 
+    /**
+     * 
+     * @param e
+     */
     public void update(Winner e) {
         gameState = JPANEL_INGAME;
         swapPanel();
@@ -289,6 +305,10 @@ ActionListener, IObserver {
 
     }
 
+    /**
+     * 
+     * @param e
+     */
     public void update(CloseProgamm e) {
         System.exit(0);
     }
