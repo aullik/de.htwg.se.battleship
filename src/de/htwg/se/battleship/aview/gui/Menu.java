@@ -44,8 +44,8 @@ public class Menu extends JPanel implements ActionListener, IObserver {
     public static final String  STDPLAYER_2         = "Player 2";
     public static final String BUTTON_TEXT_RESET_PLAYER = "Reset Game";
     private static final int FONT_SCALING = 4;
-    private final StringBuilder currentPlayer_1;
-    private final StringBuilder currentPlayer_2;
+    private final StringBuilder currentPlayer1;
+    private final StringBuilder currentPlayer2;
     private JButton closeButton;
     private JPanel closeButtonPanel;
     private JButton startButton;
@@ -72,8 +72,8 @@ public class Menu extends JPanel implements ActionListener, IObserver {
         this.gameState = GAMESTATE_NOGAME;
         initButtons();
         setButtons();
-        currentPlayer_1 = new StringBuilder(STDPLAYER_1);
-        currentPlayer_2 = new StringBuilder(STDPLAYER_2);
+        currentPlayer1 = new StringBuilder(STDPLAYER_1);
+        currentPlayer2 = new StringBuilder(STDPLAYER_2);
         this.setVisible(true);
         this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         this.parent = f;
@@ -231,9 +231,9 @@ public class Menu extends JPanel implements ActionListener, IObserver {
     }
 
     private void initActions() {
-        actions.put(startButton,        new StartAction(parent, controller, gameState, currentPlayer_1, currentPlayer_2, initC));
-        actions.put(renameP1Button,     new RenamePlayerAction(parent, controller, currentPlayer_1, renameP1Button));
-        actions.put(renameP1Button,     new RenamePlayerAction(parent, controller, currentPlayer_2, renameP2Button));
+        actions.put(startButton,        new StartAction(parent, controller, gameState, currentPlayer1, currentPlayer2, initC));
+        actions.put(renameP1Button,     new RenamePlayerAction(parent, controller, currentPlayer1, renameP1Button));
+        actions.put(renameP1Button,     new RenamePlayerAction(parent, controller, currentPlayer2, renameP2Button));
         actions.put(resetgameButton,    new ResetGameAction(parent, controller));
         actions.put(singleplayerButton, new GameModeAction(parent, controller, gameState, GAMESTATE_SPGAME));
         actions.put(multiplayerButton,  new GameModeAction(parent, controller, gameState, GAMESTATE_MPGAME));
@@ -263,10 +263,10 @@ public class Menu extends JPanel implements ActionListener, IObserver {
         this.gameState = GAMESTATE_NOGAME;
         clear();
         setButtons();
-        currentPlayer_1.setLength(0);
-        currentPlayer_1.append(STDPLAYER_1);
-        currentPlayer_1.setLength(0);
-        currentPlayer_2.append(STDPLAYER_2);
+        currentPlayer1.setLength(0);
+        currentPlayer1.append(STDPLAYER_1);
+        currentPlayer2.setLength(0);
+        currentPlayer2.append(STDPLAYER_2);
         parent.repaint();
     }
 
