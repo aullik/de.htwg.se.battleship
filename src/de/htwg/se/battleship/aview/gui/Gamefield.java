@@ -10,6 +10,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -184,8 +185,7 @@ MouseMotionListener, IObserver {
         int selectsize = cellsize / CELL_SCALING * 2;
         grid.drawArc(cords[0] - selectsize / 2, cords[1] - selectsize / 2,
                 selectsize, selectsize, 0, FULL_ROTATION_ANGLE);
-        isSelected = idx;
-
+        isSelected = Arrays.copyOf(idx, idx.length);
     }
 
     public void miss(int[] idx) {
