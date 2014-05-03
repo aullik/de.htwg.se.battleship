@@ -28,11 +28,11 @@ import de.htwg.se.battleship.util.observer.IObserver;
 @SuppressWarnings("serial")
 public class Menu extends JPanel implements ActionListener, IObserver {
 
-    public static final Integer GAMESTATE_NOGAME    = 0;
-    public static final Integer GAMESTATE_SPGAME    = 1;
-    public static final Integer GAMESTATE_MPGAME    = 2;
-    public static final Integer GAMESTATE_SPSETSHIP = 3;
-    public static final Integer GAMESTATE_MPSETSHIP = 4;
+    public static final int GAMESTATE_NOGAME    = 0;
+    public static final int GAMESTATE_SPGAME    = 1;
+    public static final int GAMESTATE_MPGAME    = 2;
+    public static final int GAMESTATE_SPSETSHIP = 3;
+    public static final int GAMESTATE_MPSETSHIP = 4;
     public static final String  STDPLAYER_1         = "Player 1";
     public static final String  STDPLAYER_2         = "Player 2";
     private static final int FONT_SCALING = 4;
@@ -75,7 +75,7 @@ public class Menu extends JPanel implements ActionListener, IObserver {
 
     }
 
-    public void setGamestate(Integer i) {
+    public void setGamestate(int i) {
         if (i < GAMESTATE_NOGAME || i > GAMESTATE_MPSETSHIP) {
             return;
         }
@@ -222,7 +222,7 @@ public class Menu extends JPanel implements ActionListener, IObserver {
     @Override
     public void actionPerformed(ActionEvent e) {
         Object s = e.getSource();
-        if (s == closeButton) {
+        if (s.equals(closeButton)) {
             int n = JOptionPane.showConfirmDialog(this.getParent(),
                     "Are you sure you want to quit?", "Confirm Dialog",
                     JOptionPane.YES_NO_OPTION);
@@ -232,7 +232,7 @@ public class Menu extends JPanel implements ActionListener, IObserver {
             }
             return;
         }
-        if (s == renameP1Button) {
+        if (s.equals(renameP1Button)) {
             String old = currentPlayer_1;
             currentPlayer_1 = (String) JOptionPane.showInputDialog(this,
                     "Enter new Player name:", renameP1Button.getText(),
@@ -246,7 +246,7 @@ public class Menu extends JPanel implements ActionListener, IObserver {
             parent.repaint();
             return;
         }
-        if (s == renameP2Button) {
+        if (s.equals(renameP2Button)) {
             String old = currentPlayer_2;
             currentPlayer_2 = (String) JOptionPane.showInputDialog(this,
                     "Enter new Player name:", renameP1Button.getText(),
@@ -260,7 +260,7 @@ public class Menu extends JPanel implements ActionListener, IObserver {
             parent.repaint();
             return;
         }
-        if (s == resetgameButton) {
+        if (s.equals(resetgameButton)) {
             int n = JOptionPane.showConfirmDialog(this.getParent(),
                     "Are you sure you want to abort current Game?",
                     resetgameButton.getText(), JOptionPane.YES_NO_OPTION);
@@ -270,25 +270,25 @@ public class Menu extends JPanel implements ActionListener, IObserver {
             }
             return;
         }
-        if (s == singleplayerButton) {
+        if (s.equals(singleplayerButton)) {
             gameState = GAMESTATE_SPGAME;
             parent.resetButtons();
             controller.newGame();
             parent.initGamefield();
             return;
         }
-        if (s == multiplayerButton) {
+        if (s.equals(multiplayerButton)) {
             gameState = GAMESTATE_MPGAME;
             parent.resetButtons();
             controller.newGame();
             parent.initGamefield();
             return;
         }
-        if (s == continueButton) {
+        if (s.equals(continueButton)) {
             parent.swapPanel();
             return;
         }
-        if (s == startButton) {
+        if (s.equals(startButton)) {
             if (gameState == GAMESTATE_SPGAME) {
                 currentPlayer_2 = null;
                 gameState = GAMESTATE_SPSETSHIP;

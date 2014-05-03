@@ -40,10 +40,10 @@ ActionListener, IObserver {
 
     private static final String  TITLE            = "Ballteship";
     private static final String  FILENAME         = "ocean_battleship.jpg";
-    private static final Integer JPANEL_INGAME    = 0;
-    private static final Integer JPANEL_MENUPANEL = 1;
-    private static final int GAMEFIELD_SCALING = 8;
-    private static final int CELL_QUANTITY     = 10;
+    private static final int JPANEL_INGAME      = 0;
+    private static final int JPANEL_MENUPANEL   = 1;
+    private static final int GAMEFIELD_SCALING  = 8;
+    private static final int CELL_QUANTITY      = 10;
     private BufferedImage        image;
     private Dimension            size;
     private Gamefield            field1;
