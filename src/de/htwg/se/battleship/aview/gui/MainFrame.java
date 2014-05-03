@@ -74,7 +74,10 @@ ActionListener, IObserver {
 
     }
 
-    protected void initGamefield() {
+    /**
+     * Initialize game-fields.
+     */
+    public void initGamefield() {
         field1 = new Gamefield(image.getWidth() / GAMEFIELD_SCALING, CELL_QUANTITY, this, initC);
         field2 = new Gamefield(image.getWidth() / GAMEFIELD_SCALING, CELL_QUANTITY, this, initC);
     }
@@ -139,7 +142,10 @@ ActionListener, IObserver {
 
     }
 
-    protected void resetButtons() {
+    /**
+     * Reset buttons.
+     */
+    public void resetButtons() {
         menu.clear();
         menu.setButtons();
         this.getContentPane().validate();
@@ -147,7 +153,10 @@ ActionListener, IObserver {
 
     }
 
-    protected void swapPanel() {
+    /**
+     * Swap panel.
+     */
+    public void swapPanel() {
         if (gameState == JPANEL_INGAME) {
             this.remove(inGame);
             this.add(menuPanel);

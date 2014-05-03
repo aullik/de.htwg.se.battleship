@@ -8,12 +8,19 @@ import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import de.htwg.se.battleship.aview.gui.action.CloseAction;
+import de.htwg.se.battleship.aview.gui.action.ContinueAction;
+import de.htwg.se.battleship.aview.gui.action.RenamePlayerAction;
+import de.htwg.se.battleship.aview.gui.action.ResetGameAction;
+import de.htwg.se.battleship.aview.gui.action.GameModeAction;
+import de.htwg.se.battleship.aview.gui.action.StartAction;
 import de.htwg.se.battleship.controller.IController;
 import de.htwg.se.battleship.controller.IInitGameController;
 import de.htwg.se.battleship.controller.event.SetPlayerSuccess;
@@ -35,36 +42,38 @@ public class Menu extends JPanel implements ActionListener, IObserver {
     public static final int GAMESTATE_MPSETSHIP = 4;
     public static final String  STDPLAYER_1         = "Player 1";
     public static final String  STDPLAYER_2         = "Player 2";
+    public static final String BUTTON_TEXT_RESET_PLAYER = "Reset Game";
     private static final int FONT_SCALING = 4;
-    private String              currentPlayer_1;
-    private String              currentPlayer_2;
-    private JButton             closeButton;
-    private JPanel              closeButtonPanel;
-    private JButton             startButton;
-    private JPanel              startButtonPanel;
-    private JButton             continueButton;
-    private JPanel              continueButtonPanel;
-    private JButton             renameP1Button;
-    private JPanel              renameP1ButtonPanel;
-    private JButton             renameP2Button;
-    private JPanel              renameP2ButtonPanel;
-    private JButton             resetgameButton;
-    private JPanel              resetgameButtonPanel;
-    private JButton             singleplayerButton;
-    private JPanel              singleplayerButtonPanel;
-    private JButton             multiplayerButton;
-    private JPanel              multiplayerButtonPanel;
-    private Integer             gameState;
-    private final MainFrame           parent;
-    private final IController         controller;
+    private final StringBuilder currentPlayer_1;
+    private final StringBuilder currentPlayer_2;
+    private JButton closeButton;
+    private JPanel closeButtonPanel;
+    private JButton startButton;
+    private JPanel startButtonPanel;
+    private JButton continueButton;
+    private JPanel continueButtonPanel;
+    private JButton renameP1Button;
+    private JPanel renameP1ButtonPanel;
+    private JButton renameP2Button;
+    private JPanel renameP2ButtonPanel;
+    private JButton resetgameButton;
+    private JPanel resetgameButtonPanel;
+    private JButton singleplayerButton;
+    private JPanel singleplayerButtonPanel;
+    private JButton multiplayerButton;
+    private JPanel multiplayerButtonPanel;
+    private Integer gameState;
+    private final MainFrame parent;
+    private final IController controller;
     private final IInitGameController initC;
+    private final Map<JButton, Action> actions;
 
     public Menu(MainFrame f, IController controller, IInitGameController initC) {
         this.gameState = GAMESTATE_NOGAME;
         initButtons();
         setButtons();
-        currentPlayer_1 = STDPLAYER_1;
-        currentPlayer_2 = STDPLAYER_2;
+        currentPlayer_1 = new StringBuilder(STDPLAYER_1);
+        currentPlayer_2 = new StringBuilder(STDPLAYER_2);
         this.setVisible(true);
         this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         this.parent = f;
@@ -73,13 +82,15 @@ public class Menu extends JPanel implements ActionListener, IObserver {
         this.initC = initC;
         initC.addObserver(this);
 
+        this.actions = new HashMap<JButton, Action>();
+        initActions();
     }
 
     public void setGamestate(int i) {
         if (i < GAMESTATE_NOGAME || i > GAMESTATE_MPSETSHIP) {
             return;
         }
-        if (gameState == i) {
+        if (gameState.equals(i)) {
             return;
         }
         gameState = i;
@@ -158,7 +169,7 @@ public class Menu extends JPanel implements ActionListener, IObserver {
                 BoxLayout.X_AXIS));
         renameP2ButtonPanel.add(renameP2Button);
 
-        resetgameButton = new JButton("Reset Game");
+        resetgameButton = new JButton(BUTTON_TEXT_RESET_PLAYER);
         resetgameButton.setFont(myFont);
         resetgameButton.addActionListener(this);
         resetgameButtonPanel = new JPanel();
@@ -219,85 +230,23 @@ public class Menu extends JPanel implements ActionListener, IObserver {
         }
     }
 
+    private void initActions() {
+        actions.put(startButton,        new StartAction(parent, controller, gameState, currentPlayer_1, currentPlayer_2, initC));
+        actions.put(renameP1Button,     new RenamePlayerAction(parent, controller, currentPlayer_1, renameP1Button));
+        actions.put(renameP1Button,     new RenamePlayerAction(parent, controller, currentPlayer_2, renameP2Button));
+        actions.put(resetgameButton,    new ResetGameAction(parent, controller));
+        actions.put(singleplayerButton, new GameModeAction(parent, controller, gameState, GAMESTATE_SPGAME));
+        actions.put(multiplayerButton,  new GameModeAction(parent, controller, gameState, GAMESTATE_MPGAME));
+        actions.put(continueButton,     new ContinueAction(parent, controller));
+        actions.put(closeButton,        new CloseAction(parent, controller));
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         Object s = e.getSource();
-        if (s.equals(closeButton)) {
-            int n = JOptionPane.showConfirmDialog(this.getParent(),
-                    "Are you sure you want to quit?", "Confirm Dialog",
-                    JOptionPane.YES_NO_OPTION);
-
-            if (n == JOptionPane.YES_OPTION) {
-                controller.close();
-            }
-            return;
-        }
-        if (s.equals(renameP1Button)) {
-            String old = currentPlayer_1;
-            currentPlayer_1 = (String) JOptionPane.showInputDialog(this,
-                    "Enter new Player name:", renameP1Button.getText(),
-                    JOptionPane.QUESTION_MESSAGE, null /* icon */,
-                    null /* possibilities */, null /* default */);
-            if (currentPlayer_1.isEmpty()) {
-                currentPlayer_1 = old;
-                return;
-            }
-            renameP1Button.setText("Rename " + currentPlayer_1);
-            parent.repaint();
-            return;
-        }
-        if (s.equals(renameP2Button)) {
-            String old = currentPlayer_2;
-            currentPlayer_2 = (String) JOptionPane.showInputDialog(this,
-                    "Enter new Player name:", renameP1Button.getText(),
-                    JOptionPane.QUESTION_MESSAGE, null /* icon */,
-                    null /* possibilities */, null /* default */);
-            if (currentPlayer_2.isEmpty()) {
-                currentPlayer_2 = old;
-                return;
-            }
-            renameP2Button.setText("Rename " + currentPlayer_2);
-            parent.repaint();
-            return;
-        }
-        if (s.equals(resetgameButton)) {
-            int n = JOptionPane.showConfirmDialog(this.getParent(),
-                    "Are you sure you want to abort current Game?",
-                    resetgameButton.getText(), JOptionPane.YES_NO_OPTION);
-
-            if (n == JOptionPane.YES_OPTION) {
-                controller.reset();
-            }
-            return;
-        }
-        if (s.equals(singleplayerButton)) {
-            gameState = GAMESTATE_SPGAME;
-            parent.resetButtons();
-            controller.newGame();
-            parent.initGamefield();
-            return;
-        }
-        if (s.equals(multiplayerButton)) {
-            gameState = GAMESTATE_MPGAME;
-            parent.resetButtons();
-            controller.newGame();
-            parent.initGamefield();
-            return;
-        }
-        if (s.equals(continueButton)) {
-            parent.swapPanel();
-            return;
-        }
-        if (s.equals(startButton)) {
-            if (gameState == GAMESTATE_SPGAME) {
-                currentPlayer_2 = null;
-                gameState = GAMESTATE_SPSETSHIP;
-            } else {
-                gameState = GAMESTATE_MPSETSHIP;
-            }
-            initC.player(currentPlayer_1, currentPlayer_2);
-            parent.resetButtons();
-
+        Action a = actions.get(s);
+        if (a != null) {
+            a.perform();
         }
     }
 
@@ -314,10 +263,11 @@ public class Menu extends JPanel implements ActionListener, IObserver {
         this.gameState = GAMESTATE_NOGAME;
         clear();
         setButtons();
-        currentPlayer_1 = STDPLAYER_1;
-        currentPlayer_2 = STDPLAYER_2;
+        currentPlayer_1.setLength(0);
+        currentPlayer_1.append(STDPLAYER_1);
+        currentPlayer_1.setLength(0);
+        currentPlayer_2.append(STDPLAYER_2);
         parent.repaint();
-
     }
 
     @Override
