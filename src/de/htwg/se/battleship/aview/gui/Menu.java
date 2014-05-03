@@ -124,78 +124,45 @@ public class Menu extends JPanel implements ActionListener, IObserver {
         singleplayerButton.setSelected(false);
         multiplayerButton.setSelected(true);
         multiplayerButton.setSelected(false);
-
     }
 
     private void initButtons() {
+        Font myFont = new JButton().getFont();
+        myFont = new Font(myFont.getName(), myFont.getStyle(), myFont.getSize() * FONT_SCALING);
 
-        closeButton = new JButton("Close Game");
-        Font myFont = closeButton.getFont();
-        myFont = new Font(myFont.getName(), myFont.getStyle(),
-                myFont.getSize() * FONT_SCALING);
-        closeButton.addActionListener(this);
-        closeButton.setFont(myFont);
-        closeButtonPanel = new JPanel();
-        closeButtonPanel.setLayout(new BoxLayout(closeButtonPanel,
-                BoxLayout.X_AXIS));
-        closeButtonPanel.add(closeButton);
+        closeButton         = new JButton("Close Game");
+        startButton         = new JButton("Start Game");
+        continueButton      = new JButton("Continue");
+        renameP1Button      = new JButton("Rename Player 1");
+        renameP2Button      = new JButton("Rename Player 2");
+        resetgameButton     = new JButton(BUTTON_TEXT_RESET_PLAYER);
+        singleplayerButton  = new JButton("SinglePlayer");
+        multiplayerButton   = new JButton("Multiplayer");
 
-        startButton = new JButton("Start Game");
-        startButton.setFont(myFont);
-        startButton.addActionListener(this);
-        startButtonPanel = new JPanel();
-        startButtonPanel.setLayout(new BoxLayout(startButtonPanel,
-                BoxLayout.X_AXIS));
-        startButtonPanel.add(startButton);
-
-        continueButton = new JButton("Continue");
-        continueButton.setFont(myFont);
-        continueButton.addActionListener(this);
-        continueButtonPanel = new JPanel();
-        continueButtonPanel.setLayout(new BoxLayout(continueButtonPanel,
-                BoxLayout.X_AXIS));
-        continueButtonPanel.add(continueButton);
-
-        renameP1Button = new JButton("Rename Player 1");
-        renameP1Button.setFont(myFont);
-        renameP1Button.addActionListener(this);
-        renameP1ButtonPanel = new JPanel();
-        renameP1ButtonPanel.setLayout(new BoxLayout(renameP1ButtonPanel,
-                BoxLayout.X_AXIS));
-        renameP1ButtonPanel.add(renameP1Button);
-
-        renameP2Button = new JButton("Rename Player 2");
-        renameP2Button.setFont(myFont);
-        renameP2Button.addActionListener(this);
-        renameP2ButtonPanel = new JPanel();
-        renameP2ButtonPanel.setLayout(new BoxLayout(renameP2ButtonPanel,
-                BoxLayout.X_AXIS));
-        renameP2ButtonPanel.add(renameP2Button);
-
-        resetgameButton = new JButton(BUTTON_TEXT_RESET_PLAYER);
-        resetgameButton.setFont(myFont);
-        resetgameButton.addActionListener(this);
-        resetgameButtonPanel = new JPanel();
-        resetgameButtonPanel.setLayout(new BoxLayout(resetgameButtonPanel,
-                BoxLayout.X_AXIS));
-        resetgameButtonPanel.add(resetgameButton);
-
-        singleplayerButton = new JButton("SinglePlayer");
-        singleplayerButton.setFont(myFont);
-        singleplayerButton.addActionListener(this);
+        closeButtonPanel        = new JPanel();
+        startButtonPanel        = new JPanel();
+        continueButtonPanel     = new JPanel();
+        renameP1ButtonPanel     = new JPanel();
+        renameP2ButtonPanel     = new JPanel();
+        resetgameButtonPanel    = new JPanel();
         singleplayerButtonPanel = new JPanel();
-        singleplayerButtonPanel.setLayout(new BoxLayout(
-                singleplayerButtonPanel, BoxLayout.X_AXIS));
-        singleplayerButtonPanel.add(singleplayerButton);
+        multiplayerButtonPanel  = new JPanel();
 
-        multiplayerButton = new JButton("Multiplayer");
-        multiplayerButton.setFont(myFont);
-        multiplayerButton.addActionListener(this);
-        multiplayerButtonPanel = new JPanel();
-        multiplayerButtonPanel.setLayout(new BoxLayout(multiplayerButtonPanel,
-                BoxLayout.X_AXIS));
-        multiplayerButtonPanel.add(multiplayerButton);
+        initButton(closeButton,        closeButtonPanel,        myFont);
+        initButton(startButton,        startButtonPanel,        myFont);
+        initButton(continueButton,     continueButtonPanel,     myFont);
+        initButton(renameP1Button,     renameP1ButtonPanel,     myFont);
+        initButton(renameP2Button,     renameP2ButtonPanel,     myFont);
+        initButton(resetgameButton,    resetgameButtonPanel,    myFont);
+        initButton(singleplayerButton, singleplayerButtonPanel, myFont);
+        initButton(multiplayerButton,  multiplayerButtonPanel,  myFont);
+    }
 
+    private void initButton(JButton button, JPanel panel, Font myFont) {
+        button.setFont(myFont);
+        button.addActionListener(this);
+        panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+        panel.add(button);
     }
 
     protected void setButtons() {
