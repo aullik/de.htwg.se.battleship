@@ -1,6 +1,5 @@
 package de.htwg.se.battleship.aview.gui;
 
-import de.htwg.se.battleship.aview.gui.impl.MainFrame;
 import de.htwg.se.battleship.controller.IController;
 
 /**

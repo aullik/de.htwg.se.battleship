@@ -5,7 +5,7 @@ import org.apache.log4j.PropertyConfigurator;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
-import de.htwg.se.battleship.aview.gui.impl.MainFrame;
+import de.htwg.se.battleship.aview.gui.MainFrame;
 import de.htwg.se.battleship.aview.tui.TextUI;
 
 /**

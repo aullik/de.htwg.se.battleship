@@ -16,6 +16,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import de.htwg.se.battleship.aview.gui.Action;
+import de.htwg.se.battleship.aview.gui.MainFrame;
 import de.htwg.se.battleship.aview.gui.action.CloseAction;
 import de.htwg.se.battleship.aview.gui.action.ContinueAction;
 import de.htwg.se.battleship.aview.gui.action.RenamePlayerAction;

@@ -5,6 +5,7 @@ package de.htwg.se.battleship;
 
 import com.google.inject.AbstractModule;
 
+import de.htwg.se.battleship.aview.gui.MainFrame;
 import de.htwg.se.battleship.aview.tui.IInitGameUI;
 import de.htwg.se.battleship.aview.tui.IMenu;
 import de.htwg.se.battleship.aview.tui.IScannerFactory;
@@ -27,6 +28,8 @@ public class BattleshipModule extends AbstractModule {
         bind(IScannerFactory.class).to(de.htwg.se.battleship.aview.tui.ScannerFactory.class);
         bind(IInitGameController.class).to(de.htwg.se.battleship.controller.impl.InitGameController.class);
         bind(IInitGameUI.class).to(de.htwg.se.battleship.aview.tui.InitGameUI.class);
+
+        bind(MainFrame.class).to(de.htwg.se.battleship.aview.gui.impl.MainFrameImplementation.class);
     }
 
 }

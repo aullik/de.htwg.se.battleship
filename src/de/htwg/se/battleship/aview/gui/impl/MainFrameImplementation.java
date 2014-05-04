@@ -3,11 +3,8 @@ package de.htwg.se.battleship.aview.gui.impl;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -23,19 +20,18 @@ import javax.swing.JPanel;
 
 import com.google.inject.Inject;
 
+import de.htwg.se.battleship.aview.gui.MainFrame;
 import de.htwg.se.battleship.controller.IController;
 import de.htwg.se.battleship.controller.IInitGameController;
 import de.htwg.se.battleship.controller.event.CloseProgamm;
 import de.htwg.se.battleship.controller.event.InitGame;
 import de.htwg.se.battleship.controller.event.Winner;
 import de.htwg.se.battleship.model.IPlayer;
-import de.htwg.se.battleship.util.observer.Event;
-import de.htwg.se.battleship.util.observer.IObserver;
 
 /**
  * @author aullik
  */
-public class MainFrame extends JFrame implements WindowListener, KeyListener, ActionListener, IObserver {
+public class MainFrameImplementation extends MainFrame {
 
     /**
      * 
@@ -67,7 +63,7 @@ public class MainFrame extends JFrame implements WindowListener, KeyListener, Ac
      * @throws IOException
      */
     @Inject
-    public MainFrame(IController controller, IInitGameController initC) throws URISyntaxException, IOException {
+    public MainFrameImplementation(IController controller, IInitGameController initC) throws URISyntaxException, IOException {
         this.controller = controller;
         controller.addObserver(this);
         this.initC = initC;
@@ -84,15 +80,17 @@ public class MainFrame extends JFrame implements WindowListener, KeyListener, Ac
 
     }
 
-    /**
-     * Initialize game-fields.
+    /* (non-Javadoc)
+     * @see de.htwg.se.battleship.aview.gui.impl.MainFrame#initGamefield()
      */
+    @Override
     public void initGamefield() {
         field1 = new Gamefield(image.getWidth() / GAMEFIELD_SCALING, CELL_QUANTITY, this, initC);
         field2 = new Gamefield(image.getWidth() / GAMEFIELD_SCALING, CELL_QUANTITY, this, initC);
     }
 
-    protected void newGame(IPlayer player1, IPlayer player2) {
+    @Override
+    public void newGame(IPlayer player1, IPlayer player2) {
         field1.setPlayer(player1);
         field2.setPlayer(player2);
         JPanel fieldpanel = new JPanel();
@@ -153,9 +151,10 @@ public class MainFrame extends JFrame implements WindowListener, KeyListener, Ac
 
     }
 
-    /**
-     * Reset buttons.
+    /* (non-Javadoc)
+     * @see de.htwg.se.battleship.aview.gui.impl.MainFrame#resetButtons()
      */
+    @Override
     public void resetButtons() {
         menu.clear();
         menu.addPanels();
@@ -163,9 +162,10 @@ public class MainFrame extends JFrame implements WindowListener, KeyListener, Ac
         repaint();
     }
 
-    /**
-     * Swap panel.
+    /* (non-Javadoc)
+     * @see de.htwg.se.battleship.aview.gui.impl.MainFrame#swapPanel()
      */
+    @Override
     public void swapPanel() {
         if (gameState == JPANEL_INGAME) {
             this.remove(inGame);
@@ -194,15 +194,18 @@ public class MainFrame extends JFrame implements WindowListener, KeyListener, Ac
         size = new Dimension(image.getWidth() / 2, image.getHeight() / 2);
     }
 
-    /**
-     * 
-     * @param e
+    /* (non-Javadoc)
+     * @see de.htwg.se.battleship.aview.gui.impl.MainFrame#update(de.htwg.se.battleship.controller.event.InitGame)
      */
+    @Override
     public void update(InitGame e) {
         initC.init();
 
     }
 
+    /* (non-Javadoc)
+     * @see de.htwg.se.battleship.aview.gui.impl.MainFrame#paint(java.awt.Graphics)
+     */
     @Override
     public void paint(Graphics g) {
         super.paint(g);
@@ -224,14 +227,9 @@ public class MainFrame extends JFrame implements WindowListener, KeyListener, Ac
 
     }
 
-    @Override
-    public void windowActivated(WindowEvent e) {
-    }
-
-    @Override
-    public void windowClosed(WindowEvent arg0) {
-    }
-
+    /* (non-Javadoc)
+     * @see de.htwg.se.battleship.aview.gui.impl.MainFrame#windowClosing(java.awt.event.WindowEvent)
+     */
     @Override
     public void windowClosing(WindowEvent arg0) {
         int n = JOptionPane.showConfirmDialog(this.getParent(),
@@ -241,43 +239,29 @@ public class MainFrame extends JFrame implements WindowListener, KeyListener, Ac
         if (n == JOptionPane.YES_OPTION) {
             controller.close();
         }
-
     }
 
-    @Override
-    public void windowDeactivated(WindowEvent arg0) {
-    }
-
-    @Override
-    public void windowDeiconified(WindowEvent arg0) {
-    }
-
-    @Override
-    public void windowIconified(WindowEvent arg0) {
-    }
-
+    /* (non-Javadoc)
+     * @see de.htwg.se.battleship.aview.gui.impl.MainFrame#windowOpened(java.awt.event.WindowEvent)
+     */
     @Override
     public void windowOpened(WindowEvent arg0) {
         this.requestFocus();
-
     }
 
-    @Override
-    public void keyTyped(KeyEvent ke) {
-    }
-
+    /* (non-Javadoc)
+     * @see de.htwg.se.battleship.aview.gui.impl.MainFrame#keyPressed(java.awt.event.KeyEvent)
+     */
     @Override
     public void keyPressed(KeyEvent ke) {
         if (ke.getKeyCode() == KeyEvent.VK_ESCAPE) {
             swapPanel();
         }
-
     }
 
-    @Override
-    public void keyReleased(KeyEvent ke) {
-    }
-
+    /* (non-Javadoc)
+     * @see de.htwg.se.battleship.aview.gui.impl.MainFrame#actionPerformed(java.awt.event.ActionEvent)
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == openMenueButton) {
@@ -285,10 +269,10 @@ public class MainFrame extends JFrame implements WindowListener, KeyListener, Ac
         }
     }
 
-    /**
-     * 
-     * @param e
+    /* (non-Javadoc)
+     * @see de.htwg.se.battleship.aview.gui.impl.MainFrame#update(de.htwg.se.battleship.controller.event.Winner)
      */
+    @Override
     public void update(Winner e) {
         gameState = JPANEL_INGAME;
         swapPanel();
@@ -297,20 +281,13 @@ public class MainFrame extends JFrame implements WindowListener, KeyListener, Ac
         this.getContentPane().validate();
         repaint();
         pack();
-
     }
 
-    @Override
-    public void update(Event e) {
-
-    }
-
-    /**
-     * 
-     * @param e
+    /* (non-Javadoc)
+     * @see de.htwg.se.battleship.aview.gui.impl.MainFrame#update(de.htwg.se.battleship.controller.event.CloseProgamm)
      */
+    @Override
     public void update(CloseProgamm e) {
         System.exit(0);
     }
-
 }

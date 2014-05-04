@@ -50,7 +50,7 @@ public class Gamefield extends JPanel implements MouseListener, MouseMotionListe
     private final Integer             cellsize;
     private Integer             fromBorder;
     private Integer             toBorder;
-    private final MainFrame           parent;
+    private final MainFrameImplementation           parent;
 
     private int[]               isSelected;
     private int[]               shipStart;
@@ -67,7 +67,7 @@ public class Gamefield extends JPanel implements MouseListener, MouseMotionListe
      * @param parent
      * @param initC
      */
-    public Gamefield(int sidelength, int sqrtCells, MainFrame parent,
+    public Gamefield(int sidelength, int sqrtCells, MainFrameImplementation parent,
             IInitGameController initC) {
 
         this.mayshoot = false;
