@@ -31,5 +31,4 @@ public class IsShot extends AbstractEvent {
     public Cell getCell() {
         return cell;
     }
-
 }
