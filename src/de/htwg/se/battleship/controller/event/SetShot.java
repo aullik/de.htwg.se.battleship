@@ -18,5 +18,4 @@ public class SetShot extends AbstractEvent {
     public SetShot(Round round) {
         super(round);
     }
-
 }
