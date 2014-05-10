@@ -11,13 +11,13 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 /**
- * Observsable Class
+ * Manage IObserver and send Event to IObserver
  * 
- * @author aullik
+ * @author Philipp Daniels <philipp.daniels@gmail.com>
  */
 public class Observable implements IObservable {
 
-    private final Logger          logger      = Logger.getLogger("de.htwg.se.battleship.util.observer");
+    private final Logger logger = Logger.getLogger("de.htwg.se.battleship.util.observer");
 
     /**
      * List of Observers
@@ -46,30 +46,54 @@ public class Observable implements IObservable {
 
     @Override
     public void notifyObservers(Event e) {
+        iterateOberserver(e);
+    }
+
+    private void iterateOberserver(Event e) {
         for (Iterator<IObserver> iter = subscribers.iterator(); iter.hasNext();) {
             IObserver observer = iter.next();
 
-            if (e == null) {
-                observer.update(e);
+            if (isEmptyEvent(e)) {
+                callDefaultUpdateMethod(observer, e);
                 continue;
             }
 
-            try {
-                /*
-                 * This method is not the best solution, but avoids many
-                 * instanceof's within the update method
-                 */
-                Method update = observer.getClass().getMethod("update",
-                        e.getClass());
-                update.invoke(observer, e);
-            } catch (InvocationTargetException e1) {
-                StringWriter sw = new StringWriter();
-                PrintWriter pw = new PrintWriter(sw);
-                e1.printStackTrace(pw);
-                logger.error(sw.toString());
-            } catch (Exception e1) {
-                observer.update(e);
-            }
+            executeNotification(observer, e);
         }
+    }
+
+    private boolean isEmptyEvent(Event e) {
+        return (e == null);
+    }
+
+    private void callDefaultUpdateMethod(IObserver o, Event e) {
+        o.update(e);
+    }
+
+    private void executeNotification(IObserver o, Event e) {
+        try {
+            tryNotifyEventSpecificUpdateMethod(o, e);
+        } catch (InvocationTargetException ex) {
+            logExceptionFromUpdate(ex);
+        } catch (Exception ex) {
+            callDefaultUpdateMethod(o, e);
+        }
+    }
+
+    private void tryNotifyEventSpecificUpdateMethod(IObserver o, Event e) throws
+    NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+
+        Class<? extends Event> eventClass        = e.getClass();
+        Class<? extends IObserver> observerClass = o.getClass();
+
+        Method update = observerClass.getMethod("update", eventClass);
+        update.invoke(o, e);
+    }
+
+    private void logExceptionFromUpdate(InvocationTargetException e) {
+        StringWriter sw = new StringWriter();
+        PrintWriter pw = new PrintWriter(sw);
+        e.getCause().printStackTrace(pw);
+        logger.error(sw.toString());
     }
 }
