@@ -13,7 +13,7 @@ import de.htwg.se.battleship.util.observer.Event;
 import de.htwg.se.battleship.util.observer.Observer;
 import de.htwg.se.battleship.util.observer.impl.ObservableImpl;
 
-public class OberservableTest {
+public class OberservableImplTest {
     private boolean ping;
     private boolean pong;
     private TestObserver observer;
