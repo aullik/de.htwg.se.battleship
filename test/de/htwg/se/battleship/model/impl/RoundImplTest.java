@@ -15,7 +15,7 @@ import de.htwg.se.battleship.model.Round;
  * @author Philipp
  *
  */
-public class RoundTest {
+public class RoundImplTest {
 
     @Test
     public void test() {

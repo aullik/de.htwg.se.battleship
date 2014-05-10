@@ -19,7 +19,7 @@ import de.htwg.se.battleship.model.impl.ShipImpl;
  * @author Philipp Daniels<philipp.daniels@gmail.com>
  * 
  */
-public class PlayerTest {
+public class PlayerImplTest {
 
     private PlayerImpl p1;
     private PlayerImpl p2;

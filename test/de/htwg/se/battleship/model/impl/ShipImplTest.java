@@ -21,7 +21,7 @@ import de.htwg.se.battleship.model.impl.ShipImpl;
  * @author Philipp Daniels<philipp.daniels@gmail.com>
  * 
  */
-public class ShipTest {
+public class ShipImplTest {
 
     @Test
     public void testPlayer() {

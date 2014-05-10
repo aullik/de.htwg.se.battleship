@@ -21,7 +21,7 @@ import de.htwg.se.battleship.model.impl.ShipImpl;
  * @author Philipp Daniels<philipp.daniels@gmail.com>
  * 
  */
-public class CellTest {
+public class CellImplTest {
 
     private CellImpl c1;
     private CellImpl c2;

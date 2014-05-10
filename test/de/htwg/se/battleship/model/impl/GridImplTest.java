@@ -15,7 +15,7 @@ import de.htwg.se.battleship.model.impl.PlayerImpl;
  * @author Philipp Daniels<philipp.daniels@gmail.com>
  * 
  */
-public class GridTest {
+public class GridImplTest {
 
     private GridImpl g1;
     private GridImpl g2;

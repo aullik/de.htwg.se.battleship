@@ -14,7 +14,7 @@ import de.htwg.se.battleship.model.Player;
 import de.htwg.se.battleship.model.Round;
 import de.htwg.se.battleship.model.Ship;
 
-public class ModelFabricTest {
+public class ModelFabricImplTest {
 
     @Test
     public void test() {
