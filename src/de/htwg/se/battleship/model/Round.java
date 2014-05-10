@@ -15,14 +15,14 @@ public interface Round {
     void next();
 
     /**
-     * Get current IGrid.
-     * @return IGrid
+     * Get current Grid.
+     * @return Grid
      */
     Grid getGrid();
 
     /**
-     * Get instance of Opponent IGrid.
-     * @return IGrid
+     * Get instance of Opponent Grid.
+     * @return Grid
      */
     Grid getOpponentGrid();
 }

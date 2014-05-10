@@ -13,7 +13,7 @@ public class Winner extends AbstractEvent {
 
     /**
      * Create an instance of Winner.
-     * @param round IRound
+     * @param round Round
      */
     public Winner(Round round) {
         super(round);

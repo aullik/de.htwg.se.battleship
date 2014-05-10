@@ -19,41 +19,41 @@ public abstract class AbstractEvent implements Event {
 
     /**
      * Create instance of an AbstractEvent.
-     * @param round IRound
+     * @param round Round
      */
     public AbstractEvent(Round round) {
         this.round = round;
     }
 
     /**
-     * Returns a instance of IRound.
-     * @return IRound
+     * Returns a instance of Round.
+     * @return Round
      */
     public Round getRound() {
         return round;
     }
 
     /**
-     * Returns a instance of IGrid.
-     * @return IGrid
+     * Returns a instance of Grid.
+     * @return Grid
      */
     public Grid getGrid() {
         return getRound().getGrid();
     }
 
     /**
-     * Returns a instance of IPlayer.
-     * @return IPlayer
+     * Returns a instance of Player.
+     * @return Player
      */
     public Player getPlayer() {
         return getGrid().getPlayer();
     }
 
     /**
-     * Returns a instance of ICell.
+     * Returns a instance of Cell.
      * @param x  X-coordinate
      * @param y  Y-coordinate
-     * @return ICell
+     * @return Cell
      */
     public Cell getCell(int x, int y) {
         return getGrid().getCell(x, y);

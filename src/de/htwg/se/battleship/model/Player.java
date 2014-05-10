@@ -6,7 +6,7 @@ package de.htwg.se.battleship.model;
 import java.util.List;
 
 /**
- * The IPlayer interface contains all public methods for a player
+ * The Player interface contains all public methods for a player
  * implementation.
  * 
  * @author Philipp Daniels<philipp.daniels@gmail.com>
@@ -15,43 +15,43 @@ import java.util.List;
 public interface Player {
 
     /**
-     * Returns the IPlayer name
+     * Returns the Player name
      * 
-     * @return IPlayer name
+     * @return Player name
      */
     String getName();
 
     /**
-     * Add new IShip instance to IPlayer and set IPlayer at IShip (1:n relationship)
+     * Add new Ship instance to Player and set Player at Ship (1:n relationship)
      * 
-     * @param ship Instance of IShip
+     * @param ship Instance of Ship
      */
     void addShip(final Ship ship);
 
     /**
-     * Returns true, when IPlayer has already an instance of this IShip.
+     * Returns true, when Player has already an instance of this Ship.
      * 
-     * @param ship Instance of IShip
+     * @param ship Instance of Ship
      * @return True/False
      */
     boolean containsShip(final Ship ship);
 
     /**
-     * Set relation between IGrid and IPlayer
+     * Set relation between Grid and Player
      * 
-     * @param grid Instance of IGrid
+     * @param grid Instance of Grid
      */
     void setGrid(final Grid grid);
 
     /**
-     * Returns an instance of the IPlayer IGrid
+     * Returns an instance of the Player Grid
      * 
-     * @return Instance of IGrid
+     * @return Instance of Grid
      */
     Grid getGrid();
 
     /**
-     * Return the number of fields for all IShip of an IPlayer
+     * Return the number of fields for all Ship of an Player
      * @return int
      */
     int getNumberOfShipCells();
@@ -63,8 +63,8 @@ public interface Player {
     boolean isHuman();
 
     /**
-     * Returns a list of IPlayer IShip
-     * @return List<IShip>
+     * Returns a list of Player Ship
+     * @return List<Ship>
      */
     List<Ship> getShips();
 }

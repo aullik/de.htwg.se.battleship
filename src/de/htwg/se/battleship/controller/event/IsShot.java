@@ -16,7 +16,7 @@ public class IsShot extends AbstractEvent {
 
     /**
      * Create an instance of IsShot.
-     * @param round IRound
+     * @param round Round
      */
     public IsShot(Round round, Cell cell) {
         super(round);
@@ -26,7 +26,7 @@ public class IsShot extends AbstractEvent {
 
     /**
      * 
-     * @return ICell
+     * @return Cell
      */
     public Cell getCell() {
         return cell;

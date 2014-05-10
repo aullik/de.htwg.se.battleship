@@ -50,8 +50,8 @@ public class InitGameController extends ObservableImpl implements IInitGameContr
     private int shipPlayerCount;
 
     /**
-     * Create InitGameController with an instance of IModelFabric.
-     * @param fabric IModelFabric
+     * Create InitGameController with an instance of ModelFabric.
+     * @param fabric ModelFabric
      */
     @Inject
     public InitGameController(ModelFabric fabric) {

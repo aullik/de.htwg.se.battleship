@@ -4,7 +4,7 @@
 package de.htwg.se.battleship.model;
 
 /**
- * The ICell interface defines the public methods for any cell implementation.
+ * The Cell interface defines the public methods for any cell implementation.
  * 
  * @author Philipp Daniels<philipp.daniels@gmail.com>
  * 

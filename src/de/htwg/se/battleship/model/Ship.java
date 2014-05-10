@@ -6,37 +6,37 @@ package de.htwg.se.battleship.model;
 import java.util.List;
 
 /**
- * The IShip interface contains all public methods for a IShip implementation.
+ * The Ship interface contains all public methods for a Ship implementation.
  * 
  * @author Philipp Daniels<philipp.daniels@gmail.com>
  */
 public interface Ship {
 
     /**
-     * Returns the owner (IPlayer) of this IShip
+     * Returns the owner (Player) of this Ship
      * 
-     * @return IPlayer instance
+     * @return Player instance
      */
     Player getPlayer();
 
     /**
-     * Get a single ICell instance from the IShip.
+     * Get a single Cell instance from the Ship.
      * 
      * @param x X-Coordinate
      * @param y Y-Coordinate
-     * @return Null/ICell instance
+     * @return Null/Cell instance
      */
     Cell getCell(final int x, final int y);
 
     /**
-     * Returns the number of ICell from this IShip
+     * Returns the number of Cell from this Ship
      * @return int
      */
     int getNumberOfCells();
 
     /**
-     * Returns List of ICell.
-     * @return List<ICell>
+     * Returns List of Cell.
+     * @return List<Cell>
      */
     List<Cell> getCells();
 }

@@ -164,11 +164,11 @@ public class InitGameUITest {
     /*
     @Test
     public void testSetShip() throws UnsupportedEncodingException {
-        IPlayer p1 = new Player("test1");
-        IGrid g1 = new Grid(Grid.DEFAULT_SIZE, p1);
-        IPlayer p2 = new Player("test2");
-        IGrid g2 = new Grid(Grid.DEFAULT_SIZE, p2);
-        IRound r = new Round(g1, g2);
+        Player p1 = new Player("test1");
+        Grid g1 = new Grid(Grid.DEFAULT_SIZE, p1);
+        Player p2 = new Player("test2");
+        Grid g2 = new Grid(Grid.DEFAULT_SIZE, p2);
+        Round r = new Round(g1, g2);
 
 
         SetShip e = new SetShip(r);
@@ -193,11 +193,11 @@ public class InitGameUITest {
     /*
     @Test
     public void testSetShipNoInt() throws UnsupportedEncodingException {
-        IPlayer p1 = new Player("test1");
-        IGrid g1 = new Grid(Grid.DEFAULT_SIZE, p1);
-        IPlayer p2 = new Player("test2");
-        IGrid g2 = new Grid(Grid.DEFAULT_SIZE, p2);
-        IRound r = new Round(g1, g2);
+        Player p1 = new Player("test1");
+        Grid g1 = new Grid(Grid.DEFAULT_SIZE, p1);
+        Player p2 = new Player("test2");
+        Grid g2 = new Grid(Grid.DEFAULT_SIZE, p2);
+        Round r = new Round(g1, g2);
 
         SetShip e = new SetShip(r);
         StringBuilder sb = new StringBuilder();

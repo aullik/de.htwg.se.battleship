@@ -13,7 +13,7 @@ public class SetShip extends AbstractEvent {
 
     /**
      * Create an instance of SetShip
-     * @param round IRound
+     * @param round Round
      */
     public SetShip(Round round) {
         super(round);

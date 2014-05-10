@@ -24,8 +24,8 @@ public class SetShipSuccess extends AbstractEvent {
     }
 
     /**
-     * Return instance of IShip.
-     * @return IShip
+     * Return instance of Ship.
+     * @return Ship
      */
     public Ship getShip() {
         return ship;

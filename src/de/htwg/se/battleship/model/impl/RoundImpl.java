@@ -17,8 +17,8 @@ public class RoundImpl implements Round {
 
     /**
      * Creates a Round instance.
-     * @param g1 IGrid
-     * @param g2 IGrid
+     * @param g1 Grid
+     * @param g2 Grid
      */
     public RoundImpl(Grid g1, Grid g2) {
         grids = new Grid[2];

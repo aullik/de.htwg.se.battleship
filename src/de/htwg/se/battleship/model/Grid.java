@@ -4,7 +4,7 @@
 package de.htwg.se.battleship.model;
 
 /**
- * The IGrid interface contains all public methods for a grid implementation.
+ * The Grid interface contains all public methods for a grid implementation.
  * 
  * @author Philipp Daniels<philipp.daniels@gmail.com>
  * 

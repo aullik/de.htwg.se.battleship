@@ -13,7 +13,7 @@ public class SetPlayerSuccess extends AbstractEvent {
 
     /**
      * Create instance of SetPlayerSuccess.
-     * @param round IRound
+     * @param round Round
      */
     public SetPlayerSuccess(Round round) {
         super(round);

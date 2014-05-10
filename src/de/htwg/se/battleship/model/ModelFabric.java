@@ -12,33 +12,33 @@ import java.util.Map;
 public interface ModelFabric {
 
     /**
-     * Create an instance of an IPlayer implementation.
+     * Create an instance of an Player implementation.
      * @param name String
-     * @return IPlayer
+     * @return Player
      */
     Player createPlayer(String name);
 
     /**
-     * Create an instance of an IGrid implementation.
-     * @param player IPlayer
-     * @return IGrid
+     * Create an instance of an Grid implementation.
+     * @param player Player
+     * @return Grid
      */
     Grid createGrid(Player player);
 
 
     /**
-     * Create an instance of an IShip implementation.
-     * @param player IPlayer
+     * Create an instance of an Ship implementation.
+     * @param player Player
      * @param cells  List of cells of the ship.
-     * @return IShip
+     * @return Ship
      */
     Ship createShip(Player player, Map<String, Cell> cells);
 
     /**
-     * Create an instance of an IRound implementation.
-     * @param g1 IGrid
-     * @param g2 IGrid
-     * @return IRound
+     * Create an instance of an Round implementation.
+     * @param g1 Grid
+     * @param g2 Grid
+     * @return Round
      */
     Round createRound(Grid g1, Grid g2);
 

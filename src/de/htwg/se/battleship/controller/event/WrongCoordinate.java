@@ -15,7 +15,7 @@ public class WrongCoordinate extends AbstractEvent {
 
     /**
      * Create instance of WrongCoordinate.
-     * @param round IRound
+     * @param round Round
      */
     public WrongCoordinate(Round round, String message) {
         super(round);
