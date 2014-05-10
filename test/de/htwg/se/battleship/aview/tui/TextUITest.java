@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 
+import de.htwg.se.battleship.TestAppender;
 import de.htwg.se.battleship.aview.tui.menu.MainMenu;
 import de.htwg.se.battleship.aview.tui.menuentry.Close;
 import de.htwg.se.battleship.controller.IController;

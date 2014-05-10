@@ -1,7 +1,7 @@
 /**
  * 
  */
-package de.htwg.se.battleship.aview.tui;
+package de.htwg.se.battleship;
 
 import java.util.ArrayList;
 import java.util.List;

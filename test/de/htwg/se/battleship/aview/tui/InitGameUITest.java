@@ -15,6 +15,7 @@ import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 
+import de.htwg.se.battleship.TestAppender;
 import de.htwg.se.battleship.controller.IInitGameController;
 import de.htwg.se.battleship.controller.event.SetPlayer;
 import de.htwg.se.battleship.controller.event.SetPlayerSuccess;
