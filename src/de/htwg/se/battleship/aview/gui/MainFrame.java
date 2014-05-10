@@ -125,6 +125,5 @@ public abstract class MainFrame extends JFrame implements WindowListener, KeyLis
      * @see de.htwg.se.battleship.aview.gui.impl.MainFrame#update(de.htwg.se.battleship.util.observer.Event)
      */
     @Override
-    public void update(Event e) { }
-
+    public void update(Event e) {}
 }
