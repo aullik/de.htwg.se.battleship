@@ -15,7 +15,7 @@ import de.htwg.se.battleship.util.observer.Observable;
 import de.htwg.se.battleship.util.observer.Observer;
 
 /**
- * Manage IObserver and send Event to IObserver
+ * Manage Observer and send Event to Observer
  * 
  * @author Philipp Daniels <philipp.daniels@gmail.com>
  */
