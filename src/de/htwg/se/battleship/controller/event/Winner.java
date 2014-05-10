@@ -7,7 +7,6 @@ import de.htwg.se.battleship.model.Round;
 
 /**
  * @author Philipp Daniels<philipp.daniels@gmail.com>
- *
  */
 public class Winner extends AbstractEvent {
 
@@ -18,5 +17,4 @@ public class Winner extends AbstractEvent {
     public Winner(Round round) {
         super(round);
     }
-
 }
