@@ -26,12 +26,12 @@ import de.htwg.se.battleship.controller.event.WrongCoordinate;
 import de.htwg.se.battleship.model.Cell;
 import de.htwg.se.battleship.model.Player;
 import de.htwg.se.battleship.util.observer.Event;
-import de.htwg.se.battleship.util.observer.IObserver;
+import de.htwg.se.battleship.util.observer.Observer;
 
 /**
  * @author aullik
  */
-public class Gamefield extends JPanel implements MouseListener, MouseMotionListener, IObserver {
+public class Gamefield extends JPanel implements MouseListener, MouseMotionListener, Observer {
 
     /**
      * 

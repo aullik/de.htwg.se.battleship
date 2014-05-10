@@ -3,13 +3,13 @@
  */
 package de.htwg.se.battleship.controller;
 
-import de.htwg.se.battleship.util.observer.IObservable;
+import de.htwg.se.battleship.util.observer.Observable;
 
 /**
  * @author Philipp Daniels<philipp.daniels@gmail.com>
  *
  */
-public interface IInitGameController extends IObservable {
+public interface IInitGameController extends Observable {
 
     /**
      * Start game initialization

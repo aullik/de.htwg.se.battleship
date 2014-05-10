@@ -29,12 +29,12 @@ import de.htwg.se.battleship.controller.event.SetPlayerSuccess;
 import de.htwg.se.battleship.controller.event.Winner;
 import de.htwg.se.battleship.model.Player;
 import de.htwg.se.battleship.util.observer.Event;
-import de.htwg.se.battleship.util.observer.IObserver;
+import de.htwg.se.battleship.util.observer.Observer;
 
 /**
  * @author aullik
  */
-public class Menu extends JPanel implements ActionListener, IObserver {
+public class Menu extends JPanel implements ActionListener, Observer {
 
     /**
      * 

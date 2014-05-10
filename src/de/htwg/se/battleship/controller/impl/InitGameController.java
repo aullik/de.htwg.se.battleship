@@ -26,14 +26,14 @@ import de.htwg.se.battleship.model.Player;
 import de.htwg.se.battleship.model.Round;
 import de.htwg.se.battleship.model.Ship;
 import de.htwg.se.battleship.model.impl.ShipImpl;
-import de.htwg.se.battleship.util.observer.Observable;
+import de.htwg.se.battleship.util.observer.impl.ObservableImpl;
 
 /**
  * @author Philipp Daniels<philipp.daniels@gmail.com>
  *
  */
 @Singleton
-public class InitGameController extends Observable implements IInitGameController {
+public class InitGameController extends ObservableImpl implements IInitGameController {
 
     public static final String MSG_PLAYER_EMPTY = "Player %s name is empty";
     public static final String P1               = "one";

@@ -8,7 +8,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import de.htwg.se.battleship.controller.IController;
-import de.htwg.se.battleship.util.observer.Observable;
+import de.htwg.se.battleship.util.observer.impl.ObservableImpl;
 
 /**
  * @author Philipp
@@ -18,7 +18,7 @@ public class CloseTest {
 
     private boolean ping = false;
 
-    private class TestClass extends Observable implements IController {
+    private class TestClass extends ObservableImpl implements IController {
 
         @Override
         public void newGame() {}

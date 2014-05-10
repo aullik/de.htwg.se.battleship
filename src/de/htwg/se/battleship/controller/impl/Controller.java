@@ -9,14 +9,14 @@ import de.htwg.se.battleship.controller.IController;
 import de.htwg.se.battleship.controller.event.CloseProgamm;
 import de.htwg.se.battleship.controller.event.InitGame;
 import de.htwg.se.battleship.controller.event.Winner;
-import de.htwg.se.battleship.util.observer.Observable;
+import de.htwg.se.battleship.util.observer.impl.ObservableImpl;
 
 /**
  * @author Philipp Daniels<philipp.daniels@gmail.com>
  *
  */
 @Singleton
-public class Controller extends Observable implements IController {
+public class Controller extends ObservableImpl implements IController {
 
     @Override
     public void newGame() {

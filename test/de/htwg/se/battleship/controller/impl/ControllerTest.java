@@ -9,14 +9,14 @@ import de.htwg.se.battleship.controller.event.CloseProgamm;
 import de.htwg.se.battleship.controller.event.InitGame;
 import de.htwg.se.battleship.controller.impl.Controller;
 import de.htwg.se.battleship.util.observer.Event;
-import de.htwg.se.battleship.util.observer.IObserver;
+import de.htwg.se.battleship.util.observer.Observer;
 
 public class ControllerTest {
 
     private boolean ping = false;
     private boolean pong = false;
 
-    public class TestClass implements IObserver {
+    public class TestClass implements Observer {
 
         @Override
         public void update(Event e) {

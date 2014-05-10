@@ -6,12 +6,12 @@ package de.htwg.se.battleship.aview.tui;
 import org.apache.log4j.Logger;
 
 import de.htwg.se.battleship.util.observer.Event;
-import de.htwg.se.battleship.util.observer.IObserver;
+import de.htwg.se.battleship.util.observer.Observer;
 
 /**
  * @author Philipp
  */
-public abstract class UserInterface implements IObserver {
+public abstract class UserInterface implements Observer {
 
     private final Logger       logger        = Logger.getLogger("de.htwg.se.battleship.aview.tui");
 

@@ -1,4 +1,4 @@
-package de.htwg.se.battleship.util.observer;
+package de.htwg.se.battleship.util.observer.impl;
 
 import static org.junit.Assert.*;
 
@@ -10,16 +10,16 @@ import org.junit.Test;
 
 import de.htwg.se.battleship.TestAppender;
 import de.htwg.se.battleship.util.observer.Event;
-import de.htwg.se.battleship.util.observer.IObserver;
-import de.htwg.se.battleship.util.observer.Observable;
+import de.htwg.se.battleship.util.observer.Observer;
+import de.htwg.se.battleship.util.observer.impl.ObservableImpl;
 
 public class OberservableTest {
     private boolean ping;
     private boolean pong;
     private TestObserver observer;
-    private Observable observable;
+    private ObservableImpl observable;
 
-    private class TestObserver implements IObserver {
+    private class TestObserver implements Observer {
 
         public TestObserver() {
             ping=false;
@@ -37,7 +37,7 @@ public class OberservableTest {
         }
     }
 
-    private class TestObserverException implements IObserver {
+    private class TestObserverException implements Observer {
 
         @Override
         public void update(Event e) {
@@ -71,7 +71,7 @@ public class OberservableTest {
     @Before
     public void setUp() throws Exception {
         observer = new TestObserver();
-        observable = new Observable();
+        observable = new ObservableImpl();
         observable.addObserver(observer);
     }
 

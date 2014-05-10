@@ -15,7 +15,7 @@ import de.htwg.se.battleship.controller.event.SetShip;
 import de.htwg.se.battleship.controller.impl.InitGameController;
 import de.htwg.se.battleship.model.impl.ModelFabricImpl;
 import de.htwg.se.battleship.util.observer.Event;
-import de.htwg.se.battleship.util.observer.IObserver;
+import de.htwg.se.battleship.util.observer.Observer;
 
 /**
  * @author Philipp Daniels<philipp.daniels@gmail.com>
@@ -27,7 +27,7 @@ public class IInitGameControllerTest {
     private boolean setShip;
     private boolean setPlayerSuccess;
 
-    public class TestClass implements IObserver {
+    public class TestClass implements Observer {
 
         @Override
         public void update(Event e) {}

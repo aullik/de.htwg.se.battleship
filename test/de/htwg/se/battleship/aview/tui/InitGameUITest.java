@@ -30,7 +30,7 @@ import de.htwg.se.battleship.model.impl.GridImpl;
 import de.htwg.se.battleship.model.impl.PlayerImpl;
 import de.htwg.se.battleship.model.impl.RoundImpl;
 import de.htwg.se.battleship.model.impl.ShipImpl;
-import de.htwg.se.battleship.util.observer.Observable;
+import de.htwg.se.battleship.util.observer.impl.ObservableImpl;
 
 /**
  * @author Philipp Daniels<philipp.daniels@gmail.com>
@@ -41,7 +41,7 @@ public class InitGameUITest {
     private boolean ping;
     private String shipCoords;
 
-    private class TestClass extends Observable implements IInitGameController {
+    private class TestClass extends ObservableImpl implements IInitGameController {
 
         @Override
         public void init() {}

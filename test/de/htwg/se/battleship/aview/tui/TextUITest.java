@@ -22,7 +22,7 @@ import de.htwg.se.battleship.controller.event.SetPlayerSuccess;
 import de.htwg.se.battleship.controller.event.SetShip;
 import de.htwg.se.battleship.controller.event.SetShipSuccess;
 import de.htwg.se.battleship.controller.impl.Controller;
-import de.htwg.se.battleship.util.observer.Observable;
+import de.htwg.se.battleship.util.observer.impl.ObservableImpl;
 
 
 public class TextUITest {
@@ -45,7 +45,7 @@ public class TextUITest {
 
     private boolean ping;
 
-    private class TestController extends Observable implements IInitGameController {
+    private class TestController extends ObservableImpl implements IInitGameController {
 
         @Override
         public void init() {

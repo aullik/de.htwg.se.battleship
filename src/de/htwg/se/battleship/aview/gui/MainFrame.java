@@ -14,13 +14,13 @@ import de.htwg.se.battleship.controller.event.InitGame;
 import de.htwg.se.battleship.controller.event.Winner;
 import de.htwg.se.battleship.model.Player;
 import de.htwg.se.battleship.util.observer.Event;
-import de.htwg.se.battleship.util.observer.IObserver;
+import de.htwg.se.battleship.util.observer.Observer;
 
 /**
  * @author Philipp Daniels<philipp.daniels@gmail.com>
  *
  */
-public abstract class MainFrame extends JFrame implements WindowListener, KeyListener, ActionListener, IObserver  {
+public abstract class MainFrame extends JFrame implements WindowListener, KeyListener, ActionListener, Observer  {
 
     /**
      * 

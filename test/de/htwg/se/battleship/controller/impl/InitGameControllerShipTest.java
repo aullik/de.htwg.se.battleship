@@ -13,7 +13,7 @@ import de.htwg.se.battleship.controller.event.SetShipSuccess;
 import de.htwg.se.battleship.controller.event.WrongCoordinate;
 import de.htwg.se.battleship.model.impl.ModelFabricImpl;
 import de.htwg.se.battleship.util.observer.Event;
-import de.htwg.se.battleship.util.observer.IObserver;
+import de.htwg.se.battleship.util.observer.Observer;
 
 /**
  * @author Philipp Daniels<philipp.daniels@gmail.com>
@@ -25,7 +25,7 @@ public class InitGameControllerShipTest {
     private String message;
     private boolean pong;
 
-    public class TestClass implements IObserver {
+    public class TestClass implements Observer {
 
         @Override
         public void update(Event e) {}
