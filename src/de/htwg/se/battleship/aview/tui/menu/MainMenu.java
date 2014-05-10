@@ -43,5 +43,4 @@ public class MainMenu implements IMenu {
     public Map<String, IMenuEntry> get() {
         return list;
     }
-
 }
