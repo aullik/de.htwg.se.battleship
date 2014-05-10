@@ -126,8 +126,6 @@ public class OberservableTest {
         assertTrue(log.contains(IllegalArgumentException.class.getName()));
         assertFalse(log.contains("Caused by: "));
         assertFalse(log.contains(InvocationTargetException.class.getName()));
-
-        System.out.print(log);
     }
 
 }
