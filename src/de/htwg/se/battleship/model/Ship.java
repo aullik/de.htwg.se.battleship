@@ -10,14 +10,14 @@ import java.util.List;
  * 
  * @author Philipp Daniels<philipp.daniels@gmail.com>
  */
-public interface IShip {
+public interface Ship {
 
     /**
      * Returns the owner (IPlayer) of this IShip
      * 
      * @return IPlayer instance
      */
-    IPlayer getPlayer();
+    Player getPlayer();
 
     /**
      * Get a single ICell instance from the IShip.
@@ -26,7 +26,7 @@ public interface IShip {
      * @param y Y-Coordinate
      * @return Null/ICell instance
      */
-    ICell getCell(final int x, final int y);
+    Cell getCell(final int x, final int y);
 
     /**
      * Returns the number of ICell from this IShip
@@ -38,5 +38,5 @@ public interface IShip {
      * Returns List of ICell.
      * @return List<ICell>
      */
-    List<ICell> getCells();
+    List<Cell> getCells();
 }

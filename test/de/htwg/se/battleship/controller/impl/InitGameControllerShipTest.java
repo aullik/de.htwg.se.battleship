@@ -11,7 +11,7 @@ import org.junit.Test;
 import de.htwg.se.battleship.controller.IInitGameController;
 import de.htwg.se.battleship.controller.event.SetShipSuccess;
 import de.htwg.se.battleship.controller.event.WrongCoordinate;
-import de.htwg.se.battleship.model.impl.ModelFabric;
+import de.htwg.se.battleship.model.impl.ModelFabricImpl;
 import de.htwg.se.battleship.util.observer.Event;
 import de.htwg.se.battleship.util.observer.IObserver;
 
@@ -43,7 +43,7 @@ public class InitGameControllerShipTest {
     public void setUp() {
         pong = false;
         message = "";
-        c = new InitGameController(new ModelFabric());
+        c = new InitGameController(new ModelFabricImpl());
         c.addObserver(new TestClass());
         c.player("test1", "test2");
     }

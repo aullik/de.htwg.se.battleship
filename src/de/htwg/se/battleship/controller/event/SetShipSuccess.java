@@ -3,8 +3,8 @@
  */
 package de.htwg.se.battleship.controller.event;
 
-import de.htwg.se.battleship.model.IRound;
-import de.htwg.se.battleship.model.IShip;
+import de.htwg.se.battleship.model.Round;
+import de.htwg.se.battleship.model.Ship;
 
 /**
  * @author Philipp Daniels<philipp.daniels@gmail.com>
@@ -12,13 +12,13 @@ import de.htwg.se.battleship.model.IShip;
  */
 public class SetShipSuccess extends AbstractEvent {
 
-    private final IShip ship;
+    private final Ship ship;
 
     /**
      * Create instance of SetShipSuccess
      * @param round
      */
-    public SetShipSuccess(IRound round, IShip ship) {
+    public SetShipSuccess(Round round, Ship ship) {
         super(round);
         this.ship = ship;
     }
@@ -27,7 +27,7 @@ public class SetShipSuccess extends AbstractEvent {
      * Return instance of IShip.
      * @return IShip
      */
-    public IShip getShip() {
+    public Ship getShip() {
         return ship;
     }
 

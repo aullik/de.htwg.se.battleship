@@ -8,41 +8,41 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import de.htwg.se.battleship.model.ICell;
-import de.htwg.se.battleship.model.IPlayer;
-import de.htwg.se.battleship.model.IShip;
+import de.htwg.se.battleship.model.Cell;
+import de.htwg.se.battleship.model.Player;
+import de.htwg.se.battleship.model.Ship;
 
 /**
  * This class contains all data of a single Ship from a player
  * 
  * @author Philipp Daniels<philipp.daniels@gmail.com>
  */
-public class Ship implements IShip {
+public class ShipImpl implements Ship {
 
     public static final int NUMBER_OF_CELLS = 30;
 
-    private final Map<String, ICell> cells;
-    private IPlayer player;
+    private final Map<String, Cell> cells;
+    private Player player;
 
     /**
      * Create an instance of Ship and add a Map for Cell instances
      */
-    public Ship(final IPlayer player, Map<String, ICell> cells) {
-        this.cells = new HashMap<String, ICell>();
+    public ShipImpl(final Player player, Map<String, Cell> cells) {
+        this.cells = new HashMap<String, Cell>();
 
-        for (ICell cell : cells.values()) {
+        for (Cell cell : cells.values()) {
             addCell(cell);
         }
 
         setPlayer(player);
     }
 
-    private void setPlayer(final IPlayer player) {
+    private void setPlayer(final Player player) {
         this.player = player;
         player.addShip(this);
     }
 
-    private void addCell(final ICell cell) {
+    private void addCell(final Cell cell) {
         if (!cells.containsKey(cell.getKey())) {
             cells.put(cell.getKey(), cell);
             cell.setShip(this);
@@ -50,14 +50,14 @@ public class Ship implements IShip {
     }
 
     @Override
-    public IPlayer getPlayer() {
+    public Player getPlayer() {
         return player;
     }
 
     @Override
-    public ICell getCell(final int x, final int y) {
-        String key = Cell.createKey(x, y);
-        ICell cell = null;
+    public Cell getCell(final int x, final int y) {
+        String key = CellImpl.createKey(x, y);
+        Cell cell = null;
 
         if (cells.containsKey(key)) {
             cell = cells.get(key);
@@ -72,9 +72,9 @@ public class Ship implements IShip {
     }
 
     @Override
-    public List<ICell> getCells() {
-        List<ICell> list = new LinkedList<ICell>();
-        for (ICell cell : cells.values()) {
+    public List<Cell> getCells() {
+        List<Cell> list = new LinkedList<Cell>();
+        for (Cell cell : cells.values()) {
             list.add(cell);
         }
         return list;

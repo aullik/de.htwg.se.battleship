@@ -9,13 +9,13 @@ import java.util.HashMap;
 
 import org.junit.Test;
 
-import de.htwg.se.battleship.model.ICell;
-import de.htwg.se.battleship.model.IGrid;
-import de.htwg.se.battleship.model.IPlayer;
-import de.htwg.se.battleship.model.impl.Cell;
-import de.htwg.se.battleship.model.impl.Grid;
-import de.htwg.se.battleship.model.impl.Player;
-import de.htwg.se.battleship.model.impl.Ship;
+import de.htwg.se.battleship.model.Cell;
+import de.htwg.se.battleship.model.Grid;
+import de.htwg.se.battleship.model.Player;
+import de.htwg.se.battleship.model.impl.CellImpl;
+import de.htwg.se.battleship.model.impl.GridImpl;
+import de.htwg.se.battleship.model.impl.PlayerImpl;
+import de.htwg.se.battleship.model.impl.ShipImpl;
 
 /**
  * @author Philipp Daniels<philipp.daniels@gmail.com>
@@ -26,15 +26,15 @@ public class ShipTest {
     @Test
     public void testPlayer() {
 
-        IPlayer p = new Player("test1");
-        IGrid g = new Grid(Grid.DEFAULT_SIZE, p);
-        ICell c = new Cell(1, 1, g);
+        Player p = new PlayerImpl("test1");
+        Grid g = new GridImpl(GridImpl.DEFAULT_SIZE, p);
+        Cell c = new CellImpl(1, 1, g);
 
-        HashMap<String, ICell> map = new HashMap<String, ICell>();
-        map.put(Cell.createKey(c.getX(), c.getY()), c);
+        HashMap<String, Cell> map = new HashMap<String, Cell>();
+        map.put(CellImpl.createKey(c.getX(), c.getY()), c);
         map.put("test", c);
 
-        Ship s = new Ship(p, map);
+        ShipImpl s = new ShipImpl(p, map);
 
         assertEquals(p, s.getPlayer());
         assertEquals(c, s.getCell(c.getX(), c.getY()));

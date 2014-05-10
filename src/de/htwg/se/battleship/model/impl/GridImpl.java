@@ -6,9 +6,9 @@ package de.htwg.se.battleship.model.impl;
 import java.util.HashMap;
 import java.util.Map;
 
-import de.htwg.se.battleship.model.ICell;
-import de.htwg.se.battleship.model.IGrid;
-import de.htwg.se.battleship.model.IPlayer;
+import de.htwg.se.battleship.model.Cell;
+import de.htwg.se.battleship.model.Grid;
+import de.htwg.se.battleship.model.Player;
 
 /**
  * This class contains all data for the Grid
@@ -16,22 +16,22 @@ import de.htwg.se.battleship.model.IPlayer;
  * @author Philipp Daniels<philipp.daniels@gmail.com>
  * 
  */
-public class Grid implements IGrid {
+public class GridImpl implements Grid {
 
     public static final int DEFAULT_SIZE = 10;
 
     private final int size;
-    private final Map<String, ICell> cells;
-    private final IPlayer player;
+    private final Map<String, Cell> cells;
+    private final Player player;
 
     /**
      * Create new instance of a Grid with his size.
      * 
      * @param size Number of cell for width/height
      */
-    public Grid(final int size, final IPlayer player) {
+    public GridImpl(final int size, final Player player) {
         this.size = size;
-        this.cells = new HashMap<String, ICell>();
+        this.cells = new HashMap<String, Cell>();
         this.player = player;
         player.setGrid(this);
 
@@ -41,7 +41,7 @@ public class Grid implements IGrid {
     private void initCells() {
         for (int i = 0; i < this.size; i++) {
             for (int j = 0; j < this.size; j++) {
-                addCell(new Cell(i, j, this));
+                addCell(new CellImpl(i, j, this));
             }
         }
     }
@@ -51,14 +51,14 @@ public class Grid implements IGrid {
         return size;
     }
 
-    private void addCell(final Cell cell) {
+    private void addCell(final CellImpl cell) {
         cells.put(cell.getKey(), cell);
     }
 
     @Override
-    public ICell getCell(final int x, final int y) {
-        String key = Cell.createKey(x, y);
-        ICell cell = null;
+    public Cell getCell(final int x, final int y) {
+        String key = CellImpl.createKey(x, y);
+        Cell cell = null;
 
         if (cells.containsKey(key)) {
             cell = cells.get(key);
@@ -68,7 +68,7 @@ public class Grid implements IGrid {
     }
 
     @Override
-    public IPlayer getPlayer() {
+    public Player getPlayer() {
         return player;
     }
 }

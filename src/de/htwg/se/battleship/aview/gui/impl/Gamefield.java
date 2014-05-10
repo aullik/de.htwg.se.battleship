@@ -23,8 +23,8 @@ import de.htwg.se.battleship.controller.event.SetShipSuccess;
 import de.htwg.se.battleship.controller.event.SetShot;
 import de.htwg.se.battleship.controller.event.Winner;
 import de.htwg.se.battleship.controller.event.WrongCoordinate;
-import de.htwg.se.battleship.model.ICell;
-import de.htwg.se.battleship.model.IPlayer;
+import de.htwg.se.battleship.model.Cell;
+import de.htwg.se.battleship.model.Player;
 import de.htwg.se.battleship.util.observer.Event;
 import de.htwg.se.battleship.util.observer.IObserver;
 
@@ -40,7 +40,7 @@ public class Gamefield extends JPanel implements MouseListener, MouseMotionListe
     private static final int FULL_ROTATION_ANGLE = 360;
     private static final int CELL_SCALING = 3;
 
-    private IPlayer             player;
+    private Player             player;
     private Graphics2D          grid;
     private BufferedImage       backup;
     private BufferedImage       background;
@@ -130,7 +130,7 @@ public class Gamefield extends JPanel implements MouseListener, MouseMotionListe
         return g;
     }
 
-    protected void setPlayer(IPlayer player) {
+    protected void setPlayer(Player player) {
         if (this.player == null) {
             this.player = player;
             this.isHuman = player.isHuman();
@@ -400,8 +400,8 @@ public class Gamefield extends JPanel implements MouseListener, MouseMotionListe
      */
     public void update(SetShipSuccess e) {
         if (e.getPlayer().equals(player) && isHuman) {
-            List<ICell> list = e.getShip().getCells();
-            ICell cell;
+            List<Cell> list = e.getShip().getCells();
+            Cell cell;
             int[] p1 = null;
             int[] p2 = null;
             int[] comp;
@@ -433,7 +433,7 @@ public class Gamefield extends JPanel implements MouseListener, MouseMotionListe
      */
     public void update(IsShot e) {
         if (e.getPlayer().equals(player)) {
-            ICell cell = e.getCell();
+            Cell cell = e.getCell();
             if (cell.isHit()) {
                 hit(new int[] { cell.getX(), cell.getY() });
             } else {

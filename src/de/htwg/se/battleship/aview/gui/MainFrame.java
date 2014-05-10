@@ -12,7 +12,7 @@ import javax.swing.JFrame;
 import de.htwg.se.battleship.controller.event.CloseProgamm;
 import de.htwg.se.battleship.controller.event.InitGame;
 import de.htwg.se.battleship.controller.event.Winner;
-import de.htwg.se.battleship.model.IPlayer;
+import de.htwg.se.battleship.model.Player;
 import de.htwg.se.battleship.util.observer.Event;
 import de.htwg.se.battleship.util.observer.IObserver;
 
@@ -32,7 +32,7 @@ public abstract class MainFrame extends JFrame implements WindowListener, KeyLis
      * @param player1
      * @param player2
      */
-    public abstract void newGame(IPlayer player1, IPlayer player2);
+    public abstract void newGame(Player player1, Player player2);
 
     /**
      * Initialize game-fields.

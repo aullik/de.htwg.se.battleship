@@ -3,10 +3,10 @@
  */
 package de.htwg.se.battleship.controller.event;
 
-import de.htwg.se.battleship.model.ICell;
-import de.htwg.se.battleship.model.IGrid;
-import de.htwg.se.battleship.model.IPlayer;
-import de.htwg.se.battleship.model.IRound;
+import de.htwg.se.battleship.model.Cell;
+import de.htwg.se.battleship.model.Grid;
+import de.htwg.se.battleship.model.Player;
+import de.htwg.se.battleship.model.Round;
 import de.htwg.se.battleship.util.observer.Event;
 
 /**
@@ -15,13 +15,13 @@ import de.htwg.se.battleship.util.observer.Event;
  */
 public abstract class AbstractEvent implements Event {
 
-    private final IRound round;
+    private final Round round;
 
     /**
      * Create instance of an AbstractEvent.
      * @param round IRound
      */
-    public AbstractEvent(IRound round) {
+    public AbstractEvent(Round round) {
         this.round = round;
     }
 
@@ -29,7 +29,7 @@ public abstract class AbstractEvent implements Event {
      * Returns a instance of IRound.
      * @return IRound
      */
-    public IRound getRound() {
+    public Round getRound() {
         return round;
     }
 
@@ -37,7 +37,7 @@ public abstract class AbstractEvent implements Event {
      * Returns a instance of IGrid.
      * @return IGrid
      */
-    public IGrid getGrid() {
+    public Grid getGrid() {
         return getRound().getGrid();
     }
 
@@ -45,7 +45,7 @@ public abstract class AbstractEvent implements Event {
      * Returns a instance of IPlayer.
      * @return IPlayer
      */
-    public IPlayer getPlayer() {
+    public Player getPlayer() {
         return getGrid().getPlayer();
     }
 
@@ -55,7 +55,7 @@ public abstract class AbstractEvent implements Event {
      * @param y  Y-coordinate
      * @return ICell
      */
-    public ICell getCell(int x, int y) {
+    public Cell getCell(int x, int y) {
         return getGrid().getCell(x, y);
     }
 

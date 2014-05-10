@@ -4,18 +4,18 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import de.htwg.se.battleship.model.IGrid;
-import de.htwg.se.battleship.model.IPlayer;
-import de.htwg.se.battleship.model.IRound;
-import de.htwg.se.battleship.model.impl.Grid;
-import de.htwg.se.battleship.model.impl.Player;
-import de.htwg.se.battleship.model.impl.Round;
+import de.htwg.se.battleship.model.Grid;
+import de.htwg.se.battleship.model.Player;
+import de.htwg.se.battleship.model.Round;
+import de.htwg.se.battleship.model.impl.GridImpl;
+import de.htwg.se.battleship.model.impl.PlayerImpl;
+import de.htwg.se.battleship.model.impl.RoundImpl;
 
 public class AbstractEventTest {
 
     private class TestClass extends AbstractEvent {
 
-        public TestClass(IRound round) {
+        public TestClass(Round round) {
             super(round);
         }
 
@@ -23,10 +23,10 @@ public class AbstractEventTest {
 
     @Test
     public void test() {
-        IPlayer p = new Player("test1");
-        IGrid g = new Grid(Grid.DEFAULT_SIZE, p);
+        Player p = new PlayerImpl("test1");
+        Grid g = new GridImpl(GridImpl.DEFAULT_SIZE, p);
 
-        IRound r = new Round(g, null);
+        Round r = new RoundImpl(g, null);
 
         AbstractEvent e = new TestClass(r);
 

@@ -12,7 +12,7 @@ import java.util.List;
  * @author Philipp Daniels<philipp.daniels@gmail.com>
  * 
  */
-public interface IPlayer {
+public interface Player {
 
     /**
      * Returns the IPlayer name
@@ -26,7 +26,7 @@ public interface IPlayer {
      * 
      * @param ship Instance of IShip
      */
-    void addShip(final IShip ship);
+    void addShip(final Ship ship);
 
     /**
      * Returns true, when IPlayer has already an instance of this IShip.
@@ -34,21 +34,21 @@ public interface IPlayer {
      * @param ship Instance of IShip
      * @return True/False
      */
-    boolean containsShip(final IShip ship);
+    boolean containsShip(final Ship ship);
 
     /**
      * Set relation between IGrid and IPlayer
      * 
      * @param grid Instance of IGrid
      */
-    void setGrid(final IGrid grid);
+    void setGrid(final Grid grid);
 
     /**
      * Returns an instance of the IPlayer IGrid
      * 
      * @return Instance of IGrid
      */
-    IGrid getGrid();
+    Grid getGrid();
 
     /**
      * Return the number of fields for all IShip of an IPlayer
@@ -66,5 +66,5 @@ public interface IPlayer {
      * Returns a list of IPlayer IShip
      * @return List<IShip>
      */
-    List<IShip> getShips();
+    List<Ship> getShips();
 }

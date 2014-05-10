@@ -13,7 +13,7 @@ import de.htwg.se.battleship.controller.event.SetPlayer;
 import de.htwg.se.battleship.controller.event.SetPlayerSuccess;
 import de.htwg.se.battleship.controller.event.SetShip;
 import de.htwg.se.battleship.controller.impl.InitGameController;
-import de.htwg.se.battleship.model.impl.ModelFabric;
+import de.htwg.se.battleship.model.impl.ModelFabricImpl;
 import de.htwg.se.battleship.util.observer.Event;
 import de.htwg.se.battleship.util.observer.IObserver;
 
@@ -53,7 +53,7 @@ public class IInitGameControllerTest {
         setPlayer = false;
         setShip = false;
         setPlayerSuccess = false;
-        c = new InitGameController(new ModelFabric());
+        c = new InitGameController(new ModelFabricImpl());
         c.addObserver(new TestClass());
     }
 

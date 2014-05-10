@@ -9,7 +9,7 @@ package de.htwg.se.battleship.model;
  * @author Philipp Daniels<philipp.daniels@gmail.com>
  * 
  */
-public interface IGrid {
+public interface Grid {
 
     /**
      * Returns the size of the Grid instance
@@ -25,12 +25,12 @@ public interface IGrid {
      * @param y Y-Coordinate
      * @return Null/Cell instance
      */
-    ICell getCell(final int x, final int y);
+    Cell getCell(final int x, final int y);
 
     /**
      * Get the owner/player of this grid.
      * 
      * @return Player instance
      */
-    IPlayer getPlayer();
+    Player getPlayer();
 }

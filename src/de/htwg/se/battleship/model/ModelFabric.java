@@ -9,21 +9,21 @@ import java.util.Map;
  * @author Philipp Daniels<philipp.daniels@gmail.com>
  *
  */
-public interface IModelFabric {
+public interface ModelFabric {
 
     /**
      * Create an instance of an IPlayer implementation.
      * @param name String
      * @return IPlayer
      */
-    IPlayer createPlayer(String name);
+    Player createPlayer(String name);
 
     /**
      * Create an instance of an IGrid implementation.
      * @param player IPlayer
      * @return IGrid
      */
-    IGrid createGrid(IPlayer player);
+    Grid createGrid(Player player);
 
 
     /**
@@ -32,7 +32,7 @@ public interface IModelFabric {
      * @param cells  List of cells of the ship.
      * @return IShip
      */
-    IShip createShip(IPlayer player, Map<String, ICell> cells);
+    Ship createShip(Player player, Map<String, Cell> cells);
 
     /**
      * Create an instance of an IRound implementation.
@@ -40,6 +40,6 @@ public interface IModelFabric {
      * @param g2 IGrid
      * @return IRound
      */
-    IRound createRound(IGrid g1, IGrid g2);
+    Round createRound(Grid g1, Grid g2);
 
 }

@@ -19,13 +19,13 @@ import de.htwg.se.battleship.controller.event.SetShipSuccess;
 import de.htwg.se.battleship.controller.event.SetShot;
 import de.htwg.se.battleship.controller.event.Winner;
 import de.htwg.se.battleship.controller.event.WrongCoordinate;
-import de.htwg.se.battleship.model.ICell;
-import de.htwg.se.battleship.model.IGrid;
-import de.htwg.se.battleship.model.IModelFabric;
-import de.htwg.se.battleship.model.IPlayer;
-import de.htwg.se.battleship.model.IRound;
-import de.htwg.se.battleship.model.IShip;
-import de.htwg.se.battleship.model.impl.Ship;
+import de.htwg.se.battleship.model.Cell;
+import de.htwg.se.battleship.model.Grid;
+import de.htwg.se.battleship.model.ModelFabric;
+import de.htwg.se.battleship.model.Player;
+import de.htwg.se.battleship.model.Round;
+import de.htwg.se.battleship.model.Ship;
+import de.htwg.se.battleship.model.impl.ShipImpl;
 import de.htwg.se.battleship.util.observer.Observable;
 
 /**
@@ -45,8 +45,8 @@ public class InitGameController extends Observable implements IInitGameControlle
     public static final String ERROR_SAME_COORDS = "Coordinates can not be the same";
     public static final String ERROR_TO_MANY     = "Sorry you only have %d cells left (not %d cells)";
 
-    private final IModelFabric fabric;
-    private IRound round;
+    private final ModelFabric fabric;
+    private Round round;
     private int shipPlayerCount;
 
     /**
@@ -54,7 +54,7 @@ public class InitGameController extends Observable implements IInitGameControlle
      * @param fabric IModelFabric
      */
     @Inject
-    public InitGameController(IModelFabric fabric) {
+    public InitGameController(ModelFabric fabric) {
         this.fabric = fabric;
     }
 
@@ -69,11 +69,11 @@ public class InitGameController extends Observable implements IInitGameControlle
         checkEmpty(p2, String.format(MSG_PLAYER_EMPTY, P2));
 
         //TODO throw errorEvent instead of event
-        IPlayer player1 = fabric.createPlayer(p1);
-        IPlayer player2 = fabric.createPlayer(p2);
+        Player player1 = fabric.createPlayer(p1);
+        Player player2 = fabric.createPlayer(p2);
 
-        IGrid g1 = fabric.createGrid(player1);
-        IGrid g2 = fabric.createGrid(player2);
+        Grid g1 = fabric.createGrid(player1);
+        Grid g2 = fabric.createGrid(player2);
         round = fabric.createRound(g1, g2);
 
         notifyObservers(new SetPlayerSuccess(round));
@@ -96,19 +96,19 @@ public class InitGameController extends Observable implements IInitGameControlle
                 throw new IllegalArgumentException(ERROR_INPUT);
             }
 
-            ICell start = round.getGrid().getCell(startX, startY);
-            ICell end   = round.getGrid().getCell(endX, endY);
+            Cell start = round.getGrid().getCell(startX, startY);
+            Cell end   = round.getGrid().getCell(endX, endY);
 
             shipValidateSimple(start, end);
             shipValidateComplex(start, end);
 
-            IShip ship = fabric.createShip(round.getGrid().getPlayer(), getCells(start, end));
+            Ship ship = fabric.createShip(round.getGrid().getPlayer(), getCells(start, end));
             notifyObservers(new SetShipSuccess(round, ship));
         } catch(IllegalArgumentException e) {
             notifyObservers(new WrongCoordinate(round, e.getMessage()));
         } finally {
 
-            if (round.getGrid().getPlayer().getNumberOfShipCells() == Ship.NUMBER_OF_CELLS) {
+            if (round.getGrid().getPlayer().getNumberOfShipCells() == ShipImpl.NUMBER_OF_CELLS) {
                 round.next();
                 shipPlayerCount++;
             }
@@ -121,7 +121,7 @@ public class InitGameController extends Observable implements IInitGameControlle
         }
     }
 
-    private void shipValidateSimple(ICell start, ICell end) {
+    private void shipValidateSimple(Cell start, Cell end) {
         if (start == null || end == null) {
             throw new IllegalArgumentException(ERROR_COORDS_GRID);
         }
@@ -131,19 +131,19 @@ public class InitGameController extends Observable implements IInitGameControlle
         }
     }
 
-    private void shipValidateComplex(ICell start, ICell end) {
+    private void shipValidateComplex(Cell start, Cell end) {
         if (start.getX() == end.getX() && start.getY() == end.getY()) {
             throw new IllegalArgumentException(ERROR_SAME_COORDS);
         }
 
-        int rest = Ship.NUMBER_OF_CELLS - round.getGrid().getPlayer().getNumberOfShipCells();
+        int rest = ShipImpl.NUMBER_OF_CELLS - round.getGrid().getPlayer().getNumberOfShipCells();
         int diff = diff(start, end);
         if (diff > rest) {
             throw new IllegalArgumentException(String.format(ERROR_TO_MANY, rest, diff));
         }
     }
 
-    private int diff(ICell start, ICell end) {
+    private int diff(Cell start, Cell end) {
         int diff = 0;
         diff += Math.abs(start.getX() - end.getX());
         diff += Math.abs(start.getY() - end.getY());
@@ -151,9 +151,9 @@ public class InitGameController extends Observable implements IInitGameControlle
         return diff;
     }
 
-    private Map<String, ICell> getCells(ICell start, ICell end) {
+    private Map<String, Cell> getCells(Cell start, Cell end) {
 
-        Map<String, ICell> map;
+        Map<String, Cell> map;
 
         if (start.getX() == end.getX()) {
             if (start.getY() < end.getY()) {
@@ -172,9 +172,9 @@ public class InitGameController extends Observable implements IInitGameControlle
         return map;
     }
 
-    private Map<String, ICell> getCellsX(ICell start, ICell end) {
-        Map<String, ICell> map = new HashMap<String, ICell>();
-        ICell cell;
+    private Map<String, Cell> getCellsX(Cell start, Cell end) {
+        Map<String, Cell> map = new HashMap<String, Cell>();
+        Cell cell;
 
         for (int i = start.getY(); i <= end.getY(); i++) {
             cell = round.getGrid().getCell(start.getX(), i);
@@ -183,9 +183,9 @@ public class InitGameController extends Observable implements IInitGameControlle
         return map;
     }
 
-    private Map<String, ICell> getCellsY(ICell start, ICell end) {
-        Map<String, ICell> map = new HashMap<String, ICell>();
-        ICell cell;
+    private Map<String, Cell> getCellsY(Cell start, Cell end) {
+        Map<String, Cell> map = new HashMap<String, Cell>();
+        Cell cell;
 
         for (int i = start.getX(); i <= end.getX(); i++) {
             cell = round.getGrid().getCell(i, start.getY());
@@ -197,7 +197,7 @@ public class InitGameController extends Observable implements IInitGameControlle
     @Override
     public void shot(Integer x, Integer y) {
 
-        ICell cell = round.getOpponentGrid().getCell(x, y);
+        Cell cell = round.getOpponentGrid().getCell(x, y);
 
         if(cell.getShip() != null) {
             cell.setToHit();
@@ -217,11 +217,11 @@ public class InitGameController extends Observable implements IInitGameControlle
     }
 
     private boolean checkWinner() {
-        List<IShip> list = round.getGrid().getPlayer().getShips();
+        List<Ship> list = round.getGrid().getPlayer().getShips();
         boolean check = true;
 
-        for(IShip ship: list) {
-            for (ICell cell: ship.getCells()) {
+        for(Ship ship: list) {
+            for (Cell cell: ship.getCells()) {
                 if (!cell.isShot()) {
                     check = false;
                 }

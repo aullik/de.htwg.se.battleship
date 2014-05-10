@@ -22,14 +22,14 @@ import de.htwg.se.battleship.controller.event.SetPlayerSuccess;
 import de.htwg.se.battleship.controller.event.SetShip;
 import de.htwg.se.battleship.controller.event.SetShipSuccess;
 import de.htwg.se.battleship.controller.impl.InitGameController;
-import de.htwg.se.battleship.model.ICell;
-import de.htwg.se.battleship.model.IGrid;
-import de.htwg.se.battleship.model.IPlayer;
-import de.htwg.se.battleship.model.IRound;
-import de.htwg.se.battleship.model.impl.Grid;
-import de.htwg.se.battleship.model.impl.Player;
-import de.htwg.se.battleship.model.impl.Round;
-import de.htwg.se.battleship.model.impl.Ship;
+import de.htwg.se.battleship.model.Cell;
+import de.htwg.se.battleship.model.Grid;
+import de.htwg.se.battleship.model.Player;
+import de.htwg.se.battleship.model.Round;
+import de.htwg.se.battleship.model.impl.GridImpl;
+import de.htwg.se.battleship.model.impl.PlayerImpl;
+import de.htwg.se.battleship.model.impl.RoundImpl;
+import de.htwg.se.battleship.model.impl.ShipImpl;
 import de.htwg.se.battleship.util.observer.Observable;
 
 /**
@@ -146,12 +146,12 @@ public class InitGameUITest {
     @Test
     public void testPlayerSuccess() throws UnsupportedEncodingException {
 
-        IPlayer p1 = new Player("test1");
-        IGrid g1 = new Grid(Grid.DEFAULT_SIZE, p1);
-        IPlayer p2 = new Player("test2");
-        IGrid g2 = new Grid(Grid.DEFAULT_SIZE, p2);
+        Player p1 = new PlayerImpl("test1");
+        Grid g1 = new GridImpl(GridImpl.DEFAULT_SIZE, p1);
+        Player p2 = new PlayerImpl("test2");
+        Grid g2 = new GridImpl(GridImpl.DEFAULT_SIZE, p2);
 
-        IRound r = new Round(g1, g2);
+        Round r = new RoundImpl(g1, g2);
 
         SetPlayerSuccess e = new SetPlayerSuccess(r);
         InitGameUI ui = new InitGameUI(new TestClass());
@@ -213,16 +213,16 @@ public class InitGameUITest {
 
     @Test
     public void testShipSuccess() throws UnsupportedEncodingException {
-        IPlayer p1 = new Player("test1");
-        IGrid g1 = new Grid(Grid.DEFAULT_SIZE, p1);
-        IPlayer p2 = new Player("test2");
-        IGrid g2 = new Grid(Grid.DEFAULT_SIZE, p2);
-        IRound r = new Round(g1, g2);
+        Player p1 = new PlayerImpl("test1");
+        Grid g1 = new GridImpl(GridImpl.DEFAULT_SIZE, p1);
+        Player p2 = new PlayerImpl("test2");
+        Grid g2 = new GridImpl(GridImpl.DEFAULT_SIZE, p2);
+        Round r = new RoundImpl(g1, g2);
 
-        Map<String, ICell> map = new HashMap<String, ICell>();
-        ICell c = g1.getCell(0, 0);
+        Map<String, Cell> map = new HashMap<String, Cell>();
+        Cell c = g1.getCell(0, 0);
         map.put(c.getKey(), c);
-        SetShipSuccess e = new SetShipSuccess(r, new Ship(p1, map));
+        SetShipSuccess e = new SetShipSuccess(r, new ShipImpl(p1, map));
         InitGameUI ui = new InitGameUI(new TestClass());
         ui.update(e);
 

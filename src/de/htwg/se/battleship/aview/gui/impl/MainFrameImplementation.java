@@ -26,7 +26,7 @@ import de.htwg.se.battleship.controller.IInitGameController;
 import de.htwg.se.battleship.controller.event.CloseProgamm;
 import de.htwg.se.battleship.controller.event.InitGame;
 import de.htwg.se.battleship.controller.event.Winner;
-import de.htwg.se.battleship.model.IPlayer;
+import de.htwg.se.battleship.model.Player;
 
 /**
  * @author aullik
@@ -90,7 +90,7 @@ public class MainFrameImplementation extends MainFrame {
     }
 
     @Override
-    public void newGame(IPlayer player1, IPlayer player2) {
+    public void newGame(Player player1, Player player2) {
         field1.setPlayer(player1);
         field2.setPlayer(player2);
         JPanel fieldpanel = new JPanel();

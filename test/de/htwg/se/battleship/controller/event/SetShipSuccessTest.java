@@ -9,10 +9,10 @@ import java.util.HashMap;
 
 import org.junit.Test;
 
-import de.htwg.se.battleship.model.ICell;
-import de.htwg.se.battleship.model.IShip;
-import de.htwg.se.battleship.model.impl.Player;
-import de.htwg.se.battleship.model.impl.Ship;
+import de.htwg.se.battleship.model.Cell;
+import de.htwg.se.battleship.model.Ship;
+import de.htwg.se.battleship.model.impl.PlayerImpl;
+import de.htwg.se.battleship.model.impl.ShipImpl;
 
 /**
  * @author Philipp
@@ -22,7 +22,7 @@ public class SetShipSuccessTest {
 
     @Test
     public void test() {
-        IShip s = new Ship(new Player(""), new HashMap<String, ICell>());
+        Ship s = new ShipImpl(new PlayerImpl(""), new HashMap<String, Cell>());
         SetShipSuccess e = new SetShipSuccess(null, s);
         assertEquals(s, e.getShip());
     }

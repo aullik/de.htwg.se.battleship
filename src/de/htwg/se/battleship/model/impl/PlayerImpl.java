@@ -6,9 +6,9 @@ package de.htwg.se.battleship.model.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.htwg.se.battleship.model.IGrid;
-import de.htwg.se.battleship.model.IPlayer;
-import de.htwg.se.battleship.model.IShip;
+import de.htwg.se.battleship.model.Grid;
+import de.htwg.se.battleship.model.Player;
+import de.htwg.se.battleship.model.Ship;
 
 /**
  * This class contains all data for an Player
@@ -16,20 +16,20 @@ import de.htwg.se.battleship.model.IShip;
  * @author Philipp Daniels<philipp.daniels@gmail.com>
  * 
  */
-public class Player implements IPlayer {
+public class PlayerImpl implements Player {
 
     private final String name;
-    private final List<IShip> ships;
-    private IGrid grid;
+    private final List<Ship> ships;
+    private Grid grid;
 
     /**
      * Create a new Player instance with name and Map for Cell instances
      * 
      * @param name Player name
      */
-    public Player(final String name) {
+    public PlayerImpl(final String name) {
         this.name = name;
-        this.ships = new ArrayList<IShip>();
+        this.ships = new ArrayList<Ship>();
     }
 
     @Override
@@ -38,24 +38,24 @@ public class Player implements IPlayer {
     }
 
     @Override
-    public void addShip(final IShip ship) {
+    public void addShip(final Ship ship) {
         if (!containsShip(ship)) {
             ships.add(ship);
         }
     }
 
     @Override
-    public boolean containsShip(final IShip ship) {
+    public boolean containsShip(final Ship ship) {
         return ships.contains(ship);
     }
 
     @Override
-    public void setGrid(final IGrid grid) {
+    public void setGrid(final Grid grid) {
         this.grid = grid;
     }
 
     @Override
-    public IGrid getGrid() {
+    public Grid getGrid() {
         return grid;
     }
 
@@ -63,7 +63,7 @@ public class Player implements IPlayer {
     public int getNumberOfShipCells() {
         int sum = 0;
 
-        for (IShip ship : ships) {
+        for (Ship ship : ships) {
             sum += ship.getNumberOfCells();
         }
         return sum;
@@ -75,7 +75,7 @@ public class Player implements IPlayer {
     }
 
     @Override
-    public List<IShip> getShips() {
+    public List<Ship> getShips() {
         return ships;
     }
 

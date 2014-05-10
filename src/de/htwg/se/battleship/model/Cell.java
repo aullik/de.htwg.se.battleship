@@ -9,7 +9,7 @@ package de.htwg.se.battleship.model;
  * @author Philipp Daniels<philipp.daniels@gmail.com>
  * 
  */
-public interface ICell {
+public interface Cell {
 
     /**
      * Returns the x-coordinate of this Cell.
@@ -37,21 +37,21 @@ public interface ICell {
      * 
      * @return Grid instance
      */
-    IGrid getGrid();
+    Grid getGrid();
 
     /**
      * Set relationship between Ship and cell (n:1 relationship)
      * 
      * @param ship Instance of a ship
      */
-    void setShip(final IShip ship);
+    void setShip(final Ship ship);
 
     /**
      * Returns true, when Cell has already an instance of this Ship.
      * 
      * @return Instance of ship
      */
-    IShip getShip();
+    Ship getShip();
 
     /**
      * Returns true, when the Player has made nothing with this Cell.

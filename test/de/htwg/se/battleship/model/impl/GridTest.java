@@ -8,8 +8,8 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import de.htwg.se.battleship.model.impl.Grid;
-import de.htwg.se.battleship.model.impl.Player;
+import de.htwg.se.battleship.model.impl.GridImpl;
+import de.htwg.se.battleship.model.impl.PlayerImpl;
 
 /**
  * @author Philipp Daniels<philipp.daniels@gmail.com>
@@ -17,20 +17,20 @@ import de.htwg.se.battleship.model.impl.Player;
  */
 public class GridTest {
 
-    private Grid g1;
-    private Grid g2;
-    private Player p1;
-    private Player p2;
+    private GridImpl g1;
+    private GridImpl g2;
+    private PlayerImpl p1;
+    private PlayerImpl p2;
 
     /**
      * @throws java.lang.Exception
      */
     @Before
     public void setUp() throws Exception {
-        p1 = new Player("test1");
-        p2 = new Player("test2");
-        g1 = new Grid(20, p1);
-        g2 = new Grid(18, p2);
+        p1 = new PlayerImpl("test1");
+        p2 = new PlayerImpl("test2");
+        g1 = new GridImpl(20, p1);
+        g2 = new GridImpl(18, p2);
 
     }
 

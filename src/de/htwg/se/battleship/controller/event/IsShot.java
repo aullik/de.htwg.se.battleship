@@ -3,8 +3,8 @@
  */
 package de.htwg.se.battleship.controller.event;
 
-import de.htwg.se.battleship.model.ICell;
-import de.htwg.se.battleship.model.IRound;
+import de.htwg.se.battleship.model.Cell;
+import de.htwg.se.battleship.model.Round;
 
 /**
  * @author Philipp Daniels<philipp.daniels@gmail.com>
@@ -12,13 +12,13 @@ import de.htwg.se.battleship.model.IRound;
  */
 public class IsShot extends AbstractEvent {
 
-    private final ICell cell;
+    private final Cell cell;
 
     /**
      * Create an instance of IsShot.
      * @param round IRound
      */
-    public IsShot(IRound round, ICell cell) {
+    public IsShot(Round round, Cell cell) {
         super(round);
 
         this.cell = cell;
@@ -28,7 +28,7 @@ public class IsShot extends AbstractEvent {
      * 
      * @return ICell
      */
-    public ICell getCell() {
+    public Cell getCell() {
         return cell;
     }
 

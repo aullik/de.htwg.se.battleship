@@ -7,9 +7,9 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import de.htwg.se.battleship.model.IGrid;
-import de.htwg.se.battleship.model.IPlayer;
-import de.htwg.se.battleship.model.IRound;
+import de.htwg.se.battleship.model.Grid;
+import de.htwg.se.battleship.model.Player;
+import de.htwg.se.battleship.model.Round;
 
 /**
  * @author Philipp
@@ -19,11 +19,11 @@ public class RoundTest {
 
     @Test
     public void test() {
-        IPlayer p = new Player("");
-        IGrid g1 = new Grid(Grid.DEFAULT_SIZE, p);
-        IGrid g2 = new Grid(Grid.DEFAULT_SIZE, p);
+        Player p = new PlayerImpl("");
+        Grid g1 = new GridImpl(GridImpl.DEFAULT_SIZE, p);
+        Grid g2 = new GridImpl(GridImpl.DEFAULT_SIZE, p);
 
-        IRound r = new Round(g1, g2);
+        Round r = new RoundImpl(g1, g2);
 
         assertEquals(g1, r.getGrid());
         assertEquals(g2, r.getOpponentGrid());

@@ -3,16 +3,16 @@
  */
 package de.htwg.se.battleship.model.impl;
 
-import de.htwg.se.battleship.model.IGrid;
-import de.htwg.se.battleship.model.IRound;
+import de.htwg.se.battleship.model.Grid;
+import de.htwg.se.battleship.model.Round;
 
 /**
  * @author Philipp Daniels<philipp.daniels@gmail.com>
  *
  */
-public class Round implements IRound {
+public class RoundImpl implements Round {
 
-    private final IGrid[] grids;
+    private final Grid[] grids;
     private int index;
 
     /**
@@ -20,8 +20,8 @@ public class Round implements IRound {
      * @param g1 IGrid
      * @param g2 IGrid
      */
-    public Round(IGrid g1, IGrid g2) {
-        grids = new IGrid[2];
+    public RoundImpl(Grid g1, Grid g2) {
+        grids = new Grid[2];
         index = 0;
         grids[0] = g1;
         grids[1] = g2;
@@ -37,12 +37,12 @@ public class Round implements IRound {
     }
 
     @Override
-    public IGrid getGrid() {
+    public Grid getGrid() {
         return grids[index];
     }
 
     @Override
-    public IGrid getOpponentGrid() {
+    public Grid getOpponentGrid() {
         return grids[calc()];
     }
 

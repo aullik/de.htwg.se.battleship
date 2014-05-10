@@ -3,9 +3,9 @@
  */
 package de.htwg.se.battleship.model.impl;
 
-import de.htwg.se.battleship.model.ICell;
-import de.htwg.se.battleship.model.IGrid;
-import de.htwg.se.battleship.model.IShip;
+import de.htwg.se.battleship.model.Cell;
+import de.htwg.se.battleship.model.Grid;
+import de.htwg.se.battleship.model.Ship;
 
 /**
  * This class contains all data of a single Cell
@@ -13,7 +13,7 @@ import de.htwg.se.battleship.model.IShip;
  * @author Philipp Daniels<philipp.daniels@gmail.com>
  * 
  */
-public class Cell implements ICell {
+public class CellImpl implements Cell {
 
     private static final int STATUS_NORMAL = 0;
     private static final int STATUS_SHOT = 1;
@@ -22,8 +22,8 @@ public class Cell implements ICell {
     private final int x;
     private final int y;
     private final String key;
-    private final IGrid grid;
-    private IShip ship;
+    private final Grid grid;
+    private Ship ship;
     private int status;
 
     /**
@@ -33,10 +33,10 @@ public class Cell implements ICell {
      * @param x X-Coordinate
      * @param y Y-Coordinate
      */
-    public Cell(int x, int y, IGrid grid) {
+    public CellImpl(int x, int y, Grid grid) {
         this.x = x;
         this.y = y;
-        this.key = Cell.createKey(x, y);
+        this.key = CellImpl.createKey(x, y);
         this.status = STATUS_NORMAL;
         this.grid = grid;
     }
@@ -57,17 +57,17 @@ public class Cell implements ICell {
     }
 
     @Override
-    public IGrid getGrid() {
+    public Grid getGrid() {
         return grid;
     }
 
     @Override
-    public void setShip(final IShip ship) {
+    public void setShip(final Ship ship) {
         this.ship = ship;
     }
 
     @Override
-    public IShip getShip() {
+    public Ship getShip() {
         return ship;
     }
 

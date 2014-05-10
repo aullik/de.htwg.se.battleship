@@ -10,10 +10,10 @@ import java.util.HashMap;
 import org.junit.Before;
 import org.junit.Test;
 
-import de.htwg.se.battleship.model.ICell;
-import de.htwg.se.battleship.model.impl.Grid;
-import de.htwg.se.battleship.model.impl.Player;
-import de.htwg.se.battleship.model.impl.Ship;
+import de.htwg.se.battleship.model.Cell;
+import de.htwg.se.battleship.model.impl.GridImpl;
+import de.htwg.se.battleship.model.impl.PlayerImpl;
+import de.htwg.se.battleship.model.impl.ShipImpl;
 
 /**
  * @author Philipp Daniels<philipp.daniels@gmail.com>
@@ -21,8 +21,8 @@ import de.htwg.se.battleship.model.impl.Ship;
  */
 public class PlayerTest {
 
-    private Player p1;
-    private Player p2;
+    private PlayerImpl p1;
+    private PlayerImpl p2;
 
     private final static String NAME1 = "philipp";
     private final static String NAME2 = "nicolas";
@@ -32,8 +32,8 @@ public class PlayerTest {
      */
     @Before
     public void setUp() throws Exception {
-        p1 = new Player(NAME1);
-        p2 = new Player(NAME2);
+        p1 = new PlayerImpl(NAME1);
+        p2 = new PlayerImpl(NAME2);
     }
 
     @Test
@@ -46,15 +46,15 @@ public class PlayerTest {
     @Test
     public void testShip() {
 
-        HashMap<String, ICell> map = new HashMap<String, ICell>();
+        HashMap<String, Cell> map = new HashMap<String, Cell>();
 
-        Ship s1 = new Ship(p1, map);
+        ShipImpl s1 = new ShipImpl(p1, map);
         p1.addShip(s1);
         assertTrue(p1.containsShip(s1));
         assertEquals(0, p1.getNumberOfShipCells());
 
-        map.put(Cell.createKey(1, 1), new Cell(1, 1, new Grid(Grid.DEFAULT_SIZE, p1)));
-        Ship s2 = new Ship(p1, map);
+        map.put(CellImpl.createKey(1, 1), new CellImpl(1, 1, new GridImpl(GridImpl.DEFAULT_SIZE, p1)));
+        ShipImpl s2 = new ShipImpl(p1, map);
         assertTrue(p1.containsShip(s2));
         p1.addShip(s2);
         assertTrue(p1.containsShip(s1));
@@ -63,10 +63,10 @@ public class PlayerTest {
 
     @Test
     public void testGrid() {
-        Grid g1 = new Grid(1, p1);
+        GridImpl g1 = new GridImpl(1, p1);
         assertEquals(p1.getGrid(), g1);
 
-        Grid g2 = new Grid(1, p2);
+        GridImpl g2 = new GridImpl(1, p2);
         assertEquals(p2.getGrid(), g2);
     }
 }

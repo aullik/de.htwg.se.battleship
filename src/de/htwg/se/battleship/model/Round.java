@@ -7,7 +7,7 @@ package de.htwg.se.battleship.model;
  * @author Philipp Daniels<philipp.daniels@gmail.com>
  *
  */
-public interface IRound {
+public interface Round {
 
     /**
      * Switch to other player.
@@ -18,11 +18,11 @@ public interface IRound {
      * Get current IGrid.
      * @return IGrid
      */
-    IGrid getGrid();
+    Grid getGrid();
 
     /**
      * Get instance of Opponent IGrid.
      * @return IGrid
      */
-    IGrid getOpponentGrid();
+    Grid getOpponentGrid();
 }

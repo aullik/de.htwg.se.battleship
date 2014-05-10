@@ -10,12 +10,12 @@ import java.util.HashMap;
 import org.junit.Before;
 import org.junit.Test;
 
-import de.htwg.se.battleship.model.ICell;
-import de.htwg.se.battleship.model.IPlayer;
-import de.htwg.se.battleship.model.impl.Cell;
-import de.htwg.se.battleship.model.impl.Grid;
-import de.htwg.se.battleship.model.impl.Player;
-import de.htwg.se.battleship.model.impl.Ship;
+import de.htwg.se.battleship.model.Cell;
+import de.htwg.se.battleship.model.Player;
+import de.htwg.se.battleship.model.impl.CellImpl;
+import de.htwg.se.battleship.model.impl.GridImpl;
+import de.htwg.se.battleship.model.impl.PlayerImpl;
+import de.htwg.se.battleship.model.impl.ShipImpl;
 
 /**
  * @author Philipp Daniels<philipp.daniels@gmail.com>
@@ -23,20 +23,20 @@ import de.htwg.se.battleship.model.impl.Ship;
  */
 public class CellTest {
 
-    private Cell c1;
-    private Cell c2;
-    private Grid g1;
-    private Grid g2;
+    private CellImpl c1;
+    private CellImpl c2;
+    private GridImpl g1;
+    private GridImpl g2;
 
     /**
      * @throws java.lang.Exception
      */
     @Before
     public void setUp() throws Exception {
-        g1 = new Grid(1, new Player(""));
-        g2 = new Grid(1, new Player(""));
-        c1 = new Cell(1, 2, g1);
-        c2 = new Cell(12, 8, g2);
+        g1 = new GridImpl(1, new PlayerImpl(""));
+        g2 = new GridImpl(1, new PlayerImpl(""));
+        c1 = new CellImpl(1, 2, g1);
+        c2 = new CellImpl(12, 8, g2);
     }
 
     @Test
@@ -65,18 +65,18 @@ public class CellTest {
 
     @Test
     public void testShip() {
-        IPlayer p = new Player("test");
+        Player p = new PlayerImpl("test");
 
-        HashMap<String, ICell> map1 = new HashMap<String, ICell>();
-        map1.put(Cell.createKey(c1.getX(), c1.getY()), c1);
+        HashMap<String, Cell> map1 = new HashMap<String, Cell>();
+        map1.put(CellImpl.createKey(c1.getX(), c1.getY()), c1);
         assertNull(c1.getShip());
-        Ship s1 = new Ship(p, map1);
+        ShipImpl s1 = new ShipImpl(p, map1);
         c1.setShip(s1);
         assertEquals(c1.getShip(), s1);
 
-        HashMap<String, ICell> map2 = new HashMap<String, ICell>();
-        map1.put(Cell.createKey(c2.getX(), c2.getY()), c2);
-        Ship s2 = new Ship(p, map2);
+        HashMap<String, Cell> map2 = new HashMap<String, Cell>();
+        map1.put(CellImpl.createKey(c2.getX(), c2.getY()), c2);
+        ShipImpl s2 = new ShipImpl(p, map2);
         assertNull(c2.getShip());
         c2.setShip(s2);
         assertEquals(c2.getShip(), s2);

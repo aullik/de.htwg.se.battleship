@@ -12,8 +12,8 @@ import de.htwg.se.battleship.controller.event.SetPlayerSuccess;
 import de.htwg.se.battleship.controller.event.SetShip;
 import de.htwg.se.battleship.controller.event.SetShipSuccess;
 import de.htwg.se.battleship.controller.impl.InitGameController;
-import de.htwg.se.battleship.model.ICell;
-import de.htwg.se.battleship.model.IPlayer;
+import de.htwg.se.battleship.model.Cell;
+import de.htwg.se.battleship.model.Player;
 import de.htwg.se.battleship.util.observer.Event;
 
 /**
@@ -23,7 +23,7 @@ import de.htwg.se.battleship.util.observer.Event;
 public class InitGameUI extends UserInterface implements IInitGameUI {
 
     private final IInitGameController controller;
-    private IPlayer player;
+    private Player player;
 
     public static final String MSG_INPUT_NOTE   = "Name for player %s (default: Player %s): ";
     public static final String MSG_NAME_NOTE    = "Great player %s your name is '%s'!%n%n";
@@ -81,9 +81,9 @@ public class InitGameUI extends UserInterface implements IInitGameUI {
 
     @Override
     public void update(SetPlayerSuccess e) {
-        IPlayer p1 = e.getPlayer();
+        Player p1 = e.getPlayer();
         e.getRound().next();
-        IPlayer p2 = e.getPlayer();
+        Player p2 = e.getPlayer();
         e.getRound().next();
 
         getLogger().info(String.format(MSG_PLAYER_ADD, p1.getName(), p2.getName()));
@@ -111,7 +111,7 @@ public class InitGameUI extends UserInterface implements IInitGameUI {
     public void update(SetShipSuccess e) {
         StringBuilder sb = new StringBuilder();
 
-        for (ICell cell : e.getShip().getCells()) {
+        for (Cell cell : e.getShip().getCells()) {
             sb.append("(").append(cell.getKey()).append("),");
         }
 

@@ -27,7 +27,7 @@ import de.htwg.se.battleship.controller.IController;
 import de.htwg.se.battleship.controller.IInitGameController;
 import de.htwg.se.battleship.controller.event.SetPlayerSuccess;
 import de.htwg.se.battleship.controller.event.Winner;
-import de.htwg.se.battleship.model.IPlayer;
+import de.htwg.se.battleship.model.Player;
 import de.htwg.se.battleship.util.observer.Event;
 import de.htwg.se.battleship.util.observer.IObserver;
 
@@ -242,7 +242,7 @@ public class Menu extends JPanel implements ActionListener, IObserver {
      * @param e
      */
     public void update(SetPlayerSuccess e) {
-        IPlayer player1 = e.getPlayer();
+        Player player1 = e.getPlayer();
         e.getRound().next();
 
         parent.newGame(player1, e.getPlayer());
