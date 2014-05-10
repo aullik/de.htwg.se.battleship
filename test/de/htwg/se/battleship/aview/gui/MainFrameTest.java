@@ -12,6 +12,7 @@ import de.htwg.se.battleship.controller.event.CloseProgamm;
 import de.htwg.se.battleship.controller.event.InitGame;
 import de.htwg.se.battleship.controller.event.Winner;
 import de.htwg.se.battleship.model.Player;
+import de.htwg.se.battleship.util.observer.Event;
 
 public class MainFrameTest {
 
@@ -57,8 +58,9 @@ public class MainFrameTest {
 
         @Override
         public void update(CloseProgamm e) {}
-
     }
+
+    public class TestEvent implements Event {}
 
     @Test
     public void test() {
@@ -70,6 +72,6 @@ public class MainFrameTest {
         mainFrame.windowIconified(null);
         mainFrame.keyTyped(null);
         mainFrame.keyReleased(null);
-        mainFrame.update(null);
+        mainFrame.update(new TestEvent());
     }
 }
