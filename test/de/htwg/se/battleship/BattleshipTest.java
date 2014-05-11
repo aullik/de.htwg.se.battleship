@@ -36,6 +36,7 @@ public class BattleshipTest {
         Battleship.main(new String[0]);
     }
 
+    /*
     @Test
     @Ignore
     public void testGetInstance() {
@@ -44,4 +45,5 @@ public class BattleshipTest {
 
         assertEquals(b1, b2);
     }
+     */
 }
