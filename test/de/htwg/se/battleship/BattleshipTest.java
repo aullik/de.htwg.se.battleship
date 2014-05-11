@@ -1,14 +1,11 @@
 package de.htwg.se.battleship;
 
-import static org.junit.Assert.assertEquals;
-
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import de.htwg.se.battleship.aview.tui.menuentry.Close;
@@ -19,15 +16,15 @@ public class BattleshipTest {
 
     @Before
     public void setUp() throws UnsupportedEncodingException {
-        //backup = System.in;
+        backup = System.in;
 
-        //String s = Close.CMD + System.getProperty("line.separator");
-        //System.setIn(new ByteArrayInputStream(s.getBytes("UTF-8")));
+        String s = Close.CMD + System.getProperty("line.separator");
+        System.setIn(new ByteArrayInputStream(s.getBytes("UTF-8")));
     }
 
     @After
     public void tearDown() {
-        //System.setIn(backup);
+        System.setIn(backup);
     }
 
     @Test
