@@ -36,15 +36,4 @@ public class BattleshipTest {
         Battleship.main(new String[0]);
         System.out.println("Test3");
     }
-
-    /*
-    @Test
-    @Ignore
-    public void testGetInstance() {
-        Battleship b1 = Battleship.getInstance();
-        Battleship b2 = Battleship.getInstance();
-
-        assertEquals(b1, b2);
-    }
-     */
 }

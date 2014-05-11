@@ -15,20 +15,6 @@ import de.htwg.se.battleship.aview.tui.TextUI;
  */
 public final class Battleship {
 
-    private static Battleship instance = null;
-
-    /**
-     * Return always the same instance of Battleship
-     * 
-     * @return Battleship instance
-     */
-    public static Battleship getInstance() {
-        if (instance == null) {
-            instance = new Battleship();
-        }
-        return instance;
-    }
-
     /**
      * close main
      */
