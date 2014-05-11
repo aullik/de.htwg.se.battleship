@@ -19,7 +19,7 @@ public class BattleshipTest {
 
     @Before
     public void setUp() throws UnsupportedEncodingException {
-        backup = System.in;
+        //backup = System.in;
 
         //String s = Close.CMD + System.getProperty("line.separator");
         //System.setIn(new ByteArrayInputStream(s.getBytes("UTF-8")));
