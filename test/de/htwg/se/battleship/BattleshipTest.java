@@ -8,6 +8,7 @@ import java.io.UnsupportedEncodingException;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import de.htwg.se.battleship.aview.tui.menuentry.Close;
@@ -29,8 +30,8 @@ public class BattleshipTest {
         System.setIn(backup);
     }
 
-
     @Test
+    @Ignore
     public void test() {
         Battleship.main(new String[0]);
     }
