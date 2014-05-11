@@ -29,8 +29,6 @@ public class BattleshipTest {
 
     @Test
     public void test() {
-        System.out.println("Test1");
         Battleship.main(new String[0]);
-        System.out.println("Test3");
     }
 }

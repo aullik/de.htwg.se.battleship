@@ -64,20 +64,30 @@ public class MainFrameImplementation extends MainFrame {
      */
     @Inject
     public MainFrameImplementation(IController controller, IInitGameController initC) throws URISyntaxException, IOException {
+
+        System.out.println("F1");
+
         this.controller = controller;
         controller.addObserver(this);
         this.initC = initC;
         initC.addObserver(this);
 
+        System.out.println("F2");
+
         createImage();
+
+        System.out.println("F3");
 
         initPanels();
         this.add(menuPanel);
+
+        System.out.println("F4");
 
         this.getContentPane().validate();
         this.setVisible(true);
         repaint();
 
+        System.out.println("F5");
     }
 
     /* (non-Javadoc)
@@ -288,6 +298,7 @@ public class MainFrameImplementation extends MainFrame {
      */
     @Override
     public void update(CloseProgamm e) {
+        System.out.println("F6");
         setVisible(false);
         dispose();
     }
