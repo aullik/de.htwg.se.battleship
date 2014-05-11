@@ -10,6 +10,8 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
@@ -38,7 +40,7 @@ public class MainFrameImplementation extends MainFrame {
      */
     private static final long serialVersionUID = 1L;
     private static final String  TITLE            = "Ballteship";
-    private static final String  FILENAME         = "../ocean_battleship.jpg";
+    private static final String  FILENAME         = "/de/htwg/se/battleship/aview/gui/ocean_battleship.jpg";
     private static final int JPANEL_INGAME      = 0;
     private static final int JPANEL_MENUPANEL   = 1;
     private static final int GAMEFIELD_SCALING  = 8;
@@ -196,12 +198,10 @@ public class MainFrameImplementation extends MainFrame {
 
     }
 
-    private void createImage() throws URISyntaxException, IOException {
-        URI uri;
-
+    private void createImage() {
         try {
-            uri = this.getClass().getResource(FILENAME).toURI();
-            image = ImageIO.read(new File(uri.normalize()));
+            URI uri = this.getClass().getResource(FILENAME).toURI();
+            image = ImageIO.read(new File(uri));
             size = new Dimension(image.getWidth() / 2, image.getHeight() / 2);
         } catch (Exception e) {
             e.printStackTrace();
