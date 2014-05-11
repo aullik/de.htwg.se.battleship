@@ -198,6 +198,9 @@ public class MainFrameImplementation extends MainFrame {
 
     private void createImage() {
         try {
+            System.out.println(this.getClass().getResource("."));
+            System.out.println(this.getClass().getClassLoader().getResource("."));
+            System.out.println(this.getClass().getResource(FILENAME));
             URI uri = this.getClass().getResource(FILENAME).toURI();
             image = ImageIO.read(new File(uri));
             size = new Dimension(image.getWidth() / 2, image.getHeight() / 2);
