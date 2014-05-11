@@ -8,7 +8,6 @@ import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.net.URI;
 import java.net.URISyntaxException;
 
 import javax.imageio.ImageIO;
@@ -38,7 +37,7 @@ public class MainFrameImplementation extends MainFrame {
      */
     private static final long serialVersionUID = 1L;
     private static final String  TITLE            = "Ballteship";
-    private static final String  FILENAME         = "/de/htwg/se/battleship/aview/gui/ocean_battleship.jpg";
+    private static final String  FILENAME         = File.separator + "Resource" + File.separator + "ocean_battleship.jpg";
     private static final int JPANEL_INGAME      = 0;
     private static final int JPANEL_MENUPANEL   = 1;
     private static final int GAMEFIELD_SCALING  = 8;
@@ -65,29 +64,19 @@ public class MainFrameImplementation extends MainFrame {
     @Inject
     public MainFrameImplementation(IController controller, IInitGameController initC) throws URISyntaxException, IOException {
 
-        System.out.println("F1");
-
         this.controller = controller;
         controller.addObserver(this);
         this.initC = initC;
         initC.addObserver(this);
 
-        System.out.println("F2");
-
         createImage();
-
-        System.out.println("F3");
 
         initPanels();
         this.add(menuPanel);
 
-        System.out.println("F4");
-
         this.getContentPane().validate();
         this.setVisible(true);
         repaint();
-
-        System.out.println("F5");
     }
 
     /* (non-Javadoc)
@@ -198,11 +187,8 @@ public class MainFrameImplementation extends MainFrame {
 
     private void createImage() {
         try {
-            System.out.println(this.getClass().getResource("."));
-            System.out.println(this.getClass().getClassLoader().getResource("."));
-            System.out.println(this.getClass().getResource(FILENAME));
-            URI uri = this.getClass().getResource(FILENAME).toURI();
-            image = ImageIO.read(new File(uri));
+            File f = new File(System.getProperty("user.dir") + FILENAME);
+            image = ImageIO.read(f);
             size = new Dimension(image.getWidth() / 2, image.getHeight() / 2);
         } catch (Exception e) {
             e.printStackTrace();
@@ -303,7 +289,6 @@ public class MainFrameImplementation extends MainFrame {
      */
     @Override
     public void update(CloseProgamm e) {
-        System.out.println("F6");
         setVisible(false);
         dispose();
     }
