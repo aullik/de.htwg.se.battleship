@@ -22,12 +22,12 @@ public class BattleshipTest {
         backup = System.in;
 
         String s = Close.CMD + System.getProperty("line.separator");
-        System.setIn(new ByteArrayInputStream(s.getBytes("UTF-8")));
+        //System.setIn(new ByteArrayInputStream(s.getBytes("UTF-8")));
     }
 
     @After
     public void tearDown() {
-        System.setIn(backup);
+        //System.setIn(backup);
     }
 
     @Test
