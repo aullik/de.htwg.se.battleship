@@ -30,11 +30,13 @@ public class BattleshipTest {
         //System.setIn(backup);
     }
 
+    /*
     @Test
     @Ignore
     public void test() {
         Battleship.main(new String[0]);
     }
+     */
 
     /*
     @Test
