@@ -33,6 +33,7 @@ public final class Battleship {
      * close main
      */
     private Battleship() {
+        System.out.println("Test2");
         /*PropertyConfigurator.configure("log4j.properties");
 
         Injector injector = Guice.createInjector(new BattleshipModule());
@@ -47,6 +48,6 @@ public final class Battleship {
      * @param args
      */
     public static void main(String[] args) {
-        Battleship.getInstance();
+        new Battleship();
     }
 }
