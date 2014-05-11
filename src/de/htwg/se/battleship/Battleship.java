@@ -25,7 +25,7 @@ public final class Battleship {
 
         System.out.println("Test2");
         //injector.getInstance(MainFrame.class);
-        //injector.getInstance(TextUI.class);
+        injector.getInstance(TextUI.class);
     }
 
     /**
