@@ -25,7 +25,6 @@ import de.htwg.se.battleship.aview.gui.action.GameModeAction;
 import de.htwg.se.battleship.aview.gui.action.StartAction;
 import de.htwg.se.battleship.controller.IController;
 import de.htwg.se.battleship.controller.IInitGameController;
-import de.htwg.se.battleship.controller.event.CloseProgamm;
 import de.htwg.se.battleship.controller.event.SetPlayerSuccess;
 import de.htwg.se.battleship.controller.event.Winner;
 import de.htwg.se.battleship.model.Player;
@@ -268,6 +267,4 @@ public class Menu extends JPanel implements ActionListener, Observer {
 
     @Override
     public void update(Event e) {}
-
-    public void update(CloseProgamm e) {}
 }
