@@ -33,12 +33,12 @@ public final class Battleship {
      * close main
      */
     private Battleship() {
-        PropertyConfigurator.configure("log4j.properties");
+        /*PropertyConfigurator.configure("log4j.properties");
 
         Injector injector = Guice.createInjector(new BattleshipModule());
 
-        //injector.getInstance(MainFrame.class);
-        injector.getInstance(TextUI.class);
+        injector.getInstance(MainFrame.class);
+        injector.getInstance(TextUI.class);*/
     }
 
     /**
