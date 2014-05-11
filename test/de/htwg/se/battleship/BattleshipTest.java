@@ -37,6 +37,7 @@ public class BattleshipTest {
     }
 
     @Test
+    @Ignore
     public void testGetInstance() {
         Battleship b1 = Battleship.getInstance();
         Battleship b2 = Battleship.getInstance();
