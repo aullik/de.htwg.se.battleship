@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import de.htwg.se.battleship.controller.IInitGameController;
+import de.htwg.se.battleship.controller.event.CloseProgamm;
 import de.htwg.se.battleship.controller.event.IsShot;
 import de.htwg.se.battleship.controller.event.SetShip;
 import de.htwg.se.battleship.controller.event.SetShipSuccess;
@@ -480,7 +481,7 @@ public class Gamefield extends JPanel implements MouseListener, MouseMotionListe
     }
 
     @Override
-    public void update(Event e) {
+    public void update(Event e) {}
 
-    }
+    public void update(CloseProgamm e) {}
 }
