@@ -199,9 +199,13 @@ public class MainFrameImplementation extends MainFrame {
     private void createImage() throws URISyntaxException, IOException {
         URI uri;
 
-        uri = this.getClass().getResource(FILENAME).toURI();
-        image = ImageIO.read(new File(uri.normalize()));
-        size = new Dimension(image.getWidth() / 2, image.getHeight() / 2);
+        try {
+            uri = this.getClass().getResource(FILENAME).toURI();
+            image = ImageIO.read(new File(uri.normalize()));
+            size = new Dimension(image.getWidth() / 2, image.getHeight() / 2);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /* (non-Javadoc)
