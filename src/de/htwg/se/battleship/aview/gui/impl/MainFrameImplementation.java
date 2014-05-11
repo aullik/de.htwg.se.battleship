@@ -185,14 +185,10 @@ public class MainFrameImplementation extends MainFrame {
 
     }
 
-    private void createImage() {
-        try {
-            File f = new File(System.getProperty("user.dir") + FILENAME);
-            image = ImageIO.read(f);
-            size = new Dimension(image.getWidth() / 2, image.getHeight() / 2);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    private void createImage() throws IOException {
+        File f = new File(System.getProperty("user.dir") + FILENAME);
+        image = ImageIO.read(f);
+        size = new Dimension(image.getWidth() / 2, image.getHeight() / 2);
     }
 
     /* (non-Javadoc)
