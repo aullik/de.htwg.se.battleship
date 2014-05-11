@@ -38,7 +38,7 @@ public class MainFrameImplementation extends MainFrame {
      */
     private static final long serialVersionUID = 1L;
     private static final String  TITLE            = "Ballteship";
-    private static final String  FILENAME         = "ocean_battleship.jpg";
+    private static final String  FILENAME         = "../ocean_battleship.jpg";
     private static final int JPANEL_INGAME      = 0;
     private static final int JPANEL_MENUPANEL   = 1;
     private static final int GAMEFIELD_SCALING  = 8;
@@ -288,6 +288,7 @@ public class MainFrameImplementation extends MainFrame {
      */
     @Override
     public void update(CloseProgamm e) {
-        System.exit(0);
+        setVisible(false);
+        dispose();
     }
 }
