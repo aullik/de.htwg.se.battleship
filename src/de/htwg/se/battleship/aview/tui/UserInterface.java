@@ -9,11 +9,11 @@ import de.htwg.se.battleship.util.observer.Event;
 import de.htwg.se.battleship.util.observer.Observer;
 
 /**
- * @author Philipp
+ * @author Philipp Daniels<philipp.daniels@gmail.com>
  */
 public abstract class UserInterface implements Observer {
 
-    private final Logger       logger        = Logger.getLogger("de.htwg.se.battleship.aview.tui");
+    private final Logger logger = Logger.getLogger("de.htwg.se.battleship.aview.tui");
 
     /**
      * Returns Logger instance
@@ -25,44 +25,30 @@ public abstract class UserInterface implements Observer {
     }
 
     @Override
-    public void update(Event e) {
-  
-
-    }
+    public void update(Event e) {}
 
     /**
      * Game name as ASCII-Art:
      * http://patorjk.com/software/taag/#p=display&f=Big&t=Battleship
      */
     protected String header() {
-
         StringBuilder sb = new StringBuilder();
         sb.append("\n");
-        sb.append("***********************************************************")
-                .append("\n");
-        sb.append("*      ____        _   _   _           _     _            *")
-                .append("\n");
-        sb.append(
-                "*     |  _ \\      | | | | | |         | |   (_)           *")
-                .append("\n");
-        sb.append("*     | |_) | __ _| |_| |_| | ___  ___| |__  _ _ __       *")
-                .append("\n");
-        sb.append(
-                "*     |  _ < / _` | __| __| |/ _ \\/ __| '_ \\| | '_ \\      *")
-                .append("\n");
-        sb.append(
-                "*     | |_) | (_| | |_| |_| |  __/\\__ \\ | | | | |_) |     *")
-                .append("\n");
-        sb.append(
-                "*     |____/ \\__,_|\\__|\\__|_|\\___||___/_| |_|_| .__/      *")
-                .append("\n");
-        sb.append("*                                             | |         *")
-                .append("\n");
-        sb.append("*                                             |_|         *")
-                .append("\n");
-        sb.append("***********************************************************")
-                .append("\n");
+        sb.append("***********************************************************\n");
+        sb.append("*      ____        _   _   _           _     _            *\n");
+        sb.append("*     |  _ \\      | | | | | |         | |   (_)           *\n");
+        sb.append("*     | |_) | __ _| |_| |_| | ___  ___| |__  _ _ __       *\n");
+        sb.append("*     |  _ < / _` | __| __| |/ _ \\/ __| '_ \\| | '_ \\      *\n");
+        sb.append("*     | |_) | (_| | |_| |_| |  __/\\__ \\ | | | | |_) |     *\n");
+        sb.append("*     |____/ \\__,_|\\__|\\__|_|\\___||___/_| |_|_| .__/      *\n");
+        sb.append("*                                             | |         *\n");
+        sb.append("*                                             |_|         *\n");
+        sb.append("***********************************************************\n");
         return sb.toString();
+    }
+
+    protected void output(String string) {
+        getLogger().info(string);
     }
 
     /**
