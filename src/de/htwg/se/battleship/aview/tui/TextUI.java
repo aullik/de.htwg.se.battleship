@@ -1,6 +1,6 @@
 package de.htwg.se.battleship.aview.tui;
 
-import java.util.Scanner;
+import java.io.IOException;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -9,30 +9,41 @@ import com.google.inject.Singleton;
 /**
  * Text User Interface is an Observer
  * 
- * @author aullik
+ * @author Philipp Daniels<philipp.daniels@gmail.com>
  */
 @Singleton
 public class TextUI  {
 
     private UserInterface ui;
+    private boolean process;
 
     /**
      * @param controller controller to observe
      */
     @Inject
-    public TextUI(IScannerFactory sf, MainMenuUI ui) {
+    public TextUI(Input input, UserInterface ui) {
         this.ui = ui;
-        processInput(sf.getScanner());
+        processInput(input);
     }
 
-    private void processInput(Scanner scanner) {
-        boolean process = true;
+    private void processInput(Input input) {
+        try {
+            tryProcessing(input);
+        } catch (IOException e) {}
+    }
 
+    private void tryProcessing(Input input) throws IOException {
+        process = true;
         while (process) {
-            ui.showText();
-            String input = scanner.nextLine();
-            process = ui.executeInput(input);
-            ui = ui.getUI();
+            executeUserInterface(input);
         }
+        input.close();
+    }
+
+    private void executeUserInterface(Input input) throws IOException {
+        ui.showText();
+        String text = input.get();
+        process = ui.executeInput(text);
+        ui = ui.getUI();
     }
 }
