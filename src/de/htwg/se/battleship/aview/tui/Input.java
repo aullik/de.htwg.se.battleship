@@ -16,11 +16,11 @@ public interface Input {
      * 
      * @return String
      */
-    public String get() throws IOException;
+    String get() throws IOException;
 
 
     /**
      * Close all resources of interface
      */
-    public void close();
+    void close();
 }

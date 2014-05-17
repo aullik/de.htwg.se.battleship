@@ -29,7 +29,9 @@ public class TextUI  {
     private void processInput(Input input) {
         try {
             tryProcessing(input);
-        } catch (IOException e) {}
+        } catch (IOException e) {
+            input.close();
+        }
     }
 
     private void tryProcessing(Input input) throws IOException {

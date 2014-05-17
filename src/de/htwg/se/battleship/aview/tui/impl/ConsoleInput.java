@@ -16,6 +16,8 @@ import de.htwg.se.battleship.aview.tui.Input;
  */
 public class ConsoleInput implements Input {
 
+    private static final int SLEEP_TIME = 10;
+
     private final Scanner scanner;
     private final InputStream stream;
     private Thread thread;
@@ -45,7 +47,7 @@ public class ConsoleInput implements Input {
         while(stream.available() == 0) {
             try {
                 Thread.currentThread();
-                Thread.sleep(10);
+                Thread.sleep(ConsoleInput.SLEEP_TIME);
             } catch (InterruptedException e) {
                 return false;
             }
