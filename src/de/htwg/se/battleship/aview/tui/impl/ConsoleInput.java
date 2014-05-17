@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Scanner;
 
+import com.google.inject.Singleton;
+
 import de.htwg.se.battleship.aview.tui.Input;
 
 /**
@@ -14,6 +16,7 @@ import de.htwg.se.battleship.aview.tui.Input;
  * 
  * @author Philipp Daniels<philipp.daniels@gmail.com>
  */
+@Singleton
 public class ConsoleInput implements Input {
 
     private static final int SLEEP_TIME = 10;
