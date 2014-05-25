@@ -2,6 +2,7 @@ package de.htwg.se.battleship;
 
 import org.apache.log4j.PropertyConfigurator;
 
+import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
@@ -9,30 +10,29 @@ import de.htwg.se.battleship.aview.gui.MainFrame;
 import de.htwg.se.battleship.aview.tui.TextUI;
 
 /**
- * Initial class to start java program
+ * Initiate logging and dependency Injector and start battleship application.
  * 
- * @author Philipp Daniels<philipp.daniels@gmail.com>
+ * @author Philipp Daniels <philipp.daniels@gmail.com>
  */
 public final class Battleship {
 
     /**
-     * close main
+     * Start Battleship application.
      */
-    private Battleship() {
+    protected Battleship(AbstractModule module) {
         PropertyConfigurator.configure("log4j.properties");
 
-        Injector injector = Guice.createInjector(new BattleshipModule());
-
+        Injector injector = Guice.createInjector(module);
         injector.getInstance(MainFrame.class);
         injector.getInstance(TextUI.class);
     }
 
     /**
-     * Start java program
+     * Starting point for a java application.
      * 
      * @param args
      */
     public static void main(String[] args) {
-        new Battleship();
+        new Battleship(new BattleshipModule());
     }
 }

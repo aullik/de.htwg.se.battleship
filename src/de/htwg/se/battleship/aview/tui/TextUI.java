@@ -9,13 +9,18 @@ import com.google.inject.Singleton;
 /**
  * Text User Interface is an Observer
  * 
- * @author Philipp Daniels<philipp.daniels@gmail.com>
+ * @author Philipp Daniels <philipp.daniels@gmail.com>
  */
 @Singleton
 public class TextUI  {
 
     private UserInterface ui;
     private boolean process;
+
+    /**
+     * Default constructor.
+     */
+    public TextUI() {}
 
     /**
      * @param controller controller to observe
