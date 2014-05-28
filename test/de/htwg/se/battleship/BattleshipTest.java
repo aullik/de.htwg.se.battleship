@@ -5,7 +5,12 @@ import static org.junit.Assert.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import com.google.inject.AbstractModule;
@@ -13,6 +18,7 @@ import com.google.inject.Inject;
 
 import de.htwg.se.battleship.aview.gui.MainFrame;
 import de.htwg.se.battleship.aview.tui.TextUI;
+import de.htwg.se.battleship.aview.tui.menuentry.Close;
 import de.htwg.se.battleship.controller.event.CloseProgamm;
 import de.htwg.se.battleship.controller.event.InitGame;
 import de.htwg.se.battleship.controller.event.Winner;
@@ -84,5 +90,25 @@ public class BattleshipTest {
 
         assertTrue(tui);
         assertTrue(gui);
+    }
+
+    private InputStream backup;
+
+    @Before
+    public void setUp() throws UnsupportedEncodingException {
+        backup = System.in;
+
+        String s = Close.CMD + System.getProperty("line.separator");
+        System.setIn(new ByteArrayInputStream(s.getBytes("UTF-8")));
+    }
+
+    @After
+    public void tearDown() {
+        System.setIn(backup);
+    }
+
+    @Test
+    public void testMain() {
+        Battleship.main(new String[0]);
     }
 }
