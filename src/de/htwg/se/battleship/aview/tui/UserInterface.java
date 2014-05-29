@@ -15,6 +15,7 @@ public abstract class UserInterface implements Observer {
 
     private final Logger logger = Logger.getLogger("de.htwg.se.battleship.aview.tui");
     private boolean process = true;
+    private StringBuilder sb;
 
     @Override
     public void update(Event e) {}
@@ -49,19 +50,26 @@ public abstract class UserInterface implements Observer {
      * http://patorjk.com/software/taag/#p=display&f=Big&t=Battleship
      */
     protected String header() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("\n");
-        sb.append("***********************************************************\n");
-        sb.append("*      ____        _   _   _           _     _            *\n");
-        sb.append("*     |  _ \\      | | | | | |         | |   (_)           *\n");
-        sb.append("*     | |_) | __ _| |_| |_| | ___  ___| |__  _ _ __       *\n");
-        sb.append("*     |  _ < / _` | __| __| |/ _ \\/ __| '_ \\| | '_ \\      *\n");
-        sb.append("*     | |_) | (_| | |_| |_| |  __/\\__ \\ | | | | |_) |     *\n");
-        sb.append("*     |____/ \\__,_|\\__|\\__|_|\\___||___/_| |_|_| .__/      *\n");
-        sb.append("*                                             | |         *\n");
-        sb.append("*                                             |_|         *\n");
-        sb.append("***********************************************************\n");
+        sb = new StringBuilder("\n");
+        appendHeaderFrame();
+        append("*      ____        _   _   _           _     _            *");
+        append("*     |  _ \\      | | | | | |         | |   (_)           *");
+        append("*     | |_) | __ _| |_| |_| | ___  ___| |__  _ _ __       *");
+        append("*     |  _ < / _` | __| __| |/ _ \\/ __| '_ \\| | '_ \\      *");
+        append("*     | |_) | (_| | |_| |_| |  __/\\__ \\ | | | | |_) |     *");
+        append("*     |____/ \\__,_|\\__|\\__|_|\\___||___/_| |_|_| .__/      *");
+        append("*                                             | |         *");
+        append("*                                             |_|         *");
+        appendHeaderFrame();
         return sb.toString();
+    }
+
+    private void appendHeaderFrame() {
+        append("***********************************************************");
+    }
+
+    private void append(String s) {
+        sb.append(s + "\n");
     }
 
     protected void output(String string) {
