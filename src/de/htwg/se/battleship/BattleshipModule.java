@@ -27,7 +27,7 @@ public class BattleshipModule extends AbstractModule {
 
         // TUI
         bind(Input.class).to(de.htwg.se.battleship.aview.tui.impl.ConsoleInput.class);
-        bind(UserInterface.class).to(de.htwg.se.battleship.aview.tui.MainMenuUi.class);
+        bind(UserInterface.class).to(de.htwg.se.battleship.aview.tui.impl.MainMenuUi.class);
         bind(IMenu.class).to(de.htwg.se.battleship.aview.tui.menu.MainMenu.class);
         bind(IInitGameController.class).to(de.htwg.se.battleship.controller.impl.InitGameController.class);
         bind(IInitGameUI.class).to(de.htwg.se.battleship.aview.tui.InitGameUI.class);

@@ -1,11 +1,15 @@
 /**
  * 
  */
-package de.htwg.se.battleship.aview.tui;
+package de.htwg.se.battleship.aview.tui.impl;
 
 import com.google.inject.Inject;
 
+import de.htwg.se.battleship.aview.tui.IMenu;
+import de.htwg.se.battleship.aview.tui.IMenuEntry;
 import de.htwg.se.battleship.aview.tui.InitGameUI;
+import de.htwg.se.battleship.aview.tui.Input;
+import de.htwg.se.battleship.aview.tui.UserInterface;
 import de.htwg.se.battleship.controller.IController;
 import de.htwg.se.battleship.controller.IInitGameController;
 import de.htwg.se.battleship.controller.event.CloseProgamm;
@@ -17,7 +21,7 @@ import de.htwg.se.battleship.controller.event.InitGame;
 public class MainMenuUi extends UserInterface {
 
     public static final String MSG_INPUT_NOTE   = "%s\n%s\nPlease choice a menu: ";
-    public static final String MSG_DEFAULT_MENU = "%sSorry bro, but '%s' has no menu entry!%n";
+    public static final String MSG_DEFAULT_MENU = "Sorry bro, but '%s' has no menu entry!%n";
     public static final String MSG_EXIT         = "This is the end my friend!";
     public static final String MENU_FORMAT      = "%-20s - %s\n";
     public static final String MENU_HEAD        = "Main Menu:\n";
@@ -73,7 +77,7 @@ public class MainMenuUi extends UserInterface {
     private void executeAction(String input) {
         IMenuEntry e = menu.get().get(input);
         if (e == null) {
-            output(String.format(MSG_DEFAULT_MENU, header(), input));
+            output(header() + String.format(MSG_DEFAULT_MENU, input));
         } else {
             e.action();
         }

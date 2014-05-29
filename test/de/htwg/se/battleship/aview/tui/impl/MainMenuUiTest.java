@@ -1,4 +1,4 @@
-package de.htwg.se.battleship.aview.tui;
+package de.htwg.se.battleship.aview.tui.impl;
 
 import static org.junit.Assert.*;
 
@@ -12,6 +12,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import de.htwg.se.battleship.TestAppender;
+import de.htwg.se.battleship.aview.tui.IMenu;
+import de.htwg.se.battleship.aview.tui.IMenuEntry;
+import de.htwg.se.battleship.aview.tui.InitGameUI;
+import de.htwg.se.battleship.aview.tui.Input;
+import de.htwg.se.battleship.aview.tui.impl.MainMenuUi;
 import de.htwg.se.battleship.controller.IController;
 import de.htwg.se.battleship.controller.IInitGameController;
 import de.htwg.se.battleship.controller.event.CloseProgamm;
@@ -148,7 +153,7 @@ public class MainMenuUiTest {
 
         String log = testAppender.getLog().toString();
         assertFalse(log.isEmpty());
-        assertTrue(log.contains(String.format(MainMenuUi.MSG_DEFAULT_MENU, ui.header(), s)));
+        assertTrue(log.contains(String.format(MainMenuUi.MSG_DEFAULT_MENU, s)));
     }
 
     @Test
@@ -167,7 +172,7 @@ public class MainMenuUiTest {
 
     @Test
     public void testUpdateInitGame() {
-        ui.deactivateProcess();
+        ui.update(new CloseProgamm());
 
         assertFalse(init);
         assertEquals(ui, ui.executeInput(null));
