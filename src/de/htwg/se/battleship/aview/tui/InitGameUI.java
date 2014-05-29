@@ -17,8 +17,7 @@ import de.htwg.se.battleship.model.Player;
 import de.htwg.se.battleship.util.observer.Event;
 
 /**
- * @author Philipp Daniels<philipp.daniels@gmail.com>
- *
+ * @author Philipp Daniels <philipp.daniels@gmail.com>
  */
 public class InitGameUI extends UserInterface implements IInitGameUI {
 
@@ -121,11 +120,10 @@ public class InitGameUI extends UserInterface implements IInitGameUI {
     @Override
     public void showText() {
         getLogger().info(output);
-
     }
 
     @Override
-    public boolean executeInput(String input) {
+    public UserInterface executeInput(String input) {
 
         if (lastEvent instanceof SetPlayer) {
             String pName = input;
@@ -171,11 +169,6 @@ public class InitGameUI extends UserInterface implements IInitGameUI {
                 controller.ship(shipCoords[ZERO], shipCoords[FIRST], shipCoords[SECOND], shipCoords[THIRD]);
             }
         }
-        return true;
-    }
-
-    @Override
-    public UserInterface getUI() {
         return this;
     }
 
