@@ -5,6 +5,7 @@
 /build/
 /nbproject
 /battleship.log
+/battleship.log.*
 /coverage.ec
 /build.xml
 /coverage
