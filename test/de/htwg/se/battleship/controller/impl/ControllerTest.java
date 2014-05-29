@@ -2,19 +2,26 @@ package de.htwg.se.battleship.controller.impl;
 
 import static org.junit.Assert.*;
 
+import org.junit.Before;
 import org.junit.Test;
 
-import de.htwg.se.battleship.controller.IController;
 import de.htwg.se.battleship.controller.event.CloseProgamm;
 import de.htwg.se.battleship.controller.event.InitGame;
+import de.htwg.se.battleship.controller.event.Winner;
 import de.htwg.se.battleship.controller.impl.Controller;
 import de.htwg.se.battleship.util.observer.Event;
 import de.htwg.se.battleship.util.observer.Observer;
 
+/**
+ * @author Philipp Daniels <philipp.daniels@gmail.com>
+ */
 public class ControllerTest {
 
-    private boolean ping = false;
-    private boolean pong = false;
+    private Controller c;
+
+    private boolean initGameEvent;
+    private boolean closeProgrammEvent;
+    private boolean winnerEvent;
 
     public class TestClass implements Observer {
 
@@ -23,33 +30,52 @@ public class ControllerTest {
         }
 
         public void update(InitGame e) {
-            ping = true;
+            initGameEvent = true;
         }
 
         public void update(CloseProgamm e) {
-            pong = true;
+            closeProgrammEvent = true;
         }
 
+        public void update(Winner e) {
+            winnerEvent = true;
+        }
+    }
+
+    @Before
+    public void setUp() {
+        c = new Controller();
+        c.addObserver(new TestClass());
+
+        initGameEvent = false;
+        closeProgrammEvent = false;
+        winnerEvent = false;
     }
 
     @Test
     public void testNewGame() {
-        IController c = new Controller();
-        c.addObserver(new TestClass());
-
-        assertFalse(ping);
         c.newGame();
-        assertTrue(ping);
+
+        assertTrue(initGameEvent);
+        assertFalse(closeProgrammEvent);
+        assertFalse(winnerEvent);
     }
 
     @Test
     public void testClose() {
-        IController c = new Controller();
-        c.addObserver(new TestClass());
-
-        assertFalse(pong);
         c.close();
-        assertTrue(pong);
+
+        assertFalse(initGameEvent);
+        assertTrue(closeProgrammEvent);
+        assertFalse(winnerEvent);
     }
 
+    @Test
+    public void testReset() {
+        c.reset();
+
+        assertFalse(initGameEvent);
+        assertFalse(closeProgrammEvent);
+        assertTrue(winnerEvent);
+    }
 }
