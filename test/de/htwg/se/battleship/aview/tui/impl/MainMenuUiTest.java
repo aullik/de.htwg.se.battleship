@@ -177,7 +177,7 @@ public class MainMenuUiTest {
         assertFalse(init);
         assertEquals(ui, ui.executeInput(null));
 
-        ui.update(new InitGame());
+        ui.update(new InitGame(null));
 
         assertTrue(init);
         assertNotEquals(ui, ui.executeInput(null));

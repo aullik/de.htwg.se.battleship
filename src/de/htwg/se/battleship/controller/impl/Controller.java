@@ -9,18 +9,26 @@ import de.htwg.se.battleship.controller.IController;
 import de.htwg.se.battleship.controller.event.CloseProgamm;
 import de.htwg.se.battleship.controller.event.InitGame;
 import de.htwg.se.battleship.controller.event.Winner;
+import de.htwg.se.battleship.model.ModelFabric;
+import de.htwg.se.battleship.model.impl.ModelFabricImpl;
 import de.htwg.se.battleship.util.observer.impl.ObservableImpl;
 
 /**
- * @author Philipp Daniels<philipp.daniels@gmail.com>
- *
+ * @author Philipp Daniels <philipp.daniels@gmail.com>
  */
 @Singleton
 public class Controller extends ObservableImpl implements IController {
 
+    private final InitGameController initGame;
+
+    public Controller() {
+        ModelFabric fabric = new ModelFabricImpl();
+        initGame = new InitGameController(fabric);
+    }
+
     @Override
     public void newGame() {
-        notifyObservers(new InitGame());
+        notifyObservers(new InitGame(initGame));
     }
 
     @Override
