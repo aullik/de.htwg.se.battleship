@@ -1,4 +1,4 @@
-package de.htwg.se.battleship.aview.tui;
+package de.htwg.se.battleship.aview.tui.impl;
 
 import static org.junit.Assert.*;
 
@@ -8,6 +8,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import de.htwg.se.battleship.aview.tui.impl.ConsoleInput;
+import de.htwg.se.battleship.aview.tui.impl.TextUI;
+import de.htwg.se.battleship.aview.tui.impl.UserInterface;
 
 public class TextUITest {
 

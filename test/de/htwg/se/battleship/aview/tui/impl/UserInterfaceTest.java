@@ -1,7 +1,7 @@
 /**
  * 
  */
-package de.htwg.se.battleship.aview.tui;
+package de.htwg.se.battleship.aview.tui.impl;
 
 import static org.junit.Assert.*;
 
@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import de.htwg.se.battleship.TestAppender;
+import de.htwg.se.battleship.aview.tui.impl.UserInterface;
 import de.htwg.se.battleship.controller.event.CloseProgamm;
 
 /**

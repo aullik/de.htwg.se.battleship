@@ -1,11 +1,9 @@
-package de.htwg.se.battleship.aview.tui;
+package de.htwg.se.battleship.aview.tui.impl;
 
 import java.io.IOException;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-
-import de.htwg.se.battleship.aview.tui.impl.ConsoleInput;
 
 
 /**

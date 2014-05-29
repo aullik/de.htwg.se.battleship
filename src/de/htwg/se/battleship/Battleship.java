@@ -7,7 +7,7 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 
 import de.htwg.se.battleship.aview.gui.MainFrame;
-import de.htwg.se.battleship.aview.tui.TextUI;
+import de.htwg.se.battleship.aview.tui.impl.TextUI;
 
 /**
  * Initiate logging and dependency Injector and start battleship application.

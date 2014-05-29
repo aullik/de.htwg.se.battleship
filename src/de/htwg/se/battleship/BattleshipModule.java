@@ -8,7 +8,7 @@ import com.google.inject.AbstractModule;
 import de.htwg.se.battleship.aview.gui.MainFrame;
 import de.htwg.se.battleship.aview.tui.IInitGameUI;
 import de.htwg.se.battleship.aview.tui.IMenu;
-import de.htwg.se.battleship.aview.tui.UserInterface;
+import de.htwg.se.battleship.aview.tui.impl.UserInterface;
 import de.htwg.se.battleship.controller.IController;
 import de.htwg.se.battleship.controller.IInitGameController;
 import de.htwg.se.battleship.model.ModelFabric;

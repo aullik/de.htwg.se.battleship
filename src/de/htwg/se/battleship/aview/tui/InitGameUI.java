@@ -6,6 +6,7 @@ package de.htwg.se.battleship.aview.tui;
 
 import com.google.inject.Inject;
 
+import de.htwg.se.battleship.aview.tui.impl.UserInterface;
 import de.htwg.se.battleship.controller.IInitGameController;
 import de.htwg.se.battleship.controller.event.SetPlayer;
 import de.htwg.se.battleship.controller.event.SetPlayerSuccess;

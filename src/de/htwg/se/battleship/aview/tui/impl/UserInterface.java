@@ -1,7 +1,7 @@
 /**
  * 
  */
-package de.htwg.se.battleship.aview.tui;
+package de.htwg.se.battleship.aview.tui.impl;
 
 import org.apache.log4j.Logger;
 

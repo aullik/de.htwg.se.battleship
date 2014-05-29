@@ -8,7 +8,6 @@ import com.google.inject.Inject;
 import de.htwg.se.battleship.aview.tui.IMenu;
 import de.htwg.se.battleship.aview.tui.IMenuEntry;
 import de.htwg.se.battleship.aview.tui.InitGameUI;
-import de.htwg.se.battleship.aview.tui.UserInterface;
 import de.htwg.se.battleship.controller.IController;
 import de.htwg.se.battleship.controller.IInitGameController;
 import de.htwg.se.battleship.controller.event.CloseProgamm;

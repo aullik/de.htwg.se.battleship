@@ -17,7 +17,7 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Inject;
 
 import de.htwg.se.battleship.aview.gui.MainFrame;
-import de.htwg.se.battleship.aview.tui.TextUI;
+import de.htwg.se.battleship.aview.tui.impl.TextUI;
 import de.htwg.se.battleship.aview.tui.menuentry.Close;
 import de.htwg.se.battleship.controller.event.CloseProgamm;
 import de.htwg.se.battleship.controller.event.InitGame;
