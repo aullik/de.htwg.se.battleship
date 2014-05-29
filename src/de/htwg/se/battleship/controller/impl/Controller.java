@@ -21,6 +21,9 @@ public class Controller extends ObservableImpl implements IController {
 
     private final InitGameController initGame;
 
+    /**
+     * Initialize InitGameController
+     */
     public Controller() {
         ModelFabric fabric = new ModelFabricImpl();
         initGame = new InitGameController(fabric);
