@@ -15,7 +15,6 @@ import com.google.inject.Singleton;
 public class TextUI  {
 
     private UserInterface ui;
-    private boolean process;
 
     /**
      * Default constructor.
@@ -40,17 +39,15 @@ public class TextUI  {
     }
 
     private void tryProcessing(Input input) throws IOException {
-        process = true;
-        while (process) {
-            executeUserInterface(input);
-        }
+        do {
+            ui = executeUserInterface(input);
+        } while (ui.getProcess());
         input.close();
     }
 
-    private void executeUserInterface(Input input) throws IOException {
+    private UserInterface executeUserInterface(Input input) throws IOException {
         ui.showText();
         String text = input.get();
-        process = ui.executeInput(text);
-        ui = ui.getUI();
+        return ui.executeInput(text);
     }
 }

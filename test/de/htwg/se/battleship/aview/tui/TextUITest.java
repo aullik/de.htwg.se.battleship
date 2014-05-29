@@ -13,7 +13,6 @@ public class TextUITest {
     private boolean inputClose;
     private boolean showText;
     private boolean executeInput;
-    private boolean getUI;
     private final static String text = "test";
 
     private class TestInput1 implements Input {
@@ -52,15 +51,9 @@ public class TextUITest {
         }
 
         @Override
-        public boolean executeInput(String input) {
+        public UserInterface executeInput(String input) {
             executeInput = true;
-            return !input.equals(TextUITest.text);
-        }
-
-        @Override
-        public UserInterface getUI() {
-            getUI = true;
-            return null;
+            return this;
         }
     }
 
@@ -70,19 +63,19 @@ public class TextUITest {
         inputClose   = false;
         showText     = false;
         executeInput = false;
-        getUI        = false;
     }
 
 
     @Test
     public void testNormalCall() {
-        new TextUI(new TestInput1(), new TestUi());
+        UserInterface ui = new TestUi();
+        ui.deactivateProcess();
+        new TextUI(new TestInput1(), ui);
 
         assertTrue(inputGet);
         assertTrue(inputClose);
         assertTrue(showText);
         assertTrue(executeInput);
-        assertTrue(getUI);
     }
 
     @Test
@@ -93,6 +86,5 @@ public class TextUITest {
         assertTrue(inputClose);
         assertTrue(showText);
         assertFalse(executeInput);
-        assertFalse(getUI);
     }
 }

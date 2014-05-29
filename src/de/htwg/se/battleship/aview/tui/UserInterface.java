@@ -14,6 +14,26 @@ import de.htwg.se.battleship.util.observer.Observer;
 public abstract class UserInterface implements Observer {
 
     private final Logger logger = Logger.getLogger("de.htwg.se.battleship.aview.tui");
+    private boolean process = true;
+
+    @Override
+    public void update(Event e) {}
+
+    /**
+     * Return process flag.
+     * 
+     * @return
+     */
+    public boolean getProcess() {
+        return process;
+    }
+
+    /**
+     * Stop processing
+     */
+    protected void deactivateProcess() {
+        process = false;
+    }
 
     /**
      * Returns Logger instance
@@ -23,9 +43,6 @@ public abstract class UserInterface implements Observer {
     protected Logger getLogger() {
         return logger;
     }
-
-    @Override
-    public void update(Event e) {}
 
     /**
      * Game name as ASCII-Art:
@@ -62,13 +79,6 @@ public abstract class UserInterface implements Observer {
      * @param input String
      * @return boolean
      */
-    public abstract boolean executeInput(String input);
-
-    /**
-     * Return UserInterface for next input.
-     * 
-     * @return UserInterface
-     */
-    public abstract UserInterface getUI();
+    public abstract UserInterface executeInput(String input);
 
 }

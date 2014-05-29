@@ -13,8 +13,7 @@ import de.htwg.se.battleship.TestAppender;
 import de.htwg.se.battleship.controller.event.CloseProgamm;
 
 /**
- * @author Philipp Daniels<philipp.daniels@gmail.com>
- *
+ * @author Philipp Daniels <philipp.daniels@gmail.com>
  */
 public class UserInterfaceTest {
 
@@ -24,12 +23,7 @@ public class UserInterfaceTest {
         public void showText() {}
 
         @Override
-        public boolean executeInput(String input) {
-            return false;
-        }
-
-        @Override
-        public UserInterface getUI() {
+        public UserInterface executeInput(String input) {
             return null;
         }
     }
@@ -51,5 +45,11 @@ public class UserInterfaceTest {
 
         ui.output(ui.header());
         assertFalse(testAppender.getLog().isEmpty());
+
+        assertTrue(ui.getProcess());
+        ui.deactivateProcess();
+        assertFalse(ui.getProcess());
+
+        ui.update(null);
     }
 }
