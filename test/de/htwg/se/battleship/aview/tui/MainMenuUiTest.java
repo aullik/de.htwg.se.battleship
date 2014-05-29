@@ -22,9 +22,9 @@ import de.htwg.se.battleship.controller.event.SetShip;
 import de.htwg.se.battleship.controller.event.SetShipSuccess;
 import de.htwg.se.battleship.util.observer.impl.ObservableImpl;
 
-public class MainMenuUITest {
+public class MainMenuUiTest {
 
-    private MainMenuUI ui;
+    private MainMenuUi ui;
     private TestAppender testAppender;
 
     private boolean inputClose;
@@ -138,7 +138,7 @@ public class MainMenuUITest {
         IController controller = new TestController();
         IInitGameController igc = new TestInitGameController();
         InitGameUI igui = new TestUi(igc);
-        ui = new MainMenuUI(input, menu, controller, igui, igc);
+        ui = new MainMenuUi(input, menu, controller, igui, igc);
     }
 
     @Test
@@ -148,7 +148,7 @@ public class MainMenuUITest {
 
         String log = testAppender.getLog().toString();
         assertFalse(log.isEmpty());
-        assertTrue(log.contains(String.format(MainMenuUI.MSG_DEFAULT_MENU, ui.header(), s)));
+        assertTrue(log.contains(String.format(MainMenuUi.MSG_DEFAULT_MENU, ui.header(), s)));
     }
 
     @Test
@@ -161,7 +161,7 @@ public class MainMenuUITest {
 
         assertFalse(ui.getProcess());
         assertFalse(testAppender.getLog().isEmpty());
-        assertTrue(testAppender.getLog().contains(MainMenuUI.MSG_EXIT));
+        assertTrue(testAppender.getLog().contains(MainMenuUi.MSG_EXIT));
         assertTrue(inputClose);
     }
 
@@ -185,8 +185,8 @@ public class MainMenuUITest {
         String log = testAppender.getLog();
 
         assertFalse(log.isEmpty());
-        assertTrue(log.contains(String.format(MainMenuUI.MENU_FORMAT, CMD, DESC)));
-        assertTrue(log.contains(MainMenuUI.MENU_HEAD));
+        assertTrue(log.contains(String.format(MainMenuUi.MENU_FORMAT, CMD, DESC)));
+        assertTrue(log.contains(MainMenuUi.MENU_HEAD));
     }
 
     @Test

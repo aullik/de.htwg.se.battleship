@@ -14,7 +14,7 @@ import de.htwg.se.battleship.controller.event.InitGame;
 /**
  * @author Philipp Daniels <philipp.daniels@gmail.com>
  */
-public class MainMenuUI extends UserInterface {
+public class MainMenuUi extends UserInterface {
 
     public static final String MSG_INPUT_NOTE   = "%s\n%s\nPlease choice a menu: ";
     public static final String MSG_DEFAULT_MENU = "%sSorry bro, but '%s' has no menu entry!%n";
@@ -32,7 +32,7 @@ public class MainMenuUI extends UserInterface {
      * @param scanner
      */
     @Inject
-    public MainMenuUI(Input input, IMenu menu, IController controller, InitGameUI initGameUI, IInitGameController igc) {
+    public MainMenuUi(Input input, IMenu menu, IController controller, InitGameUI initGameUI, IInitGameController igc) {
         controller.addObserver(this);
 
         this.input = input;
