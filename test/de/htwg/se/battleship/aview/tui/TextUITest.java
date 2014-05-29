@@ -72,10 +72,10 @@ public class TextUITest {
         ui.deactivateProcess();
         new TextUI(new TestInput1(), ui);
 
-        assertTrue(inputGet);
+        assertFalse(inputGet);
         assertTrue(inputClose);
-        assertTrue(showText);
-        assertTrue(executeInput);
+        assertFalse(showText);
+        assertFalse(executeInput);
     }
 
     @Test

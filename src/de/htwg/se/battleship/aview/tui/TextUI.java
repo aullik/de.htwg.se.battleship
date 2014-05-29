@@ -39,9 +39,9 @@ public class TextUI  {
     }
 
     private void tryProcessing(Input input) throws IOException {
-        do {
+        while (ui.getProcess()) {
             ui = executeUserInterface(input);
-        } while (ui.getProcess());
+        }
         input.close();
     }
 
