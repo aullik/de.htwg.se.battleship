@@ -9,12 +9,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import de.htwg.se.battleship.aview.tui.Input;
-
 public class ConsoleInputTest {
 
     private final static String text = "test";
-    private Input input;
+    private ConsoleInput input;
     private InputStream backup;
 
     @Before

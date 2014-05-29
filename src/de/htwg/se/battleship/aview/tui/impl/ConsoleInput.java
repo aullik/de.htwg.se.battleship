@@ -9,15 +9,13 @@ import java.util.Scanner;
 
 import com.google.inject.Singleton;
 
-import de.htwg.se.battleship.aview.tui.Input;
-
 /**
  * Read input from console and can be interrupt.
  * 
  * @author Philipp Daniels<philipp.daniels@gmail.com>
  */
 @Singleton
-public class ConsoleInput implements Input {
+public class ConsoleInput {
 
     private static final int SLEEP_TIME = 10;
 
@@ -33,10 +31,11 @@ public class ConsoleInput implements Input {
         scanner = new Scanner(stream);
     }
 
-    /* (non-Javadoc)
-     * @see de.htwg.se.battleship.aview.tui.Input#get()
+    /**
+     * Retrieve input from interface
+     * 
+     * @return String
      */
-    @Override
     public String get() throws IOException {
         String string = "";
         if (hasNextLine()) {
@@ -58,7 +57,9 @@ public class ConsoleInput implements Input {
         return scanner.hasNextLine();
     }
 
-    @Override
+    /**
+     * Close all resources of interface
+     */
     public void close() {
         thread.interrupt();
     }

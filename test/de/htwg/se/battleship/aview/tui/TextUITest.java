@@ -7,6 +7,8 @@ import java.io.IOException;
 import org.junit.Before;
 import org.junit.Test;
 
+import de.htwg.se.battleship.aview.tui.impl.ConsoleInput;
+
 public class TextUITest {
 
     private boolean inputGet;
@@ -15,7 +17,7 @@ public class TextUITest {
     private boolean executeInput;
     private final static String text = "test";
 
-    private class TestInput1 implements Input {
+    private class TestInput1 extends ConsoleInput {
 
         @Override
         public String get() throws IOException {
@@ -29,7 +31,7 @@ public class TextUITest {
         }
     }
 
-    private class TestInput2 implements Input {
+    private class TestInput2 extends ConsoleInput {
 
         @Override
         public String get() throws IOException {

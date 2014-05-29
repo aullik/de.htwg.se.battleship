@@ -15,7 +15,6 @@ import de.htwg.se.battleship.TestAppender;
 import de.htwg.se.battleship.aview.tui.IMenu;
 import de.htwg.se.battleship.aview.tui.IMenuEntry;
 import de.htwg.se.battleship.aview.tui.InitGameUI;
-import de.htwg.se.battleship.aview.tui.Input;
 import de.htwg.se.battleship.aview.tui.impl.MainMenuUi;
 import de.htwg.se.battleship.controller.IController;
 import de.htwg.se.battleship.controller.IInitGameController;
@@ -86,7 +85,7 @@ public class MainMenuUiTest {
         public void update(SetShipSuccess e) {}
     }
 
-    private class TestInput implements Input {
+    private class TestInput extends ConsoleInput {
 
         public TestInput() {
             inputClose = false;
@@ -138,7 +137,7 @@ public class MainMenuUiTest {
         Logger.getRootLogger().removeAllAppenders();
         Logger.getRootLogger().addAppender(testAppender);
 
-        Input input = new TestInput();
+        ConsoleInput input = new TestInput();
         IMenu menu = new TestMenu();
         IController controller = new TestController();
         IInitGameController igc = new TestInitGameController();

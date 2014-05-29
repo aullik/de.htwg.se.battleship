@@ -5,6 +5,8 @@ import java.io.IOException;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
+import de.htwg.se.battleship.aview.tui.impl.ConsoleInput;
+
 
 /**
  * Text User Interface is an Observer
@@ -15,6 +17,7 @@ import com.google.inject.Singleton;
 public class TextUI  {
 
     private UserInterface ui;
+    private ConsoleInput input;
 
     /**
      * Default constructor.
@@ -25,27 +28,28 @@ public class TextUI  {
      * @param controller controller to observe
      */
     @Inject
-    public TextUI(Input input, UserInterface ui) {
+    public TextUI(ConsoleInput input, UserInterface ui) {
         this.ui = ui;
-        processInput(input);
+        this.input = input;
+        processInput();
     }
 
-    private void processInput(Input input) {
+    private void processInput() {
         try {
-            tryProcessing(input);
+            tryProcessing();
         } catch (IOException e) {
             input.close();
         }
     }
 
-    private void tryProcessing(Input input) throws IOException {
+    private void tryProcessing() throws IOException {
         while (ui.getProcess()) {
-            ui = executeUserInterface(input);
+            ui = executeUserInterface();
         }
         input.close();
     }
 
-    private UserInterface executeUserInterface(Input input) throws IOException {
+    private UserInterface executeUserInterface() throws IOException {
         ui.showText();
         String text = input.get();
         return ui.executeInput(text);

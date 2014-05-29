@@ -8,7 +8,6 @@ import com.google.inject.Inject;
 import de.htwg.se.battleship.aview.tui.IMenu;
 import de.htwg.se.battleship.aview.tui.IMenuEntry;
 import de.htwg.se.battleship.aview.tui.InitGameUI;
-import de.htwg.se.battleship.aview.tui.Input;
 import de.htwg.se.battleship.aview.tui.UserInterface;
 import de.htwg.se.battleship.controller.IController;
 import de.htwg.se.battleship.controller.IInitGameController;
@@ -29,14 +28,14 @@ public class MainMenuUi extends UserInterface {
     private final IMenu menu;
     private final UserInterface initGameUI;
     private final IInitGameController igc;
-    private final Input input;
+    private final ConsoleInput input;
     private UserInterface ui;
 
     /**
      * @param scanner
      */
     @Inject
-    public MainMenuUi(Input input, IMenu menu, IController controller, InitGameUI initGameUI, IInitGameController igc) {
+    public MainMenuUi(ConsoleInput input, IMenu menu, IController controller, InitGameUI initGameUI, IInitGameController igc) {
         controller.addObserver(this);
 
         this.input = input;
