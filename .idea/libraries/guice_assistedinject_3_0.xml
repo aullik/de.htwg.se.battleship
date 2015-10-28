@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="guice-assistedinject-3.0">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/guice-assistedinject-3.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/javax.inject.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/log4j-1.2.17.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
