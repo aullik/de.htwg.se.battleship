@@ -1,6 +1,7 @@
 package de.htwg.se.battleship.aview.gui;
 
 import de.htwg.se.battleship.aview.gui.impl.MainFrameImplementation;
+import de.htwg.se.battleship.aview.tui.TuiFactory;
 import de.htwg.se.battleship.controller.ControllerFactory;
 
 import java.io.IOException;
@@ -17,8 +18,8 @@ public class GuiFactory {
 
    public static MainFrame createMainFrame() {
       try {
-         return new MainFrameImplementation(ControllerFactory.createIController(), ControllerFactory
-               .getInitGameController());
+         return new MainFrameImplementation(ControllerFactory.createIController(), TuiFactory
+               .createIInitGameController());
       } catch (URISyntaxException | IOException e) {
          //FIXME Better Excpetionhandling
          throw new RuntimeException(e);

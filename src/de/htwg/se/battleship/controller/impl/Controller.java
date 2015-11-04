@@ -1,17 +1,16 @@
 /**
- * 
+ *
  */
 package de.htwg.se.battleship.controller.impl;
-
-import com.google.inject.Singleton;
 
 import de.htwg.se.battleship.controller.IController;
 import de.htwg.se.battleship.controller.event.CloseProgamm;
 import de.htwg.se.battleship.controller.event.InitGame;
 import de.htwg.se.battleship.controller.event.Winner;
-import de.htwg.se.battleship.model.ModelFabric;
-import de.htwg.se.battleship.model.impl.ModelFabricImpl;
 import de.htwg.se.battleship.util.observer.impl.ObservableImpl;
+import de.htwg.se.battleship.util.singleton.SingletonSupplier;
+
+import javax.inject.Singleton;
 
 /**
  * @author Philipp Daniels <philipp.daniels@gmail.com>
@@ -19,28 +18,34 @@ import de.htwg.se.battleship.util.observer.impl.ObservableImpl;
 @Singleton
 public class Controller extends ObservableImpl implements IController {
 
-    private final InitGameController initGame;
+   private static final SingletonSupplier<Controller> INST_SUPP = new SingletonSupplier<>(Controller::new);
 
-    /**
-     * Initialize InitGameController
-     */
-    public Controller() {
-        ModelFabric fabric = new ModelFabricImpl();
-        initGame = new InitGameController(fabric);
-    }
+   public static Controller getInstance() {
+      return INST_SUPP.get();
+   }
 
-    @Override
-    public void newGame() {
-        notifyObservers(new InitGame(initGame));
-    }
+   private final InitGameController initGame;
 
-    @Override
-    public void close() {
-        notifyObservers(new CloseProgamm());
-    }
+   /**
+    * Initialize InitGameController
+    */
+   private Controller() {
+      initGame = InitGameController.getInstance();
+   }
 
-    @Override
-    public void reset() {
-        notifyObservers(new Winner(null));
-    }
+
+   @Override
+   public void newGame() {
+      notifyObservers(new InitGame(initGame));
+   }
+
+   @Override
+   public void close() {
+      notifyObservers(new CloseProgamm());
+   }
+
+   @Override
+   public void reset() {
+      notifyObservers(new Winner(null));
+   }
 }
