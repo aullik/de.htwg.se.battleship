@@ -3,7 +3,6 @@
  */
 package de.htwg.se.battleship.controller.impl;
 
-import com.google.inject.Inject;
 import de.htwg.se.battleship.controller.IInitGameController;
 import de.htwg.se.battleship.controller.event.IsShot;
 import de.htwg.se.battleship.controller.event.SetPlayer;
@@ -24,7 +23,6 @@ import de.htwg.se.battleship.model.impl.ShipImpl;
 import de.htwg.se.battleship.util.observer.impl.ObservableImpl;
 import de.htwg.se.battleship.util.singleton.SingletonSupplier;
 
-import javax.inject.Singleton;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +30,6 @@ import java.util.Map;
 /**
  * @author Philipp Daniels<philipp.daniels@gmail.com>
  */
-@Singleton
 public class InitGameController extends ObservableImpl implements IInitGameController {
 
    private static final SingletonSupplier<InitGameController> INST_SUPP =
@@ -66,7 +63,6 @@ public class InitGameController extends ObservableImpl implements IInitGameContr
     *
     * @param fabric ModelFabric
     */
-   @Inject
    private InitGameController(ModelFabric fabric) {
       this.fabric = fabric;
    }
@@ -187,7 +183,7 @@ public class InitGameController extends ObservableImpl implements IInitGameContr
    }
 
    private Map<String, Cell> getCellsX(Cell start, Cell end) {
-      Map<String, Cell> map = new HashMap<String, Cell>();
+      Map<String, Cell> map = new HashMap<>();
       Cell cell;
 
       for (int i = start.getY(); i <= end.getY(); i++) {
@@ -198,7 +194,7 @@ public class InitGameController extends ObservableImpl implements IInitGameContr
    }
 
    private Map<String, Cell> getCellsY(Cell start, Cell end) {
-      Map<String, Cell> map = new HashMap<String, Cell>();
+      Map<String, Cell> map = new HashMap<>();
       Cell cell;
 
       for (int i = start.getX(); i <= end.getX(); i++) {

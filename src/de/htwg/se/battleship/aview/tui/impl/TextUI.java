@@ -1,10 +1,8 @@
 package de.htwg.se.battleship.aview.tui.impl;
 
-import com.google.inject.Inject;
 import de.htwg.se.battleship.aview.tui.TuiFactory;
 import de.htwg.se.battleship.util.singleton.SingletonSupplier;
 
-import javax.inject.Singleton;
 import java.io.IOException;
 
 
@@ -13,7 +11,7 @@ import java.io.IOException;
  *
  * @author Philipp Daniels <philipp.daniels@gmail.com>
  */
-@Singleton
+
 public class TextUI {
 
    private static final SingletonSupplier<TextUI> INST_SUPP = new SingletonSupplier<>(TextUI::new);
@@ -31,8 +29,6 @@ public class TextUI {
             TuiFactory.createUserInterface());
    }
 
-
-   @Inject
    private TextUI(ConsoleInput input, UserInterface ui) {
       this.ui = ui;
       this.input = input;

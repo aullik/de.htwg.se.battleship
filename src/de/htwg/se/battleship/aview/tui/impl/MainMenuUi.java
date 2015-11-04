@@ -3,7 +3,6 @@
  */
 package de.htwg.se.battleship.aview.tui.impl;
 
-import com.google.inject.Inject;
 import de.htwg.se.battleship.aview.tui.IMenu;
 import de.htwg.se.battleship.aview.tui.IMenuEntry;
 import de.htwg.se.battleship.aview.tui.InitGameUI;
@@ -29,10 +28,7 @@ public class MainMenuUi extends UserInterface {
    private final ConsoleInput input;
    private UserInterface ui;
 
-   /**
-    * @param scanner
-    */
-   @Inject
+
    public MainMenuUi(ConsoleInput input, IMenu menu, IController controller, InitGameUI initGameUI,
                      IInitGameController igc) {
       controller.addObserver(this);
