@@ -10,12 +10,10 @@ import de.htwg.se.battleship.controller.event.Winner;
 import de.htwg.se.battleship.util.observer.impl.ObservableImpl;
 import de.htwg.se.battleship.util.singleton.SingletonSupplier;
 
-import javax.inject.Singleton;
 
 /**
  * @author Philipp Daniels <philipp.daniels@gmail.com>
  */
-@Singleton
 public class Controller extends ObservableImpl implements IController {
 
    private static final SingletonSupplier<Controller> INST_SUPP = new SingletonSupplier<>(Controller::new);

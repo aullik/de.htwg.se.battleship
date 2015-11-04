@@ -11,14 +11,12 @@ import de.htwg.se.battleship.controller.ControllerFactory;
 import de.htwg.se.battleship.controller.IController;
 import de.htwg.se.battleship.util.singleton.SingletonSupplier;
 
-import javax.inject.Singleton;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * @author Philipp Daniels<philipp.daniels@gmail.com>
  */
-@Singleton
 public class MainMenu implements IMenu {
 
    private final static SingletonSupplier<MainMenu> INST_SUPP = new SingletonSupplier<>(MainMenu::new);

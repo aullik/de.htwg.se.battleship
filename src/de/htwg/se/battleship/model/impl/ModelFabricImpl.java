@@ -11,13 +11,11 @@ import de.htwg.se.battleship.model.Round;
 import de.htwg.se.battleship.model.Ship;
 import de.htwg.se.battleship.util.singleton.SingletonSupplier;
 
-import javax.inject.Singleton;
 import java.util.Map;
 
 /**
  * @author Philipp Daniels<philipp.daniels@gmail.com>
  */
-@Singleton
 public class ModelFabricImpl implements ModelFabric {
 
    private static final SingletonSupplier<ModelFabricImpl> INST_SUPP = new SingletonSupplier<>(ModelFabricImpl::new);

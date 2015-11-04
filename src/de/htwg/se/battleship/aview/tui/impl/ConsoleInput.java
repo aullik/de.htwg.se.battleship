@@ -5,7 +5,6 @@ package de.htwg.se.battleship.aview.tui.impl;
 
 import de.htwg.se.battleship.util.singleton.SingletonSupplier;
 
-import javax.inject.Singleton;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Scanner;
@@ -16,7 +15,6 @@ import java.util.Scanner;
  * @author Philipp Daniels<philipp.daniels@gmail.com>
  */
 
-@Singleton
 public class ConsoleInput {
 
    private static final SingletonSupplier<ConsoleInput> INST_SUPP = new SingletonSupplier<>(ConsoleInput::new);
