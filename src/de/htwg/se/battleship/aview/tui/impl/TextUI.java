@@ -36,7 +36,7 @@ public class TextUI {
    }
 
 
-   private void processInput() {
+   protected void processInput() {
       try {
          tryProcessing();
       } catch (IOException e) {

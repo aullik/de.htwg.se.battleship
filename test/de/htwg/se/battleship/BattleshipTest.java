@@ -33,8 +33,13 @@ public class BattleshipTest {
    public static class TestTui extends TextUI {
 
       public TestTui() {
-         System.out.println("tui");
+         super(null, null);
          tui = true;
+      }
+
+      @Override
+      protected void processInput() {
+         //do nothing
       }
    }
 
