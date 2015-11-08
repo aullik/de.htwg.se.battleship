@@ -37,7 +37,7 @@ public class MainMenu implements IMenu {
     *
     * @param controller IController
     */
-   private MainMenu(IController controller) {
+   protected MainMenu(IController controller) {
       list = new HashMap<>();
       add(new NewGame(controller));
       add(new Close(controller));

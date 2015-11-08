@@ -1,5 +1,6 @@
 package de.htwg.se.battleship;
 
+import de.htwg.se.battleship.aview.gui.GuiFactory;
 import de.htwg.se.battleship.aview.gui.MainFrame;
 import de.htwg.se.battleship.aview.tui.impl.TextUI;
 import de.htwg.se.battleship.aview.tui.menuentry.Close;
@@ -7,6 +8,7 @@ import de.htwg.se.battleship.controller.event.CloseProgamm;
 import de.htwg.se.battleship.controller.event.InitGame;
 import de.htwg.se.battleship.controller.event.Winner;
 import de.htwg.se.battleship.model.Player;
+import de.htwg.se.battleship.util.singleton.SingletonInjector;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -30,15 +32,14 @@ public class BattleshipTest {
 
    public static class TestTui extends TextUI {
 
-      @Inject
       public TestTui() {
+         System.out.println("tui");
          tui = true;
       }
    }
 
    public static class TestGui extends MainFrame {
 
-      @Inject
       public TestGui() {
          gui = true;
       }
@@ -91,20 +92,36 @@ public class BattleshipTest {
 
    }
 
-   private class TestModule extends AbstractModule {
+   private class TestGuiFactory extends GuiFactory.DefaultImpl {
+
+      private TestGuiFactory() {
+         instance = this;
+      }
 
       @Override
-      protected void configure() {
-         bind(TextUI.class).to(TestTui.class);
-         bind(MainFrame.class).to(TestGui.class);
+      protected MainFrame _createMainFrame() {
+         return new TestGui();
       }
+   }
+
+   private void bindTestDummies() {
+      new TestGuiFactory();
+      SingletonInjector.resetValue(TextUI.class);
+      SingletonInjector.injectSingletonSupplier(() -> {
+         System.out.println("Called");
+         return new TestTui();
+      }, TextUI.class);
+      //SingletonInjector.injectSingleton(new TestTui());
 
    }
 
+
    @Test
    public void test() {
-      AbstractModule am = new TestModule();
-      new Battleship(am);
+      bindTestDummies();
+      System.out.println("bound");
+      new Battleship();
+
 
       assertTrue(tui);
       assertTrue(gui);

@@ -12,17 +12,34 @@ import java.net.URISyntaxException;
  *
  * @author niwehrle
  */
-public class GuiFactory {
+public abstract class GuiFactory {
+
+   protected static GuiFactory instance;
+
+   private static GuiFactory getInstance() {
+      if (instance == null)
+         instance = new DefaultImpl();
+      return instance;
+   }
 
    // bind(MainFrame.class).to(de.htwg.se.battleship.aview.gui.impl.MainFrameImplementation.class);
+   protected abstract MainFrame _createMainFrame();
 
    public static MainFrame createMainFrame() {
-      try {
-         return new MainFrameImplementation(ControllerFactory.createIController(), TuiFactory
-               .createIInitGameController());
-      } catch (URISyntaxException | IOException e) {
-         //FIXME Better Excpetionhandling
-         throw new RuntimeException(e);
+      return getInstance()._createMainFrame();
+   }
+
+   public static class DefaultImpl extends GuiFactory {
+
+      @Override
+      protected MainFrame _createMainFrame() {
+         try {
+            return new MainFrameImplementation(ControllerFactory.createIController(), TuiFactory
+                  .createIInitGameController());
+         } catch (URISyntaxException | IOException e) {
+            //FIXME Better Excpetionhandling
+            throw new RuntimeException(e);
+         }
       }
    }
 

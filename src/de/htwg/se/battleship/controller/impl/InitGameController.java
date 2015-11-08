@@ -63,7 +63,7 @@ public class InitGameController extends ObservableImpl implements IInitGameContr
     *
     * @param fabric ModelFabric
     */
-   private InitGameController(ModelFabric fabric) {
+   protected InitGameController(ModelFabric fabric) {
       this.fabric = fabric;
    }
 

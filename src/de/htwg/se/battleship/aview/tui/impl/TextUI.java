@@ -24,12 +24,12 @@ public class TextUI {
    private final ConsoleInput input;
 
 
-   private TextUI() {
+   protected TextUI() {
       this(ConsoleInput.getInstance(),
             TuiFactory.createUserInterface());
    }
 
-   private TextUI(ConsoleInput input, UserInterface ui) {
+   protected TextUI(ConsoleInput input, UserInterface ui) {
       this.ui = ui;
       this.input = input;
       processInput();

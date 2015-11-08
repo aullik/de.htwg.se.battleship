@@ -23,7 +23,7 @@ public class ConsoleInput {
       return INST_SUPP.get();
    }
 
-   private static final int SLEEP_TIME = 10;
+   private static final long SLEEP_TIME = 10L;
 
    private final Scanner scanner;
    private final InputStream stream;
@@ -32,7 +32,7 @@ public class ConsoleInput {
    /**
     *
     */
-   private ConsoleInput() {
+   protected ConsoleInput() {
       stream = System.in;
       scanner = new Scanner(stream);
    }

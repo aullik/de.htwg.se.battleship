@@ -1,5 +1,6 @@
 package de.htwg.se.battleship.aview.tui.impl;
 
+import de.htwg.se.battleship.util.singleton.SingletonInjector;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -58,6 +59,14 @@ public class TextUITest {
       }
    }
 
+   private class TestTUI extends TextUI {
+
+      public TestTUI(final TestInput1 testInput1, final UserInterface ui) {
+         super(testInput1, ui);
+         SingletonInjector.injectSingleton(this);
+      }
+   }
+
    @Before
    public void setUp() {
       inputGet = false;
@@ -71,7 +80,7 @@ public class TextUITest {
    public void testNormalCall() {
       UserInterface ui = new TestUi();
       ui.deactivateProcess();
-      new TextUI(new TestInput1(), ui);
+      new TestTUI(new TestInput1(), ui);
 
       assertFalse(inputGet);
       assertTrue(inputClose);
