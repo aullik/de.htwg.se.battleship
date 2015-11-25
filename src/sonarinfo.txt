@@ -1,0 +1,4 @@
+Jenkins
+http://lenny2.in.fh-konstanz.de:8080
+Sonar
+http://lenny2.in.fh-konstanz.de:9000

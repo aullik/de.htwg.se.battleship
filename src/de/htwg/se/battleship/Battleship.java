@@ -1,6 +1,5 @@
 package de.htwg.se.battleship;
 
-import de.htwg.se.battleship.aview.gui.GuiFactory;
 import de.htwg.se.battleship.aview.tui.impl.TextUI;
 import org.apache.log4j.PropertyConfigurator;
 
@@ -17,7 +16,7 @@ public final class Battleship {
    protected Battleship() {
       PropertyConfigurator.configure("log4j.properties");
 
-      GuiFactory.createMainFrame();
+      // GuiFactory.createMainFrame();
       TextUI.getInstance();
    }
 
