@@ -23,8 +23,6 @@ public class ConsoleInput {
       return INST_SUPP.get();
    }
 
-   private static final long SLEEP_TIME = 10L;
-
    private final Scanner scanner;
    private final InputStream stream;
    private Thread thread;
@@ -35,34 +33,37 @@ public class ConsoleInput {
    protected ConsoleInput() {
       stream = System.in;
       scanner = new Scanner(stream);
+      thread = Thread.currentThread();
    }
 
-
    /**
-    * Retrieve input from interface
+    * Retrieve next input word from console
     *
     * @return String
     */
-   public String getInput() throws IOException {
-      String string = "";
-      if (hasNextLine()) {
-         string = scanner.nextLine();
+   public String getInputWord() throws IOException {
+      thread = Thread.currentThread();
+      try {
+         return scanner.next();
+      } catch (IllegalStateException e) {
+         return null;
       }
-      return string;
    }
 
-   private boolean hasNextLine() throws IOException {
+   /**
+    * Retrieve next input line from console
+    *
+    * @return String
+    */
+   public String getInputLine() throws IOException {
       thread = Thread.currentThread();
-      while (stream.available() == 0) {
-         try {
-            Thread.currentThread();
-            Thread.sleep(ConsoleInput.SLEEP_TIME);
-         } catch (InterruptedException e) {
-            return false;
-         }
+      try {
+         return scanner.nextLine();
+      } catch (IllegalStateException e) {
+         return null;
       }
-      return scanner.hasNextLine();
    }
+
 
    /**
     * Close all resources of interface

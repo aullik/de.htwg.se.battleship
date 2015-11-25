@@ -148,6 +148,7 @@ public class InitGameController extends ObservableImpl implements IInitGameContr
 
       int rest = ShipImpl.NUMBER_OF_CELLS - round.getGrid().getPlayer().getNumberOfShipCells();
       int diff = diff(start, end);
+      System.out.println("rest : " + rest + ", lenght: " + diff);
       if (diff > rest) {
          throw new IllegalArgumentException(String.format(ERROR_TO_MANY, rest, diff));
       }
