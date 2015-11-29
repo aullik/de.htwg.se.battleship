@@ -3,14 +3,14 @@
  */
 package de.htwg.se.battleship.aview.tui.impl;
 
-import de.htwg.se.battleship.util.observer.Event;
-import de.htwg.se.battleship.util.observer.Observer;
+import de.htwg.se.battleship.util._observer.Event;
+import de.htwg.se.battleship.util._observer.OLDObserver;
 import org.apache.log4j.Logger;
 
 /**
  * @author Philipp Daniels<philipp.daniels@gmail.com>
  */
-public abstract class UserInterface implements Observer {
+public abstract class UserInterface implements OLDObserver {
 
    private final Logger logger = Logger.getLogger("de.htwg.se.battleship.aview.tui");
    private boolean process = true; //FIXME move this to controller

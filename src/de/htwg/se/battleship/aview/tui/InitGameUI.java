@@ -5,15 +5,15 @@ package de.htwg.se.battleship.aview.tui;
 
 
 import de.htwg.se.battleship.aview.tui.impl.UserInterface;
-import de.htwg.se.battleship.controller.IInitGameController;
-import de.htwg.se.battleship.controller.event.SetPlayer;
-import de.htwg.se.battleship.controller.event.SetPlayerSuccess;
-import de.htwg.se.battleship.controller.event.SetShip;
-import de.htwg.se.battleship.controller.event.SetShipSuccess;
-import de.htwg.se.battleship.controller.impl.InitGameController;
+import de.htwg.se.battleship.controller.old.IInitGameController;
+import de.htwg.se.battleship.controller.old.event.SetPlayer;
+import de.htwg.se.battleship.controller.old.event.SetPlayerSuccess;
+import de.htwg.se.battleship.controller.old.event.SetShip;
+import de.htwg.se.battleship.controller.old.event.SetShipSuccess;
+import de.htwg.se.battleship.controller.old.impl.OLDInitGameController;
 import de.htwg.se.battleship.model.Cell;
 import de.htwg.se.battleship.model.Player;
-import de.htwg.se.battleship.util.observer.Event;
+import de.htwg.se.battleship.util._observer.Event;
 
 /**
  * @author Philipp Daniels <philipp.daniels@gmail.com>
@@ -70,7 +70,7 @@ public class InitGameUI extends UserInterface implements IInitGameUI {
    public void update(SetPlayer e) {
       lastEvent = e;
       playerIndex = 1;
-      playerNo = InitGameController.P1;
+      playerNo = OLDInitGameController.P1;
       output = header() + String.format(MSG_INPUT_NOTE, playerNo, playerIndex);
    }
 
@@ -132,7 +132,7 @@ public class InitGameUI extends UserInterface implements IInitGameUI {
          getLogger().info(String.format(MSG_NAME_NOTE, playerNo, pName));
 
          playerIndex++;
-         playerNo = InitGameController.P2;
+         playerNo = OLDInitGameController.P2;
          output = String.format(MSG_INPUT_NOTE, playerNo, playerIndex);
 
          if (playerIndex > 2) {

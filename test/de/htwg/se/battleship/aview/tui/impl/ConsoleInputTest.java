@@ -43,7 +43,7 @@ public class ConsoleInputTest {
       try {
          System.setIn(new ByteArrayInputStream(bytes));
          input = ConsoleInput.getInstance();
-         assertEquals(ConsoleInputTest.text, input.getInput());
+         assertEquals(ConsoleInputTest.text, input.getInputLine());
       } finally {
          System.setIn(old);
       }
@@ -58,7 +58,7 @@ public class ConsoleInputTest {
       System.setIn(new ByteArrayInputStream(bytes));
 
       input = ConsoleInput.getInstance();
-      assertEquals(ConsoleInputTest.text, input.getInput());
+      assertEquals(ConsoleInputTest.text, input.getInputLine());
    }
 
    private void testRun(CountDownLatch finnished) {
@@ -67,7 +67,7 @@ public class ConsoleInputTest {
          System.setIn(new ByteArrayInputStream(bytes));
          input = ConsoleInput.getInstance();
          finnished.countDown();
-         input.getInput();
+         input.getInputLine();
       } catch (Exception e) {
          fail(e.getMessage());
       }
@@ -85,6 +85,21 @@ public class ConsoleInputTest {
          Assert.fail("timeout");
 
       input.close();
+   }
+
+   @Test
+   public void testInputWord() throws Exception {
+      String w1 = "word1";
+      String w2 = "-word2";
+      String string = w1 + " " + w2;
+
+      byte[] bytes = (string).getBytes("UTF-8");
+      System.setIn(new ByteArrayInputStream(bytes));
+
+      input = ConsoleInput.getInstance();
+      assertEquals(w1, input.getInputWord());
+      assertEquals(w2, input.getInputWord());
+
    }
 
 }

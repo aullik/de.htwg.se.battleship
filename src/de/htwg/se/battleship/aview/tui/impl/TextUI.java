@@ -7,7 +7,7 @@ import java.io.IOException;
 
 
 /**
- * Text User Interface is an Observer
+ * Text User Interface is an OLDObserver
  *
  * @author Philipp Daniels <philipp.daniels@gmail.com>
  */
