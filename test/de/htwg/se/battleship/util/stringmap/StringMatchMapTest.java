@@ -63,7 +63,7 @@ public class StringMatchMapTest {
       assertNull(map.put(s2, s2));
       assertNull(map.put(s3, s3));
 
-      final List<String> strings = map.getAprox(s1);
+      final List<String> strings = map.getApprox(s1);
       assertTrue(strings.contains(s1));
       assertTrue(strings.contains(s2));
       assertTrue(strings.contains(s3));

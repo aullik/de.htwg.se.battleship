@@ -268,7 +268,7 @@ public class StringMatchMap<V> {
     * @param key key as String of latin characters
     * @return the Values which keys are closest to the keystring
     */
-   public List<V> getAprox(String key) {
+   public List<V> getApprox(String key) {
       final CharArrayIter iter = new CharArrayIter(stringToChars(key));
       List<V> ret = new LinkedList<>();
       final Node node = head.lookup(iter);
@@ -344,7 +344,7 @@ public class StringMatchMap<V> {
 
    private char[] stringToChars(String s) {
       final String lower = s.toLowerCase();
-      if (!lower.matches("[a-z]+"))
+      if (!lower.matches("[a-z]*"))
          throw new IllegalArgumentException("Inputstring must only contain Latin characters");
       return lower.toCharArray();
    }
