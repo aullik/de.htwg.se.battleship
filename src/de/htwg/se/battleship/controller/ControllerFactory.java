@@ -1,6 +1,7 @@
 package de.htwg.se.battleship.controller;
 
-import de.htwg.se.battleship.controller.impl.Controller;
+import de.htwg.se.battleship.controller.old.IOLDController;
+import de.htwg.se.battleship.controller.old.impl.OLDController;
 
 /**
  * Factory for controller elements
@@ -18,10 +19,10 @@ public abstract class ControllerFactory {
    }
 
 
-   // bind(IController.class).to(de.htwg.se.battleship.controller.impl.Controller.class);
-   protected abstract IController _createIController();
+   // bind(IOLDController.class).to(de.htwg.se.battleship.controller.old.impl.OLDController.class);
+   protected abstract IOLDController _createIController();
 
-   public static IController createIController() {
+   public static IOLDController createIController() {
       return getInstance()._createIController();
    }
 
@@ -29,8 +30,8 @@ public abstract class ControllerFactory {
    public static class DefaultImpl extends ControllerFactory {
 
       @Override
-      protected IController _createIController() {
-         return Controller.getInstance();
+      protected IOLDController _createIController() {
+         return OLDController.getInstance();
       }
    }
 
