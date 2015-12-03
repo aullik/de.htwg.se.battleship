@@ -35,7 +35,7 @@ public class ControllerBaseTest {
    class TestController extends ControllerBase<TestControllableInterface> {
 
       void triggerAll() {
-         execute(TestControllableInterface::trigger);
+         executeConsumerMethod(TestControllableInterface::trigger);
       }
    }
 

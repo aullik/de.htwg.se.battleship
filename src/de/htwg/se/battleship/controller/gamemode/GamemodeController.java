@@ -7,5 +7,7 @@ import de.htwg.se.battleship.util.controller.Controller;
  * <p>
  * Created by aullik on 29.11.2015.
  */
-public interface GamemodeController extends Controller<GamemodeControllable> {
+public interface GamemodeController extends Controller<GamemodeControllable>, Runnable {
+
+
 }

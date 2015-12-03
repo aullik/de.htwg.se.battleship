@@ -13,7 +13,7 @@ public interface Controller<C extends Controllable> {
    /**
     * adds {@link de.htwg.se.battleship.util.controller.Controllable} to a list.
     * <p>
-    * All registered Controllables will be notified {@see OLDController#execute}
+    * All registered Controllables will be notified {@see OLDController#executeConsumerMethod}
     *
     * @param cont {@link de.htwg.se.battleship.util.controller.Controllable}
     */
@@ -29,11 +29,11 @@ public interface Controller<C extends Controllable> {
    /**
     * Notifies all {@link de.htwg.se.battleship.util.controller.Controllable} registerd in this class.
     * <p>
-    * The executor can execute all methods of {@link de.htwg.se.battleship.util.controller.Controllable}
+    * The executor can executeConsumerMethod all methods of {@link de.htwg.se.battleship.util.controller.Controllable}
     *
     * @param executor {@link java.util.function.Consumer} for an
     *                 {@link de.htwg.se.battleship.util.controller.Controllable}
     */
-   void execute(Consumer<C> executor);
+   void executeConsumerMethod(Consumer<C> executor);
 
 }

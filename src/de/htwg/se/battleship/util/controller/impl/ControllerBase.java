@@ -32,7 +32,7 @@ public abstract class ControllerBase<C extends Controllable> implements Controll
    }
 
    @Override
-   public void execute(final Consumer<C> executor) {
+   public void executeConsumerMethod(final Consumer<C> executor) {
       list.forEach(executor);
    }
 }
