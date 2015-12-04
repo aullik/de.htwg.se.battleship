@@ -1,11 +1,12 @@
 /**
  *
  */
-package de.htwg.se.battleship.controller.old.impl;
+package de.htwg.se.battleship.controller.impl;
 
 import de.htwg.se.battleship.controller.GameStateControllable;
 import de.htwg.se.battleship.controller.GameStateController;
-import de.htwg.se.battleship.controller.initgame.impl.InitGameControllerImpl;
+import de.htwg.se.battleship.controller.gamemode.GamemodeController;
+import de.htwg.se.battleship.controller.gamemode.SharedScreenController;
 import de.htwg.se.battleship.util.controller.impl.ControllerBase;
 import de.htwg.se.battleship.util.singleton.SingletonSupplier;
 
@@ -31,9 +32,9 @@ public class GameStateControllerImpl extends ControllerBase<GameStateControllabl
    }
 
    @Override
-   public void startNewSplitscreenGame() {
+   public void startNewSharedScreenGame() {
 
-      final InitGameControllerImpl initGameController = new InitGameControllerImpl();
-      execute(cont -> cont.startNewGame(initGameController));
+      final GamemodeController gmController = new SharedScreenController();
+      executeConsumerMethod(cont -> cont.startNewGame(gmController));
    }
 }

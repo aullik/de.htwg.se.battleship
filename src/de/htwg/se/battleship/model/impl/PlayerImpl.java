@@ -28,7 +28,7 @@ public class PlayerImpl implements Player {
     */
    public PlayerImpl(final String name) {
       this.name = name;
-      this.ships = new ArrayList<Ship>();
+      this.ships = new ArrayList<>();
    }
 
    @Override

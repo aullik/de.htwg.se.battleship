@@ -10,4 +10,6 @@ import de.htwg.se.battleship.util.controller.Controller;
 public interface GamemodeController extends Controller<GamemodeControllable>, Runnable {
 
 
+   void endGame();
+
 }
