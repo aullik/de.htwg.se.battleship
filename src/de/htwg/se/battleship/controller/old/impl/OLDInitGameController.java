@@ -13,9 +13,9 @@ import de.htwg.se.battleship.controller.old.event.SetShot;
 import de.htwg.se.battleship.controller.old.event.Winner;
 import de.htwg.se.battleship.controller.old.event.WrongCoordinate;
 import de.htwg.se.battleship.model.Cell;
-import de.htwg.se.battleship.model.Grid;
 import de.htwg.se.battleship.model.ModelFabric;
 import de.htwg.se.battleship.model.ModelFactory;
+import de.htwg.se.battleship.model.OLDGrid;
 import de.htwg.se.battleship.model.Player;
 import de.htwg.se.battleship.model.Round;
 import de.htwg.se.battleship.model.Ship;
@@ -82,8 +82,8 @@ public class OLDInitGameController extends ObservableImpl implements IInitGameCo
       Player player1 = fabric.createPlayer(p1);
       Player player2 = fabric.createPlayer(p2);
 
-      Grid g1 = fabric.createGrid(player1);
-      Grid g2 = fabric.createGrid(player2);
+      OLDGrid g1 = fabric.createGrid(player1);
+      OLDGrid g2 = fabric.createGrid(player2);
       round = fabric.createRound(g1, g2);
 
       notifyObservers(new SetPlayerSuccess(round));

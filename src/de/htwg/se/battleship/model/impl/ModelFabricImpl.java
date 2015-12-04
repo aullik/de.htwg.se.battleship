@@ -4,8 +4,8 @@
 package de.htwg.se.battleship.model.impl;
 
 import de.htwg.se.battleship.model.Cell;
-import de.htwg.se.battleship.model.Grid;
 import de.htwg.se.battleship.model.ModelFabric;
+import de.htwg.se.battleship.model.OLDGrid;
 import de.htwg.se.battleship.model.Player;
 import de.htwg.se.battleship.model.Round;
 import de.htwg.se.battleship.model.Ship;
@@ -34,8 +34,8 @@ public class ModelFabricImpl implements ModelFabric {
    }
 
    @Override
-   public Grid createGrid(Player player) {
-      return new GridImpl(GridImpl.DEFAULT_SIZE, player);
+   public OLDGrid createGrid(Player player) {
+      return new OLDGridImpl(OLDGridImpl.DEFAULT_SIZE, player);
    }
 
    @Override
@@ -44,7 +44,7 @@ public class ModelFabricImpl implements ModelFabric {
    }
 
    @Override
-   public Round createRound(Grid g1, Grid g2) {
+   public Round createRound(OLDGrid g1, OLDGrid g2) {
       return new RoundImpl(g1, g2);
    }
 

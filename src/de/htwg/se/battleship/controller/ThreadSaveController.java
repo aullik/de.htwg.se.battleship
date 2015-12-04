@@ -16,20 +16,20 @@ import java.util.function.Function;
  */
 public abstract class ThreadSaveController<C extends Controllable> extends ControllerBase<C> {
 
-   private final _Platform platform;
+   private final Platform platform;
    private Consumer<C> current;
 
-   public ThreadSaveController(final _Platform platform) {
+   public ThreadSaveController(final Platform platform) {
       this.platform = platform;
    }
 
-   protected static class _Platform implements Runnable {
+   protected static class Platform implements Runnable {
 
       private final Thread gameThread;
       private final BlockingQueue<Runnable> gameThreadQueue;
       private boolean running;
 
-      protected _Platform() {
+      protected Platform() {
          this.gameThread = Thread.currentThread();
          this.gameThreadQueue = new LinkedBlockingQueue<>();
          this.running = false;
@@ -73,7 +73,7 @@ public abstract class ThreadSaveController<C extends Controllable> extends Contr
    }
 
 
-   public <T extends ThreadSaveController> T registerTheadSaveController(Function<_Platform, T> supp) {
+   public <T extends ThreadSaveController> T createThreadSaveController(Function<Platform, T> supp) {
       return supp.apply(platform);
    }
 

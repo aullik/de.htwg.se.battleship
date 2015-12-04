@@ -1,28 +1,29 @@
 /**
- * 
+ *
  */
 package de.htwg.se.battleship.model;
 
 /**
  * @author Philipp Daniels<philipp.daniels@gmail.com>
- *
  */
 public interface Round {
 
-    /**
-     * Switch to other player.
-     */
-    void next();
+   /**
+    * Switch to other player.
+    */
+   void next();
 
-    /**
-     * Get current Grid.
-     * @return Grid
-     */
-    Grid getGrid();
+   /**
+    * Get current OLDGrid.
+    *
+    * @return OLDGrid
+    */
+   OLDGrid getGrid();
 
-    /**
-     * Get instance of Opponent Grid.
-     * @return Grid
-     */
-    Grid getOpponentGrid();
+   /**
+    * Get instance of Opponent OLDGrid.
+    *
+    * @return OLDGrid
+    */
+   OLDGrid getOpponentGrid();
 }

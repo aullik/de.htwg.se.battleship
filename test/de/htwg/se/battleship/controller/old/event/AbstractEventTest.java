@@ -1,9 +1,9 @@
 package de.htwg.se.battleship.controller.old.event;
 
-import de.htwg.se.battleship.model.Grid;
+import de.htwg.se.battleship.model.OLDGrid;
 import de.htwg.se.battleship.model.Player;
 import de.htwg.se.battleship.model.Round;
-import de.htwg.se.battleship.model.impl.GridImpl;
+import de.htwg.se.battleship.model.impl.OLDGridImpl;
 import de.htwg.se.battleship.model.impl.PlayerImpl;
 import de.htwg.se.battleship.model.impl.RoundImpl;
 import org.junit.Test;
@@ -23,7 +23,7 @@ public class AbstractEventTest {
    @Test
    public void test() {
       Player p = new PlayerImpl("test1");
-      Grid g = new GridImpl(GridImpl.DEFAULT_SIZE, p);
+      OLDGrid g = new OLDGridImpl(OLDGridImpl.DEFAULT_SIZE, p);
 
       Round r = new RoundImpl(g, null);
 

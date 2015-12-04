@@ -30,7 +30,7 @@ public class ThreadSaveControllerTest {
 
    static class TestController extends ThreadSaveController<TestControllable> {
 
-      static class TestPlatform extends ThreadSaveController._Platform {}
+      static class TestPlatform extends Platform {}
 
       public TestController() {
          super(new TestPlatform());
@@ -39,7 +39,7 @@ public class ThreadSaveControllerTest {
 
    class TestGivePlatform extends ThreadSaveController<TestControllable> {
 
-      public TestGivePlatform(final _Platform platform) {
+      public TestGivePlatform(final Platform platform) {
          super(platform);
       }
    }
@@ -230,7 +230,7 @@ public class ThreadSaveControllerTest {
    @Test
    public void extendPlatform() throws InterruptedException {
       AtomicInteger ai = new AtomicInteger(0);
-      final TestGivePlatform testGivePlatform = cont.registerTheadSaveController(TestGivePlatform::new);
+      final TestGivePlatform testGivePlatform = cont.createThreadSaveController(TestGivePlatform::new);
 
       CountDownLatch start = new CountDownLatch(1);
       cont.runLater(() -> {

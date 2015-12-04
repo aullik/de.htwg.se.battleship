@@ -54,17 +54,6 @@ public class ShipImpl implements Ship {
       return player;
    }
 
-   @Override
-   public Cell getCell(final int x, final int y) {
-      String key = CellImpl.createKey(x, y);
-      Cell cell = null;
-
-      if (cells.containsKey(key)) {
-         cell = cells.get(key);
-      }
-
-      return cell;
-   }
 
    @Override
    public int getNumberOfCells() {

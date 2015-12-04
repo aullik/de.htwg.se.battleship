@@ -9,6 +9,6 @@ package de.htwg.se.battleship.controller;
 public interface GameStateController {
 
 
-   void startNewSplitscreenGame();
+   void startNewSharedScreenGame();
 
 }

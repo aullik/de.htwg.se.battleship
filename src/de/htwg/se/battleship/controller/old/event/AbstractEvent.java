@@ -4,7 +4,7 @@
 package de.htwg.se.battleship.controller.old.event;
 
 import de.htwg.se.battleship.model.Cell;
-import de.htwg.se.battleship.model.Grid;
+import de.htwg.se.battleship.model.OLDGrid;
 import de.htwg.se.battleship.model.Player;
 import de.htwg.se.battleship.model.Round;
 import de.htwg.se.battleship.util._observer.Event;
@@ -35,11 +35,11 @@ public abstract class AbstractEvent implements Event {
    }
 
    /**
-    * Returns a instance of Grid.
+    * Returns a instance of OLDGrid.
     *
-    * @return Grid
+    * @return OLDGrid
     */
-   public Grid getGrid() {
+   public OLDGrid getGrid() {
       return getRound().getGrid();
    }
 

@@ -1,8 +1,8 @@
 package de.htwg.se.battleship.model.impl;
 
 import de.htwg.se.battleship.model.Cell;
-import de.htwg.se.battleship.model.Grid;
 import de.htwg.se.battleship.model.ModelFabric;
+import de.htwg.se.battleship.model.OLDGrid;
 import de.htwg.se.battleship.model.Player;
 import de.htwg.se.battleship.model.Round;
 import de.htwg.se.battleship.model.Ship;
@@ -23,7 +23,7 @@ public class ModelFabricImplTest {
       Player p = fab.createPlayer(string);
       assertEquals(string, p.getName());
 
-      Grid g = fab.createGrid(p);
+      OLDGrid g = fab.createGrid(p);
       assertEquals(p, g.getPlayer());
 
       Cell c = new CellImpl(1, 1, g);

@@ -1,6 +1,6 @@
 package de.htwg.se.battleship.controller;
 
-import de.htwg.se.battleship.controller.initgame.InitGameController;
+import de.htwg.se.battleship.controller.gamemode.GamemodeController;
 import de.htwg.se.battleship.util.controller.Controllable;
 
 /**
@@ -8,6 +8,6 @@ import de.htwg.se.battleship.util.controller.Controllable;
  */
 public interface GameStateControllable extends Controllable {
 
-   void startNewGame(InitGameController initCont);
+   void startNewGame(GamemodeController gmController);
 
 }
