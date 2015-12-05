@@ -13,6 +13,7 @@ import static org.junit.Assert.assertNull;
 /**
  * @author Philipp Daniels<philipp.daniels@gmail.com>
  */
+@Deprecated
 public class OLDGridImplTest {
 
    private OLDGridImpl g1;

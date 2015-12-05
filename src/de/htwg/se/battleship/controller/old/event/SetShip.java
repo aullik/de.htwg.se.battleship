@@ -8,6 +8,7 @@ import de.htwg.se.battleship.model.Round;
 /**
  * @author Philipp Daniels<philipp.daniels@gmail.com>
  */
+@Deprecated
 public class SetShip extends AbstractEvent {
 
    /**

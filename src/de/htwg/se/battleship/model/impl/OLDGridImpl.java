@@ -15,6 +15,7 @@ import java.util.Map;
  *
  * @author Philipp Daniels<philipp.daniels@gmail.com>
  */
+@Deprecated
 public class OLDGridImpl implements OLDGrid {
 
    public static final int DEFAULT_SIZE = 10;

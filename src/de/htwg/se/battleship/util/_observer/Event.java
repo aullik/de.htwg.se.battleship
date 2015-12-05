@@ -5,6 +5,7 @@ package de.htwg.se.battleship.util._observer;
  *
  * @author aullik
  */
+@Deprecated
 public interface Event {
 
 }

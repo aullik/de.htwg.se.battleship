@@ -9,6 +9,7 @@ import de.htwg.se.battleship.util._observer.Event;
 /**
  * @author Philipp Daniels <philipp.daniels@gmail.com>
  */
+@Deprecated
 public class InitGame implements Event {
 
    private final OLDInitGameController controller;

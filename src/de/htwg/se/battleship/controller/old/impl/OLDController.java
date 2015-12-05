@@ -14,6 +14,7 @@ import de.htwg.se.battleship.util.singleton.SingletonSupplier;
 /**
  * @author Philipp Daniels <philipp.daniels@gmail.com>
  */
+@Deprecated
 public class OLDController extends ObservableImpl implements IOLDController {
 
    private static final SingletonSupplier<OLDController> INST_SUPP = new SingletonSupplier<>

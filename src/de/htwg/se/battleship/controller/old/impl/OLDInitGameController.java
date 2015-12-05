@@ -30,6 +30,7 @@ import java.util.Map;
 /**
  * @author Philipp Daniels<philipp.daniels@gmail.com>
  */
+@Deprecated
 public class OLDInitGameController extends ObservableImpl implements IInitGameController {
 
    private static final SingletonSupplier<OLDInitGameController> INST_SUPP =

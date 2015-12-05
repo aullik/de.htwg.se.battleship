@@ -18,6 +18,7 @@ import java.util.List;
  *
  * @author Philipp Daniels <philipp.daniels@gmail.com>
  */
+@Deprecated
 public class ObservableImpl implements OLDObservable {
 
    private final static String OBSERVER_UPDATE_METHOD = getOBSERVER_UPDATE_METHOD();

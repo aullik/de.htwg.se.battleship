@@ -12,6 +12,7 @@ import de.htwg.se.battleship.util._observer.Event;
 /**
  * @author Philipp Daniels<philipp.daniels@gmail.com>
  */
+@Deprecated
 public abstract class AbstractEvent implements Event {
 
    private final Round round;

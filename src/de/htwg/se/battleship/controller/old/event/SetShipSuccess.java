@@ -9,6 +9,7 @@ import de.htwg.se.battleship.model.Ship;
 /**
  * @author Philipp Daniels<philipp.daniels@gmail.com>
  */
+@Deprecated
 public class SetShipSuccess extends AbstractEvent {
 
    private final Ship ship;

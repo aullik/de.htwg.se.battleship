@@ -8,6 +8,7 @@ package de.htwg.se.battleship.model;
  *
  * @author Philipp Daniels<philipp.daniels@gmail.com>
  */
+@Deprecated
 public interface OLDGrid {
 
    /**
