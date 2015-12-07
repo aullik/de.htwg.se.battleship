@@ -12,10 +12,10 @@ import de.htwg.se.battleship.controller.old.event.SetShipSuccess;
 import de.htwg.se.battleship.controller.old.event.SetShot;
 import de.htwg.se.battleship.controller.old.event.Winner;
 import de.htwg.se.battleship.controller.old.event.WrongCoordinate;
-import de.htwg.se.battleship.model.ModelFactory;
 import de.htwg.se.battleship.model.old.ModelFabric;
 import de.htwg.se.battleship.model.old.OLDCell;
 import de.htwg.se.battleship.model.old.OLDGrid;
+import de.htwg.se.battleship.model.old.OLDModelFactory;
 import de.htwg.se.battleship.model.old.OLDPlayer;
 import de.htwg.se.battleship.model.old.Round;
 import de.htwg.se.battleship.model.old.Ship;
@@ -56,7 +56,7 @@ public class OLDInitGameController extends ObservableImpl implements IInitGameCo
 
 
    private OLDInitGameController() {
-      this(ModelFactory.createModelFabric());
+      this(OLDModelFactory.createModelFabric());
    }
 
    /**
