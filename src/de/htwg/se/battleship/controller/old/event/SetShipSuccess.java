@@ -3,8 +3,8 @@
  */
 package de.htwg.se.battleship.controller.old.event;
 
-import de.htwg.se.battleship.model.Round;
-import de.htwg.se.battleship.model.Ship;
+import de.htwg.se.battleship.model.old.Round;
+import de.htwg.se.battleship.model.old.Ship;
 
 /**
  * @author Philipp Daniels<philipp.daniels@gmail.com>

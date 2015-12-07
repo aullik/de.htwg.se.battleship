@@ -1,7 +1,7 @@
 package de.htwg.se.battleship.controller.old.event;
 
 import de.htwg.se.battleship.controller.old.impl.OLDInitGameController;
-import de.htwg.se.battleship.model.ModelFabric;
+import de.htwg.se.battleship.model.old.ModelFabric;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

@@ -12,14 +12,14 @@ import de.htwg.se.battleship.controller.old.event.SetShipSuccess;
 import de.htwg.se.battleship.controller.old.event.SetShot;
 import de.htwg.se.battleship.controller.old.event.Winner;
 import de.htwg.se.battleship.controller.old.event.WrongCoordinate;
-import de.htwg.se.battleship.model.Cell;
-import de.htwg.se.battleship.model.ModelFabric;
 import de.htwg.se.battleship.model.ModelFactory;
-import de.htwg.se.battleship.model.OLDGrid;
-import de.htwg.se.battleship.model.Player;
-import de.htwg.se.battleship.model.Round;
-import de.htwg.se.battleship.model.Ship;
-import de.htwg.se.battleship.model.impl.ShipImpl;
+import de.htwg.se.battleship.model.old.ModelFabric;
+import de.htwg.se.battleship.model.old.OLDCell;
+import de.htwg.se.battleship.model.old.OLDGrid;
+import de.htwg.se.battleship.model.old.OLDPlayer;
+import de.htwg.se.battleship.model.old.Round;
+import de.htwg.se.battleship.model.old.Ship;
+import de.htwg.se.battleship.model.old.ShipImpl;
 import de.htwg.se.battleship.util._observer.impl.ObservableImpl;
 import de.htwg.se.battleship.util.singleton.SingletonSupplier;
 
@@ -40,7 +40,7 @@ public class OLDInitGameController extends ObservableImpl implements IInitGameCo
       return INST_SUPP.get();
    }
 
-   public static final String MSG_PLAYER_EMPTY = "Player %s name is empty";
+   public static final String MSG_PLAYER_EMPTY = "OLDPlayer %s name is empty";
    public static final String P1 = "one";
    public static final String P2 = "two";
 
@@ -80,8 +80,8 @@ public class OLDInitGameController extends ObservableImpl implements IInitGameCo
       checkEmpty(p2, String.format(MSG_PLAYER_EMPTY, P2));
 
       //TODO throw errorEvent instead of event
-      Player player1 = fabric.createPlayer(p1);
-      Player player2 = fabric.createPlayer(p2);
+      OLDPlayer player1 = fabric.createPlayer(p1);
+      OLDPlayer player2 = fabric.createPlayer(p2);
 
       OLDGrid g1 = fabric.createGrid(player1);
       OLDGrid g2 = fabric.createGrid(player2);
@@ -107,8 +107,8 @@ public class OLDInitGameController extends ObservableImpl implements IInitGameCo
             throw new IllegalArgumentException(ERROR_INPUT);
          }
 
-         Cell start = round.getGrid().getCell(startX, startY);
-         Cell end = round.getGrid().getCell(endX, endY);
+         OLDCell start = round.getGrid().getCell(startX, startY);
+         OLDCell end = round.getGrid().getCell(endX, endY);
 
          shipValidateSimple(start, end);
          shipValidateComplex(start, end);
@@ -132,7 +132,7 @@ public class OLDInitGameController extends ObservableImpl implements IInitGameCo
       }
    }
 
-   private void shipValidateSimple(Cell start, Cell end) {
+   private void shipValidateSimple(OLDCell start, OLDCell end) {
       if (start == null || end == null) {
          throw new IllegalArgumentException(ERROR_COORDS_GRID);
       }
@@ -142,7 +142,7 @@ public class OLDInitGameController extends ObservableImpl implements IInitGameCo
       }
    }
 
-   private void shipValidateComplex(Cell start, Cell end) {
+   private void shipValidateComplex(OLDCell start, OLDCell end) {
       if (start.getX() == end.getX() && start.getY() == end.getY()) {
          throw new IllegalArgumentException(ERROR_SAME_COORDS);
       }
@@ -155,7 +155,7 @@ public class OLDInitGameController extends ObservableImpl implements IInitGameCo
       }
    }
 
-   private int diff(Cell start, Cell end) {
+   private int diff(OLDCell start, OLDCell end) {
       int diff = 0;
       diff += Math.abs(start.getX() - end.getX());
       diff += Math.abs(start.getY() - end.getY());
@@ -163,9 +163,9 @@ public class OLDInitGameController extends ObservableImpl implements IInitGameCo
       return diff;
    }
 
-   private Map<String, Cell> getCells(Cell start, Cell end) {
+   private Map<String, OLDCell> getCells(OLDCell start, OLDCell end) {
 
-      Map<String, Cell> map;
+      Map<String, OLDCell> map;
 
       if (start.getX() == end.getX()) {
          if (start.getY() < end.getY()) {
@@ -184,9 +184,9 @@ public class OLDInitGameController extends ObservableImpl implements IInitGameCo
       return map;
    }
 
-   private Map<String, Cell> getCellsX(Cell start, Cell end) {
-      Map<String, Cell> map = new HashMap<>();
-      Cell cell;
+   private Map<String, OLDCell> getCellsX(OLDCell start, OLDCell end) {
+      Map<String, OLDCell> map = new HashMap<>();
+      OLDCell cell;
 
       for (int i = start.getY(); i <= end.getY(); i++) {
          cell = round.getGrid().getCell(start.getX(), i);
@@ -195,9 +195,9 @@ public class OLDInitGameController extends ObservableImpl implements IInitGameCo
       return map;
    }
 
-   private Map<String, Cell> getCellsY(Cell start, Cell end) {
-      Map<String, Cell> map = new HashMap<>();
-      Cell cell;
+   private Map<String, OLDCell> getCellsY(OLDCell start, OLDCell end) {
+      Map<String, OLDCell> map = new HashMap<>();
+      OLDCell cell;
 
       for (int i = start.getX(); i <= end.getX(); i++) {
          cell = round.getGrid().getCell(i, start.getY());
@@ -209,7 +209,7 @@ public class OLDInitGameController extends ObservableImpl implements IInitGameCo
    @Override
    public void shot(Integer x, Integer y) {
 
-      Cell cell = round.getOpponentGrid().getCell(x, y);
+      OLDCell cell = round.getOpponentGrid().getCell(x, y);
 
       if (cell.getShip() != null) {
          cell.setToHit();
@@ -233,7 +233,7 @@ public class OLDInitGameController extends ObservableImpl implements IInitGameCo
       boolean check = true;
 
       for (Ship ship : list) {
-         for (Cell cell : ship.getCells()) {
+         for (OLDCell cell : ship.getCells()) {
             if (!cell.isShot()) {
                check = false;
             }

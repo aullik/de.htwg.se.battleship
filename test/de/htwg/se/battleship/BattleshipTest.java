@@ -43,7 +43,7 @@ public class BattleshipTest {
    //      private static final long serialVersionUID = 1L;
    //
    //      @Override
-   //      public void newGame(Player player1, Player player2) {
+   //      public void newGame(OLDPlayer player1, OLDPlayer player2) {
    //      }
    //
    //      @Override

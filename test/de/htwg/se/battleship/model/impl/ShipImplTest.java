@@ -3,9 +3,13 @@
  */
 package de.htwg.se.battleship.model.impl;
 
-import de.htwg.se.battleship.model.Cell;
-import de.htwg.se.battleship.model.OLDGrid;
-import de.htwg.se.battleship.model.Player;
+import de.htwg.se.battleship.model.old.OLDCell;
+import de.htwg.se.battleship.model.old.OLDCellImpl;
+import de.htwg.se.battleship.model.old.OLDGrid;
+import de.htwg.se.battleship.model.old.OLDGridImpl;
+import de.htwg.se.battleship.model.old.OLDPlayer;
+import de.htwg.se.battleship.model.old.OLDPlayerImpl;
+import de.htwg.se.battleship.model.old.ShipImpl;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -21,12 +25,12 @@ public class ShipImplTest {
    @Test
    public void testPlayer() {
 
-      Player p = new PlayerImpl("test1");
+      OLDPlayer p = new OLDPlayerImpl("test1");
       OLDGrid g = new OLDGridImpl(OLDGridImpl.DEFAULT_SIZE, p);
-      Cell c = new CellImpl(1, 1, g);
+      OLDCell c = new OLDCellImpl(1, 1, g);
 
-      HashMap<String, Cell> map = new HashMap<String, Cell>();
-      map.put(CellImpl.createKey(c.getX(), c.getY()), c);
+      HashMap<String, OLDCell> map = new HashMap<String, OLDCell>();
+      map.put(OLDCellImpl.createKey(c.getX(), c.getY()), c);
       map.put("test", c);
 
       ShipImpl s = new ShipImpl(p, map);

@@ -11,8 +11,8 @@ import de.htwg.se.battleship.controller.old.event.SetPlayerSuccess;
 import de.htwg.se.battleship.controller.old.event.SetShip;
 import de.htwg.se.battleship.controller.old.event.SetShipSuccess;
 import de.htwg.se.battleship.controller.old.impl.OLDInitGameController;
-import de.htwg.se.battleship.model.Cell;
-import de.htwg.se.battleship.model.Player;
+import de.htwg.se.battleship.model.old.OLDCell;
+import de.htwg.se.battleship.model.old.OLDPlayer;
 import de.htwg.se.battleship.util._observer.Event;
 
 /**
@@ -21,11 +21,11 @@ import de.htwg.se.battleship.util._observer.Event;
 public class InitGameUI extends UserInterface implements IInitGameUI {
 
    private final IInitGameController controller;
-   private Player player;
+   private OLDPlayer player;
 
-   public static final String MSG_INPUT_NOTE = "Name for player %s (default: Player %s): ";
+   public static final String MSG_INPUT_NOTE = "Name for player %s (default: OLDPlayer %s): ";
    public static final String MSG_NAME_NOTE = "Great player %s your name is '%s'!%n%n";
-   public static final String DEFAULT_NAME = "Player %d";
+   public static final String DEFAULT_NAME = "OLDPlayer %d";
    public static final String MSG_PLAYER_ADD = "Added successfull player '%s' and '%s'";
    public static final String MSG_WELCOME = "Hallo '%s'. It's your turn!";
    public static final String MSG_SHIP = "Next step is to add a ship (start- and end-point).";
@@ -77,9 +77,9 @@ public class InitGameUI extends UserInterface implements IInitGameUI {
 
    @Override
    public void update(SetPlayerSuccess e) {
-      Player p1 = e.getPlayer();
+      OLDPlayer p1 = e.getPlayer();
       e.getRound().next();
-      Player p2 = e.getPlayer();
+      OLDPlayer p2 = e.getPlayer();
       e.getRound().next();
 
       getLogger().info(String.format(MSG_PLAYER_ADD, p1.getName(), p2.getName()));
@@ -107,7 +107,7 @@ public class InitGameUI extends UserInterface implements IInitGameUI {
    public void update(SetShipSuccess e) {
       StringBuilder sb = new StringBuilder();
 
-      for (Cell cell : e.getShip().getCells()) {
+      for (OLDCell cell : e.getShip().getCells()) {
          sb.append("(").append(cell.getKey()).append("),");
       }
 

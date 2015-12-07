@@ -3,13 +3,13 @@ package de.htwg.se.battleship.controller.initgame.impl;
 import de.htwg.se.battleship.controller.ThreadSaveController;
 import de.htwg.se.battleship.controller.initgame.InitGameControllable;
 import de.htwg.se.battleship.controller.initgame.InitGameController;
-import de.htwg.se.battleship.model.OLDGrid;
-import de.htwg.se.battleship.model.Player;
-import de.htwg.se.battleship.model.impl.PlayerImpl;
 import de.htwg.se.battleship.model.impl.ShipSize2;
 import de.htwg.se.battleship.model.impl.ShipSize3;
 import de.htwg.se.battleship.model.impl.ShipSize4;
 import de.htwg.se.battleship.model.impl.ShipSize5;
+import de.htwg.se.battleship.model.old.OLDGrid;
+import de.htwg.se.battleship.model.old.OLDPlayer;
+import de.htwg.se.battleship.model.old.OLDPlayerImpl;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -20,7 +20,7 @@ import java.util.Queue;
 public class InitGameControllerImpl extends ThreadSaveController<InitGameControllable> implements InitGameController {
 
    private final String initialName;
-   private Player player;
+   private OLDPlayer player;
 
    Queue<Runnable> jobs;
 
@@ -54,7 +54,7 @@ public class InitGameControllerImpl extends ThreadSaveController<InitGameControl
 
 
    @Override
-   public Player getPlayer() {
+   public OLDPlayer getPlayer() {
       return null;
    }
 
@@ -69,9 +69,9 @@ public class InitGameControllerImpl extends ThreadSaveController<InitGameControl
 
    private void setPlayerName(final String name) {
       if (name == null || name.isEmpty())
-         player = new PlayerImpl(initialName);
+         player = new OLDPlayerImpl(initialName);
       else
-         player = new PlayerImpl(name);
+         player = new OLDPlayerImpl(name);
       nextJob();
    }
 

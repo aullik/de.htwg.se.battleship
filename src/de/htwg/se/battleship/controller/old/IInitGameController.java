@@ -25,7 +25,7 @@ public interface IInitGameController extends OLDObservable {
    void player(String p1, String p2);
 
    /**
-    * Create instance of Ship implementation and add to Player.
+    * Create instance of Ship implementation and add to OLDPlayer.
     *
     * @param startX X-position of start point
     * @param startY Y-position of start point

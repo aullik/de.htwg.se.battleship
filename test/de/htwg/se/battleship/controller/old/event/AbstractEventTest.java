@@ -1,11 +1,11 @@
 package de.htwg.se.battleship.controller.old.event;
 
-import de.htwg.se.battleship.model.OLDGrid;
-import de.htwg.se.battleship.model.Player;
-import de.htwg.se.battleship.model.Round;
-import de.htwg.se.battleship.model.impl.OLDGridImpl;
-import de.htwg.se.battleship.model.impl.PlayerImpl;
-import de.htwg.se.battleship.model.impl.RoundImpl;
+import de.htwg.se.battleship.model.old.OLDGrid;
+import de.htwg.se.battleship.model.old.OLDGridImpl;
+import de.htwg.se.battleship.model.old.OLDPlayer;
+import de.htwg.se.battleship.model.old.OLDPlayerImpl;
+import de.htwg.se.battleship.model.old.Round;
+import de.htwg.se.battleship.model.old.RoundImpl;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -22,7 +22,7 @@ public class AbstractEventTest {
 
    @Test
    public void test() {
-      Player p = new PlayerImpl("test1");
+      OLDPlayer p = new OLDPlayerImpl("test1");
       OLDGrid g = new OLDGridImpl(OLDGridImpl.DEFAULT_SIZE, p);
 
       Round r = new RoundImpl(g, null);

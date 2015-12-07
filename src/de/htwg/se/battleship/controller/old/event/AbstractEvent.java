@@ -3,10 +3,10 @@
  */
 package de.htwg.se.battleship.controller.old.event;
 
-import de.htwg.se.battleship.model.Cell;
-import de.htwg.se.battleship.model.OLDGrid;
-import de.htwg.se.battleship.model.Player;
-import de.htwg.se.battleship.model.Round;
+import de.htwg.se.battleship.model.old.OLDCell;
+import de.htwg.se.battleship.model.old.OLDGrid;
+import de.htwg.se.battleship.model.old.OLDPlayer;
+import de.htwg.se.battleship.model.old.Round;
 import de.htwg.se.battleship.util._observer.Event;
 
 /**
@@ -45,22 +45,22 @@ public abstract class AbstractEvent implements Event {
    }
 
    /**
-    * Returns a instance of Player.
+    * Returns a instance of OLDPlayer.
     *
-    * @return Player
+    * @return OLDPlayer
     */
-   public Player getPlayer() {
+   public OLDPlayer getPlayer() {
       return getGrid().getPlayer();
    }
 
    /**
-    * Returns a instance of Cell.
+    * Returns a instance of OLDCell.
     *
     * @param x X-coordinate
     * @param y Y-coordinate
-    * @return Cell
+    * @return OLDCell
     */
-   public Cell getCell(int x, int y) {
+   public OLDCell getCell(int x, int y) {
       return getGrid().getCell(x, y);
    }
 

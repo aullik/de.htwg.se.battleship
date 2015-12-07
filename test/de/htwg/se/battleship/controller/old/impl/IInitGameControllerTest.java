@@ -7,7 +7,7 @@ import de.htwg.se.battleship.controller.old.IInitGameController;
 import de.htwg.se.battleship.controller.old.event.SetPlayer;
 import de.htwg.se.battleship.controller.old.event.SetPlayerSuccess;
 import de.htwg.se.battleship.controller.old.event.SetShip;
-import de.htwg.se.battleship.model.impl.ModelFabricImpl;
+import de.htwg.se.battleship.model.old.ModelFabricImpl;
 import de.htwg.se.battleship.util._observer.Event;
 import de.htwg.se.battleship.util._observer.OLDObserver;
 import org.junit.Before;

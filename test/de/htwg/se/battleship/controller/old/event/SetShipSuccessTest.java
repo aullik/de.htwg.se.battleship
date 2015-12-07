@@ -3,10 +3,10 @@
  */
 package de.htwg.se.battleship.controller.old.event;
 
-import de.htwg.se.battleship.model.Cell;
-import de.htwg.se.battleship.model.Ship;
-import de.htwg.se.battleship.model.impl.PlayerImpl;
-import de.htwg.se.battleship.model.impl.ShipImpl;
+import de.htwg.se.battleship.model.old.OLDCell;
+import de.htwg.se.battleship.model.old.OLDPlayerImpl;
+import de.htwg.se.battleship.model.old.Ship;
+import de.htwg.se.battleship.model.old.ShipImpl;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -20,7 +20,7 @@ public class SetShipSuccessTest {
 
    @Test
    public void test() {
-      Ship s = new ShipImpl(new PlayerImpl(""), new HashMap<String, Cell>());
+      Ship s = new ShipImpl(new OLDPlayerImpl(""), new HashMap<String, OLDCell>());
       SetShipSuccess e = new SetShipSuccess(null, s);
       assertEquals(s, e.getShip());
    }

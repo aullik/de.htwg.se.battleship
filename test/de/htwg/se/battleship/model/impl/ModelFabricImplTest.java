@@ -1,11 +1,13 @@
 package de.htwg.se.battleship.model.impl;
 
-import de.htwg.se.battleship.model.Cell;
-import de.htwg.se.battleship.model.ModelFabric;
-import de.htwg.se.battleship.model.OLDGrid;
-import de.htwg.se.battleship.model.Player;
-import de.htwg.se.battleship.model.Round;
-import de.htwg.se.battleship.model.Ship;
+import de.htwg.se.battleship.model.old.ModelFabric;
+import de.htwg.se.battleship.model.old.ModelFabricImpl;
+import de.htwg.se.battleship.model.old.OLDCell;
+import de.htwg.se.battleship.model.old.OLDCellImpl;
+import de.htwg.se.battleship.model.old.OLDGrid;
+import de.htwg.se.battleship.model.old.OLDPlayer;
+import de.htwg.se.battleship.model.old.Round;
+import de.htwg.se.battleship.model.old.Ship;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -20,15 +22,15 @@ public class ModelFabricImplTest {
       ModelFabric fab = ModelFabricImpl.getInstance();
 
       String string = "Ich bin ein Spieler!";
-      Player p = fab.createPlayer(string);
+      OLDPlayer p = fab.createPlayer(string);
       assertEquals(string, p.getName());
 
       OLDGrid g = fab.createGrid(p);
       assertEquals(p, g.getPlayer());
 
-      Cell c = new CellImpl(1, 1, g);
-      Map<String, Cell> map = new HashMap<String, Cell>();
-      map.put(CellImpl.createKey(c.getX(), c.getY()), c);
+      OLDCell c = new OLDCellImpl(1, 1, g);
+      Map<String, OLDCell> map = new HashMap<String, OLDCell>();
+      map.put(OLDCellImpl.createKey(c.getX(), c.getY()), c);
       Ship s = fab.createShip(p, map);
       assertEquals(p, s.getPlayer());
 

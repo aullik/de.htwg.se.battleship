@@ -6,7 +6,7 @@ package de.htwg.se.battleship.controller.old.impl;
 import de.htwg.se.battleship.controller.old.IInitGameController;
 import de.htwg.se.battleship.controller.old.event.SetShipSuccess;
 import de.htwg.se.battleship.controller.old.event.WrongCoordinate;
-import de.htwg.se.battleship.model.impl.ModelFabricImpl;
+import de.htwg.se.battleship.model.old.ModelFabricImpl;
 import de.htwg.se.battleship.util._observer.Event;
 import de.htwg.se.battleship.util._observer.OLDObserver;
 import org.junit.Before;

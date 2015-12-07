@@ -1,11 +1,7 @@
 /**
  *
  */
-package de.htwg.se.battleship.model.impl;
-
-import de.htwg.se.battleship.model.Cell;
-import de.htwg.se.battleship.model.OLDGrid;
-import de.htwg.se.battleship.model.Player;
+package de.htwg.se.battleship.model.old;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,17 +17,17 @@ public class OLDGridImpl implements OLDGrid {
    public static final int DEFAULT_SIZE = 10;
 
    private final int size;
-   private final Map<String, Cell> cells;
-   private final Player player;
+   private final Map<String, OLDCell> cells;
+   private final OLDPlayer player;
 
    /**
     * Create new instance of a OLDGrid with his size.
     *
     * @param size Number of cell for width/height
     */
-   public OLDGridImpl(final int size, final Player player) {
+   public OLDGridImpl(final int size, final OLDPlayer player) {
       this.size = size;
-      this.cells = new HashMap<String, Cell>();
+      this.cells = new HashMap<String, OLDCell>();
       this.player = player;
       player.setGrid(this);
 
@@ -41,7 +37,7 @@ public class OLDGridImpl implements OLDGrid {
    private void initCells() {
       for (int i = 0; i < this.size; i++) {
          for (int j = 0; j < this.size; j++) {
-            addCell(new CellImpl(i, j, this));
+            addCell(new OLDCellImpl(i, j, this));
          }
       }
    }
@@ -51,14 +47,14 @@ public class OLDGridImpl implements OLDGrid {
       return size;
    }
 
-   private void addCell(final CellImpl cell) {
+   private void addCell(final OLDCellImpl cell) {
       cells.put(cell.getKey(), cell);
    }
 
    @Override
-   public Cell getCell(final int x, final int y) {
-      String key = CellImpl.createKey(x, y);
-      Cell cell = null;
+   public OLDCell getCell(final int x, final int y) {
+      String key = OLDCellImpl.createKey(x, y);
+      OLDCell cell = null;
 
       if (cells.containsKey(key)) {
          cell = cells.get(key);
@@ -68,7 +64,7 @@ public class OLDGridImpl implements OLDGrid {
    }
 
    @Override
-   public Player getPlayer() {
+   public OLDPlayer getPlayer() {
       return player;
    }
 }
