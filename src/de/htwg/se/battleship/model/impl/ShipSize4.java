@@ -8,7 +8,7 @@ import java.util.List;
  * Ship with a size of 4
  * Created by aullik on 04.12.2015.
  */
-public class ShipSize4 extends PossibleShip {
+public class ShipSize4 extends ShipWithSetSize {
 
    public ShipSize4(final List<RCell> cells) {
       super(4, cells);
