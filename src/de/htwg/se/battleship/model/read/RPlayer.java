@@ -29,13 +29,6 @@ public interface RPlayer {
 
 
    /**
-    * Return the number of fields for all Ship of an Player
-    *
-    * @return int
-    */
-   int getNumberOfShipCells();
-
-   /**
     * Returns an instance of the Player Grid
     *
     * @return Instance of Grid

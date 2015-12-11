@@ -11,13 +11,6 @@ import java.util.List;
  */
 public interface RWShip extends RShip {
 
-   /**
-    * Returns the owner (Player) of this Ship
-    *
-    * @return Player instance
-    */
-   RWPlayer getPlayer();
-
 
    /**
     * Returns List of Cell.

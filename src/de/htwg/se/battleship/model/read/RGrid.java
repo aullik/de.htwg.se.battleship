@@ -13,7 +13,7 @@ public interface RGrid {
     *
     * @return Number of cells for width/height
     */
-   int getWidth();
+   int getSize();
 
    /**
     * Get a single {@link de.htwg.se.battleship.model.read.RCell} instance from the Grid.
@@ -23,5 +23,14 @@ public interface RGrid {
     * @return Null/Cell instance
     */
    RCell getCell(final int x, final int y);
+
+
+   /**
+    * Get a single {@link de.htwg.se.battleship.model.read.RCell} instance from the Grid.
+    *
+    * @param cell similar cell instance, might or might not be of another grid
+    * @return Null/Cell instance
+    */
+   RCell getCell(RCell cell);
 
 }

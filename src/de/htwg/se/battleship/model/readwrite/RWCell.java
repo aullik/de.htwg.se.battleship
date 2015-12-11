@@ -18,6 +18,13 @@ public interface RWCell extends RCell {
    void setShip(final RWShip ship);
 
    /**
+    * Returns true, when Cell has already an instance of this Ship.
+    *
+    * @return Instance of ship
+    */
+   RWShip getShip();
+
+   /**
     * Set status of this Cell to HIT (Player has hit a ship on this Cell).
     */
    void setToHit();
@@ -26,13 +33,5 @@ public interface RWCell extends RCell {
     * Set status of this Cell to SHOT (Player has made a shot on this Cell).
     */
    void setToShot();
-
-
-   /**
-    * Returns Grid instance.
-    *
-    * @return RWGrid instance
-    */
-   RWGrid getGrid();
 
 }

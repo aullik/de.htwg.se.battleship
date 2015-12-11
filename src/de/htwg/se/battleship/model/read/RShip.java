@@ -16,13 +16,6 @@ public interface RShip {
     */
    int getNumberOfCells();
 
-   /**
-    * Returns the owner (Player) of this Ship
-    *
-    * @return Player instance
-    */
-   RPlayer getPlayer();
-
 
    /**
     * Returns List of Cell.

@@ -5,7 +5,7 @@ package de.htwg.se.battleship.model.read;
  *
  * @author aullik on 07.12.2015.
  */
-public interface RCell {
+public interface RCell extends Comparable<RCell> {
 
    /**
     * Returns the x-coordinate of this Cell.
@@ -28,12 +28,6 @@ public interface RCell {
     */
    String getKey();
 
-   /**
-    * Returns Grid instance.
-    *
-    * @return RGrid instance
-    */
-   RGrid getGrid();
 
    /**
     * Returns true, when Cell has already an instance of this Ship.

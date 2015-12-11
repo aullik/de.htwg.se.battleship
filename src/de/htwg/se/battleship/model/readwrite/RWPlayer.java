@@ -2,6 +2,7 @@ package de.htwg.se.battleship.model.readwrite;
 
 import de.htwg.se.battleship.model.read.RGrid;
 import de.htwg.se.battleship.model.read.RPlayer;
+import de.htwg.se.battleship.model.read.RShip;
 
 import java.util.List;
 
@@ -11,18 +12,13 @@ import java.util.List;
 public interface RWPlayer extends RPlayer {
 
    /**
-    * Add new Ship instance to Player and set Player at Ship (1:n relationship)
+    * Add new Ship instance to Player and set Player at Ship (1:n relationship).
+    * The Ship will be cloned
     *
     * @param ship Instance of Ship
+    * @return returns the cloned Ship. Returns {@code null} if this Ship would collide with others
     */
-   void addShip(final RWShip ship);
-
-   /**
-    * Set relation between Grid and Player
-    *
-    * @param grid Instance of Grid
-    */
-   void setGrid(final RWGrid grid);
+   RWShip addShip(final RShip ship);
 
 
    /**

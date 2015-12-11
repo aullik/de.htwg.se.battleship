@@ -1,5 +1,6 @@
 package de.htwg.se.battleship.model.readwrite;
 
+import de.htwg.se.battleship.model.read.RCell;
 import de.htwg.se.battleship.model.read.RGrid;
 
 /**
@@ -10,11 +11,10 @@ import de.htwg.se.battleship.model.read.RGrid;
 public interface RWGrid extends RGrid {
 
 
-   /**
-    * {@see RGrid#getCell}
-    *
-    * @return returns RWCell instead of RCEll
-    */
    @Override
    RWCell getCell(final int x, final int y);
+
+
+   @Override
+   RWCell getCell(RCell cell);
 }
