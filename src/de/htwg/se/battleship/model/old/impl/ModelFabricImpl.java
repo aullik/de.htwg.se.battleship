@@ -1,8 +1,14 @@
 /**
  *
  */
-package de.htwg.se.battleship.model.old;
+package de.htwg.se.battleship.model.old.impl;
 
+import de.htwg.se.battleship.model.old.ModelFabric;
+import de.htwg.se.battleship.model.old.OLDCell;
+import de.htwg.se.battleship.model.old.OLDGrid;
+import de.htwg.se.battleship.model.old.OLDPlayer;
+import de.htwg.se.battleship.model.old.Round;
+import de.htwg.se.battleship.model.old.Ship;
 import de.htwg.se.battleship.util.singleton.SingletonSupplier;
 
 import java.util.Map;

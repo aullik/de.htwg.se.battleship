@@ -1,10 +1,8 @@
 /**
  *
  */
-package de.htwg.se.battleship.model.impl;
+package de.htwg.se.battleship.model.old.impl;
 
-import de.htwg.se.battleship.model.old.OLDGridImpl;
-import de.htwg.se.battleship.model.old.OLDPlayerImpl;
 import org.junit.Before;
 import org.junit.Test;
 

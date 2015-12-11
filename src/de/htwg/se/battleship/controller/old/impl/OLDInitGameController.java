@@ -15,11 +15,11 @@ import de.htwg.se.battleship.controller.old.event.WrongCoordinate;
 import de.htwg.se.battleship.model.old.ModelFabric;
 import de.htwg.se.battleship.model.old.OLDCell;
 import de.htwg.se.battleship.model.old.OLDGrid;
-import de.htwg.se.battleship.model.old.OLDModelFactory;
 import de.htwg.se.battleship.model.old.OLDPlayer;
 import de.htwg.se.battleship.model.old.Round;
 import de.htwg.se.battleship.model.old.Ship;
-import de.htwg.se.battleship.model.old.ShipImpl;
+import de.htwg.se.battleship.model.old.impl.OLDModelFactory;
+import de.htwg.se.battleship.model.old.impl.ShipImpl;
 import de.htwg.se.battleship.util._observer.impl.ObservableImpl;
 import de.htwg.se.battleship.util.singleton.SingletonSupplier;
 

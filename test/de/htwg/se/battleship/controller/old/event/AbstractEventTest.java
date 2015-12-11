@@ -1,11 +1,11 @@
 package de.htwg.se.battleship.controller.old.event;
 
 import de.htwg.se.battleship.model.old.OLDGrid;
-import de.htwg.se.battleship.model.old.OLDGridImpl;
 import de.htwg.se.battleship.model.old.OLDPlayer;
-import de.htwg.se.battleship.model.old.OLDPlayerImpl;
 import de.htwg.se.battleship.model.old.Round;
-import de.htwg.se.battleship.model.old.RoundImpl;
+import de.htwg.se.battleship.model.old.impl.OLDGridImpl;
+import de.htwg.se.battleship.model.old.impl.OLDPlayerImpl;
+import de.htwg.se.battleship.model.old.impl.RoundImpl;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

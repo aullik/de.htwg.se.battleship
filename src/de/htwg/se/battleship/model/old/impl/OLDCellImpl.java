@@ -1,7 +1,11 @@
 /**
  *
  */
-package de.htwg.se.battleship.model.old;
+package de.htwg.se.battleship.model.old.impl;
+
+import de.htwg.se.battleship.model.old.OLDCell;
+import de.htwg.se.battleship.model.old.OLDGrid;
+import de.htwg.se.battleship.model.old.Ship;
 
 /**
  * This class contains all data of a single OLDCell

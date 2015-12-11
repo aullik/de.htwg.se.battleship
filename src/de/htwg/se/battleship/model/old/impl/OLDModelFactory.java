@@ -1,4 +1,6 @@
-package de.htwg.se.battleship.model.old;
+package de.htwg.se.battleship.model.old.impl;
+
+import de.htwg.se.battleship.model.old.ModelFabric;
 
 /**
  * Factory for Model elements
@@ -17,7 +19,7 @@ public abstract class OLDModelFactory {
       return instance;
    }
 
-   // bind(ModelFabric.class).to(de.htwg.se.battleship.model.old.ModelFabricImpl.class);
+   // bind(ModelFabric.class).to(de.htwg.se.battleship.model.old.impl.ModelFabricImpl.class);
    protected abstract ModelFabric _createModelFabric();
 
    public static ModelFabric createModelFabric() {
