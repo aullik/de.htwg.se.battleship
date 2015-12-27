@@ -3,24 +3,25 @@ package de.htwg.se.battleship.controller.initgame.impl;
 import de.htwg.se.battleship.controller.ThreadSaveController;
 import de.htwg.se.battleship.controller.initgame.InitGameControllable;
 import de.htwg.se.battleship.controller.initgame.InitGameController;
+import de.htwg.se.battleship.model.ModelFactory;
 import de.htwg.se.battleship.model.impl.ShipSize2;
 import de.htwg.se.battleship.model.impl.ShipSize3;
 import de.htwg.se.battleship.model.impl.ShipSize4;
 import de.htwg.se.battleship.model.impl.ShipSize5;
 import de.htwg.se.battleship.model.old.OLDGrid;
 import de.htwg.se.battleship.model.old.OLDPlayer;
-import de.htwg.se.battleship.model.old.OLDPlayerImpl;
+import de.htwg.se.battleship.model.readwrite.RWPlayer;
 
 import java.util.LinkedList;
 import java.util.Queue;
 
 /**
- * Created by aullik on 28.11.2015.
+ * @author aullik on 28.11.2015.
  */
 public class InitGameControllerImpl extends ThreadSaveController<InitGameControllable> implements InitGameController {
 
    private final String initialName;
-   private OLDPlayer player;
+   private RWPlayer player;
 
    Queue<Runnable> jobs;
 
@@ -69,9 +70,9 @@ public class InitGameControllerImpl extends ThreadSaveController<InitGameControl
 
    private void setPlayerName(final String name) {
       if (name == null || name.isEmpty())
-         player = new OLDPlayerImpl(initialName);
+         player = ModelFactory.createPlayer(initialName);
       else
-         player = new OLDPlayerImpl(name);
+         player = ModelFactory.createPlayer(name);
       nextJob();
    }
 
