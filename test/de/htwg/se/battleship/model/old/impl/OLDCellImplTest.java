@@ -67,13 +67,13 @@ public class OLDCellImplTest {
       HashMap<String, OLDCell> map1 = new HashMap<String, OLDCell>();
       map1.put(OLDCellImpl.createKey(c1.getX(), c1.getY()), c1);
       assertNull(c1.getShip());
-      ShipImpl s1 = new ShipImpl(p, map1);
+      OLDShipImpl s1 = new OLDShipImpl(p, map1);
       c1.setShip(s1);
       assertEquals(c1.getShip(), s1);
 
       HashMap<String, OLDCell> map2 = new HashMap<String, OLDCell>();
       map1.put(OLDCellImpl.createKey(c2.getX(), c2.getY()), c2);
-      ShipImpl s2 = new ShipImpl(p, map2);
+      OLDShipImpl s2 = new OLDShipImpl(p, map2);
       assertNull(c2.getShip());
       c2.setShip(s2);
       assertEquals(c2.getShip(), s2);

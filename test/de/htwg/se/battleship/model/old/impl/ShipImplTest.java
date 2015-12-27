@@ -29,7 +29,7 @@ public class ShipImplTest {
       map.put(OLDCellImpl.createKey(c.getX(), c.getY()), c);
       map.put("test", c);
 
-      ShipImpl s = new ShipImpl(p, map);
+      OLDShipImpl s = new OLDShipImpl(p, map);
 
       assertEquals(p, s.getPlayer());
       assertEquals(1, s.getNumberOfCells());

@@ -4,7 +4,7 @@
 package de.htwg.se.battleship.controller.old.event;
 
 import de.htwg.se.battleship.model.old.OLDCell;
-import de.htwg.se.battleship.model.old.Round;
+import de.htwg.se.battleship.model.old.OLDRound;
 
 /**
  * @author Philipp Daniels<philipp.daniels@gmail.com>
@@ -17,9 +17,9 @@ public class IsShot extends AbstractEvent {
    /**
     * Create an instance of IsShot.
     *
-    * @param round Round
+    * @param round OLDRound
     */
-   public IsShot(Round round, OLDCell cell) {
+   public IsShot(OLDRound round, OLDCell cell) {
       super(round);
 
       this.cell = cell;

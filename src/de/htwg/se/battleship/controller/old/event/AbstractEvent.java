@@ -6,7 +6,7 @@ package de.htwg.se.battleship.controller.old.event;
 import de.htwg.se.battleship.model.old.OLDCell;
 import de.htwg.se.battleship.model.old.OLDGrid;
 import de.htwg.se.battleship.model.old.OLDPlayer;
-import de.htwg.se.battleship.model.old.Round;
+import de.htwg.se.battleship.model.old.OLDRound;
 import de.htwg.se.battleship.util._observer.Event;
 
 /**
@@ -15,23 +15,23 @@ import de.htwg.se.battleship.util._observer.Event;
 @Deprecated
 public abstract class AbstractEvent implements Event {
 
-   private final Round round;
+   private final OLDRound round;
 
    /**
     * Create instance of an AbstractEvent.
     *
-    * @param round Round
+    * @param round OLDRound
     */
-   public AbstractEvent(Round round) {
+   public AbstractEvent(OLDRound round) {
       this.round = round;
    }
 
    /**
-    * Returns a instance of Round.
+    * Returns a instance of OLDRound.
     *
-    * @return Round
+    * @return OLDRound
     */
-   public Round getRound() {
+   public OLDRound getRound() {
       return round;
    }
 

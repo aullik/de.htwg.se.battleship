@@ -29,21 +29,21 @@ public interface ModelFabric {
 
 
    /**
-    * Create an instance of an Ship implementation.
+    * Create an instance of an OLDShip implementation.
     *
     * @param player OLDPlayer
     * @param cells  List of cells of the ship.
-    * @return Ship
+    * @return OLDShip
     */
-   Ship createShip(OLDPlayer player, Map<String, OLDCell> cells);
+   OLDShip createShip(OLDPlayer player, Map<String, OLDCell> cells);
 
    /**
-    * Create an instance of an Round implementation.
+    * Create an instance of an OLDRound implementation.
     *
     * @param g1 OLDGrid
     * @param g2 OLDGrid
-    * @return Round
+    * @return OLDRound
     */
-   Round createRound(OLDGrid g1, OLDGrid g2);
+   OLDRound createRound(OLDGrid g1, OLDGrid g2);
 
 }

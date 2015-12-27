@@ -40,18 +40,18 @@ public interface OLDCell {
    OLDGrid getGrid();
 
    /**
-    * Set relationship between Ship and cell (n:1 relationship)
+    * Set relationship between OLDShip and cell (n:1 relationship)
     *
     * @param ship Instance of a ship
     */
-   void setShip(final Ship ship);
+   void setShip(final OLDShip ship);
 
    /**
-    * Returns true, when OLDCell has already an instance of this Ship.
+    * Returns true, when OLDCell has already an instance of this OLDShip.
     *
     * @return Instance of ship
     */
-   Ship getShip();
+   OLDShip getShip();
 
    /**
     * Returns true, when the OLDPlayer has made nothing with this OLDCell.

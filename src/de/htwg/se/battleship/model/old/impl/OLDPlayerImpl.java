@@ -5,7 +5,7 @@ package de.htwg.se.battleship.model.old.impl;
 
 import de.htwg.se.battleship.model.old.OLDGrid;
 import de.htwg.se.battleship.model.old.OLDPlayer;
-import de.htwg.se.battleship.model.old.Ship;
+import de.htwg.se.battleship.model.old.OLDShip;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +19,7 @@ import java.util.List;
 public class OLDPlayerImpl implements OLDPlayer {
 
    private final String name;
-   private final List<Ship> ships;
+   private final List<OLDShip> ships;
    private OLDGrid grid;
 
    /**
@@ -38,14 +38,14 @@ public class OLDPlayerImpl implements OLDPlayer {
    }
 
    @Override
-   public void addShip(final Ship ship) {
+   public void addShip(final OLDShip ship) {
       if (!containsShip(ship)) {
          ships.add(ship);
       }
    }
 
    @Override
-   public boolean containsShip(final Ship ship) {
+   public boolean containsShip(final OLDShip ship) {
       return ships.contains(ship);
    }
 
@@ -63,7 +63,7 @@ public class OLDPlayerImpl implements OLDPlayer {
    public int getNumberOfShipCells() {
       int sum = 0;
 
-      for (Ship ship : ships) {
+      for (OLDShip ship : ships) {
          sum += ship.getNumberOfCells();
       }
       return sum;
@@ -75,7 +75,7 @@ public class OLDPlayerImpl implements OLDPlayer {
    }
 
    @Override
-   public List<Ship> getShips() {
+   public List<OLDShip> getShips() {
       return ships;
    }
 

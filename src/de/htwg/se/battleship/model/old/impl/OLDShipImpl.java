@@ -5,7 +5,7 @@ package de.htwg.se.battleship.model.old.impl;
 
 import de.htwg.se.battleship.model.old.OLDCell;
 import de.htwg.se.battleship.model.old.OLDPlayer;
-import de.htwg.se.battleship.model.old.Ship;
+import de.htwg.se.battleship.model.old.OLDShip;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -13,12 +13,12 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * This class contains all data of a single Ship from a player
+ * This class contains all data of a single OLDShip from a player
  *
  * @author Philipp Daniels<philipp.daniels@gmail.com>
  */
 @Deprecated
-public class ShipImpl implements Ship {
+public class OLDShipImpl implements OLDShip {
 
    public static final int NUMBER_OF_CELLS = 2;
 
@@ -26,9 +26,9 @@ public class ShipImpl implements Ship {
    private OLDPlayer player;
 
    /**
-    * Create an instance of Ship and add a Map for OLDCell instances
+    * Create an instance of OLDShip and add a Map for OLDCell instances
     */
-   public ShipImpl(final OLDPlayer player, Map<String, OLDCell> cells) {
+   public OLDShipImpl(final OLDPlayer player, Map<String, OLDCell> cells) {
       this.cells = new HashMap<String, OLDCell>();
 
       for (OLDCell cell : cells.values()) {

@@ -3,7 +3,7 @@
  */
 package de.htwg.se.battleship.controller.old.event;
 
-import de.htwg.se.battleship.model.old.Round;
+import de.htwg.se.battleship.model.old.OLDRound;
 
 /**
  * @author Philipp Daniels<philipp.daniels@gmail.com>
@@ -16,9 +16,9 @@ public class WrongCoordinate extends AbstractEvent {
    /**
     * Create instance of WrongCoordinate.
     *
-    * @param round Round
+    * @param round OLDRound
     */
-   public WrongCoordinate(Round round, String message) {
+   public WrongCoordinate(OLDRound round, String message) {
       super(round);
       this.message = message;
    }

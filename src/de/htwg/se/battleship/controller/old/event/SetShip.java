@@ -3,7 +3,7 @@
  */
 package de.htwg.se.battleship.controller.old.event;
 
-import de.htwg.se.battleship.model.old.Round;
+import de.htwg.se.battleship.model.old.OLDRound;
 
 /**
  * @author Philipp Daniels<philipp.daniels@gmail.com>
@@ -14,9 +14,9 @@ public class SetShip extends AbstractEvent {
    /**
     * Create an instance of SetShip
     *
-    * @param round Round
+    * @param round OLDRound
     */
-   public SetShip(Round round) {
+   public SetShip(OLDRound round) {
       super(round);
    }
 

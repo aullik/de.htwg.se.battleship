@@ -5,7 +5,7 @@ package de.htwg.se.battleship.model.old.impl;
 
 import de.htwg.se.battleship.model.old.OLDCell;
 import de.htwg.se.battleship.model.old.OLDGrid;
-import de.htwg.se.battleship.model.old.Ship;
+import de.htwg.se.battleship.model.old.OLDShip;
 
 /**
  * This class contains all data of a single OLDCell
@@ -23,11 +23,11 @@ public class OLDCellImpl implements OLDCell {
    private final int y;
    private final String key;
    private final OLDGrid grid;
-   private Ship ship;
+   private OLDShip ship;
    private int status;
 
    /**
-    * Create a new OLDCell instance with coordinates and initialize list for Ship
+    * Create a new OLDCell instance with coordinates and initialize list for OLDShip
     * and OLDPlayer.
     *
     * @param x X-Coordinate
@@ -62,12 +62,12 @@ public class OLDCellImpl implements OLDCell {
    }
 
    @Override
-   public void setShip(final Ship ship) {
+   public void setShip(final OLDShip ship) {
       this.ship = ship;
    }
 
    @Override
-   public Ship getShip() {
+   public OLDShip getShip() {
       return ship;
    }
 

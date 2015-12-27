@@ -4,9 +4,9 @@
 package de.htwg.se.battleship.controller.old.event;
 
 import de.htwg.se.battleship.model.old.OLDCell;
-import de.htwg.se.battleship.model.old.Ship;
+import de.htwg.se.battleship.model.old.OLDShip;
 import de.htwg.se.battleship.model.old.impl.OLDPlayerImpl;
-import de.htwg.se.battleship.model.old.impl.ShipImpl;
+import de.htwg.se.battleship.model.old.impl.OLDShipImpl;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -20,7 +20,7 @@ public class SetShipSuccessTest {
 
    @Test
    public void test() {
-      Ship s = new ShipImpl(new OLDPlayerImpl(""), new HashMap<String, OLDCell>());
+      OLDShip s = new OLDShipImpl(new OLDPlayerImpl(""), new HashMap<String, OLDCell>());
       SetShipSuccess e = new SetShipSuccess(null, s);
       assertEquals(s, e.getShip());
    }

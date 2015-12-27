@@ -22,19 +22,19 @@ public interface OLDPlayer {
    String getName();
 
    /**
-    * Add new Ship instance to OLDPlayer and set OLDPlayer at Ship (1:n relationship)
+    * Add new OLDShip instance to OLDPlayer and set OLDPlayer at OLDShip (1:n relationship)
     *
-    * @param ship Instance of Ship
+    * @param ship Instance of OLDShip
     */
-   void addShip(final Ship ship);
+   void addShip(final OLDShip ship);
 
    /**
-    * Returns true, when OLDPlayer has already an instance of this Ship.
+    * Returns true, when OLDPlayer has already an instance of this OLDShip.
     *
-    * @param ship Instance of Ship
+    * @param ship Instance of OLDShip
     * @return True/False
     */
-   boolean containsShip(final Ship ship);
+   boolean containsShip(final OLDShip ship);
 
    /**
     * Set relation between OLDGrid and OLDPlayer
@@ -51,7 +51,7 @@ public interface OLDPlayer {
    OLDGrid getGrid();
 
    /**
-    * Return the number of fields for all Ship of an OLDPlayer
+    * Return the number of fields for all OLDShip of an OLDPlayer
     *
     * @return int
     */
@@ -65,9 +65,9 @@ public interface OLDPlayer {
    boolean isHuman();
 
    /**
-    * Returns a list of OLDPlayer Ship
+    * Returns a list of OLDPlayer OLDShip
     *
-    * @return List<Ship>
+    * @return List<OLDShip>
     */
-   List<Ship> getShips();
+   List<OLDShip> getShips();
 }

@@ -4,24 +4,24 @@
 package de.htwg.se.battleship.model.old.impl;
 
 import de.htwg.se.battleship.model.old.OLDGrid;
-import de.htwg.se.battleship.model.old.Round;
+import de.htwg.se.battleship.model.old.OLDRound;
 
 /**
  * @author Philipp Daniels<philipp.daniels@gmail.com>
  */
 @Deprecated
-public class RoundImpl implements Round {
+public class OLDRoundImpl implements OLDRound {
 
    private final OLDGrid[] grids;
    private int index;
 
    /**
-    * Creates a Round instance.
+    * Creates a OLDRound instance.
     *
     * @param g1 OLDGrid
     * @param g2 OLDGrid
     */
-   public RoundImpl(OLDGrid g1, OLDGrid g2) {
+   public OLDRoundImpl(OLDGrid g1, OLDGrid g2) {
       grids = new OLDGrid[2];
       index = 0;
       grids[0] = g1;

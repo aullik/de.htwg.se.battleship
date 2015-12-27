@@ -4,7 +4,7 @@
 package de.htwg.se.battleship.model.old.impl;
 
 import de.htwg.se.battleship.model.old.OLDCell;
-import de.htwg.se.battleship.model.old.Ship;
+import de.htwg.se.battleship.model.old.OLDShip;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -50,20 +50,20 @@ public class OLDPlayerImplTest {
    public void testShip() {
       HashMap<String, OLDCell> map = new HashMap<String, OLDCell>();
 
-      ShipImpl s1 = new ShipImpl(p1, map);
+      OLDShipImpl s1 = new OLDShipImpl(p1, map);
       p1.addShip(s1);
       assertTrue(p1.containsShip(s1));
       assertEquals(0, p1.getNumberOfShipCells());
 
       map.put(OLDCellImpl.createKey(1, 1), new OLDCellImpl(1, 1, new OLDGridImpl(OLDGridImpl.DEFAULT_SIZE, p1)));
 
-      ShipImpl s2 = new ShipImpl(p1, map);
+      OLDShipImpl s2 = new OLDShipImpl(p1, map);
       assertTrue(p1.containsShip(s2));
       p1.addShip(s2);
       assertTrue(p1.containsShip(s1));
       assertEquals(1, p1.getNumberOfShipCells());
 
-      List<Ship> list = p1.getShips();
+      List<OLDShip> list = p1.getShips();
       assertEquals(2, list.size());
       assertTrue(list.contains(s1));
       assertTrue(list.contains(s2));

@@ -4,8 +4,8 @@ import de.htwg.se.battleship.model.old.ModelFabric;
 import de.htwg.se.battleship.model.old.OLDCell;
 import de.htwg.se.battleship.model.old.OLDGrid;
 import de.htwg.se.battleship.model.old.OLDPlayer;
-import de.htwg.se.battleship.model.old.Round;
-import de.htwg.se.battleship.model.old.Ship;
+import de.htwg.se.battleship.model.old.OLDRound;
+import de.htwg.se.battleship.model.old.OLDShip;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -29,10 +29,10 @@ public class ModelFabricImplTest {
       OLDCell c = new OLDCellImpl(1, 1, g);
       Map<String, OLDCell> map = new HashMap<String, OLDCell>();
       map.put(OLDCellImpl.createKey(c.getX(), c.getY()), c);
-      Ship s = fab.createShip(p, map);
+      OLDShip s = fab.createShip(p, map);
       assertEquals(p, s.getPlayer());
 
-      Round r = fab.createRound(g, null);
+      OLDRound r = fab.createRound(g, null);
       assertEquals(g, r.getGrid());
    }
 

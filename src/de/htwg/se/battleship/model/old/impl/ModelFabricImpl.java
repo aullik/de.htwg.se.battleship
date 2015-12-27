@@ -7,8 +7,8 @@ import de.htwg.se.battleship.model.old.ModelFabric;
 import de.htwg.se.battleship.model.old.OLDCell;
 import de.htwg.se.battleship.model.old.OLDGrid;
 import de.htwg.se.battleship.model.old.OLDPlayer;
-import de.htwg.se.battleship.model.old.Round;
-import de.htwg.se.battleship.model.old.Ship;
+import de.htwg.se.battleship.model.old.OLDRound;
+import de.htwg.se.battleship.model.old.OLDShip;
 import de.htwg.se.battleship.util.singleton.SingletonSupplier;
 
 import java.util.Map;
@@ -40,13 +40,13 @@ public class ModelFabricImpl implements ModelFabric {
    }
 
    @Override
-   public Ship createShip(OLDPlayer player, Map<String, OLDCell> cells) {
-      return new ShipImpl(player, cells);
+   public OLDShip createShip(OLDPlayer player, Map<String, OLDCell> cells) {
+      return new OLDShipImpl(player, cells);
    }
 
    @Override
-   public Round createRound(OLDGrid g1, OLDGrid g2) {
-      return new RoundImpl(g1, g2);
+   public OLDRound createRound(OLDGrid g1, OLDGrid g2) {
+      return new OLDRoundImpl(g1, g2);
    }
 
 }

@@ -16,10 +16,10 @@ import de.htwg.se.battleship.model.old.ModelFabric;
 import de.htwg.se.battleship.model.old.OLDCell;
 import de.htwg.se.battleship.model.old.OLDGrid;
 import de.htwg.se.battleship.model.old.OLDPlayer;
-import de.htwg.se.battleship.model.old.Round;
-import de.htwg.se.battleship.model.old.Ship;
+import de.htwg.se.battleship.model.old.OLDRound;
+import de.htwg.se.battleship.model.old.OLDShip;
 import de.htwg.se.battleship.model.old.impl.OLDModelFactory;
-import de.htwg.se.battleship.model.old.impl.ShipImpl;
+import de.htwg.se.battleship.model.old.impl.OLDShipImpl;
 import de.htwg.se.battleship.util._observer.impl.ObservableImpl;
 import de.htwg.se.battleship.util.singleton.SingletonSupplier;
 
@@ -51,7 +51,7 @@ public class OLDInitGameController extends ObservableImpl implements IInitGameCo
    public static final String ERROR_TO_MANY = "Sorry you only have %d cells left (not %d cells)";
 
    private final ModelFabric fabric;
-   private Round round;
+   private OLDRound round;
    private int shipPlayerCount;
 
 
@@ -113,13 +113,13 @@ public class OLDInitGameController extends ObservableImpl implements IInitGameCo
          shipValidateSimple(start, end);
          shipValidateComplex(start, end);
 
-         Ship ship = fabric.createShip(round.getGrid().getPlayer(), getCells(start, end));
+         OLDShip ship = fabric.createShip(round.getGrid().getPlayer(), getCells(start, end));
          notifyObservers(new SetShipSuccess(round, ship));
       } catch (IllegalArgumentException e) {
          notifyObservers(new WrongCoordinate(round, e.getMessage()));
       } finally {
 
-         if (round.getGrid().getPlayer().getNumberOfShipCells() == ShipImpl.NUMBER_OF_CELLS) {
+         if (round.getGrid().getPlayer().getNumberOfShipCells() == OLDShipImpl.NUMBER_OF_CELLS) {
             round.next();
             shipPlayerCount++;
          }
@@ -147,7 +147,7 @@ public class OLDInitGameController extends ObservableImpl implements IInitGameCo
          throw new IllegalArgumentException(ERROR_SAME_COORDS);
       }
 
-      int rest = ShipImpl.NUMBER_OF_CELLS - round.getGrid().getPlayer().getNumberOfShipCells();
+      int rest = OLDShipImpl.NUMBER_OF_CELLS - round.getGrid().getPlayer().getNumberOfShipCells();
       int diff = diff(start, end);
       System.out.println("rest : " + rest + ", lenght: " + diff);
       if (diff > rest) {
@@ -229,10 +229,10 @@ public class OLDInitGameController extends ObservableImpl implements IInitGameCo
    }
 
    private boolean checkWinner() {
-      List<Ship> list = round.getGrid().getPlayer().getShips();
+      List<OLDShip> list = round.getGrid().getPlayer().getShips();
       boolean check = true;
 
-      for (Ship ship : list) {
+      for (OLDShip ship : list) {
          for (OLDCell cell : ship.getCells()) {
             if (!cell.isShot()) {
                check = false;
