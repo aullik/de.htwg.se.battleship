@@ -5,8 +5,7 @@ import de.htwg.se.battleship.model.impl.ShipSize3;
 import de.htwg.se.battleship.model.impl.ShipSize4;
 import de.htwg.se.battleship.model.impl.ShipSize5;
 import de.htwg.se.battleship.util.controller.Controllable;
-
-import java.util.function.Consumer;
+import de.htwg.se.battleship.util.controller.impl.SingleUseConsumer;
 
 /**
  * Created by aullik on 27.11.2015.
@@ -14,14 +13,14 @@ import java.util.function.Consumer;
 public interface InitGameControllable extends Controllable {
 
 
-   void setPlayerName(final Consumer<String> nameSetter);
+   void setPlayerName(final SingleUseConsumer<String> nameSetter);
 
-   void set5SizeShip(final Consumer<ShipSize5> shipSetter);
+   void set5SizeShip(final SingleUseConsumer<ShipSize5> shipSetter);
 
-   void set4SizeShip(final Consumer<ShipSize4> shipSetter);
+   void set4SizeShip(final SingleUseConsumer<ShipSize4> shipSetter);
 
-   void set3SizeShip(final Consumer<ShipSize3> shipSetter);
+   void set3SizeShip(final SingleUseConsumer<ShipSize3> shipSetter);
 
-   void set2SizeShip(final Consumer<ShipSize2> shipSetter);
+   void set2SizeShip(final SingleUseConsumer<ShipSize2> shipSetter);
 
 }

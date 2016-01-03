@@ -1,6 +1,7 @@
 package de.htwg.se.battleship.controller.gamemode;
 
-import de.htwg.se.battleship.controller.ThreadSaveController;
+import de.htwg.se.battleship.util.controller.impl.GamePlatform;
+import de.htwg.se.battleship.util.controller.impl.ThreadSaveController;
 
 /**
  * BaseClass for {@link de.htwg.se.battleship.controller.gamemode.GamemodeController}
@@ -14,15 +15,15 @@ public abstract class GamemodeControllerBase extends ThreadSaveController<Gamemo
       super(createPlatform());
    }
 
-   private static class GamePlatform extends Platform {}
+   private static class MyGamePlatform extends GamePlatform {}
 
-   private static Platform createPlatform() {
-      return new GamePlatform();
+   private static GamePlatform createPlatform() {
+      return new MyGamePlatform();
    }
 
    @Override
    public final void run() {
-      runLater(this::start);
+      platform.runLater(this::start);
       runPlatform();
    }
 

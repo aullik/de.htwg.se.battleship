@@ -1,6 +1,5 @@
 package de.htwg.se.battleship.controller.initgame.impl;
 
-import de.htwg.se.battleship.controller.ThreadSaveController;
 import de.htwg.se.battleship.controller.initgame.InitGameControllable;
 import de.htwg.se.battleship.controller.initgame.InitGameController;
 import de.htwg.se.battleship.model.ModelFactory;
@@ -11,6 +10,8 @@ import de.htwg.se.battleship.model.impl.ShipSize5;
 import de.htwg.se.battleship.model.old.OLDGrid;
 import de.htwg.se.battleship.model.old.OLDPlayer;
 import de.htwg.se.battleship.model.readwrite.RWPlayer;
+import de.htwg.se.battleship.util.controller.impl.GamePlatform;
+import de.htwg.se.battleship.util.controller.impl.ThreadSaveController;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -25,7 +26,7 @@ public class InitGameControllerImpl extends ThreadSaveController<InitGameControl
 
    Queue<Runnable> jobs;
 
-   public InitGameControllerImpl(final Platform platform, String initialName) {
+   public InitGameControllerImpl(final GamePlatform platform, String initialName) {
       super(platform);
       this.initialName = initialName;
       jobs = new LinkedList<>();
@@ -50,7 +51,7 @@ public class InitGameControllerImpl extends ThreadSaveController<InitGameControl
    }
 
    private void nextJob() {
-      runLater(jobs.poll());
+      platform.runLater(jobs.poll());
    }
 
 

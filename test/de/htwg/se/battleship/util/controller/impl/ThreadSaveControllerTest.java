@@ -1,4 +1,4 @@
-package de.htwg.se.battleship.controller;
+package de.htwg.se.battleship.util.controller.impl;
 
 import de.htwg.se.battleship.util.controller.Controllable;
 import javafx.beans.property.SimpleObjectProperty;
@@ -17,7 +17,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 /**
- * Test for {@link de.htwg.se.battleship.controller.ThreadSaveController}
+ * Test for {@link de.htwg.se.battleship.util.controller.impl.ThreadSaveController}
  * Created by aullik on 03.12.2015.
  */
 public class ThreadSaveControllerTest {
@@ -168,8 +168,8 @@ public class ThreadSaveControllerTest {
    }
 
 
-   private <T> Consumer<T> getSingletonConsumer(Consumer<T> cons) throws InterruptedException {
-      SimpleObjectProperty<Consumer<T>> prop = new SimpleObjectProperty<>();
+   private <T> SingleUseConsumer<T> getSingletonConsumer(Consumer<T> cons) throws InterruptedException {
+      SimpleObjectProperty<SingleUseConsumer<T>> prop = new SimpleObjectProperty<>();
       CountDownLatch set = new CountDownLatch(1);
       TestControllable test = () -> {
       };
@@ -191,7 +191,7 @@ public class ThreadSaveControllerTest {
    @Test
    public void testSingleUseExecute() throws InterruptedException {
       AtomicInteger ai = new AtomicInteger(0);
-      final Consumer<AtomicInteger> singletonConsumer = getSingletonConsumer(AtomicInteger::incrementAndGet);
+      final SingleUseConsumer<AtomicInteger> singletonConsumer = getSingletonConsumer(AtomicInteger::incrementAndGet);
 
       CountDownLatch start = new CountDownLatch(1);
       cont.runLater(() -> {
@@ -202,8 +202,12 @@ public class ThreadSaveControllerTest {
          }
       });
 
-      singletonConsumer.accept(ai); // ai increased to 1
-      singletonConsumer.accept(ai); // nothing happens
+      try {
+         singletonConsumer.accept(ai); // ai increased to 1
+         singletonConsumer.accept(ai); // nothing happens
+      } catch (AlreadyExecutedException e) {
+         fail();
+      }
       start.countDown();
 
       awaitPlatform();
@@ -213,14 +217,22 @@ public class ThreadSaveControllerTest {
    @Test
    public void testSingleUseExecute2() throws InterruptedException {
       AtomicInteger ai = new AtomicInteger(0);
-      final Consumer<AtomicInteger> singletonConsumer = getSingletonConsumer(AtomicInteger::incrementAndGet);
+      final SingleUseConsumer<AtomicInteger> singletonConsumer = getSingletonConsumer(AtomicInteger::incrementAndGet);
 
 
-      singletonConsumer.accept(ai); // ai increased to 1
+      try {
+         singletonConsumer.accept(ai); // ai increased to 1
+      } catch (AlreadyExecutedException e) {
+         fail();
+      }
 
       //first one already in q
       cont.runLater(() -> {
-         singletonConsumer.accept(ai); // nothing happens
+         try {
+            singletonConsumer.accept(ai); // nothing happens
+         } catch (AlreadyExecutedException e) {
+            fail();
+         }
       });
 
       awaitPlatform();
