@@ -1,7 +1,5 @@
 package de.htwg.se.battleship.controller.initgame;
 
-import de.htwg.se.battleship.model.old.OLDGrid;
-import de.htwg.se.battleship.model.old.OLDPlayer;
 import de.htwg.se.battleship.util.controller.Controller;
 
 /**
@@ -11,8 +9,5 @@ import de.htwg.se.battleship.util.controller.Controller;
  */
 public interface InitGameController extends Controller<InitGameControllable> {
 
-   OLDPlayer getPlayer();
-
-   OLDGrid getGrid();
 
 }

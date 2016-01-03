@@ -30,16 +30,30 @@ public class ThreadSaveControllerTest {
 
    static class TestController extends ThreadSaveController<TestControllable> {
 
-      static class TestPlatform extends Platform {}
+      public boolean isGameThread(){
+         return platform.isGameThread();
+      }
+
+      public void runLater(Runnable r){
+         platform.runLater(r);
+      }
 
       public TestController() {
-         super(new TestPlatform());
+         super(new GamePlatform());
       }
    }
 
    class TestGivePlatform extends ThreadSaveController<TestControllable> {
 
-      public TestGivePlatform(final Platform platform) {
+      public boolean isGameThread(){
+         return platform.isGameThread();
+      }
+
+      public void runLater(Runnable r){
+         platform.runLater(r);
+      }
+
+      public TestGivePlatform(final GamePlatform platform) {
          super(platform);
       }
    }
@@ -205,7 +219,7 @@ public class ThreadSaveControllerTest {
       try {
          singletonConsumer.accept(ai); // ai increased to 1
          singletonConsumer.accept(ai); // nothing happens
-      } catch (AlreadyExecutedException e) {
+      } catch (AlreadyExecutedException | NotUIThreadException e) {
          fail();
       }
       start.countDown();
@@ -222,7 +236,7 @@ public class ThreadSaveControllerTest {
 
       try {
          singletonConsumer.accept(ai); // ai increased to 1
-      } catch (AlreadyExecutedException e) {
+      } catch (AlreadyExecutedException | NotUIThreadException e) {
          fail();
       }
 
@@ -230,7 +244,7 @@ public class ThreadSaveControllerTest {
       cont.runLater(() -> {
          try {
             singletonConsumer.accept(ai); // nothing happens
-         } catch (AlreadyExecutedException e) {
+         } catch (AlreadyExecutedException | NotUIThreadException e) {
             fail();
          }
       });
