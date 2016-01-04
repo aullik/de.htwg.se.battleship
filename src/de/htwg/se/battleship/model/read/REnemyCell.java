@@ -1,12 +1,14 @@
 package de.htwg.se.battleship.model.read;
 
+import javafx.beans.Observable;
+
 /**
  * The {@code REnemyCell} interface defines the public read methods for any cell implementation, as the enemy can see
  * them.
  *
  * @author aullik on 04.01.2016.
  */
-public interface REnemyCell extends Comparable<REnemyCell> {
+public interface REnemyCell extends Comparable<REnemyCell>, Observable {
 
    /**
     * Returns the x-coordinate of this Cell.

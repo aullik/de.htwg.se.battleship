@@ -8,7 +8,7 @@ import de.htwg.se.battleship.model.readwrite.RWShip;
 /**
  * @author aullik on 07.12.2015.
  */
-public class Cell implements RWCell {
+public class Cell extends AbstractObservable implements RWCell {
 
 
    private final int x;
@@ -24,22 +24,24 @@ public class Cell implements RWCell {
       this.y = y;
       this.key = Cell.createKey(x, y);
       this.status = STATUS.NORMAL;
-
    }
 
    @Override
    public void setShip(final RWShip ship) {
       this.ship = ship;
+      invalidated();
    }
 
    @Override
    public void setToHit() {
       this.status = STATUS.HIT;
+      invalidated();
    }
 
    @Override
    public void setToShot() {
       this.status = STATUS.SHOT;
+      invalidated();
    }
 
    @Override
@@ -112,6 +114,7 @@ public class Cell implements RWCell {
       else
          return x;
    }
+
 
    private enum STATUS {
       NORMAL, SHOT, HIT

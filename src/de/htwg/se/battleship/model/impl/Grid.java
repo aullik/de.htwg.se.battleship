@@ -3,19 +3,20 @@ package de.htwg.se.battleship.model.impl;
 import de.htwg.se.battleship.model.read.RCell;
 import de.htwg.se.battleship.model.readwrite.RWCell;
 import de.htwg.se.battleship.model.readwrite.RWGrid;
+import javafx.beans.InvalidationListener;
 
 import java.util.HashMap;
 
 /**
  * @author aullik on 07.12.2015.
  */
-public class Grid implements RWGrid {
+public class Grid extends AbstractObservable implements RWGrid {
 
    public static final int DEFAULT_SIZE = 10;
 
    private final int size;
    private final HashMap<String, RWCell> cells;
-
+   private final InvalidationListener cellListener;
 
    /**
     * Create new instance of a Grid with his size.
@@ -28,6 +29,7 @@ public class Grid implements RWGrid {
 
       this.size = size;
       this.cells = new HashMap<>();
+      this.cellListener = ignore -> invalidated();
       initCells();
    }
 
@@ -40,6 +42,7 @@ public class Grid implements RWGrid {
    }
 
    private void addCell(final RWCell cell) {
+      cell.addListener(cellListener);
       cells.put(cell.getKey(), cell);
    }
 
@@ -58,4 +61,5 @@ public class Grid implements RWGrid {
    public RWCell getCell(final RCell cell) {
       return cells.get(cell.getKey());
    }
+
 }

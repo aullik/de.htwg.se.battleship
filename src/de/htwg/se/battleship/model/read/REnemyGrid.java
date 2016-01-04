@@ -1,11 +1,14 @@
 package de.htwg.se.battleship.model.read;
 
+import javafx.beans.Observable;
+
 /**
+ * The {@code REnemyGrid} interface contains all public read methods for a grid implementation, as the enemy can see
+ * them.
  *
- * The {@code REnemyGrid} interface contains all public read methods for a grid implementation, as the enemy can see them.
  * @author aullik on 04.01.2016.
  */
-public interface REnemyGrid {
+public interface REnemyGrid extends Observable {
 
    /**
     * Returns the size of the Grid instance
