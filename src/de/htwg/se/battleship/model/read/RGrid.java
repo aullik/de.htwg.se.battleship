@@ -6,14 +6,7 @@ package de.htwg.se.battleship.model.read;
  * @author aullik on 07.12.2015.
  */
 
-public interface RGrid {
-
-   /**
-    * Returns the size of the Grid instance
-    *
-    * @return Number of cells for width/height
-    */
-   int getSize();
+public interface RGrid extends REnemyGrid{
 
    /**
     * Get a single {@link de.htwg.se.battleship.model.read.RCell} instance from the Grid.

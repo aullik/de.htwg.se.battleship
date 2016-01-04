@@ -1,6 +1,7 @@
 package de.htwg.se.battleship.model.impl;
 
 import de.htwg.se.battleship.model.read.RCell;
+import de.htwg.se.battleship.model.read.REnemyCell;
 import de.htwg.se.battleship.model.readwrite.RWCell;
 import de.htwg.se.battleship.model.readwrite.RWShip;
 
@@ -102,7 +103,7 @@ public class Cell implements RWCell {
    }
 
    @Override
-   public int compareTo(final RCell o) {
+   public int compareTo(final REnemyCell o) {
 
       int x = Integer.compare(this.getX(), o.getX());
 

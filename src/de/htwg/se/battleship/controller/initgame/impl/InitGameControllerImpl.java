@@ -24,7 +24,7 @@ public class InitGameControllerImpl extends ThreadSaveController<InitGameControl
    private final static int NUM_SIZE_5_SHIPS = 1;
 
    private final String initialName;
-   private final Consumer<RWPlayer> onfinished;
+   private final Consumer<RWPlayer> onFinished;
    private RWPlayer player;
    private int size_2_ships;
    private int size_3_ships;
@@ -32,10 +32,10 @@ public class InitGameControllerImpl extends ThreadSaveController<InitGameControl
    private int size_5_ships;
 
 
-   public InitGameControllerImpl(final GamePlatform platform, String initialName, Consumer<RWPlayer> onfinished) {
+   public InitGameControllerImpl(final GamePlatform platform, String initialName, Consumer<RWPlayer> onFinished) {
       super(platform);
       this.initialName = initialName;
-      this.onfinished = onfinished;
+      this.onFinished = onFinished;
 
       this.size_2_ships = 0;
       this.size_3_ships = 0;
@@ -43,7 +43,6 @@ public class InitGameControllerImpl extends ThreadSaveController<InitGameControl
       this.size_5_ships = 0;
       getPlayerName();
    }
-
 
 
    private void getPlayerName() {
@@ -68,9 +67,9 @@ public class InitGameControllerImpl extends ThreadSaveController<InitGameControl
    }
 
    private void checkFinished() {
-      if(checkSize5Ships()
-         && checkSize4Ships()
-         && checkSize3Ships()
+      if (checkSize5Ships()
+            && checkSize4Ships()
+            && checkSize3Ships()
             && checkSize2Ships())
          finish();
    }
@@ -84,7 +83,7 @@ public class InitGameControllerImpl extends ThreadSaveController<InitGameControl
       checkFinished();
    }
 
-   private boolean checkSize5Ships(){
+   private boolean checkSize5Ships() {
       return size_5_ships >= NUM_SIZE_5_SHIPS;
    }
 
@@ -96,12 +95,13 @@ public class InitGameControllerImpl extends ThreadSaveController<InitGameControl
    private void set4SizeShip(final ShipSize4 ship) {
       player.addShip(ship);
 
-      if(checkSize4Ships())
+      if (checkSize4Ships())
          checkFinished();
       else
          platform.runLater(this::get4SizeShip);
    }
-   private boolean checkSize4Ships(){
+
+   private boolean checkSize4Ships() {
       return size_4_ships >= NUM_SIZE_4_SHIPS;
    }
 
@@ -112,12 +112,13 @@ public class InitGameControllerImpl extends ThreadSaveController<InitGameControl
    private void set3SizeShip(final ShipSize3 ship) {
       player.addShip(ship);
 
-      if(checkSize3Ships())
+      if (checkSize3Ships())
          checkFinished();
       else
          platform.runLater(this::get3SizeShip);
    }
-   private boolean checkSize3Ships(){
+
+   private boolean checkSize3Ships() {
       return size_3_ships >= NUM_SIZE_3_SHIPS;
    }
 
@@ -128,17 +129,18 @@ public class InitGameControllerImpl extends ThreadSaveController<InitGameControl
    private void set2SizeShip(final ShipSize2 ship) {
       player.addShip(ship);
 
-      if(checkSize2Ships())
+      if (checkSize2Ships())
          checkFinished();
       else
          platform.runLater(this::get2SizeShip);
    }
-   private boolean checkSize2Ships(){
+
+   private boolean checkSize2Ships() {
       return size_2_ships >= NUM_SIZE_2_SHIPS;
    }
 
    private void finish() {
-      onfinished.accept(player);
+      onFinished.accept(player);
    }
 
 }
