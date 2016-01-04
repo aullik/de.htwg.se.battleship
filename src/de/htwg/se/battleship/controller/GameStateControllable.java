@@ -10,4 +10,6 @@ public interface GameStateControllable extends Controllable {
 
    void startNewGame(GamemodeController gmController);
 
+   String getName();
+
 }

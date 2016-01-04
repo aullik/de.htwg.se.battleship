@@ -1,13 +1,13 @@
 package de.htwg.se.battleship.controller.gamemode;
 
 import de.htwg.se.battleship.util.controller.impl.GamePlatform;
-import de.htwg.se.battleship.util.controller.impl.ThreadSaveController;
+import de.htwg.se.battleship.util.controller.impl.ThreadSaveControllerBase;
 
 /**
  * BaseClass for {@link de.htwg.se.battleship.controller.gamemode.GamemodeController}
  * Created by aullik on 29.11.2015.
  */
-public abstract class GamemodeControllerBase extends ThreadSaveController<GamemodeControllable> implements
+public abstract class GamemodeControllerBase extends ThreadSaveControllerBase<GamemodeControllable> implements
       GamemodeController {
 
 
@@ -30,6 +30,6 @@ public abstract class GamemodeControllerBase extends ThreadSaveController<Gamemo
    /**
     * Start this gamemode, Current Thread will be used as GameThread
     */
-   public abstract void start();
+   protected abstract void start();
 
 }

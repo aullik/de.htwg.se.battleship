@@ -17,10 +17,10 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 /**
- * Test for {@link de.htwg.se.battleship.util.controller.impl.ThreadSaveController}
+ * Test for {@link AbstractThreadSave}
  * Created by aullik on 03.12.2015.
  */
-public class ThreadSaveControllerTest {
+public class ThreadSaveControllerBaseTest {
 
    interface TestControllable extends Controllable {
 
@@ -28,13 +28,13 @@ public class ThreadSaveControllerTest {
 
    }
 
-   static class TestController extends ThreadSaveController<TestControllable> {
+   static class TestController extends ThreadSaveControllerBase<TestControllable> {
 
-      public boolean isGameThread(){
+      public boolean isGameThread() {
          return platform.isGameThread();
       }
 
-      public void runLater(Runnable r){
+      public void runLater(Runnable r) {
          platform.runLater(r);
       }
 
@@ -43,13 +43,13 @@ public class ThreadSaveControllerTest {
       }
    }
 
-   class TestGivePlatform extends ThreadSaveController<TestControllable> {
+   class TestGivePlatform extends ThreadSaveControllerBase<TestControllable> {
 
-      public boolean isGameThread(){
+      public boolean isGameThread() {
          return platform.isGameThread();
       }
 
-      public void runLater(Runnable r){
+      public void runLater(Runnable r) {
          platform.runLater(r);
       }
 

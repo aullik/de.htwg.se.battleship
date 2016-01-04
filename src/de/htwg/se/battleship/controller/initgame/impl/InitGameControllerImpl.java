@@ -9,14 +9,15 @@ import de.htwg.se.battleship.model.impl.ShipSize4;
 import de.htwg.se.battleship.model.impl.ShipSize5;
 import de.htwg.se.battleship.model.readwrite.RWPlayer;
 import de.htwg.se.battleship.util.controller.impl.GamePlatform;
-import de.htwg.se.battleship.util.controller.impl.ThreadSaveController;
+import de.htwg.se.battleship.util.controller.impl.ThreadSaveControllerBase;
 
 import java.util.function.Consumer;
 
 /**
  * @author aullik on 28.11.2015.
  */
-public class InitGameControllerImpl extends ThreadSaveController<InitGameControllable> implements InitGameController {
+public class InitGameControllerImpl extends ThreadSaveControllerBase<InitGameControllable> implements
+      InitGameController {
 
    private final static int NUM_SIZE_2_SHIPS = 4;
    private final static int NUM_SIZE_3_SHIPS = 3;
