@@ -6,7 +6,7 @@ import de.htwg.se.battleship.model.readwrite.RWPlayer;
 /**
  * Created by aullik on 29.11.2015.
  */
-public class SharedScreenController extends GamemodeControllerBase implements GamemodeController {
+public class TwoPlayerController extends GamemodeControllerBase implements GamemodeController {
 
    private final static String P1 = "Player1";
    private final static String P2 = "Player2";
@@ -17,16 +17,16 @@ public class SharedScreenController extends GamemodeControllerBase implements Ga
    private RWPlayer player1;
    private RWPlayer player2;
 
-   public SharedScreenController() {
-      this.initCont1 = createThreadSaveController(p -> new InitGameControllerImpl(p, P1 ,this::setPlayer1));
+   public TwoPlayerController() {
+      this.initCont1 = createThreadSaveController(p -> new InitGameControllerImpl(p, P1, this::setPlayer1));
       this.initCont2 = createThreadSaveController(p -> new InitGameControllerImpl(p, P2, this::setPlayer2));
    }
 
-   private void setPlayer1(RWPlayer player1){
+   private void setPlayer1(RWPlayer player1) {
       this.player1 = player1;
    }
 
-   private void setPlayer2(RWPlayer player2){
+   private void setPlayer2(RWPlayer player2) {
       this.player2 = player2;
    }
 

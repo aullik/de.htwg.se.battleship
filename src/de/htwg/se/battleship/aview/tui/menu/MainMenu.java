@@ -18,7 +18,7 @@ public class MainMenu extends TUIMenu {
    }
 
    private MainMenu() {
-      this(ControllerFactory.createIController());
+      this(ControllerFactory.createOLDIController());
    }
 
 

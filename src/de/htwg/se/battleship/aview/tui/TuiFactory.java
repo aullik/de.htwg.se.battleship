@@ -59,7 +59,7 @@ public abstract class TuiFactory {
 
       @Override
       protected UserInterface _createUserInterface() {
-         return new MainMenuUi(ConsoleInput.getInstance(), ControllerFactory.createIController(),
+         return new MainMenuUi(ConsoleInput.getInstance(), ControllerFactory.createOLDIController(),
                createInitGameUI(), createIInitGameController());
       }
 

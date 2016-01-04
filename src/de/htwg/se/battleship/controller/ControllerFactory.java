@@ -20,17 +20,17 @@ public abstract class ControllerFactory {
 
 
    // bind(IOLDController.class).to(de.htwg.se.battleship.controller.old.impl.OLDController.class);
-   protected abstract IOLDController _createIController();
+   protected abstract IOLDController _createOLDIController();
 
-   public static IOLDController createIController() {
-      return getInstance()._createIController();
+   public static IOLDController createOLDIController() {
+      return getInstance()._createOLDIController();
    }
 
 
    public static class DefaultImpl extends ControllerFactory {
 
       @Override
-      protected IOLDController _createIController() {
+      protected IOLDController _createOLDIController() {
          return OLDController.getInstance();
       }
    }
