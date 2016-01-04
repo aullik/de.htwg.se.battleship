@@ -55,7 +55,13 @@ public class InitGameControllerImpl extends ThreadSaveController<InitGameControl
       else
          player = ModelFactory.createPlayer(name);
 
+      setRPlayer();
       initSetShips();
+   }
+
+   private void setRPlayer() {
+      executeConsumerMethod(c -> c.setPlayer(player));
+
    }
 
 

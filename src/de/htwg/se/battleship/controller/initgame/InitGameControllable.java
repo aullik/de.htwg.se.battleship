@@ -4,6 +4,7 @@ import de.htwg.se.battleship.model.impl.ShipSize2;
 import de.htwg.se.battleship.model.impl.ShipSize3;
 import de.htwg.se.battleship.model.impl.ShipSize4;
 import de.htwg.se.battleship.model.impl.ShipSize5;
+import de.htwg.se.battleship.model.read.RPlayer;
 import de.htwg.se.battleship.util.controller.Controllable;
 import de.htwg.se.battleship.util.controller.impl.SingleUseConsumer;
 
@@ -12,6 +13,7 @@ import de.htwg.se.battleship.util.controller.impl.SingleUseConsumer;
  */
 public interface InitGameControllable extends Controllable {
 
+   void setPlayer(RPlayer player);
 
    void setPlayerName(final SingleUseConsumer<String> nameSetter);
 
