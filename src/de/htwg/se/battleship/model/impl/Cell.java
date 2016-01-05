@@ -32,15 +32,14 @@ public class Cell extends AbstractObservable implements RWCell {
       invalidated();
    }
 
-   @Override
-   public void setToHit() {
-      this.status = STATUS.HIT;
-      invalidated();
-   }
 
    @Override
-   public void setToShot() {
-      this.status = STATUS.SHOT;
+   public void shootCell() {
+      if (ship != null)
+         this.status = STATUS.HIT;
+      else
+         this.status = STATUS.SHOT;
+
       invalidated();
    }
 

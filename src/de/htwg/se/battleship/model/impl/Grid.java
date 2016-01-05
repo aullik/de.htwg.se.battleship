@@ -1,6 +1,6 @@
 package de.htwg.se.battleship.model.impl;
 
-import de.htwg.se.battleship.model.read.RCell;
+import de.htwg.se.battleship.model.read.REnemyCell;
 import de.htwg.se.battleship.model.readwrite.RWCell;
 import de.htwg.se.battleship.model.readwrite.RWGrid;
 import javafx.beans.InvalidationListener;
@@ -58,7 +58,7 @@ public class Grid extends AbstractObservable implements RWGrid {
    }
 
    @Override
-   public RWCell getCell(final RCell cell) {
+   public RWCell getCell(final REnemyCell cell) {
       return cells.get(cell.getKey());
    }
 

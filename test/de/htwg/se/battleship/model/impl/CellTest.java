@@ -48,7 +48,7 @@ public class CellTest {
    public void testSet_IsToShot() throws Exception {
       Cell c = new Cell(1, 1);
       assertFalse(c.isShot());
-      c.setToShot();
+      c.shootCell();
       assertTrue(c.isShot());
    }
 
@@ -94,7 +94,7 @@ public class CellTest {
 
       assertEquals(0, c1.compareTo(c1));
       assertEquals(0, c1.compareTo(c2));
-      
+
       assertTrue(c1.compareTo(c3) < 0);
       assertTrue(c1.compareTo(c4) < 0);
 

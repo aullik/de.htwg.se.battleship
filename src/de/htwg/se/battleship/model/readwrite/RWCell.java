@@ -24,14 +24,10 @@ public interface RWCell extends RCell {
     */
    RWShip getShip();
 
-   /**
-    * Set status of this Cell to HIT (Player has hit a ship on this Cell).
-    */
-   void setToHit();
 
    /**
-    * Set status of this Cell to SHOT (Player has made a shot on this Cell).
+    * Set status of this Cell to SHOT (Player has made a shot on this Cell) or HIT (Player has hit a ship on this Cell).
     */
-   void setToShot();
+   void shootCell();
 
 }

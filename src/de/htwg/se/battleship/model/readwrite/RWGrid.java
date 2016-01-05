@@ -1,6 +1,6 @@
 package de.htwg.se.battleship.model.readwrite;
 
-import de.htwg.se.battleship.model.read.RCell;
+import de.htwg.se.battleship.model.read.REnemyCell;
 import de.htwg.se.battleship.model.read.RGrid;
 
 /**
@@ -16,5 +16,5 @@ public interface RWGrid extends RGrid {
 
 
    @Override
-   RWCell getCell(RCell cell);
+   RWCell getCell(REnemyCell cell);
 }

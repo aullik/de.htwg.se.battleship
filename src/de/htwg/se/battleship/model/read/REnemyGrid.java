@@ -33,5 +33,5 @@ public interface REnemyGrid extends Observable {
     * @param cell similar cell instance, might or might not be of another grid
     * @return Null/Cell instance
     */
-   REnemyCell getCell(RCell cell);
+   REnemyCell getCell(REnemyCell cell);
 }
