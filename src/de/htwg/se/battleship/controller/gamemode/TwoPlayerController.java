@@ -6,7 +6,7 @@ import de.htwg.se.battleship.model.readwrite.RWPlayer;
 /**
  * Created by aullik on 29.11.2015.
  */
-public class TwoPlayerController extends GamemodeControllerBase implements GamemodeController {
+public class TwoPlayerController extends GamemodeControllerBase<GamemodeControllable> {
 
    private final static String P1 = "Player1";
    private final static String P2 = "Player2";
@@ -41,11 +41,12 @@ public class TwoPlayerController extends GamemodeControllerBase implements Gamem
 
    @Override
    protected void start() {
-      executeConsumerMethod(gmc -> gmc.setInitGameController(initCont1));
+      executePlayer1ConsumerMethod(gmc -> gmc.setInitGameController(initCont1));
+      executePlayer2ConsumerMethod(gmc -> gmc.setInitGameController(initCont2));
    }
 
    @Override
-   public void endGame() {
+   public void abortGame() {
       // TODO
    }
 }

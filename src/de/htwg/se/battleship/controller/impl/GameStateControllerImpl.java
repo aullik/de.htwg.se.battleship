@@ -31,7 +31,7 @@ public class GameStateControllerImpl implements
    private final List<GameStateControllable> controllables;
 
    /**
-    * Initialize OLDInitGameController
+    * Initialize InitGameController
     */
    private GameStateControllerImpl() {
       this.controllables = new LinkedList<>();
@@ -41,7 +41,7 @@ public class GameStateControllerImpl implements
    public void startNewSharedScreenGame() {
 
       final GamemodeController gmController = new TwoPlayerController();
-      executeConsumerMethod(cont -> cont.startNewGame(gmController));
+      executeConsumerMethod(cont -> cont.startNewSharedScreenGame(gmController));
    }
 
    @Override

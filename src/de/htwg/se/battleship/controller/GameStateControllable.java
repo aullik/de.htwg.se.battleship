@@ -8,7 +8,7 @@ import de.htwg.se.battleship.util.controller.Controllable;
  */
 public interface GameStateControllable extends Controllable {
 
-   void startNewGame(GamemodeController gmController);
+   void startNewSharedScreenGame(GamemodeController gmController);
 
    String getName();
 
