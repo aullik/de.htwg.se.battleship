@@ -35,4 +35,9 @@ public abstract class ShipWithSetSize extends BasicRShip {
       return cells;
    }
 
+   @Override
+   public boolean isDestroyed() {
+      return false;
+   }
+
 }

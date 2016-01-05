@@ -31,7 +31,7 @@ public class CellTest {
       assertTrue(c.isNormal());
       assertFalse(c.isHit());
 
-      c.setToHit();
+      c.shootCell();
       assertFalse(c.isNormal());
    }
 
@@ -39,7 +39,7 @@ public class CellTest {
    public void testSet_IsToHit() throws Exception {
       Cell c = new Cell(1, 1);
       assertFalse(c.isHit());
-      c.setToHit();
+      c.shootCell();
       assertTrue(c.isHit());
 
    }

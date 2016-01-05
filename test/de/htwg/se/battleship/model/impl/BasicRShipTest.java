@@ -33,6 +33,11 @@ public class BasicRShipTest {
       public List<? extends RCell> getCells() {
          throw new NotImplementedException();
       }
+
+      @Override
+      public boolean isDestroyed() {
+         throw new NotImplementedException();
+      }
    }
 
    public static List<RWCell> cellList(int size) {

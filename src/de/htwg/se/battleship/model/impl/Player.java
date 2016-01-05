@@ -2,7 +2,6 @@ package de.htwg.se.battleship.model.impl;
 
 import de.htwg.se.battleship.model.ModelFactory;
 import de.htwg.se.battleship.model.read.RCell;
-import de.htwg.se.battleship.model.read.RGrid;
 import de.htwg.se.battleship.model.read.RShip;
 import de.htwg.se.battleship.model.readwrite.RWCell;
 import de.htwg.se.battleship.model.readwrite.RWGrid;
@@ -66,7 +65,7 @@ public class Player implements RWPlayer {
 
 
    @Override
-   public RGrid getGrid() {
+   public RWGrid getGrid() {
       return grid;
    }
 
