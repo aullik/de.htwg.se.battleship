@@ -6,7 +6,7 @@ import de.htwg.se.battleship.model.impl.ShipSize4;
 import de.htwg.se.battleship.model.impl.ShipSize5;
 import de.htwg.se.battleship.model.read.RPlayer;
 import de.htwg.se.battleship.util.controller.Controllable;
-import de.htwg.se.battleship.util.controller.impl.SingleUseConsumer;
+import de.htwg.se.battleship.util.platform.SingleUseConsumer;
 
 /**
  * Created by aullik on 27.11.2015.

@@ -8,6 +8,7 @@ import de.htwg.se.battleship.controller.initgame.impl.InitGameControllerImpl;
 import de.htwg.se.battleship.model.readwrite.RWPlayer;
 
 /**
+ * Controller for a Standard 2 player game
  * Created by aullik on 29.11.2015.
  */
 public class TwoPlayerController extends GamemodeControllerBase<GamemodeControllable> {
@@ -63,6 +64,8 @@ public class TwoPlayerController extends GamemodeControllerBase<GamemodeControll
 
    @Override
    public void abortGame() {
-      // TODO
+      executePlayer1ConsumerMethod(GamemodeControllable::abortGame);
+      executePlayer2ConsumerMethod(GamemodeControllable::abortGame);
+
    }
 }

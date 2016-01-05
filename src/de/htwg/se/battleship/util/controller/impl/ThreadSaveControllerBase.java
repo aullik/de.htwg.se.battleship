@@ -2,6 +2,8 @@ package de.htwg.se.battleship.util.controller.impl;
 
 import de.htwg.se.battleship.util.controller.Controllable;
 import de.htwg.se.battleship.util.controller.Controller;
+import de.htwg.se.battleship.util.platform.SingleUseConsumer;
+import de.htwg.se.battleship.util.platform.ThreadPlatform;
 
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
@@ -16,7 +18,7 @@ public abstract class ThreadSaveControllerBase<C extends Controllable> extends A
 
    private final ControllerHelper<C> helper;
 
-   public ThreadSaveControllerBase(final GamePlatform platform) {
+   public ThreadSaveControllerBase(final ThreadPlatform platform) {
       super(platform);
       helper = new ControllerHelper<>();
    }
@@ -40,14 +42,18 @@ public abstract class ThreadSaveControllerBase<C extends Controllable> extends A
 
    // TODO rename method and params
    public <T> void executeSingleUse(final BiConsumer<C, SingleUseConsumer<T>> executor, Consumer<T> cons) {
-      executeConsumerMethod(ct -> executor.accept(ct, new SingleUseConsumerImpl<>(cons)));
+      //must be outside of executeConsumerMethod or multiple SingleUseConsumers will be created
+      final SingleUseConsumerImpl<T> consumer = new SingleUseConsumerImpl<>(cons);
+      executeConsumerMethod(ct -> executor.accept(ct, consumer));
    }
 
+   // must be done or SingleUseConsumerImpl constructor will try to access AbstractSingleUse.platform
+   ThreadPlatform gamePlatform = platform;
 
    class SingleUseConsumerImpl<T> extends SingleUseConsumer<T> {
 
       private SingleUseConsumerImpl(final Consumer<T> cons) {
-         super(cons, platform);
+         super(cons, gamePlatform);
       }
    }
 

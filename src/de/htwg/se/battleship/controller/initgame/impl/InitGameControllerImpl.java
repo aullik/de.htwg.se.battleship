@@ -8,8 +8,8 @@ import de.htwg.se.battleship.model.impl.ShipSize3;
 import de.htwg.se.battleship.model.impl.ShipSize4;
 import de.htwg.se.battleship.model.impl.ShipSize5;
 import de.htwg.se.battleship.model.readwrite.RWPlayer;
-import de.htwg.se.battleship.util.controller.impl.GamePlatform;
 import de.htwg.se.battleship.util.controller.impl.ThreadSaveControllerBase;
+import de.htwg.se.battleship.util.platform.ThreadPlatform;
 
 import java.util.function.Consumer;
 
@@ -33,7 +33,7 @@ public class InitGameControllerImpl extends ThreadSaveControllerBase<InitGameCon
    private int size_5_ships;
 
 
-   public InitGameControllerImpl(final GamePlatform platform, String initialName, Consumer<RWPlayer> onFinished) {
+   public InitGameControllerImpl(final ThreadPlatform platform, String initialName, Consumer<RWPlayer> onFinished) {
       super(platform);
       this.initialName = initialName;
       this.onFinished = onFinished;

@@ -1,4 +1,4 @@
-package de.htwg.se.battleship.util.controller.impl;
+package de.htwg.se.battleship.util.platform;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -6,13 +6,13 @@ import java.util.concurrent.LinkedBlockingQueue;
 /**
  * @author aullik on 29.12.2015.
  */
-public class GamePlatform implements Runnable {
+public class ThreadPlatform implements Runnable {
 
    private final Thread gameThread;
    private final BlockingQueue<Runnable> gameThreadQueue;
    private boolean running;
 
-   protected GamePlatform() {
+   public ThreadPlatform() {
       this.gameThread = Thread.currentThread();
       this.gameThreadQueue = new LinkedBlockingQueue<>();
       this.running = false;

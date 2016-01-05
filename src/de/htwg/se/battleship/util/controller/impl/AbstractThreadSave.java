@@ -1,5 +1,7 @@
 package de.htwg.se.battleship.util.controller.impl;
 
+import de.htwg.se.battleship.util.platform.ThreadPlatform;
+
 import java.util.function.Function;
 
 /**
@@ -9,19 +11,14 @@ import java.util.function.Function;
  */
 public abstract class AbstractThreadSave {
 
-   protected final GamePlatform platform;
+   protected final ThreadPlatform platform;
 
-   public AbstractThreadSave(final GamePlatform platform) {
+   public AbstractThreadSave(final ThreadPlatform platform) {
       this.platform = platform;
    }
 
 
-   public void close() {
-      this.platform.close();
-   }
-
-
-   public <T extends AbstractThreadSave> T createThreadSaveController(Function<GamePlatform, T> supp) {
+   public <T extends AbstractThreadSave> T createThreadSaveController(Function<ThreadPlatform, T> supp) {
       return supp.apply(platform);
    }
 

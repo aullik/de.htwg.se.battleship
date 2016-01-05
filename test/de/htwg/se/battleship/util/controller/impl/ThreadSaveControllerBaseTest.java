@@ -1,6 +1,10 @@
 package de.htwg.se.battleship.util.controller.impl;
 
 import de.htwg.se.battleship.util.controller.Controllable;
+import de.htwg.se.battleship.util.platform.AlreadyExecutedException;
+import de.htwg.se.battleship.util.platform.NotUIThreadException;
+import de.htwg.se.battleship.util.platform.SingleUseConsumer;
+import de.htwg.se.battleship.util.platform.ThreadPlatform;
 import javafx.beans.property.SimpleObjectProperty;
 import org.junit.Assert;
 import org.junit.Before;
@@ -39,7 +43,7 @@ public class ThreadSaveControllerBaseTest {
       }
 
       public TestController() {
-         super(new GamePlatform());
+         super(new ThreadPlatform());
       }
    }
 
@@ -53,7 +57,7 @@ public class ThreadSaveControllerBaseTest {
          platform.runLater(r);
       }
 
-      public TestGivePlatform(final GamePlatform platform) {
+      public TestGivePlatform(final ThreadPlatform platform) {
          super(platform);
       }
    }
@@ -122,15 +126,6 @@ public class ThreadSaveControllerBaseTest {
       }
    }
 
-   @Test
-   public void testClose() {
-      cont.close();
-      try {
-         assertTrue(endOfThread.await(1, TimeUnit.SECONDS));
-      } catch (InterruptedException e) {
-         fail();
-      }
-   }
 
    @Test
    public void testRunTwice() {

@@ -20,6 +20,6 @@ public interface GamemodeControllable extends Controllable {
 
    void getWinner(Consumer<OLDPlayer> cons);
 
-   void endGame();
+   void abortGame();
 
 }

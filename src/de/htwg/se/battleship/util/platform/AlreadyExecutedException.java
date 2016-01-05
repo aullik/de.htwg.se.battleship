@@ -1,8 +1,8 @@
-package de.htwg.se.battleship.util.controller.impl;
+package de.htwg.se.battleship.util.platform;
 
 /**
  * @author aullik on 28.12.2015.
- * @see de.htwg.se.battleship.util.controller.impl.SingleUseConsumer
+ * @see de.htwg.se.battleship.util.platform.SingleUseConsumer
  */
 public class AlreadyExecutedException extends Exception {
 

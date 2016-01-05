@@ -2,7 +2,7 @@ package de.htwg.se.battleship.controller.gamemode;
 
 import de.htwg.se.battleship.util.controller.impl.AbstractThreadSave;
 import de.htwg.se.battleship.util.controller.impl.ControllerHelper;
-import de.htwg.se.battleship.util.controller.impl.GamePlatform;
+import de.htwg.se.battleship.util.platform.ThreadPlatform;
 
 import java.util.function.Consumer;
 
@@ -53,10 +53,10 @@ public abstract class GamemodeControllerBase<C extends GamemodeControllable> ext
       player2Consumables.executeConsumerMethod(executor);
    }
 
-   private static class MyGamePlatform extends GamePlatform {}
+   private static class GamePlatform extends ThreadPlatform {}
 
-   private static GamePlatform createPlatform() {
-      return new MyGamePlatform();
+   private static ThreadPlatform createPlatform() {
+      return new GamePlatform();
    }
 
    @Override
