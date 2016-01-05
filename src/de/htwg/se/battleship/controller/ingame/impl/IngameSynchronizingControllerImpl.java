@@ -1,6 +1,7 @@
 package de.htwg.se.battleship.controller.ingame.impl;
 
 import de.htwg.se.battleship.controller.ingame.IngameSynchronizingControllable;
+import de.htwg.se.battleship.controller.ingame.IngameSynchronizingController;
 import de.htwg.se.battleship.model.read.RPlayer;
 import de.htwg.se.battleship.util.controller.impl.ThreadSaveControllerBase;
 import de.htwg.se.battleship.util.platform.SingleUseRunnable;
@@ -17,7 +18,7 @@ import java.util.function.Consumer;
  * @author aullik on 05.01.2016.
  */
 public class IngameSynchronizingControllerImpl extends ThreadSaveControllerBase<IngameSynchronizingControllable>
-      implements Runnable {
+      implements IngameSynchronizingController, Runnable {
 
    private final Consumer<List<RPlayer>> onFinish;
    private final List<RPlayer> registeredPlayers;

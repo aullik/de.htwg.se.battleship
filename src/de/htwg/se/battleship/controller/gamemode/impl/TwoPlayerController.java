@@ -3,9 +3,15 @@ package de.htwg.se.battleship.controller.gamemode.impl;
 import de.htwg.se.battleship.controller.gamemode.GamemodeControllable;
 import de.htwg.se.battleship.controller.gamemode.GamemodeControllerBase;
 import de.htwg.se.battleship.controller.ingame.IngameController;
+import de.htwg.se.battleship.controller.ingame.IngameSynchronizingController;
 import de.htwg.se.battleship.controller.ingame.impl.IngameControllerImpl;
+import de.htwg.se.battleship.controller.ingame.impl.IngameSynchronizingControllerImpl;
+import de.htwg.se.battleship.controller.ingame.impl.OpponentCellShooter;
 import de.htwg.se.battleship.controller.initgame.impl.InitGameControllerImpl;
+import de.htwg.se.battleship.model.read.RPlayer;
 import de.htwg.se.battleship.model.readwrite.RWPlayer;
+
+import java.util.List;
 
 /**
  * Controller for a Standard 2 player game
@@ -41,13 +47,20 @@ public class TwoPlayerController extends GamemodeControllerBase<GamemodeControll
    }
 
    private void startIngame() {
-      final IngameController inCont1 = createThreadSaveController(p ->
-            new IngameControllerImpl(p, player1));
-      final IngameController inCont2 = createThreadSaveController(p ->
-            new IngameControllerImpl(p, player2));
+
+      final IngameSynchronizingController synchro = new IngameSynchronizingControllerImpl(platform, this::checkResult);
+
+      final IngameController inCont1 = new IngameControllerImpl(platform, player1,
+            new OpponentCellShooter(player2.getGrid()), synchro);
+      final IngameController inCont2 = new IngameControllerImpl(platform, player2,
+            new OpponentCellShooter(player1.getGrid()), synchro);
 
       executePlayer1ConsumerMethod(gmc -> gmc.setInGameController(inCont1));
       executePlayer2ConsumerMethod(gmc -> gmc.setInGameController(inCont2));
+   }
+
+   private void checkResult(List<RPlayer> winningPlayers) {
+
    }
 
 

@@ -1,5 +1,6 @@
 package de.htwg.se.battleship.model.impl;
 
+import de.htwg.se.battleship.model.read.RCell;
 import de.htwg.se.battleship.model.readwrite.RWCell;
 import de.htwg.se.battleship.model.readwrite.RWShip;
 
@@ -27,6 +28,15 @@ public class Ship extends BasicRShip implements RWShip {
    @Override
    public List<? extends RWCell> getCells() {
       return cells;
+   }
+
+   @Override
+   public boolean isDestroyed() {
+      for (RCell cell : cells)
+         if (!cell.isHit())
+            return false;
+
+      return true;
    }
 
 }

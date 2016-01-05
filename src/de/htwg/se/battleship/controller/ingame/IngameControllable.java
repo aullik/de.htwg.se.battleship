@@ -1,6 +1,6 @@
 package de.htwg.se.battleship.controller.ingame;
 
-import de.htwg.se.battleship.model.read.RCell;
+import de.htwg.se.battleship.model.read.REnemyCell;
 import de.htwg.se.battleship.util.controller.Controllable;
 import de.htwg.se.battleship.util.platform.SingleUseConsumer;
 
@@ -9,5 +9,5 @@ import de.htwg.se.battleship.util.platform.SingleUseConsumer;
  */
 public interface IngameControllable extends Controllable {
 
-   void shoot(SingleUseConsumer<RCell> cons);
+   void shoot(SingleUseConsumer<REnemyCell> cons);
 }

@@ -1,6 +1,5 @@
 package de.htwg.se.battleship.model.readwrite;
 
-import de.htwg.se.battleship.model.read.RGrid;
 import de.htwg.se.battleship.model.read.RPlayer;
 import de.htwg.se.battleship.model.read.RShip;
 
@@ -26,7 +25,7 @@ public interface RWPlayer extends RPlayer {
     *
     * @return Instance of Grid
     */
-   RGrid getGrid();
+   RWGrid getGrid();
 
 
    /**

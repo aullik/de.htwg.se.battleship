@@ -24,4 +24,8 @@ public interface RShip {
     */
    List<? extends RCell> getCells();
 
+   /**
+    * @return whether or not all Cells in this Ship have been shot.
+    */
+   boolean isDestroyed();
 }
