@@ -5,6 +5,8 @@ import de.htwg.se.battleship.util.platform.AlreadyExecutedException;
 import de.htwg.se.battleship.util.platform.NotUIThreadException;
 import de.htwg.se.battleship.util.platform.SingleUseConsumer;
 import de.htwg.se.battleship.util.platform.ThreadPlatform;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import org.junit.Assert;
 import org.junit.Before;
@@ -200,6 +202,7 @@ public class ThreadSaveControllerBaseTest {
    @Test
    public void testSingleUseExecute() throws InterruptedException {
       AtomicInteger ai = new AtomicInteger(0);
+      BooleanProperty failed = new SimpleBooleanProperty(false);
       final SingleUseConsumer<AtomicInteger> singletonConsumer = getSingletonConsumer(AtomicInteger::incrementAndGet);
 
       CountDownLatch start = new CountDownLatch(1);
@@ -207,25 +210,55 @@ public class ThreadSaveControllerBaseTest {
          try {
             start.await();
          } catch (InterruptedException e) {
-            fail();
+            failed.set(true);
          }
       });
 
       try {
          singletonConsumer.accept(ai); // ai increased to 1
-         singletonConsumer.accept(ai); // nothing happens
       } catch (AlreadyExecutedException | NotUIThreadException e) {
          fail();
       }
+      // AlreadyExecutedException is thrown
+      assertTrue(expectAlreadyExecutedExeption(() -> singletonConsumer.accept(ai)));
+
+
       start.countDown();
 
+      assertFalse(failed.get()
+
+      );
+
       awaitPlatform();
-      assertEquals(1, ai.get());
+
+      assertEquals(1, ai.get()
+
+      );
+   }
+
+   private interface ThrowingRunnable {
+
+      void run() throws AlreadyExecutedException, NotUIThreadException;
+   }
+
+   private boolean expectAlreadyExecutedExeption(ThrowingRunnable runnable) {
+      try {
+         runnable.run();
+      } catch (AlreadyExecutedException a) {
+         return true;
+      } catch (NotUIThreadException e) {
+         System.out.println("NotUIThreadException");
+         return false;
+      }
+      System.out.println("Nothing thrown");
+      return false;
+
    }
 
    @Test
    public void testSingleUseExecute2() throws InterruptedException {
       AtomicInteger ai = new AtomicInteger(0);
+      BooleanProperty exceptionThrown = new SimpleBooleanProperty(false);
       final SingleUseConsumer<AtomicInteger> singletonConsumer = getSingletonConsumer(AtomicInteger::incrementAndGet);
 
 
@@ -237,15 +270,21 @@ public class ThreadSaveControllerBaseTest {
 
       //first one already in q
       cont.runLater(() -> {
+         // AlreadyExecutedException is thrown
+         //must be in new Thread or NotUIThreadException is thrown
+         final Thread t = new Thread(() -> exceptionThrown.set(expectAlreadyExecutedExeption(() ->
+               singletonConsumer.accept(ai))));
+         t.start();
          try {
-            singletonConsumer.accept(ai); // nothing happens
-         } catch (AlreadyExecutedException | NotUIThreadException e) {
-            fail();
+            t.join();
+         } catch (InterruptedException e) {
+            e.printStackTrace();
          }
       });
 
       awaitPlatform();
       assertEquals(1, ai.get());
+      assertTrue(exceptionThrown.get());
    }
 
    @Test

@@ -38,6 +38,12 @@ public class StringMatchMapTest {
    }
 
    @Test
+   public void testGetEmpty() {
+      final List<String> approx = map.getApprox("");
+      assertEquals(map.size(), approx.size());
+   }
+
+   @Test
    public void testGet() throws Exception {
       String s1 = "a";
       String s2 = "bb";

@@ -344,7 +344,7 @@ public class StringMatchMap<V> {
 
    private char[] stringToChars(String s) {
       final String lower = s.toLowerCase();
-      if (!lower.matches("[a-z]+"))
+      if (!lower.matches("[a-z]*"))
          throw new IllegalArgumentException("Inputstring must only contain Latin characters");
       return lower.toCharArray();
    }

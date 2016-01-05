@@ -3,6 +3,8 @@ package de.htwg.se.battleship.model.impl;
 import de.htwg.se.battleship.model.readwrite.RWShip;
 import org.junit.Test;
 
+import java.util.Collections;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
@@ -35,9 +37,12 @@ public class CellTest {
       assertFalse(c.isNormal());
    }
 
+
    @Test
    public void testSet_IsToHit() throws Exception {
       Cell c = new Cell(1, 1);
+      RWShip dummy = new Ship(Collections.singletonList(c));
+      c.setShip(dummy);
       assertFalse(c.isHit());
       c.shootCell();
       assertTrue(c.isHit());
