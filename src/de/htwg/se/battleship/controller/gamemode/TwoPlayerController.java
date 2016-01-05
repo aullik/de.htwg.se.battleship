@@ -1,5 +1,7 @@
 package de.htwg.se.battleship.controller.gamemode;
 
+import de.htwg.se.battleship.controller.ingame.IngameController;
+import de.htwg.se.battleship.controller.ingame.impl.IngameControllerImpl;
 import de.htwg.se.battleship.controller.initgame.impl.InitGameControllerImpl;
 import de.htwg.se.battleship.model.readwrite.RWPlayer;
 
@@ -8,18 +10,15 @@ import de.htwg.se.battleship.model.readwrite.RWPlayer;
  */
 public class TwoPlayerController extends GamemodeControllerBase<GamemodeControllable> {
 
-   private final static String P1 = "Player1";
-   private final static String P2 = "Player2";
+   private final static String P1FallbackName = "Player1";
+   private final static String P2FallbackName = "Player2";
 
-   private final InitGameControllerImpl initCont1;
-   private final InitGameControllerImpl initCont2;
 
    private RWPlayer player1 = null;
    private RWPlayer player2 = null;
 
    public TwoPlayerController() {
-      this.initCont1 = createThreadSaveController(p -> new InitGameControllerImpl(p, P1, this::setPlayer1));
-      this.initCont2 = createThreadSaveController(p -> new InitGameControllerImpl(p, P2, this::setPlayer2));
+
    }
 
    private void setPlayer1(RWPlayer player1) {
@@ -34,13 +33,28 @@ public class TwoPlayerController extends GamemodeControllerBase<GamemodeControll
 
    private void checkPlayersSet() {
       if (player1 != null && player2 != null) {
-
+         startIngame();
       }
+   }
+
+   private void startIngame() {
+      final IngameController inCont1 = createThreadSaveController(p ->
+            new IngameControllerImpl(p, player1));
+      final IngameController inCont2 = createThreadSaveController(p ->
+            new IngameControllerImpl(p, player2));
+
+      executePlayer1ConsumerMethod(gmc -> gmc.setInGameController(inCont1));
+      executePlayer2ConsumerMethod(gmc -> gmc.setInGameController(inCont2));
    }
 
 
    @Override
    protected void start() {
+      final InitGameControllerImpl initCont1 = createThreadSaveController(p ->
+            new InitGameControllerImpl(p, P1FallbackName, this::setPlayer1));
+      final InitGameControllerImpl initCont2 = createThreadSaveController(p ->
+            new InitGameControllerImpl(p, P2FallbackName, this::setPlayer2));
+
       executePlayer1ConsumerMethod(gmc -> gmc.setInitGameController(initCont1));
       executePlayer2ConsumerMethod(gmc -> gmc.setInitGameController(initCont2));
    }
