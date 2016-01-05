@@ -1,5 +1,7 @@
-package de.htwg.se.battleship.controller.gamemode;
+package de.htwg.se.battleship.controller.gamemode.impl;
 
+import de.htwg.se.battleship.controller.gamemode.GamemodeControllable;
+import de.htwg.se.battleship.controller.gamemode.GamemodeControllerBase;
 import de.htwg.se.battleship.controller.ingame.IngameController;
 import de.htwg.se.battleship.controller.ingame.impl.IngameControllerImpl;
 import de.htwg.se.battleship.controller.initgame.impl.InitGameControllerImpl;

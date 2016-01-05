@@ -6,7 +6,7 @@ package de.htwg.se.battleship.controller.impl;
 import de.htwg.se.battleship.controller.GameStateControllable;
 import de.htwg.se.battleship.controller.GameStateController;
 import de.htwg.se.battleship.controller.gamemode.GamemodeController;
-import de.htwg.se.battleship.controller.gamemode.TwoPlayerController;
+import de.htwg.se.battleship.controller.gamemode.impl.TwoPlayerController;
 import de.htwg.se.battleship.util.controller.Controller;
 import de.htwg.se.battleship.util.singleton.SingletonSupplier;
 
