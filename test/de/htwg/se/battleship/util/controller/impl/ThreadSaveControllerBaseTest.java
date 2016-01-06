@@ -160,9 +160,25 @@ public class ThreadSaveControllerBaseTest {
       }
    }
 
+   @Test
+   public void testUnregister() {
+      CountDownLatch latch = new CountDownLatch(1);
+      TestControllable c = latch::countDown;
+      cont.registerControllable(c);
+      cont.unregisterControllable(c);
+
+      cont.executeConsumerMethod(TestControllable::test);
+      try {
+         latch.await(10, TimeUnit.MILLISECONDS);
+      } catch (InterruptedException expected) {
+         return;
+      }
+      fail();
+   }
+
 
    @Test
-   public void testRegisterLate() {
+   public void testRegisterLater() {
       CountDownLatch latch = new CountDownLatch(1);
       TestControllable c = latch::countDown;
       cont.executeConsumerMethod(TestControllable::test);

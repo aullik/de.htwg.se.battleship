@@ -50,7 +50,7 @@ public abstract class ThreadSaveControllerBase<C extends Controllable> extends A
    // must be done or SingleUseConsumerImpl constructor will try to access AbstractSingleUse.platform
    ThreadPlatform gamePlatform = platform;
 
-   class SingleUseConsumerImpl<T> extends SingleUseConsumer<T> {
+   private class SingleUseConsumerImpl<T> extends SingleUseConsumer<T> {
 
       private SingleUseConsumerImpl(final Consumer<T> cons) {
          super(cons, gamePlatform);
