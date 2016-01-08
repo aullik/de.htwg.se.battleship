@@ -36,7 +36,7 @@ public class AbstractSingleUse {
    }
 
    private void checkThread() throws NotUIThreadException {
-      if (platform.isGameThread()) {
+      if (platform.isPlatformThread()) {
          throw new NotUIThreadException();
       }
    }

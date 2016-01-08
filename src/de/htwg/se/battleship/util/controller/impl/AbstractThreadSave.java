@@ -24,7 +24,7 @@ public abstract class AbstractThreadSave {
 
 
    protected final void runPlatform() {
-      if (!platform.isGameThread())
+      if (!platform.isPlatformThread())
          throw new IllegalStateException("run must be called from the same Thread that created this instance");
       this.platform.run();
    }

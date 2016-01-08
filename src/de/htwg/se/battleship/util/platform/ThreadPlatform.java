@@ -8,13 +8,12 @@ import java.util.concurrent.LinkedBlockingQueue;
  */
 public class ThreadPlatform implements Runnable {
 
-   private final Thread gameThread;
-   private final BlockingQueue<Runnable> gameThreadQueue;
+   private Thread platform;
+   private final BlockingQueue<Runnable> threadQueue;
    private boolean running;
 
    public ThreadPlatform() {
-      this.gameThread = Thread.currentThread();
-      this.gameThreadQueue = new LinkedBlockingQueue<>();
+      this.threadQueue = new LinkedBlockingQueue<>();
       this.running = false;
    }
 
@@ -23,11 +22,13 @@ public class ThreadPlatform implements Runnable {
       if (running)
          throw new IllegalStateException("Platform is already running");
 
+      this.platform = Thread.currentThread();
       running = true;
+
       while (running) {
          final Runnable runnable;
          try {
-            runnable = gameThreadQueue.take();
+            runnable = threadQueue.take();
          } catch (InterruptedException e) {
             return;
          }
@@ -37,16 +38,17 @@ public class ThreadPlatform implements Runnable {
 
    protected void close() {
       running = false;
-      gameThreadQueue.offer(() -> {
+      // wakeup if sleeping
+      threadQueue.offer(() -> {
       });
    }
 
    public void runLater(Runnable r) {
-      gameThreadQueue.offer(r);
+      threadQueue.offer(r);
    }
 
-   public boolean isGameThread() {
-      return Thread.currentThread().equals(gameThread);
+   public boolean isPlatformThread() {
+      return Thread.currentThread().equals(platform);
    }
 
 }

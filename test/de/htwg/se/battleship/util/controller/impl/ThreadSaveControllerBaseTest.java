@@ -37,7 +37,7 @@ public class ThreadSaveControllerBaseTest {
    static class TestController extends ThreadSaveControllerBase<TestControllable> {
 
       public boolean isGameThread() {
-         return platform.isGameThread();
+         return platform.isPlatformThread();
       }
 
       public void runLater(Runnable r) {
@@ -52,7 +52,7 @@ public class ThreadSaveControllerBaseTest {
    class TestGivePlatform extends ThreadSaveControllerBase<TestControllable> {
 
       public boolean isGameThread() {
-         return platform.isGameThread();
+         return platform.isPlatformThread();
       }
 
       public void runLater(Runnable r) {
