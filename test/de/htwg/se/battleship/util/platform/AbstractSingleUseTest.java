@@ -21,9 +21,12 @@ public class AbstractSingleUseTest {
 
    class SingleUseTest extends AbstractSingleUse {
 
+      public SingleUseTest(final ThreadPlatform platform) {
+         super(platform);
+      }
+
       public SingleUseTest(final ThreadPlatform platform, final boolean checkThread) {
          super(platform, checkThread);
-
       }
    }
 
@@ -57,11 +60,33 @@ public class AbstractSingleUseTest {
       assertTrue(test.isExecuted());
    }
 
+   @Test
+   public void testAlreadyExecuted() {
+      final SingleUseTest test = new SingleUseTest(platform, true);
+      assertFalse(test.isExecuted());
+      try {
+         test.runChecked(() -> {
+         });
+      } catch (NotUIThreadException | AlreadyExecutedException e) {
+         fail();
+      }
+      try {
+         test.runChecked(() -> {
+         });
+      } catch (NotUIThreadException e) {
+         fail();
+      } catch (AlreadyExecutedException e) {
+         return;
+      }
+      fail();
+
+   }
+
 
    @Test
    public void testNotUIException() {
       final CountDownLatch latch = new CountDownLatch(1);
-      final SingleUseTest test = new SingleUseTest(platform, true);
+      final SingleUseTest test = new SingleUseTest(platform);
       final BooleanProperty checkFalse = new SimpleBooleanProperty(false);
       final BooleanProperty checkTrue = new SimpleBooleanProperty(false);
       platform.runLater(() -> {

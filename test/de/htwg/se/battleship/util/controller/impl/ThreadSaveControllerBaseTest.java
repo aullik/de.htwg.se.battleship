@@ -209,10 +209,15 @@ public class ThreadSaveControllerBaseTest {
       return prop.get();
    }
 
+
    private void awaitPlatform() throws InterruptedException {
+      awaitPlatform(100);
+   }
+
+   private void awaitPlatform(long millis) throws InterruptedException {
       CountDownLatch latch = new CountDownLatch(1);
       cont.runLater(latch::countDown);
-      latch.await();
+      assertTrue(latch.await(millis, TimeUnit.MILLISECONDS));
    }
 
    @Test
@@ -277,7 +282,6 @@ public class ThreadSaveControllerBaseTest {
       BooleanProperty exceptionThrown = new SimpleBooleanProperty(false);
       final SingleUseConsumer<AtomicInteger> singletonConsumer = getSingletonConsumer(AtomicInteger::incrementAndGet);
 
-
       try {
          singletonConsumer.accept(ai); // ai increased to 1
       } catch (AlreadyExecutedException | NotUIThreadException e) {
@@ -292,13 +296,13 @@ public class ThreadSaveControllerBaseTest {
                singletonConsumer.accept(ai))));
          t.start();
          try {
-            t.join();
+            t.join(100);
          } catch (InterruptedException e) {
             e.printStackTrace();
          }
       });
 
-      awaitPlatform();
+      awaitPlatform(200);
       assertEquals(1, ai.get());
       assertTrue(exceptionThrown.get());
    }

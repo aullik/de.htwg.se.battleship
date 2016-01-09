@@ -30,6 +30,7 @@ public class ThreadPlatform implements Runnable {
          try {
             runnable = threadQueue.take();
          } catch (InterruptedException e) {
+            running = false;
             return;
          }
          runnable.run();
@@ -37,13 +38,29 @@ public class ThreadPlatform implements Runnable {
    }
 
    protected void close() {
+      if (!running)
+         throw new IllegalStateException("Trying to close Platform that is not running");
       running = false;
       // wakeup if sleeping
       threadQueue.offer(() -> {
       });
    }
 
+   public boolean isRunning() {
+      return running;
+   }
+
+   /**
+    * @return whether the platform has run before but is closed
+    */
+   public boolean isClosed() {
+      return platform != null && !running;
+   }
+
    public void runLater(Runnable r) {
+      if (isClosed())
+         throw new IllegalStateException("ThreadPlatform is closed");
+
       threadQueue.offer(r);
    }
 
