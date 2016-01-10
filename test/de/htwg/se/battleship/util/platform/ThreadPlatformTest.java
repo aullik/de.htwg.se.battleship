@@ -17,14 +17,12 @@ import static org.junit.Assert.fail;
  */
 public class ThreadPlatformTest {
 
-   private Thread thread;
    private ThreadPlatform platform;
 
    @Before
    public void setup() {
       this.platform = new ThreadPlatform();
-      this.thread = new Thread(() -> platform.run());
-      thread.start();
+      platform.run();
 
       final CountDownLatch started = new CountDownLatch(1);
       platform.runLater(started::countDown);
@@ -54,13 +52,13 @@ public class ThreadPlatformTest {
    @Test (expected = IllegalStateException.class)
    public void testCloseNonRunning() {
       ThreadPlatform platform2 = new ThreadPlatform();
-      platform2.close();
+      platform2.closeImmediately();
    }
 
    @Test
    public void testRunLaterBeforeRunning() {
       ThreadPlatform platform2 = new ThreadPlatform();
-      platform2.runLater(platform2::close);
+      platform2.runLater(platform2::closeImmediately);
       Thread t = new Thread(platform2::run);
       t.run();
       try {
@@ -99,7 +97,7 @@ public class ThreadPlatformTest {
 
    @Test (expected = IllegalStateException.class)
    public void testRunLaterAfterClose() {
-      platform.close();
+      platform.closeImmediately();
       platform.runLater(() -> {
       });
    }
@@ -107,9 +105,10 @@ public class ThreadPlatformTest {
    @Test
    public void testInterrupt() {
       assertTrue(platform.isRunning());
-      thread.interrupt();
+      platform.runLater(() -> Thread.currentThread().interrupt());
+
       try {
-         thread.join(100);
+         platform.awaitClosed(100, TimeUnit.MILLISECONDS);
       } catch (InterruptedException e) {
          fail();
       }
@@ -120,7 +119,7 @@ public class ThreadPlatformTest {
    @After
    public void tearDown() {
       if (!platform.isClosed())
-         platform.close();
+         platform.closeInputQueue();
    }
 
 }

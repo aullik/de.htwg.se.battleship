@@ -32,7 +32,7 @@ public class StringMatchMap<V> {
    }
 
 
-   private static class CharArrayIter {
+   protected static class CharArrayIter {
 
       private final char[] array;
 
@@ -75,7 +75,7 @@ public class StringMatchMap<V> {
    }
 
 
-   private static class Node {
+   protected static class Node {
 
       private static int A_TO_INT = (int) 'a';
       private Object elem;

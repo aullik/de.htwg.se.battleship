@@ -27,7 +27,6 @@ public class TwoPlayerController extends GamemodeControllerBase<GamemodeControll
    private RWPlayer player2 = null;
 
    public TwoPlayerController() {
-
    }
 
    private void setPlayer1(RWPlayer player1) {

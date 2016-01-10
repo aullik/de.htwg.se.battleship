@@ -33,7 +33,7 @@ public class SingleUseRunnableTest {
       } catch (InterruptedException e) {
          fail();
       }
-      platform.close();
+      platform.closeImmediately();
    }
 
    @Test
@@ -60,7 +60,7 @@ public class SingleUseRunnableTest {
       }
 
       assertFalse(failed.get());
-      platform.close();
+      platform.closeImmediately();
    }
 
 }

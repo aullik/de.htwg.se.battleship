@@ -177,24 +177,6 @@ public class ThreadSaveControllerBaseTest {
    }
 
 
-   @Test
-   public void testRegisterLater() {
-      CountDownLatch latch = new CountDownLatch(1);
-      TestControllable c = latch::countDown;
-      cont.executeConsumerMethod(TestControllable::test);
-
-      //register after execute is called
-      cont.registerControllable(c);
-
-      try {
-         latch.await(1, TimeUnit.SECONDS);
-      } catch (InterruptedException e) {
-         e.printStackTrace();
-         fail();
-      }
-   }
-
-
    private <T> SingleUseConsumer<T> getSingletonConsumer(Consumer<T> cons) throws InterruptedException {
       SimpleObjectProperty<SingleUseConsumer<T>> prop = new SimpleObjectProperty<>();
       CountDownLatch set = new CountDownLatch(1);

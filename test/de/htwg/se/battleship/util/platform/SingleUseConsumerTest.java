@@ -33,7 +33,7 @@ public class SingleUseConsumerTest {
          fail();
       }
 
-      platform.close();
+      platform.closeImmediately();
    }
 
 }
