@@ -66,7 +66,8 @@ public class ThreadPlatform implements Runnable {
     */
    protected synchronized void closeInputQueue() {
       if (!acceptJobs)
-         throw new IllegalStateException("InputQueue already closed");
+         return;
+
       this.acceptJobs = false;
       //this will be the last executed job
       threadQueue.offer(() -> running.set(false));
@@ -81,6 +82,10 @@ public class ThreadPlatform implements Runnable {
     */
    public boolean isClosed() {
       return Thread.State.TERMINATED.equals(platform.getState());
+   }
+
+   public boolean inputClosed() {
+      return !acceptJobs;
    }
 
    public synchronized void runLater(Runnable r) {

@@ -45,8 +45,12 @@ public class ControllerHelperTest {
 
       helper.executeConsumerMethod(TestControllable::setCalled);
 
+      final TestControllable tc3 = new TestControllable();
+      helper.registerControllable(tc3);
+
       Assert.assertTrue(tc1.isCalled());
       Assert.assertTrue(tc2.isCalled());
+      Assert.assertTrue(tc3.isCalled());
    }
 
    @Test

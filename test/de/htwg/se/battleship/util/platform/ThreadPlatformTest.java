@@ -40,6 +40,25 @@ public class ThreadPlatformTest {
       platform.run();
    }
 
+   @Test (expected = IllegalStateException.class)
+   public void testRunAfterClosure() throws InterruptedException {
+      assertTrue(platform.isRunning());
+      platform.closeImmediately();
+      platform.awaitClosed(1, TimeUnit.SECONDS);
+      assertTrue(platform.isClosed());
+
+      platform.run();
+   }
+
+   @Test
+   public void testCloseTwice() throws InterruptedException {
+      assertTrue(platform.isRunning());
+      platform.closeInputQueue();
+      assertTrue(platform.inputClosed());
+      platform.closeInputQueue();
+      assertTrue(platform.inputClosed());
+   }
+
 
    @Test
    public void testBeforeRunning() {
@@ -100,6 +119,7 @@ public class ThreadPlatformTest {
       platform.closeImmediately();
       platform.runLater(() -> {
       });
+      platform = new ThreadPlatform();
    }
 
    @Test
@@ -118,8 +138,15 @@ public class ThreadPlatformTest {
 
    @After
    public void tearDown() {
-      if (!platform.isClosed())
+      if (!platform.inputClosed())
          platform.closeInputQueue();
+   }
+
+   @Test
+   public void testFinalize() throws Throwable {
+      //i know this is very very bad style but there aint no other way to ensure a 100% test coverage
+      platform.finalize();
+
    }
 
 }

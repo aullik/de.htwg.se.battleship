@@ -2,10 +2,7 @@ package de.htwg.se.battleship.controller.gamemode;
 
 import de.htwg.se.battleship.controller.ingame.IngameController;
 import de.htwg.se.battleship.controller.initgame.InitGameController;
-import de.htwg.se.battleship.model.old.OLDPlayer;
 import de.htwg.se.battleship.util.controller.Controllable;
-
-import java.util.function.Consumer;
 
 /**
  * Interface for all Gamemodes
@@ -17,9 +14,7 @@ public interface GamemodeControllable extends Controllable {
    void setInitGameController(InitGameController cont);
 
    void setInGameController(IngameController cont);
-
-   void getWinner(Consumer<OLDPlayer> cons);
-
+   
    void abortGame();
 
 }

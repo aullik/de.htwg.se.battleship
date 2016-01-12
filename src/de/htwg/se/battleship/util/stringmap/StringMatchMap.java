@@ -32,69 +32,26 @@ public class StringMatchMap<V> {
    }
 
 
-   protected static class CharArrayIter {
-
-      private final char[] array;
-
-      private final int max;
-      private int pos;
-
-      private CharArrayIter(final char[] array) {
-         this.array = array;
-         this.pos = -1;
-         this.max = array.length - 1;
-      }
-
-      public boolean hasNext() {
-         return pos < max;
-      }
-
-      public char next() {
-         pos++;
-         return get();
-      }
-
-      public char get() {
-         return array[pos];
-      }
-
-      public void setTo(final int i) {
-         pos = i;
-      }
-
-      public int getPos() {
-         return pos;
-      }
-
-      /**
-       * @return return rest array starting with current Pos
-       */
-      public char[] getRest() {
-         return Arrays.copyOfRange(array, pos, array.length);
-      }
-   }
-
-
    protected static class Node {
 
       private static int A_TO_INT = (int) 'a';
+      private static int NUM_CHARS = 26;
       private Object elem;
       private Node[] childs;
       private List<Node> childList;
       private char[] seq;
       private Node parent;
 
-      private Node(Node parent, char[] seq) {
+      protected Node(Node parent, char[] seq) {
          this(null, parent, seq);
       }
 
-      private Node(Object elem, Node parent, char[] seq) {
-
-         this(elem, parent, seq, new Node[26], new LinkedList<>());
+      protected Node(Object elem, Node parent, char[] seq) {
+         this(elem, parent, seq, new Node[NUM_CHARS], new LinkedList<>());
       }
 
-      private Node(final Object elem, Node parent, char[] seq, Node[] childs, List<Node> childList) {
-         if (seq.length == 0) {
+      protected Node(final Object elem, Node parent, char[] seq, Node[] childs, List<Node> childList) {
+         if (seq == null || seq.length == 0) {
             throw new IllegalArgumentException("no KeyString supplied");
          }
          this.elem = elem;
@@ -135,29 +92,48 @@ public class StringMatchMap<V> {
       }
 
 
-      private List<Node> getAllChildren() {
+      protected List<Node> getAllChildren() {
          return childList;
       }
 
-      private boolean removeChild(Node c) {
-         if (!childList.remove(c))
+      protected boolean remove() {
+         if (parent == null)
             return false;
 
-         if (elem == null && childList.size() == 0 && parent != null) {
-            return parent.removeChild(this);
+         elem = null;
 
-         }
+         if (childList.size() == 0) {
+            parent.childList.remove(this);
+            parent.childs[childPos(seq[0])] = null;
+         } else
+            checkMergeWithChild();
 
-         if (childList.size() == 1) {
-            mergeWithChild(childList.get(0));
-            return true;
-         }
+         parent.checkMergeWithChild();
 
-         removeChildNode(c.seq[0]);
          return true;
       }
 
-      private void mergeWithChild(final Node child) {
+      private void checkMergeWithChild() {
+         if (childList.size() != 1)
+            return;
+
+         if (parent == null)
+            return;
+
+         final Node child = childList.get(0);
+
+         if (elem == null) {
+            mergeWithChild(child, child.elem);
+         } else if (child.elem == null) {
+            mergeWithChild(child, elem);
+         } else {
+            return;
+         }
+
+      }
+
+      private void mergeWithChild(final Node child, Object elem) {
+         child.elem = elem;
          child.parent = parent;
          parent.childList.remove(this);
          parent.childList.add(child);
@@ -176,7 +152,7 @@ public class StringMatchMap<V> {
          return ret;
       }
 
-      private Node addChild(CharArrayIter iter) {
+      protected Node addChild(CharArrayIter iter) {
          int pos = iter.getPos();
          if (!compareSeq(iter)) {
             pos = iter.getPos() - pos;
@@ -196,6 +172,7 @@ public class StringMatchMap<V> {
          setChildNode(c.seq[0], c);
          return c;
       }
+
 
       private void split(int pos) {
          Node c = new Node(this.elem, this, Arrays.copyOfRange(seq, pos, seq.length), this.childs, this.childList);
@@ -229,12 +206,12 @@ public class StringMatchMap<V> {
          return true;
       }
 
-      private void removeChildNode(final char c) {
-         childs[childPos(c)] = null;
-      }
-
       private int childPos(final char c) {
          return ((int) c) - A_TO_INT;
+      }
+
+      protected void setElem(Object elem) {
+         this.elem = elem;
       }
 
       @SuppressWarnings ("unchecked")
@@ -242,13 +219,6 @@ public class StringMatchMap<V> {
          return (E) this.elem;
       }
 
-      private boolean remove() {
-         if (childList.size() > 0) {
-            elem = null;
-            return true;
-         } else
-            return parent.removeChild(this);
-      }
    }
 
    /**
@@ -319,8 +289,10 @@ public class StringMatchMap<V> {
    private boolean _remove(String s) {
       final CharArrayIter iter = new CharArrayIter(stringToChars(s));
       final Node node = head.lookup(iter);
-      if (node.compareSeq(iter) && !iter.hasNext())
+      if (node.compareSeq(iter) && !iter.hasNext()) {
          return node.remove();
+
+      }
       return false;
    }
 

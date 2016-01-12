@@ -169,11 +169,10 @@ public class ThreadSaveControllerBaseTest {
 
       cont.executeConsumerMethod(TestControllable::test);
       try {
-         latch.await(10, TimeUnit.MILLISECONDS);
+         assertFalse(latch.await(10, TimeUnit.MILLISECONDS));
       } catch (InterruptedException expected) {
-         return;
+         fail();
       }
-      fail();
    }
 
 
