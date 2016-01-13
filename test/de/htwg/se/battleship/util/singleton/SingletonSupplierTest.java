@@ -44,6 +44,13 @@ public class SingletonSupplierTest extends TestCase {
       });
 
       long time = System.currentTimeMillis();
+
+      //sleep is necessary or time mit be equal to getTime()
+      try {
+         Thread.sleep(2);
+      } catch (InterruptedException e) {
+         e.printStackTrace();
+      }
       assertTrue(supp.get().getTime() > time);
 
    }

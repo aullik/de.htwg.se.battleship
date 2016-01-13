@@ -1,16 +1,14 @@
 package de.htwg.se.battleship.aview.gui.impl;
 
 import de.htwg.se.battleship.aview.gui.MainFrame;
-import de.htwg.se.battleship.controller.IController;
 import de.htwg.se.battleship.controller.IInitGameController;
+import de.htwg.se.battleship.controller.IMenuController;
 import de.htwg.se.battleship.controller.event.CloseProgamm;
 import de.htwg.se.battleship.controller.event.InitGame;
 import de.htwg.se.battleship.controller.event.Winner;
 import de.htwg.se.battleship.model.Player;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
@@ -43,7 +41,7 @@ public class MainFrameImplementation extends MainFrame {
    private Menu menu;
    private Integer gameState;
    private JButton openMenueButton;
-   private final IController controller;
+   private final IMenuController controller;
    private final IInitGameController initC;
 
    /**
@@ -52,8 +50,8 @@ public class MainFrameImplementation extends MainFrame {
     * @throws URISyntaxException
     * @throws IOException
     */
-   public MainFrameImplementation(IController controller, IInitGameController initC) throws URISyntaxException,
-                                                                                            IOException {
+   public MainFrameImplementation(IMenuController controller, IInitGameController initC) throws URISyntaxException,
+                                                                                                IOException {
 
       this.controller = controller;
       controller.addObserver(this);
@@ -121,7 +119,7 @@ public class MainFrameImplementation extends MainFrame {
       this.setPreferredSize(size);
       this.setResizable(true);
       this.gameState = JPANEL_MENUPANEL;
-      openMenueButton = new JButton("Menu");
+      openMenueButton = new JButton("TUIMenu");
       openMenueButton.addActionListener(this);
       menu = new Menu(this, controller, initC);
       menu.addPanels();

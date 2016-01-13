@@ -1,12 +1,12 @@
 package de.htwg.se.battleship.aview.gui;
 
-import de.htwg.se.battleship.controller.IController;
 import de.htwg.se.battleship.controller.IInitGameController;
+import de.htwg.se.battleship.controller.IOLDController;
 import de.htwg.se.battleship.controller.event.CloseProgamm;
 import de.htwg.se.battleship.controller.event.InitGame;
 import de.htwg.se.battleship.controller.event.Winner;
-import de.htwg.se.battleship.controller.impl.Controller;
 import de.htwg.se.battleship.controller.impl.InitGameController;
+import de.htwg.se.battleship.controller.impl.OLDController;
 import de.htwg.se.battleship.model.Player;
 import org.junit.Test;
 
@@ -14,14 +14,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 public class ActionTest {
 
    private class TestClass extends Action {
 
-      public TestClass(MainFrame mainFrame, IController controller) {
+      public TestClass(MainFrame mainFrame, IOLDController controller) {
          super(mainFrame, controller);
       }
 
@@ -37,7 +36,7 @@ public class ActionTest {
        */
       private static final long serialVersionUID = 1L;
 
-      public TestMainFrame(IController controller, IInitGameController initC) {
+      public TestMainFrame(IOLDController controller, IInitGameController initC) {
       }
 
       @Override
@@ -89,7 +88,7 @@ public class ActionTest {
    @Test
    public void test() {
       try {
-         IController controller = Controller.getInstance();
+         IOLDController controller = OLDController.getInstance();
          IInitGameController initC = InitGameController.getInstance();
          MainFrame mainFrame = new TestMainFrame(controller, initC);
          Action action = new TestClass(mainFrame, controller);

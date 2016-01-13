@@ -1,6 +1,8 @@
 package de.htwg.se.battleship.controller;
 
-import de.htwg.se.battleship.controller.impl.Controller;
+import de.htwg.se.battleship.controller.impl.GameStateControllerImpl;
+import de.htwg.se.battleship.controller.old.IOLDController;
+import de.htwg.se.battleship.controller.old.impl.OLDController;
 
 /**
  * Factory for controller elements
@@ -18,19 +20,30 @@ public abstract class ControllerFactory {
    }
 
 
-   // bind(IController.class).to(de.htwg.se.battleship.controller.impl.Controller.class);
-   protected abstract IController _createIController();
+   protected abstract GameStateController _getController();
 
-   public static IController createIController() {
-      return getInstance()._createIController();
+   public static GameStateController getController() {
+      return getInstance()._getController();
+   }
+
+   // bind(IOLDController.class).to(de.htwg.se.battleship.controller.old.impl.OLDController.class);
+   protected abstract IOLDController _createOLDIController();
+
+   public static IOLDController createOLDIController() {
+      return getInstance()._createOLDIController();
    }
 
 
    public static class DefaultImpl extends ControllerFactory {
 
       @Override
-      protected IController _createIController() {
-         return Controller.getInstance();
+      protected GameStateController _getController() {
+         return GameStateControllerImpl.getInstance();
+      }
+
+      @Override
+      protected IOLDController _createOLDIController() {
+         return OLDController.getInstance();
       }
    }
 

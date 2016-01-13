@@ -20,7 +20,7 @@ public class TextUITest {
    private class TestInput1 extends ConsoleInput {
 
       @Override
-      public String getInput() throws IOException {
+      public String getInputLine() throws IOException {
          inputGet = true;
          return TextUITest.text;
       }
@@ -34,7 +34,7 @@ public class TextUITest {
    private class TestInput2 extends ConsoleInput {
 
       @Override
-      public String getInput() throws IOException {
+      public String getInputLine() throws IOException {
          throw new IOException();
       }
 

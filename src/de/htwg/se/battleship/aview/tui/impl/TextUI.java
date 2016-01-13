@@ -7,7 +7,7 @@ import java.io.IOException;
 
 
 /**
- * Text User Interface is an Observer
+ * Text User Interface is an OLDObserver
  *
  * @author Philipp Daniels <philipp.daniels@gmail.com>
  */
@@ -53,7 +53,11 @@ public class TextUI {
 
    private UserInterface executeUserInterface() throws IOException {
       ui.showText();
-      String text = input.getInput();
+      String text = input.getInputLine();
+
+      if (!ui.getProcess()) //another ui might have changed the status
+         return ui;
+
       return ui.executeInput(text);
    }
 }
