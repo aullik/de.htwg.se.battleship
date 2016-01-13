@@ -1,55 +1,59 @@
 package de.htwg.se.battleship.aview.tui.impl;
 
-import java.io.IOException;
+import de.htwg.se.battleship.aview.tui.TuiFactory;
+import de.htwg.se.battleship.util.singleton.SingletonSupplier;
 
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
+import java.io.IOException;
 
 
 /**
  * Text User Interface is an Observer
- * 
+ *
  * @author Philipp Daniels <philipp.daniels@gmail.com>
  */
-@Singleton
-public class TextUI  {
 
-    private UserInterface ui;
-    private ConsoleInput input;
+public class TextUI {
 
-    /**
-     * Default constructor.
-     */
-    public TextUI() {}
+   private static final SingletonSupplier<TextUI> INST_SUPP = new SingletonSupplier<>(TextUI::new);
 
-    /**
-     * @param controller controller to observe
-     */
-    @Inject
-    public TextUI(ConsoleInput input, UserInterface ui) {
-        this.ui = ui;
-        this.input = input;
-        processInput();
-    }
+   public static TextUI getInstance() {
+      return INST_SUPP.get();
+   }
 
-    private void processInput() {
-        try {
-            tryProcessing();
-        } catch (IOException e) {
-            input.close();
-        }
-    }
+   private UserInterface ui;
+   private final ConsoleInput input;
 
-    private void tryProcessing() throws IOException {
-        while (ui.getProcess()) {
-            ui = executeUserInterface();
-        }
-        input.close();
-    }
 
-    private UserInterface executeUserInterface() throws IOException {
-        ui.showText();
-        String text = input.get();
-        return ui.executeInput(text);
-    }
+   protected TextUI() {
+      this(ConsoleInput.getInstance(),
+            TuiFactory.createUserInterface());
+   }
+
+   protected TextUI(ConsoleInput input, UserInterface ui) {
+      this.ui = ui;
+      this.input = input;
+      processInput();
+   }
+
+
+   protected void processInput() {
+      try {
+         tryProcessing();
+      } catch (IOException e) {
+         input.close();
+      }
+   }
+
+   private void tryProcessing() throws IOException {
+      while (ui.getProcess()) {
+         ui = executeUserInterface();
+      }
+      input.close();
+   }
+
+   private UserInterface executeUserInterface() throws IOException {
+      ui.showText();
+      String text = input.getInput();
+      return ui.executeInput(text);
+   }
 }

@@ -1,77 +1,90 @@
 package de.htwg.se.battleship.aview.tui.impl;
 
-import static org.junit.Assert.*;
-
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-
+import de.htwg.se.battleship.util.singleton.SingletonInjector;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 public class ConsoleInputTest {
 
-    private final static String text = "test";
-    private ConsoleInput input;
-    private InputStream backup;
+   private final static String text = "test";
+   private ConsoleInput input;
+   private InputStream backup;
 
-    @Before
-    public void setUp() {
-        backup = System.in;
-    }
+   @Before
+   public void setUp() {
+      SingletonInjector.resetValue(ConsoleInput.class);
+      backup = System.in;
+   }
 
-    @After
-    public void tearDown() {
-        System.setIn(backup);
-    }
+   @After
+   public void tearDown() {
+      System.setIn(backup);
+   }
 
-    private class TestThread implements Runnable {
 
-        @Override
-        public void run() {
-            try {
+   @Test
+   public void testWithOneLine() throws Exception {
 
-                byte[] bytes = "".getBytes("UTF-8");
-                System.setIn(new ByteArrayInputStream(bytes));
-                input = new ConsoleInput();
-                input.get();
-            } catch (Exception e) {
-                fail(e.getMessage());
-            }
-        }
-    }
+      String lineSeperator = System.getProperty("line.separator");
+      String string = ConsoleInputTest.text + lineSeperator;
+      byte[] bytes = string.getBytes("UTF-8");
 
-    @Test
-    public void testWithOneLine() throws Exception {
+      final InputStream old = System.in;
+      try {
+         System.setIn(new ByteArrayInputStream(bytes));
+         input = ConsoleInput.getInstance();
+         assertEquals(ConsoleInputTest.text, input.getInput());
+      } finally {
+         System.setIn(old);
+      }
+   }
 
-        String lineSeperator = System.getProperty("line.separator");
-        String string = ConsoleInputTest.text + lineSeperator;
-        byte[] bytes = string.getBytes("UTF-8");
-        System.setIn(new ByteArrayInputStream(bytes));
+   @Test
+   public void testWithTwoLines() throws Exception {
+      String lineSeparator = System.getProperty("line.separator");
+      String string = ConsoleInputTest.text + lineSeparator;
 
-        input = new ConsoleInput();
-        assertEquals(ConsoleInputTest.text, input.get());
-    }
+      byte[] bytes = (string + string).getBytes("UTF-8");
+      System.setIn(new ByteArrayInputStream(bytes));
 
-    @Test
-    public void testWithTwoLines() throws Exception {
-        String lineSeperator = System.getProperty("line.separator");
-        String string = ConsoleInputTest.text + lineSeperator;
+      input = ConsoleInput.getInstance();
+      assertEquals(ConsoleInputTest.text, input.getInput());
+   }
 
-        byte[] bytes = (string + string).getBytes("UTF-8");
-        System.setIn(new ByteArrayInputStream(bytes));
+   private void testRun(CountDownLatch finnished) {
+      try {
+         byte[] bytes = "".getBytes("UTF-8");
+         System.setIn(new ByteArrayInputStream(bytes));
+         input = ConsoleInput.getInstance();
+         finnished.countDown();
+         input.getInput();
+      } catch (Exception e) {
+         fail(e.getMessage());
+      }
+   }
 
-        input = new ConsoleInput();
-        assertEquals(ConsoleInputTest.text, input.get());
-    }
+   @Test
+   public void testWithEmptyInput() throws InterruptedException {
+      final CountDownLatch finnished = new CountDownLatch(1);
+      Thread t = new Thread(() -> testRun(finnished));
+      t.start();
 
-    @Test
-    public void testWithEmptyInput() throws InterruptedException {
-        Runnable r = new TestThread();
-        Thread t = new Thread(r);
-        t.start();
+      final boolean timeout = !finnished.await(1, TimeUnit.SECONDS);
 
-        Thread.sleep(50);
-        input.close();
-    }
+      if (timeout)
+         Assert.fail("timeout");
+
+      input.close();
+   }
+
 }
