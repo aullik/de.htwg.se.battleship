@@ -1,26 +1,27 @@
 package de.htwg.se.battleship.aview.tui.impl;
 
 import de.htwg.se.battleship.TestAppender;
-import de.htwg.se.battleship.aview.tui.IMenu;
 import de.htwg.se.battleship.aview.tui.IMenuEntry;
 import de.htwg.se.battleship.aview.tui.InitGameUI;
-import de.htwg.se.battleship.controller.IController;
-import de.htwg.se.battleship.controller.IInitGameController;
-import de.htwg.se.battleship.controller.event.CloseProgamm;
-import de.htwg.se.battleship.controller.event.InitGame;
-import de.htwg.se.battleship.controller.event.SetPlayer;
-import de.htwg.se.battleship.controller.event.SetPlayerSuccess;
-import de.htwg.se.battleship.controller.event.SetShip;
-import de.htwg.se.battleship.controller.event.SetShipSuccess;
-import de.htwg.se.battleship.util.observer.impl.ObservableImpl;
+import de.htwg.se.battleship.aview.tui.TuiFactory;
+import de.htwg.se.battleship.aview.tui.menu.TUIMenu;
+import de.htwg.se.battleship.controller.old.IInitGameController;
+import de.htwg.se.battleship.controller.old.IOLDController;
+import de.htwg.se.battleship.controller.old.event.CloseProgamm;
+import de.htwg.se.battleship.controller.old.event.InitGame;
+import de.htwg.se.battleship.controller.old.event.SetPlayer;
+import de.htwg.se.battleship.controller.old.event.SetPlayerSuccess;
+import de.htwg.se.battleship.controller.old.event.SetShip;
+import de.htwg.se.battleship.controller.old.event.SetShipSuccess;
+import de.htwg.se.battleship.util._observer.impl.ObservableImpl;
 import org.apache.log4j.Logger;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.HashMap;
-import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -30,7 +31,10 @@ import static org.junit.Assert.assertTrue;
 public class MainMenuUiTest {
 
    private MainMenuUi ui;
+   private static TUIMenu menu;
    private TestAppender testAppender;
+   static TestTuiFactory tuiFactory;
+
 
    private boolean inputClose;
    private boolean init;
@@ -39,7 +43,7 @@ public class MainMenuUiTest {
    private static final String CMD = "EntryCmd";
    private static final String DESC = "EntryDescription";
 
-   private class TestController extends ObservableImpl implements IController {
+   private class TestController extends ObservableImpl implements IOLDController {
 
       @Override
       public void newGame() {
@@ -109,7 +113,12 @@ public class MainMenuUiTest {
       }
 
       @Override
-      public String getInput() throws IOException {
+      public String getInputLine() throws IOException {
+         return null;
+      }
+
+      @Override
+      public String getInputWord() throws IOException {
          return null;
       }
 
@@ -143,15 +152,34 @@ public class MainMenuUiTest {
 
    }
 
-   private class TestMenu implements IMenu {
+   private static class TestTuiFactory extends TuiFactory.DefaultImpl {
 
-      @Override
-      public Map<String, IMenuEntry> get() {
-         Map<String, IMenuEntry> list = new HashMap<String, IMenuEntry>();
-         list.put(CMD, new TestMenuEntry());
-         return list;
+      public TestTuiFactory() {
+         instance = this;
       }
 
+      public void clear() {
+         instance = null;
+      }
+
+      @Override
+      protected TUIMenu _createTUIMenu() {
+         return menu;
+      }
+   }
+
+
+   private class TestMenu extends TUIMenu {
+
+      private TestMenu() {
+         add(new TestMenuEntry());
+      }
+
+   }
+
+   @BeforeClass
+   public static void setUpClass() {
+      tuiFactory = new TestTuiFactory();
    }
 
    @Before
@@ -161,11 +189,11 @@ public class MainMenuUiTest {
       Logger.getRootLogger().addAppender(testAppender);
 
       ConsoleInput input = new TestInput();
-      IMenu menu = new TestMenu();
-      IController controller = new TestController();
+      this.menu = new TestMenu();
+      IOLDController controller = new TestController();
       IInitGameController igc = new TestInitGameController();
       InitGameUI igui = new TestUi(igc);
-      ui = new MainMenuUi(input, menu, controller, igui, igc);
+      ui = new MainMenuUi(input, controller, igui, igc);
    }
 
    @Test
@@ -224,5 +252,10 @@ public class MainMenuUiTest {
       ui.executeInput(CMD);
       assertTrue(testAppender.getLog().isEmpty());
       assertTrue(menuAction);
+   }
+
+   @AfterClass
+   public static void tearDown() {
+      tuiFactory.clear();
    }
 }

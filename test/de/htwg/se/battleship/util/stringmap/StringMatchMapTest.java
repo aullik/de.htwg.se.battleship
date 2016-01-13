@@ -8,6 +8,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -38,6 +39,12 @@ public class StringMatchMapTest {
    }
 
    @Test
+   public void testGetEmpty() {
+      final List<String> approx = map.getApprox("");
+      assertEquals(map.size(), approx.size());
+   }
+
+   @Test
    public void testGet() throws Exception {
       String s1 = "a";
       String s2 = "bb";
@@ -53,9 +60,9 @@ public class StringMatchMapTest {
    }
 
    @Test
-   public void testGetAprox() throws Exception {
-      String s1 = "a";
-      String s2 = "aa";
+   public void testGetAprox() {
+      String s1 = "aa";
+      String s2 = "a";
       String s3 = "aaa";
       int amount = 3;
 
@@ -63,7 +70,7 @@ public class StringMatchMapTest {
       assertNull(map.put(s2, s2));
       assertNull(map.put(s3, s3));
 
-      final List<String> strings = map.getApprox(s1);
+      final List<String> strings = map.getApprox(s2);
       assertTrue(strings.contains(s1));
       assertTrue(strings.contains(s2));
       assertTrue(strings.contains(s3));
@@ -108,21 +115,24 @@ public class StringMatchMapTest {
       String s1 = "a";
       String s2 = "aa";
       String s3 = "aaa";
-      int amount = 3;
+      int amount = 0;
       assertNull(map.put(s1, s1));
+      assertEquals(start + ++amount, map.size());
       assertNull(map.put(s3, s3));
+      assertEquals(start + ++amount, map.size());
       assertNull(map.put(s2, s2));
-      assertEquals(start + amount, map.size());
+      assertEquals(start + ++amount, map.size());
 
       assertTrue(map.contains(s1));
       assertTrue(map.contains(s2));
       assertTrue(map.contains(s3));
 
-
-      assertTrue(map.remove(s1));
-      assertTrue(map.remove(s3));
       assertTrue(map.remove(s2));
-      assertEquals(start, map.size());
+      assertEquals(start + --amount, map.size());
+      assertTrue(map.remove(s1));
+      assertEquals(start + --amount, map.size());
+      assertTrue(map.remove(s3));
+      assertEquals(start + --amount, map.size());
 
    }
 
@@ -136,5 +146,81 @@ public class StringMatchMapTest {
       assertFalse(map.contains(TEST_STRING4));
       assertFalse(map.contains(TEST_STRING5));
       assertFalse(map.contains(TEST_STRING6));
+   }
+
+   @Test (expected = IllegalArgumentException.class)
+   public void testNodeNewNoSequence() {
+      new StringMatchMap.Node(null, null);
+   }
+
+   @Test
+   public void testGetNull() {
+      assertNull(map.get("NotInMap"));
+   }
+
+   @Test
+   public void testMerge() {
+
+      char[] c1 = {'a'};
+
+
+      CharArrayIter iter = new CharArrayIter(c1);
+
+      final StringMatchMap.Node n1 = new StringMatchMap.Node(null, c1);
+      final StringMatchMap.Node n2 = n1.addChild(iter);
+      iter.setTo(-1);
+      final StringMatchMap.Node n3 = n2.addChild(iter);
+
+
+      assertFalse(n1.getAllChildren().contains(n3));
+      assertTrue(n1.getAllChildren().contains(n2));
+      assertTrue(n2.getAllChildren().contains(n3));
+
+      //has no parent, cant be removed
+      assertFalse(n1.remove());
+
+      assertTrue(n2.remove());
+      assertFalse(n1.getAllChildren().contains(n2));
+      assertTrue(n1.getAllChildren().contains(n3));
+
+   }
+
+   @Test
+   public void testMerge2() {
+
+      char[] c1 = {'a'};
+      char[] c2 = {'b'};
+      CharArrayIter iter1 = new CharArrayIter(c1);
+      CharArrayIter iter2 = new CharArrayIter(c2);
+
+      final StringMatchMap.Node n0 = new StringMatchMap.Node(null, c1);
+      final StringMatchMap.Node n1 = n0.addChild(iter1);
+      iter1.setTo(-1);
+      final StringMatchMap.Node n2 = n1.addChild(iter1);
+      iter1.setTo(-1);
+      final StringMatchMap.Node n3 = n2.addChild(iter1);
+      final StringMatchMap.Node n4 = n2.addChild(iter2);
+
+      n1.setElem(new Object());
+      n2.setElem(new Object());
+
+
+      assertTrue(n2.remove());
+      assertFalse(n0.getAllChildren().contains(n1));
+      assertTrue(n0.getAllChildren().contains(n2));
+
+      assertTrue(n2.getAllChildren().contains(n3));
+      assertTrue(n2.getAllChildren().contains(n4));
+   }
+
+   @Test
+   public void testNodeAddNothing() {
+      char[] c = {'a'};
+      CharArrayIter iter = new CharArrayIter(c);
+
+      final StringMatchMap.Node n0 = new StringMatchMap.Node(null, c);
+      iter.setTo(0);
+      final StringMatchMap.Node n1 = n0.addChild(iter);
+      assertSame(n0, n1);
    }
 }

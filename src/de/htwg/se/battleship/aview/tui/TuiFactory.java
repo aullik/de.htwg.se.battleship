@@ -4,9 +4,10 @@ import de.htwg.se.battleship.aview.tui.impl.ConsoleInput;
 import de.htwg.se.battleship.aview.tui.impl.MainMenuUi;
 import de.htwg.se.battleship.aview.tui.impl.UserInterface;
 import de.htwg.se.battleship.aview.tui.menu.MainMenu;
+import de.htwg.se.battleship.aview.tui.menu.TUIMenu;
 import de.htwg.se.battleship.controller.ControllerFactory;
-import de.htwg.se.battleship.controller.IInitGameController;
-import de.htwg.se.battleship.controller.impl.InitGameController;
+import de.htwg.se.battleship.controller.old.IInitGameController;
+import de.htwg.se.battleship.controller.old.impl.OLDInitGameController;
 
 /**
  * Factory for TUI Elements
@@ -31,15 +32,15 @@ public abstract class TuiFactory {
       return getInstance()._createUserInterface();
    }
 
-   // bind(IMenu.class).to(de.htwg.se.battleship.aview.tui.menu.MainMenu.class);
-   protected abstract IMenu _createIMenu();
+   // bind(IMenu.class).to(de.htwg.se.battleship.aview.tui.menu.TUIMenu.class);
+   protected abstract TUIMenu _createTUIMenu();
 
-   public static IMenu createIMenu() {
-      return getInstance()._createIMenu();
+   public static TUIMenu createTUIMenu() {
+      return getInstance()._createTUIMenu();
    }
 
 
-   // bind(IInitGameController.class).to(de.htwg.se.battleship.controller.DefaultImpl.InitGameController.class);
+   // bind(IInitGameController.class).to(de.htwg.se.battleship.controller.DefaultImpl.OLDInitGameController.class);
    protected abstract IInitGameController _createIInitGameController();
 
    public static IInitGameController createIInitGameController() {
@@ -58,18 +59,18 @@ public abstract class TuiFactory {
 
       @Override
       protected UserInterface _createUserInterface() {
-         return new MainMenuUi(ConsoleInput.getInstance(), createIMenu(), ControllerFactory.createIController(),
+         return new MainMenuUi(ConsoleInput.getInstance(), ControllerFactory.createOLDIController(),
                createInitGameUI(), createIInitGameController());
       }
 
       @Override
-      protected IMenu _createIMenu() {
+      protected TUIMenu _createTUIMenu() {
          return MainMenu.getInstance();
       }
 
       @Override
       protected IInitGameController _createIInitGameController() {
-         return InitGameController.getInstance();
+         return OLDInitGameController.getInstance();
       }
 
       @Override

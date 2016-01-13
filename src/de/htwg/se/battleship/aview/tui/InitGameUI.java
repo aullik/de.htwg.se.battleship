@@ -5,15 +5,15 @@ package de.htwg.se.battleship.aview.tui;
 
 
 import de.htwg.se.battleship.aview.tui.impl.UserInterface;
-import de.htwg.se.battleship.controller.IInitGameController;
-import de.htwg.se.battleship.controller.event.SetPlayer;
-import de.htwg.se.battleship.controller.event.SetPlayerSuccess;
-import de.htwg.se.battleship.controller.event.SetShip;
-import de.htwg.se.battleship.controller.event.SetShipSuccess;
-import de.htwg.se.battleship.controller.impl.InitGameController;
-import de.htwg.se.battleship.model.Cell;
-import de.htwg.se.battleship.model.Player;
-import de.htwg.se.battleship.util.observer.Event;
+import de.htwg.se.battleship.controller.old.IInitGameController;
+import de.htwg.se.battleship.controller.old.event.SetPlayer;
+import de.htwg.se.battleship.controller.old.event.SetPlayerSuccess;
+import de.htwg.se.battleship.controller.old.event.SetShip;
+import de.htwg.se.battleship.controller.old.event.SetShipSuccess;
+import de.htwg.se.battleship.controller.old.impl.OLDInitGameController;
+import de.htwg.se.battleship.model.old.OLDCell;
+import de.htwg.se.battleship.model.old.OLDPlayer;
+import de.htwg.se.battleship.util._observer.Event;
 
 /**
  * @author Philipp Daniels <philipp.daniels@gmail.com>
@@ -21,11 +21,11 @@ import de.htwg.se.battleship.util.observer.Event;
 public class InitGameUI extends UserInterface implements IInitGameUI {
 
    private final IInitGameController controller;
-   private Player player;
+   private OLDPlayer player;
 
-   public static final String MSG_INPUT_NOTE = "Name for player %s (default: Player %s): ";
+   public static final String MSG_INPUT_NOTE = "Name for player %s (default: OLDPlayer %s): ";
    public static final String MSG_NAME_NOTE = "Great player %s your name is '%s'!%n%n";
-   public static final String DEFAULT_NAME = "Player %d";
+   public static final String DEFAULT_NAME = "OLDPlayer %d";
    public static final String MSG_PLAYER_ADD = "Added successfull player '%s' and '%s'";
    public static final String MSG_WELCOME = "Hallo '%s'. It's your turn!";
    public static final String MSG_SHIP = "Next step is to add a ship (start- and end-point).";
@@ -70,16 +70,16 @@ public class InitGameUI extends UserInterface implements IInitGameUI {
    public void update(SetPlayer e) {
       lastEvent = e;
       playerIndex = 1;
-      playerNo = InitGameController.P1;
+      playerNo = OLDInitGameController.P1;
       output = header() + String.format(MSG_INPUT_NOTE, playerNo, playerIndex);
    }
 
 
    @Override
    public void update(SetPlayerSuccess e) {
-      Player p1 = e.getPlayer();
+      OLDPlayer p1 = e.getPlayer();
       e.getRound().next();
-      Player p2 = e.getPlayer();
+      OLDPlayer p2 = e.getPlayer();
       e.getRound().next();
 
       getLogger().info(String.format(MSG_PLAYER_ADD, p1.getName(), p2.getName()));
@@ -107,7 +107,7 @@ public class InitGameUI extends UserInterface implements IInitGameUI {
    public void update(SetShipSuccess e) {
       StringBuilder sb = new StringBuilder();
 
-      for (Cell cell : e.getShip().getCells()) {
+      for (OLDCell cell : e.getShip().getCells()) {
          sb.append("(").append(cell.getKey()).append("),");
       }
 
@@ -132,7 +132,7 @@ public class InitGameUI extends UserInterface implements IInitGameUI {
          getLogger().info(String.format(MSG_NAME_NOTE, playerNo, pName));
 
          playerIndex++;
-         playerNo = InitGameController.P2;
+         playerNo = OLDInitGameController.P2;
          output = String.format(MSG_INPUT_NOTE, playerNo, playerIndex);
 
          if (playerIndex > 2) {
