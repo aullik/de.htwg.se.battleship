@@ -5,7 +5,8 @@ package de.htwg.se.battleship.controller.impl;
 
 import de.htwg.se.battleship.controller.GameStateControllable;
 import de.htwg.se.battleship.controller.GameStateController;
-import de.htwg.se.battleship.controller.gamemode.GamemodeController;
+import de.htwg.se.battleship.controller.gamemode.GamemodeControllable;
+import de.htwg.se.battleship.controller.gamemode.GamemodeControllerBase;
 import de.htwg.se.battleship.controller.gamemode.impl.TwoPlayerController;
 import de.htwg.se.battleship.util.controller.Controller;
 import de.htwg.se.battleship.util.singleton.SingletonSupplier;
@@ -40,9 +41,17 @@ public class GameStateControllerImpl implements
    @Override
    public void startNewSharedScreenGame() {
 
-      final GamemodeController gmController = new TwoPlayerController();
-      executeConsumerMethod(cont -> cont.startNewSharedScreenGame(gmController));
+      final TwoPlayerController gmController = new TwoPlayerController();
+      executeConsumerMethod(cont -> cont.startNewSharedScreenGame(controllable ->
+            registerSharedScreenGameControllables(gmController, controllable)));
    }
+
+   private <C extends GamemodeControllable> void registerSharedScreenGameControllables(
+         GamemodeControllerBase<C> gmController, C controllable) {
+      gmController.registerControllablePlayer1(controllable);
+      gmController.registerControllablePlayer2(controllable);
+   }
+
 
    @Override
    public void registerControllable(final GameStateControllable cont) {

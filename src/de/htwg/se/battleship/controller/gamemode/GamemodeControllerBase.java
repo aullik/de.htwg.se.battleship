@@ -22,36 +22,64 @@ public abstract class GamemodeControllerBase<C extends GamemodeControllable> ext
       this.player2Consumables = new ControllerHelper<>();
    }
 
-   @Override
+   /**
+    * adds {@link de.htwg.se.battleship.controller.gamemode.GamemodeControllable} to a list.
+    * <p>
+    * All GamemodeControllables that are registered for Player1 will be notified {@see
+    * OLDController#executeConsumerMethod}
+    *
+    * @param cont {@link de.htwg.se.battleship.controller.gamemode.GamemodeControllable}
+    */
    public void registerControllablePlayer1(final C cont) {
       player1Consumables.registerControllable(cont);
    }
 
-   @Override
-   public void unregisterControllablePlayer1(final C cont) {
-      player1Consumables.unregisterControllable(cont);
-   }
-
-
-   @Override
-   public void executePlayer1ConsumerMethod(final Consumer<C> executor) {
-      player1Consumables.executeConsumerMethod(executor);
-   }
-
-   @Override
+   /**
+    * adds {@link de.htwg.se.battleship.controller.gamemode.GamemodeControllable} to a list.
+    * <p>
+    * All GamemodeControllables that are registered for Player1 will be notified {@see
+    * OLDController#executeConsumerMethod}
+    *
+    * @param cont {@link de.htwg.se.battleship.controller.gamemode.GamemodeControllable}
+    */
    public void registerControllablePlayer2(final C cont) {
       player2Consumables.registerControllable(cont);
    }
 
-   @Override
-   public void unregisterControllablePlayer2(final C cont) {
-      player2Consumables.unregisterControllable(cont);
+
+   /**
+    * Notifies all {@link de.htwg.se.battleship.controller.gamemode.GamemodeControllable} registered for Player 1.
+    * <p>
+    * The executor can executeConsumerMethod all methods of
+    * {@link de.htwg.se.battleship.controller.gamemode.GamemodeControllable}
+    *
+    * @param executor {@link java.util.function.Consumer} for an
+    *                 {@link de.htwg.se.battleship.controller.gamemode.GamemodeControllable} registered for Player1
+    */
+   public void executePlayer1ConsumerMethod(final Consumer<C> executor) {
+      player1Consumables.executeConsumerMethod(executor);
    }
 
-   @Override
+
+   /**
+    * Notifies all {@link de.htwg.se.battleship.controller.gamemode.GamemodeControllable} registered for Player 2.
+    * <p>
+    * The executor can executeConsumerMethod all methods of
+    * {@link de.htwg.se.battleship.controller.gamemode.GamemodeControllable}
+    *
+    * @param executor {@link java.util.function.Consumer} for an
+    *                 {@link de.htwg.se.battleship.controller.gamemode.GamemodeControllable} registered for Player2
+    */
    public void executePlayer2ConsumerMethod(final Consumer<C> executor) {
       player2Consumables.executeConsumerMethod(executor);
    }
+
+   @Override
+   public void unregisterControllablePlayer(final C cont) {
+      player1Consumables.unregisterControllable(cont);
+      player2Consumables.unregisterControllable(cont);
+   }
+
 
    private static class GamePlatform extends ThreadPlatform {}
 

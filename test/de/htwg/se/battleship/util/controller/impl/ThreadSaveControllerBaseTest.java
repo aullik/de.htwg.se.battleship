@@ -141,10 +141,6 @@ public class ThreadSaveControllerBaseTest {
       });
    }
 
-   @Test (expected = IllegalStateException.class)
-   public void testRunWrongThread() {
-      cont.runPlatform();
-   }
 
    @Test
    public void testExecute() {
