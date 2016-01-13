@@ -16,7 +16,6 @@ public final class Battleship {
    protected Battleship() {
       PropertyConfigurator.configure("log4j.properties");
 
-      // GuiFactory.createMainFrame();
       TextUI.getInstance();
    }
 
