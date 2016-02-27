@@ -1,13 +1,6 @@
 package de.htwg.se.battleship.aview.tui;
 
-import de.htwg.se.battleship.aview.tui.impl.ConsoleInput;
-import de.htwg.se.battleship.aview.tui.impl.MainMenuUi;
-import de.htwg.se.battleship.aview.tui.impl.UserInterface;
-import de.htwg.se.battleship.aview.tui.menu.MainMenu;
-import de.htwg.se.battleship.aview.tui.menu.TUIMenu;
-import de.htwg.se.battleship.controller.ControllerFactory;
-import de.htwg.se.battleship.controller.old.IInitGameController;
-import de.htwg.se.battleship.controller.old.impl.OLDInitGameController;
+import de.htwg.se.battleship.aview.tui.view.ConsoleInput;
 
 /**
  * Factory for TUI Elements
@@ -25,57 +18,30 @@ public abstract class TuiFactory {
    }
 
 
-   // bind(UserInterface.class).to(de.htwg.se.battleship.aview.tui.DefaultImpl.MainMenuUi.class);
-   protected abstract UserInterface _createUserInterface();
+   protected abstract TUIMain _createTUIMain();
 
-   public static UserInterface createUserInterface() {
-      return getInstance()._createUserInterface();
+   public static TUIMain createTUIMain() {
+      return getInstance()._createTUIMain();
    }
 
-   // bind(IMenu.class).to(de.htwg.se.battleship.aview.tui.menu.TUIMenu.class);
-   protected abstract TUIMenu _createTUIMenu();
+   protected abstract ConsoleInput _createConsoleInput();
 
-   public static TUIMenu createTUIMenu() {
-      return getInstance()._createTUIMenu();
+   public static ConsoleInput getConsoleInput() {
+      return getInstance()._createConsoleInput();
    }
 
-
-   // bind(IInitGameController.class).to(de.htwg.se.battleship.controller.DefaultImpl.OLDInitGameController.class);
-   protected abstract IInitGameController _createIInitGameController();
-
-   public static IInitGameController createIInitGameController() {
-      return getInstance()._createIInitGameController();
-   }
-
-
-   // bind(IInitGameUI.class).to(de.htwg.se.battleship.aview.tui.InitGameUI.class);
-   protected abstract InitGameUI _createInitGameUI();
-
-   public static InitGameUI createInitGameUI() {
-      return getInstance()._createInitGameUI();
-   }
 
    public static class DefaultImpl extends TuiFactory {
 
+
       @Override
-      protected UserInterface _createUserInterface() {
-         return new MainMenuUi(ConsoleInput.getInstance(), ControllerFactory.createOLDIController(),
-               createInitGameUI(), createIInitGameController());
+      protected TUIMain _createTUIMain() {
+         return TUIMain.getInstance();
       }
 
       @Override
-      protected TUIMenu _createTUIMenu() {
-         return MainMenu.getInstance();
-      }
-
-      @Override
-      protected IInitGameController _createIInitGameController() {
-         return OLDInitGameController.getInstance();
-      }
-
-      @Override
-      protected InitGameUI _createInitGameUI() {
-         return new InitGameUI(createIInitGameController());
+      protected ConsoleInput _createConsoleInput() {
+         return ConsoleInput.getInstance();
       }
    }
 
