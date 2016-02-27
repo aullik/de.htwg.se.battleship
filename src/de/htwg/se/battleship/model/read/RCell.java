@@ -15,4 +15,9 @@ public interface RCell extends REnemyCell {
    RShip getShip();
 
 
+   /**
+    * @return whether or not a ship is set.
+    */
+   boolean hasShip();
+
 }

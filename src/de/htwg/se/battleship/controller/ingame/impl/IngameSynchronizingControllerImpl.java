@@ -22,7 +22,7 @@ public class IngameSynchronizingControllerImpl extends ThreadSaveControllerBase<
 
    private final Consumer<List<RPlayer>> onFinish;
    private final List<RPlayer> registeredPlayers;
-   private final List<RPlayer> resultPlayers;
+   private final List<RPlayer> resultPlayersLost;
 
    private boolean running = false;
 
@@ -30,7 +30,7 @@ public class IngameSynchronizingControllerImpl extends ThreadSaveControllerBase<
       super(platform);
       this.onFinish = onFinish;
       this.registeredPlayers = new ArrayList<>();
-      resultPlayers = new LinkedList<>();
+      resultPlayersLost = new LinkedList<>();
    }
 
    @Override
@@ -58,13 +58,13 @@ public class IngameSynchronizingControllerImpl extends ThreadSaveControllerBase<
 
    private void checkResult() {
       executeConsumerMethod(this::checkSingleResult);
-      if (resultPlayers.isEmpty())
+      if (resultPlayersLost.isEmpty())
          platform.runLater(this::playRound);
-      else if (resultPlayers.size() == registeredPlayers.size())
-         onFinish.accept(resultPlayers);
+      else if (resultPlayersLost.size() == registeredPlayers.size())
+         onFinish.accept(resultPlayersLost);
       else {
          List<RPlayer> ret = new ArrayList<>(registeredPlayers);
-         resultPlayers.forEach(ret::remove);
+         resultPlayersLost.forEach(ret::remove);
          onFinish.accept(ret);
       }
 
@@ -73,21 +73,21 @@ public class IngameSynchronizingControllerImpl extends ThreadSaveControllerBase<
    private void checkSingleResult(IngameSynchronizingControllable cont) {
       final Optional<RPlayer> opt = cont.checkGameLost();
       if (opt.isPresent())
-         resultPlayers.add(opt.get());
+         resultPlayersLost.add(opt.get());
    }
 
    private void playRound() {
-      AtomicInteger i = new AtomicInteger();
-      executeConsumerMethod((cont) -> awaitCellsShot(cont, i));
+      AtomicInteger playersShooting = new AtomicInteger();
+      executeConsumerMethod((cont) -> awaitCellsShot(cont, playersShooting));
    }
 
-   private void awaitCellsShot(IngameSynchronizingControllable cont, final AtomicInteger i) {
-      i.incrementAndGet();
-      cont.awaitCellShot(new SingleUseRunnable(() -> awaitAllResponses(i), platform, false));
+   private void awaitCellsShot(IngameSynchronizingControllable cont, final AtomicInteger playersShooting) {
+      playersShooting.incrementAndGet();
+      cont.awaitCellShot(new SingleUseRunnable(() -> awaitAllResponses(playersShooting), platform, false));
    }
 
-   private void awaitAllResponses(AtomicInteger i) {
-      if (i.decrementAndGet() == 0)
+   private void awaitAllResponses(AtomicInteger playersShooting) {
+      if (playersShooting.decrementAndGet() == 0)
          //next Step
          platform.runLater(this::checkResult);
    }

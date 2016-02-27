@@ -12,12 +12,12 @@ import de.htwg.se.battleship.util.controller.Controllable;
  */
 public interface GamemodeControllable extends Controllable {
 
-   void setPlayer(RPlayer player);
-
    void setInitGameController(InitGameController cont);
 
    void setInGameController(IngameController cont);
 
    void abortGame();
+
+   void setWinner(RPlayer player);
 
 }

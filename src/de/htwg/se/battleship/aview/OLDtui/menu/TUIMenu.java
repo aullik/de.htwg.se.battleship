@@ -1,9 +1,9 @@
 /**
  *
  */
-package de.htwg.se.battleship.aview.tui.menu;
+package de.htwg.se.battleship.aview.OLDtui.menu;
 
-import de.htwg.se.battleship.aview.tui.IMenuEntry;
+import de.htwg.se.battleship.aview.OLDtui.IMenuEntry;
 import de.htwg.se.battleship.util.stringmap.StringMatchMap;
 
 import java.util.List;

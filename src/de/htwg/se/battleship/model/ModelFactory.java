@@ -46,12 +46,18 @@ public abstract class ModelFactory {
       return getInstance()._createPlayer(name);
    }
 
+   protected abstract int _getGridSize();
+
+   public static int getGridSize() {
+      return getInstance()._getGridSize();
+   }
+
 
    public static class DefaultImpl extends ModelFactory {
 
       @Override
       protected RWGrid _createGrid() {
-         return new Grid(Grid.DEFAULT_SIZE);
+         return new Grid(getGridSize());
       }
 
       @Override
@@ -62,6 +68,11 @@ public abstract class ModelFactory {
       @Override
       protected RWPlayer _createPlayer(final String name) {
          return new Player(name);
+      }
+
+      @Override
+      protected int _getGridSize() {
+         return 10;
       }
    }
 

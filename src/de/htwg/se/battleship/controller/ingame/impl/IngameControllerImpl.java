@@ -5,6 +5,7 @@ import de.htwg.se.battleship.controller.ingame.IngameController;
 import de.htwg.se.battleship.controller.ingame.IngameSynchronizingControllable;
 import de.htwg.se.battleship.controller.ingame.IngameSynchronizingController;
 import de.htwg.se.battleship.model.read.REnemyCell;
+import de.htwg.se.battleship.model.read.REnemyGrid;
 import de.htwg.se.battleship.model.read.RPlayer;
 import de.htwg.se.battleship.model.read.RShip;
 import de.htwg.se.battleship.model.readwrite.RWPlayer;
@@ -24,15 +25,17 @@ public class IngameControllerImpl extends ThreadSaveControllerBase<IngameControl
       IngameSynchronizingControllable {
 
    private final RWPlayer player;
+   private final REnemyGrid enemyGrid;
    private final Consumer<REnemyCell> enemyCellShooter;
-   private final IngameSynchronizingController synchro;
 
-   public IngameControllerImpl(final ThreadPlatform platform, final RWPlayer player, Consumer<REnemyCell> shootCell,
+   public IngameControllerImpl(final ThreadPlatform platform, final RWPlayer player, final REnemyGrid enemyGrid,
+                               Consumer<REnemyCell> shootCell,
                                final IngameSynchronizingController synchro) {
       super(platform);
       this.player = player;
+      this.enemyGrid = enemyGrid;
       this.enemyCellShooter = shootCell;
-      this.synchro = synchro;
+      synchro.registerControllable(this);
    }
 
    @Override
@@ -46,7 +49,7 @@ public class IngameControllerImpl extends ThreadSaveControllerBase<IngameControl
          if (!ship.isDestroyed())
             return Optional.empty();
 
-      return Optional.empty();
+      return Optional.of(player);
    }
 
    @Override
@@ -63,5 +66,11 @@ public class IngameControllerImpl extends ThreadSaveControllerBase<IngameControl
          throw new RuntimeException(e);
       }
 
+   }
+
+   @Override
+   public void registerControllable(IngameControllable cont) {
+      super.registerControllable(cont);
+      cont.initIngameControllable(player, enemyGrid);
    }
 }

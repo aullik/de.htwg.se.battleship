@@ -64,6 +64,11 @@ public class Cell extends AbstractObservable implements RWCell {
    }
 
    @Override
+   public boolean hasShip() {
+      return ship != null;
+   }
+
+   @Override
    public boolean isNormal() {
       return STATUS.NORMAL.equals(status);
    }

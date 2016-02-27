@@ -1,6 +1,8 @@
 package de.htwg.se.battleship;
 
-import de.htwg.se.battleship.aview.tui.impl.TextUI;
+import de.htwg.se.battleship.aview.tui.TuiFactory;
+import de.htwg.se.battleship.controller.ControllerFactory;
+import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
 /**
@@ -15,8 +17,11 @@ public final class Battleship {
     */
    protected Battleship() {
       PropertyConfigurator.configure("log4j.properties");
+      final Logger logger = Logger.getLogger(getClass());
+      logger.info("Game Started");
 
-      TextUI.getInstance();
+      TuiFactory.createTUIMain();
+      ControllerFactory.getController();
    }
 
    /**

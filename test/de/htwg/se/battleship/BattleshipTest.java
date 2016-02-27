@@ -1,7 +1,7 @@
 package de.htwg.se.battleship;
 
-import de.htwg.se.battleship.aview.tui.impl.TextUI;
-import de.htwg.se.battleship.aview.tui.menuentry.Close;
+import de.htwg.se.battleship.aview.OLDtui.impl.TextUI;
+import de.htwg.se.battleship.aview.OLDtui.menuentry.Close;
 import de.htwg.se.battleship.util.singleton.SingletonInjector;
 import org.junit.After;
 import org.junit.Before;

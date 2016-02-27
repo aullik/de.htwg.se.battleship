@@ -24,7 +24,7 @@ public abstract class BasicRShip implements RShip {
     * mix of {@link java.util.function.BiPredicate<java.lang.Integer,java.lang.Integer } and
     * {@link java.util.function.IntPredicate}
     */
-   private static interface IntBiPredicate {
+   private interface IntBiPredicate {
 
       boolean test(int x, int y);
    }
