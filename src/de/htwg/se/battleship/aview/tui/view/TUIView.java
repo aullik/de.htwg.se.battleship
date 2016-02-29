@@ -78,7 +78,7 @@ public class TUIView {
          running = false;
          return;
       }
-      
+
       printInformation();
       console.getInputLine(this::awaitInputPlatformSave);
    }
@@ -170,11 +170,10 @@ public class TUIView {
    }
 
    private void abstractPrint(Runnable printer) {
-      if (!platform.isPlatformThread()) {
-         platform.runLater(() -> abstractPrint(printer));
-         return;
-      }
+      platform.runOnPlatform(() -> _abstractPrint(printer));
+   }
 
+   private void _abstractPrint(Runnable printer) {
       output(header);
       printer.run();
 
@@ -189,11 +188,7 @@ public class TUIView {
 
 
    public void setActionOnlyJob(Function<String, Boolean> action, String description, BooleanSupplier alreadyExecuted) {
-      // protect critical section
-      if (!platform.isPlatformThread())
-         platform.runLater(() -> setActionOnlyJob(action, description, alreadyExecuted));
-      else
-         _setJob(new ActionOnlyJob(action, description, alreadyExecuted));
+      platform.runOnPlatform(() -> _setJob(new ActionOnlyJob(action, description, alreadyExecuted)));
    }
 
    public void setCommandOnlyJob(Command strippedCommand) {
@@ -201,17 +196,11 @@ public class TUIView {
    }
 
    public void setCommandOnlyJob(List<Command> strippedCommands) {
-      if (!platform.isPlatformThread())
-         platform.runLater(() -> setCommandOnlyJob(strippedCommands));
-      else
-         _setJob(new CommandOnlyJob(strippedCommands));
+      platform.runOnPlatform(() -> _setJob(new CommandOnlyJob(strippedCommands)));
    }
 
    public void setJob(TuiJob job) {
-      if (!platform.isPlatformThread())
-         platform.runLater(() -> setJob(job));
-      else
-         _setJob(job);
+      platform.runOnPlatform(() -> _setJob(job));
    }
 
    private void _setJob(TuiJob job) {

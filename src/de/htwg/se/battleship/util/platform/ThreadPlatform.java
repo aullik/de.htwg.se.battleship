@@ -4,11 +4,16 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @author aullik on 29.12.2015.
  */
 public class ThreadPlatform implements Runnable {
+
+   private final static ThreadGroup PLATFORM_GROUP = new ThreadGroup("Platform");
+   private final static AtomicInteger PLATFORM_COUNTER = new AtomicInteger(0);
+   private final static String PLATFORM_NAME = "ThreadPlatform-";
 
    private final Thread platform;
    private final BlockingQueue<Runnable> threadQueue;
@@ -16,10 +21,12 @@ public class ThreadPlatform implements Runnable {
    private volatile boolean acceptJobs;
 
    public ThreadPlatform() {
+
       this.threadQueue = new LinkedBlockingQueue<>();
       this.running = new AtomicBoolean(false);
       this.acceptJobs = true;
-      this.platform = new Thread(() -> _run(threadQueue, running));
+      this.platform = new Thread(PLATFORM_GROUP, () -> _run(threadQueue, running),
+            PLATFORM_NAME + PLATFORM_COUNTER.getAndIncrement());
    }
 
    @Override
@@ -86,6 +93,13 @@ public class ThreadPlatform implements Runnable {
 
    public boolean inputClosed() {
       return !acceptJobs;
+   }
+
+   public synchronized void runOnPlatform(Runnable r) {
+      if (isPlatformThread())
+         r.run();
+      else
+         runLater(r);
    }
 
    public synchronized void runLater(Runnable r) {
