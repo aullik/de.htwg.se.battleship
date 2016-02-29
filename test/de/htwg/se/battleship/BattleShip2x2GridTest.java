@@ -6,9 +6,11 @@ import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.io.SequenceInputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Vector;
 
 /**
  * @author aullik on 25.01.2016.
@@ -21,7 +23,7 @@ public class BattleShip2x2GridTest {
     */
    public static void main(String[] args) throws UnsupportedEncodingException {
       new BattleShip2x2GridTest().playGame();
-      //initGame();
+      // initGame();
    }
 
    public static void initGame() {
@@ -92,17 +94,15 @@ public class BattleShip2x2GridTest {
       commands.add("1,0");
       commands.add("1,0");
 
-      for (String cmd : commands) {
-         System.setIn(new ByteArrayInputStream((cmd + seperator).getBytes("UTF-8")));
-         try {
-            Thread.sleep(100);
-         } catch (InterruptedException e) {
-            e.printStackTrace();
-         }
-      }
+      final Vector<InputStream> vector = new Vector<>();
+      for (String cmd : commands)
+         vector.add(new ByteArrayInputStream((cmd + seperator).getBytes("UTF-8")));
+
+      vector.add(backup);
+      System.setIn(new SequenceInputStream(vector.elements()));
 
       initGame();
 
-      //System.setIn(backup);
    }
+
 }

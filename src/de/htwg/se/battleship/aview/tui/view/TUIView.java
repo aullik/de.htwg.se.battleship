@@ -74,6 +74,11 @@ public class TUIView {
    }
 
    private void runGameLoopIteration() {
+      if (getFirstJob() == null) {
+         running = false;
+         return;
+      }
+      
       printInformation();
       console.getInputLine(this::awaitInputPlatformSave);
    }
@@ -115,6 +120,9 @@ public class TUIView {
       final TuiJob job = getFirstJob();
 
       if (job == null) {
+         //FIXME return input to console and buffer it.
+         output("Input lost: " + inp);
+
          running = false;
          return;
       }
