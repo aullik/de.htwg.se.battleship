@@ -40,7 +40,7 @@ public class InGameTUI implements IngameControllable {
    @Override
    public void shoot(final SingleUseConsumer<REnemyCell> cons) {
       validatePlayerSet();
-      tuiView.setJob((inp) -> validateInput(inp, cons),
+      tuiView.setActionOnlyJob((inp) -> validateInput(inp, cons),
             String.format(SHOOT_CELL, player.getName(), gridPainter.paintGrid()), cons::isExecuted);
    }
 

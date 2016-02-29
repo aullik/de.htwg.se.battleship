@@ -37,7 +37,7 @@ public class TUIMain implements GameStateControllable {
       gsController.registerControllable(this);
       platform = new ThreadPlatform();
       tuiView = new TUIView(platform);
-      tuiView.addCommand(new NewSharedScreenGame(gsController));
+      tuiView.setCommandOnlyJob(new NewSharedScreenGame(gsController));
       platform.run();
    }
 

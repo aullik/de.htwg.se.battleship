@@ -61,7 +61,7 @@ public class ConsoleInput {
     * @return String
     */
    public void getInputLine(Consumer<String> cons) {
-      scannerPlatform.runLater(() -> cons.accept(_getInputWord()));
+      scannerPlatform.runLater(() -> cons.accept(_getInputLine()));
    }
 
    private String _getInputLine() {

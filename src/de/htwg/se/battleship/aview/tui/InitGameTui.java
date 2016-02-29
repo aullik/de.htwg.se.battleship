@@ -94,7 +94,7 @@ public class InitGameTUI implements InitGameControllable {
 
    @Override
    public void setPlayerName(final SingleUseConsumer<String> nameSetter) {
-      tuiView.setJob(name -> checkAndSetName(nameSetter, name), SET_PLAYER, () -> this.player != null);
+      tuiView.setActionOnlyJob(name -> checkAndSetName(nameSetter, name), SET_PLAYER, () -> this.player != null);
    }
 
    private boolean checkAndSetName(final SingleUseConsumer<String> nameSetter, String name) {
@@ -165,7 +165,7 @@ public class InitGameTUI implements InitGameControllable {
       if (list.size() == 0)
          return;
 
-      tuiView.setJob(this::checkShipSize, String.format(DECIDE_SHIP_SIZE, player.getName(),
+      tuiView.setActionOnlyJob(this::checkShipSize, String.format(DECIDE_SHIP_SIZE, player.getName(),
             sizes.toString()), () -> current < decideShipSizeCounter.get());
    }
 
@@ -181,7 +181,7 @@ public class InitGameTUI implements InitGameControllable {
    }
 
    private void setShipJob(int size, Consumer<List<RCell>> setter, final BooleanSupplier jobExecuted) {
-      tuiView.setJob(inp -> checkShipFormat(size, inp, list -> executeShipSetter(setter, list)),
+      tuiView.setActionOnlyJob(inp -> checkShipFormat(size, inp, list -> executeShipSetter(setter, list)),
             String.format(SET_SHIP, gridPainter.paintGrid(), player.getName(), Integer.toString(size)), jobExecuted);
    }
 
