@@ -77,10 +77,10 @@ public class InitGameTUI implements InitGameControllable {
 
    @Override
    public void setPlayer(final RPlayer player) {
-      if (!platform.isPlatformThread()) {
-         platform.runLater(() -> setPlayer(player));
-         return;
-      }
+      platform.runOnPlatform(() -> _setPlayer(player));
+   }
+
+   private void _setPlayer(final RPlayer player) {
 
       if (this.player != null)
          return;
@@ -129,11 +129,10 @@ public class InitGameTUI implements InitGameControllable {
    }
 
    private void addShipSetterToList(int size, Consumer<List<RCell>> shipSetter, SingleUseConsumer check) {
-      if (!platform.isPlatformThread()) {
-         platform.runLater(() -> addShipSetterToList(size, shipSetter, check));
-         return;
-      }
+      platform.runOnPlatform(() -> _addShipSetterToList(size, shipSetter, check));
+   }
 
+   private void _addShipSetterToList(int size, Consumer<List<RCell>> shipSetter, SingleUseConsumer check) {
       final BooleanSupplier isExecuted = check::isExecuted;
 
       list.add(new ListNode(size, () -> setShipJob(size, shipSetter, isExecuted), isExecuted));
@@ -142,11 +141,12 @@ public class InitGameTUI implements InitGameControllable {
    }
 
    private void runDecideShipSize() {
-      if (!platform.isPlatformThread()) {
-         platform.runLater(this::runDecideShipSize);
-         return;
-      }
+      platform.runOnPlatform(this::_runDecideShipSize);
+   }
+
+   private void _runDecideShipSize() {
       try {
+         //sleeping as there will be multiple ship setters added and it looks better to print them all at once
          Thread.sleep(50);
       } catch (InterruptedException e) {
          //ignore
@@ -186,10 +186,10 @@ public class InitGameTUI implements InitGameControllable {
    }
 
    private void executeShipSetter(Consumer<List<RCell>> cons, List<RCell> list) {
-      if (!platform.isPlatformThread()) {
-         platform.runLater(() -> executeShipSetter(cons, list));
-         return;
-      }
+      platform.runOnPlatform(() -> _executeShipSetter(cons, list));
+   }
+
+   private void _executeShipSetter(Consumer<List<RCell>> cons, List<RCell> list) {
 
       cons.accept(list);
       runDecideShipSize();
