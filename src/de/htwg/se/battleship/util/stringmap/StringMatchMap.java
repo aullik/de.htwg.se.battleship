@@ -194,6 +194,19 @@ public class StringMatchMap<V> {
          childs[childPos(c)] = node;
       }
 
+      private boolean compareSeqTillEndOfIter(final CharArrayIter iter) {
+
+         for (int i = 1; i < seq.length; i++) {
+            char c = seq[i];
+            if (!iter.hasNext())
+               return true;
+            if (c != iter.next()) {
+               return false;
+            }
+         }
+         return !iter.hasNext();
+      }
+
 
       private boolean compareSeq(final CharArrayIter iter) {
 
@@ -242,6 +255,9 @@ public class StringMatchMap<V> {
       final CharArrayIter iter = new CharArrayIter(stringToChars(key));
       List<V> ret = new LinkedList<>();
       final Node node = head.lookup(iter);
+      if (!node.compareSeqTillEndOfIter(iter))
+         return ret;
+
       addElemsToListRek(ret, node);
       return ret;
    }

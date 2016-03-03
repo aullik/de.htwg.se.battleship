@@ -159,6 +159,18 @@ public class StringMatchMapTest {
    }
 
    @Test
+   public void testGetEmptyUsingAprox() {
+      System.out.println(map.getApprox("NotInMap"));
+      assertTrue(map.getApprox("NotInMap").isEmpty());
+   }
+
+   @Test
+   public void testAprox() {
+      System.out.println(map.getApprox("Ter"));
+   }
+
+
+   @Test
    public void testMerge() {
 
       char[] c1 = {'a'};
