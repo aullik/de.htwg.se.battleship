@@ -4,6 +4,7 @@ import de.htwg.se.battleship.controller.ingame.IngameController;
 import de.htwg.se.battleship.controller.initgame.InitGameController;
 import de.htwg.se.battleship.model.read.RPlayer;
 import de.htwg.se.battleship.util.controller.Controllable;
+import de.htwg.se.battleship.util.platform.SingleUseRunnable;
 
 /**
  * Interface for all Gamemodes
@@ -16,7 +17,7 @@ public interface GamemodeControllable extends Controllable {
 
    void setInGameController(IngameController cont);
 
-   void abortGame();
+   void setSurrenderGameExecutable(SingleUseRunnable surrenderGame);
 
    void setWinner(RPlayer player);
 

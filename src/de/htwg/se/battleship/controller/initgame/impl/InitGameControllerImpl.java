@@ -158,4 +158,12 @@ public class InitGameControllerImpl extends ThreadSaveControllerBase<InitGameCon
       onFinished.accept(player);
    }
 
+
+   public void abort() {
+      this.size_2_ships = NUM_SIZE_2_SHIPS;
+      this.size_3_ships = NUM_SIZE_3_SHIPS;
+      this.size_4_ships = NUM_SIZE_4_SHIPS;
+      this.size_5_ships = NUM_SIZE_5_SHIPS;
+   }
+
 }

@@ -85,6 +85,8 @@ public class BattleShip2x2GridTest {
       commands.add("2");
       commands.add("2");
 
+      //commands.add("-surrender");
+
       commands.add("0,0R");
       commands.add("0,1R");
 
@@ -93,6 +95,8 @@ public class BattleShip2x2GridTest {
 
       commands.add("1,0");
       commands.add("1,0");
+
+      commands.add("-exit");
 
       final Vector<InputStream> vector = new Vector<>();
       for (String cmd : commands)

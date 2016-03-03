@@ -27,7 +27,7 @@ public class ConsoleInput {
 
    private final Scanner scanner;
    private final InputStream stream;
-   private final ThreadPlatform scannerPlatform;
+   private final ScannerPlatform scannerPlatform;
 
 
    /**
@@ -36,7 +36,7 @@ public class ConsoleInput {
    private ConsoleInput() {
       stream = System.in;
       scanner = new Scanner(stream);
-      this.scannerPlatform = new ThreadPlatform();
+      this.scannerPlatform = new ScannerPlatform();
       this.scannerPlatform.run();
    }
 
@@ -77,6 +77,14 @@ public class ConsoleInput {
     * Close all resources of interface
     */
    public void close() {
-      scannerPlatform.inputClosed();
+      scannerPlatform.closeInputQueue();
+   }
+
+   private static class ScannerPlatform extends ThreadPlatform {
+
+      @Override
+      protected synchronized void closeInputQueue() {
+         super.closeInputQueue();
+      }
    }
 }

@@ -27,6 +27,7 @@ public class IngameControllerImpl extends ThreadSaveControllerBase<IngameControl
    private final RWPlayer player;
    private final REnemyGrid enemyGrid;
    private final Consumer<REnemyCell> enemyCellShooter;
+   private final IngameSynchronizingController synchro;
 
    public IngameControllerImpl(final ThreadPlatform platform, final RWPlayer player, final REnemyGrid enemyGrid,
                                Consumer<REnemyCell> shootCell,
@@ -35,6 +36,7 @@ public class IngameControllerImpl extends ThreadSaveControllerBase<IngameControl
       this.player = player;
       this.enemyGrid = enemyGrid;
       this.enemyCellShooter = shootCell;
+      this.synchro = synchro;
       synchro.registerControllable(this);
    }
 
@@ -72,5 +74,10 @@ public class IngameControllerImpl extends ThreadSaveControllerBase<IngameControl
    public void registerControllable(IngameControllable cont) {
       super.registerControllable(cont);
       cont.initIngameControllable(player, enemyGrid);
+   }
+
+   @Override
+   public void abort() {
+      this.synchro.unregisterControllable(this);
    }
 }

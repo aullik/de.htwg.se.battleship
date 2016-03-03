@@ -15,11 +15,25 @@ public abstract class GamemodeControllerBase<C extends GamemodeControllable> ext
 
    private final ControllerHelper<C> player1Consumables;
    private final ControllerHelper<C> player2Consumables;
+   private final GamePlatform _platform;
+
 
    public GamemodeControllerBase() {
-      super(createPlatform());
+      this(new Wrapper());
+   }
+
+   private GamemodeControllerBase(Wrapper wrapper) {
+      super(wrapper.platform);
       this.player1Consumables = new ControllerHelper<>();
       this.player2Consumables = new ControllerHelper<>();
+      this._platform = wrapper.platform;
+   }
+
+   /**
+    * will close the platform
+    */
+   protected void closePlatform() {
+      _platform.closeInputQueue();
    }
 
    /**
@@ -80,12 +94,23 @@ public abstract class GamemodeControllerBase<C extends GamemodeControllable> ext
       player2Consumables.unregisterControllable(cont);
    }
 
+   private static class Wrapper {
 
-   private static class GamePlatform extends ThreadPlatform {}
+      private final GamePlatform platform;
 
-   private static ThreadPlatform createPlatform() {
-      return new GamePlatform();
+      private Wrapper() {
+         this.platform = new GamePlatform();
+      }
    }
+
+   private static class GamePlatform extends ThreadPlatform {
+
+      @Override
+      protected synchronized void closeInputQueue() {
+         super.closeInputQueue();
+      }
+   }
+
 
    @Override
    public final void run() {

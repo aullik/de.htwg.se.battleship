@@ -15,10 +15,4 @@ public interface GamemodeController<C extends GamemodeControllable> extends Runn
     */
    void unregisterControllablePlayer(C cont);
 
-
-   /**
-    * abort the running Game
-    */
-   void abortGame();
-
 }

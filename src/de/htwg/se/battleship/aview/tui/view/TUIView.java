@@ -3,16 +3,11 @@ package de.htwg.se.battleship.aview.tui.view;
 import de.htwg.se.battleship.aview.tui.TuiFactory;
 import de.htwg.se.battleship.aview.tui.command.Command;
 import de.htwg.se.battleship.util.platform.ThreadPlatform;
-import de.htwg.se.battleship.util.stringmap.StringMatchMap;
 import org.apache.log4j.Logger;
 
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
-import java.util.function.BooleanSupplier;
-import java.util.function.Function;
 
 /**
  * @author aullik on 18.01.2016.
@@ -70,7 +65,8 @@ public class TUIView {
 
 
    private void nextGameLoop() {
-      platform.runLater(this::runGameLoopIteration);
+      if (!platform.inputClosed())
+         platform.runLater(this::runGameLoopIteration);
    }
 
    private void runGameLoopIteration() {
@@ -120,7 +116,7 @@ public class TUIView {
       final TuiJob job = getFirstJob();
 
       if (job == null) {
-         //FIXME return input to console and buffer it.
+         //TODO return input to console and buffer it.
          output("Input lost: " + inp);
 
          running = false;
@@ -181,23 +177,10 @@ public class TUIView {
          printInformation();
    }
 
-
    private void output(String s) {
       logger.info(s);
    }
 
-
-   public void setActionOnlyJob(Function<String, Boolean> action, String description, BooleanSupplier alreadyExecuted) {
-      platform.runOnPlatform(() -> _setJob(new ActionOnlyJob(action, description, alreadyExecuted)));
-   }
-
-   public void setCommandOnlyJob(Command strippedCommand) {
-      setCommandOnlyJob(Collections.singletonList(strippedCommand));
-   }
-
-   public void setCommandOnlyJob(List<Command> strippedCommands) {
-      platform.runOnPlatform(() -> _setJob(new CommandOnlyJob(strippedCommands)));
-   }
 
    public void setJob(TuiJob job) {
       platform.runOnPlatform(() -> _setJob(job));
@@ -213,70 +196,13 @@ public class TUIView {
          printInformation();
    }
 
-   private class CommandOnlyJob extends TuiJob {
-
-      private final List<Command> strippedCommands;
-
-      private CommandOnlyJob(List<Command> strippedCommands) {
-         this.strippedCommands = strippedCommands;
-      }
-
-
-      @Override
-      protected void populateCommandMap(final StringMatchMap<Command> commandMap) {
-         strippedCommands.forEach(c -> commandMap.put(c.getCommandStripped(), c));
-
-      }
-
-      //All of this can stay false or null.
-      @Override
-      public boolean doJob(final String input) {
-         return false;
-      }
-
-
-      @Override
-      protected String getDescription() {
-         return null;
-      }
-
-      @Override
-      protected boolean isExecuted() {
-         return false;
-      }
+   public void close() {
+      clearJobs();
+      console.close();
    }
 
-   private class ActionOnlyJob extends TuiJob {
-
-      private final Function<String, Boolean> action;
-      private final String description;
-      private final BooleanSupplier alreadyExecuted;
-
-      private ActionOnlyJob(Function<String, Boolean> action, String description, final BooleanSupplier
-            alreadyExecuted) {
-
-         this.action = action;
-         this.description = description;
-         this.alreadyExecuted = alreadyExecuted;
-      }
-
-      @Override
-      protected void populateCommandMap(final StringMatchMap<Command> commandMap) { // do nothing
-      }
-
-      @Override
-      public boolean doJob(final String input) {
-         return action.apply(input);
-      }
-
-      @Override
-      protected String getDescription() {
-         return description;
-      }
-
-      protected boolean isExecuted() {
-         return alreadyExecuted.getAsBoolean();
-      }
+   public void clearJobs() {
+      jobs.clear();
    }
 
 }
