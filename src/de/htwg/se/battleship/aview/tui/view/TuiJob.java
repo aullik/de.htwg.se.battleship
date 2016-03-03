@@ -53,7 +53,7 @@ public abstract class TuiJob {
    }
 
    private void executeClosest(String input, Command c, Consumer<String> errorHandling) {
-      if (!input.equals(c.getCommand()))
+      if (!input.equals(c.getCommandStripped()))
          errorHandling.accept(String.format(NEXT_CLOSEST, input, c.getCommandStripped()));
 
       c.doAction();
