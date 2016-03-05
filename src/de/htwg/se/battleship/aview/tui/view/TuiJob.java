@@ -16,6 +16,7 @@ import java.util.function.Function;
 public abstract class TuiJob {
 
    private static final String MENU_FORMAT = "%-20s - %s";
+   private static final String MSG_POS_COMMANDS = "Possible Commands:";
    private static final String MSG_INPUT_NOTE = "Please choose a menu: ";
    private static final String MSG_POSSIBLE_ENTRIES = "\nDid you mean: \n";
    private static final String NEXT_CLOSEST = "\n Interpreted '%s' as '%s'\n";
@@ -77,8 +78,8 @@ public abstract class TuiJob {
 
    private String buildCommandsDesc(final List<Command> commandList) {
       StringJoiner sj = new StringJoiner("\n");
+      sj.add(MSG_POS_COMMANDS);
       commandList.forEach(c -> sj.add(commandToMenuEntry(c)));
-      sj.add(MSG_INPUT_NOTE);
       return sj.toString();
    }
 
@@ -96,8 +97,11 @@ public abstract class TuiJob {
       StringBuilder sb = new StringBuilder();
       if (commandMap.get().size() > 0) {
          sb.append(buildAllCommandsDesc());
+         sb.append('\n');
          if (descValid)
             sb.append('\n');
+         else
+            sb.append(MSG_INPUT_NOTE);
       }
 
       if (descValid)
@@ -114,6 +118,10 @@ public abstract class TuiJob {
 
    protected abstract boolean isExecuted();
 
+
+   /*
+    * Basic Implementations
+    */
 
    public static class CommandOnlyJob extends TuiJob {
 
