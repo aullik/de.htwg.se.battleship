@@ -220,7 +220,7 @@ public class InitGameTUI implements InitGameControllable {
    public void finish() {
       if (player == null || gridListener == null)
          return;
-      
+
       player.getGrid().removeListener(gridListener);
       list.clear();
    }

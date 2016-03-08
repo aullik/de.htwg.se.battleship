@@ -1,8 +1,6 @@
 package de.htwg.se.battleship.controller;
 
 import de.htwg.se.battleship.controller.impl.GameStateControllerImpl;
-import de.htwg.se.battleship.controller.old.IOLDController;
-import de.htwg.se.battleship.controller.old.impl.OLDController;
 
 /**
  * Factory for controller elements
@@ -26,12 +24,6 @@ public abstract class ControllerFactory {
       return getInstance()._getController();
    }
 
-   // bind(IOLDController.class).to(de.htwg.se.battleship.controller.old.impl.OLDController.class);
-   protected abstract IOLDController _createOLDIController();
-
-   public static IOLDController createOLDIController() {
-      return getInstance()._createOLDIController();
-   }
 
    protected abstract int _getNumberOfSize2Ships();
 
@@ -63,11 +55,6 @@ public abstract class ControllerFactory {
       @Override
       protected GameStateController _getController() {
          return GameStateControllerImpl.getInstance();
-      }
-
-      @Override
-      protected IOLDController _createOLDIController() {
-         return OLDController.getInstance();
       }
 
       @Override
