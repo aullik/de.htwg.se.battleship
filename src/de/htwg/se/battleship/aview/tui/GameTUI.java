@@ -43,7 +43,7 @@ public class GameTUI implements GamemodeControllable {
 
    @Override
    public void setInitGameController(final InitGameController cont) {
-      final InitGameTUI initGameTUI = new InitGameTUI(platform, tuiView, surrenderGame);
+      final InitGameTUI_GitBugFix initGameTUI = new InitGameTUI_GitBugFix(platform, tuiView, surrenderGame);
       cont.registerControllable(initGameTUI);
 
 
