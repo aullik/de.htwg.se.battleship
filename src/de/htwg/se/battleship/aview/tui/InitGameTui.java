@@ -32,7 +32,7 @@ import java.util.function.IntSupplier;
 /**
  * @author aullik on 18.01.2016.
  */
-public class InitGameTUI implements InitGameControllable {
+public class InitGameTui implements InitGameControllable {
 
    private final static String SET_PLAYER = "Please state your name:";
    private final static String DECIDE_SHIP_SIZE = "Player %s :\nPossible ship sizes: %s \nPlease Choose one.";
@@ -51,7 +51,7 @@ public class InitGameTUI implements InitGameControllable {
    private MyGridPainter gridPainter;
 
 
-   public InitGameTUI(final ThreadPlatform platform, final TUIView tuiView, final SurrenderGame surrCommand) {
+   public InitGameTui(final ThreadPlatform platform, final TUIView tuiView, final SurrenderGame surrCommand) {
       this.platform = platform;
       this.tuiView = tuiView;
       this.surrCommand = surrCommand;
