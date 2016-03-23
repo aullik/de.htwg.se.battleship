@@ -7,11 +7,11 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
  *
  * @author niwehrle
  */
-public abstract class PlayUIFactory_GitBugFix {
+public abstract class PlayUIFactory {
 
-   protected static PlayUIFactory_GitBugFix instance;
+   protected static PlayUIFactory instance;
 
-   private static PlayUIFactory_GitBugFix getInstance() {
+   private static PlayUIFactory getInstance() {
       if (instance == null)
          instance = new DefaultImpl();
       return instance;
@@ -25,7 +25,7 @@ public abstract class PlayUIFactory_GitBugFix {
    }
 
 
-   public static class DefaultImpl extends PlayUIFactory_GitBugFix {
+   public static class DefaultImpl extends PlayUIFactory {
 
 
       @Override
