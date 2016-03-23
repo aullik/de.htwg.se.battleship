@@ -22,19 +22,19 @@ public class ControllerHelper<E extends Controllable> implements Controller<E> {
    }
 
    @Override
-   public void registerControllable(final E cont) {
+   public synchronized void registerControllable(final E cont) {
       controllables.add(cont);
       if (current != null)
          current.accept(cont);
    }
 
    @Override
-   public void unregisterControllable(final E cont) {
+   public synchronized void unregisterControllable(final E cont) {
       controllables.remove(cont);
    }
 
    @Override
-   public void executeConsumerMethod(final Consumer<E> executor) {
+   public synchronized void executeConsumerMethod(final Consumer<E> executor) {
       this.current = executor;
       controllables.forEach(executor);
    }
