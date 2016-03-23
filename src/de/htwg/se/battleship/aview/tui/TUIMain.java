@@ -40,6 +40,7 @@ public class TUIMain implements GameStateControllable {
    private TUIMain() {
       this.gsController = ControllerFactory.getController();
       gsController.registerControllable(this);
+      gsController.registerControllable(this);
       platform = new MyThreadPlatform();
       tuiView = new TUIView(platform);
       this.mainMenu = createMainMenu();
@@ -93,6 +94,7 @@ public class TUIMain implements GameStateControllable {
 
    private void exitGame() {
       tuiView.close();
+      gsController.unregisterControllable(this);
       gsController.unregisterControllable(this);
       platform.closeInputQueue();
    }
