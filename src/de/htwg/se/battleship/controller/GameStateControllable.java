@@ -10,8 +10,6 @@ import java.util.function.Consumer;
  */
 public interface GameStateControllable extends Controllable {
 
-   void startNewSharedScreenGame(Consumer<GamemodeControllable> consumer);
-
    void startNewGame(Consumer<GamemodeControllable> consumer);
 
    String getName();

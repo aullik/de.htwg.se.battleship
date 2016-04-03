@@ -34,13 +34,12 @@ public class TUIMain implements GameStateControllable {
    private final MyThreadPlatform platform;
    private final TUIView tuiView;
 
-   private GamemodeControllable currentGamemodeControllable;
 
 
    private TUIMain() {
       this.gsController = ControllerFactory.getController();
       gsController.registerControllable(this);
-      gsController.registerControllable(this);
+      //gsController.registerControllable(this);
       platform = new MyThreadPlatform();
       tuiView = new TUIView(platform);
       this.mainMenu = createMainMenu();
@@ -48,12 +47,8 @@ public class TUIMain implements GameStateControllable {
       runMainMenu();
    }
 
-   private void resetGame() {
-      if (currentGamemodeControllable == null)
-         return;
-
+   private void resetGame() {       ;
       tuiView.clearJobs();
-      currentGamemodeControllable = null;
       runMainMenu();
    }
 
@@ -70,20 +65,10 @@ public class TUIMain implements GameStateControllable {
       return new TuiJob.CommandOnlyJob(list);
    }
 
-   @Override
-   public void startNewSharedScreenGame(final Consumer<GamemodeControllable> consumer) {
-      if (currentGamemodeControllable != null)
-         throw new IllegalStateException("Game Already Started");
-
-      this.currentGamemodeControllable = new GameTUI(platform, tuiView, this::resetGame);
-      consumer.accept(currentGamemodeControllable);
-
-   }
 
    @Override
    public void startNewGame(final Consumer<GamemodeControllable> consumer) {
-      //TODO
-      startNewSharedScreenGame(consumer);
+      consumer.accept(new GameTUI(platform, tuiView, this::resetGame));
    }
 
    @Override

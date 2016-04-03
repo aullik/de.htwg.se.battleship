@@ -42,7 +42,7 @@ public class GameStateControllerImpl implements
    public void startNewSharedScreenGame() {
 
       final TwoPlayerController gmController = new TwoPlayerController();
-      executeConsumerMethod(cont -> cont.startNewSharedScreenGame(controllable ->
+      executeConsumerMethod(cont -> cont.startNewGame(controllable ->
             registerSharedScreenGameControllables(gmController, controllable)));
 
       gmController.run();
