@@ -113,6 +113,9 @@ public class TUIView {
    }
 
    private void awaitInput(final String inp) {
+      //TODO REMOVE
+      output("###INPUT:" + inp);
+
       final TuiJob job = getFirstJob();
 
       if (job == null) {

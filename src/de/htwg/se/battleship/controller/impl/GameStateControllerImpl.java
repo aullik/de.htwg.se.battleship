@@ -5,9 +5,8 @@ package de.htwg.se.battleship.controller.impl;
 
 import de.htwg.se.battleship.controller.GameStateControllable;
 import de.htwg.se.battleship.controller.GameStateController;
-import de.htwg.se.battleship.controller.gamemode.GamemodeControllable;
-import de.htwg.se.battleship.controller.gamemode.GamemodeControllerBase;
 import de.htwg.se.battleship.controller.gamemode.impl.TwoPlayerController;
+import de.htwg.se.battleship.controller.selectPlayer.imp.SelectPlayerControllerImpl;
 import de.htwg.se.battleship.util.controller.Controller;
 import de.htwg.se.battleship.util.singleton.SingletonSupplier;
 
@@ -39,19 +38,17 @@ public class GameStateControllerImpl implements
    }
 
    @Override
-   public void startNewSharedScreenGame() {
+   public void startNewGame() {
 
       final TwoPlayerController gmController = new TwoPlayerController();
-      executeConsumerMethod(cont -> cont.startNewGame(controllable ->
-            registerSharedScreenGameControllables(gmController, controllable)));
+
+      final SelectPlayerControllerImpl selectPlayerController = new SelectPlayerControllerImpl(controllables,
+            cont -> cont.startNewGame(gmController::registerControllablePlayer1),
+            cont -> cont.startNewGame(gmController::registerControllablePlayer2));
+
+      executeConsumerMethod(cont -> cont.startNewUiVsUiGame(selectPlayerController::registerControllable));
 
       gmController.run();
-   }
-
-   private <C extends GamemodeControllable> void registerSharedScreenGameControllables(
-         GamemodeControllerBase<C> gmController, C controllable) {
-      gmController.registerControllablePlayer1(controllable);
-      gmController.registerControllablePlayer2(controllable);
    }
 
 

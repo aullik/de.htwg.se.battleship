@@ -13,7 +13,6 @@ import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CountDownLatch;
 import java.util.function.BooleanSupplier;
 import java.util.function.Consumer;
 
@@ -30,10 +29,11 @@ public class SelectPlayerControllerImpl extends ThreadSaveControllerBase<SelectP
    private final ReadOnlyListProperty<UI> player1UIsWrapper;
    private final ReadOnlyListProperty<UI> player2UIsWrapper;
 
-   private final BooleanSupplier setFinished;
+   private final Runnable setFinished;
+   private final BooleanSupplier checkFinished;
    private final Consumer<GameStateControllable> player1Consumer;
    private final Consumer<GameStateControllable> player2Consumer;
-   private boolean finished = false;
+   private volatile boolean finished = false;
 
 
    public SelectPlayerControllerImpl(final List<GameStateControllable> allUIs, Consumer<GameStateControllable>
@@ -52,15 +52,16 @@ public class SelectPlayerControllerImpl extends ThreadSaveControllerBase<SelectP
       availableUisWrapper = new ReadOnlyListWrapper<>(availableUis);
       player1UIsWrapper = new ReadOnlyListWrapper<>(player1UIs);
       player2UIsWrapper = new ReadOnlyListWrapper<>(player2UIs);
-      setFinished = this::checkFinished;
-
+      this.checkFinished = () -> finished;
+      setFinished = this::setFinished;
       platform.runLater(this::runLoop);
       runPlatform();
    }
 
    @Override
    public synchronized void registerControllable(final SelectPlayerControllable cont) {
-      cont.initialize(this.setFinished, this.availableUisWrapper, this.player1UIsWrapper, this.player2UIsWrapper);
+      cont.initialize(this.setFinished, this.checkFinished, this.availableUisWrapper, this.player1UIsWrapper,
+            this.player2UIsWrapper);
       super.registerControllable(cont);
    }
 
@@ -88,33 +89,13 @@ public class SelectPlayerControllerImpl extends ThreadSaveControllerBase<SelectP
    }
 
 
-   private boolean checkFinished() {
-      if (platform.isPlatformThread())
-         return false;
-
-      class Future {
-
-         private volatile boolean finished;
-         private final CountDownLatch latch = new CountDownLatch(1);
-
-         void run() {
-            this.finished = _checkFinished();
-            latch.countDown();
-         }
-      }
-
-      Future f = new Future();
-      platform.runLater(f::run);
-
-      try {
-         f.latch.await();
-      } catch (InterruptedException e) {
-         return false;
-      }
-      return f.finished;
+   private void setFinished() {
+      //TODO  REMOVE
+      System.out.println("finish SET");
+      platform.runOnPlatform(this::_setFinished);
    }
 
-   private boolean _checkFinished() {
+   private boolean _setFinished() {
       if (finished)
          return true;
 
@@ -125,7 +106,6 @@ public class SelectPlayerControllerImpl extends ThreadSaveControllerBase<SelectP
 
       player1UIs.forEach(ui -> player1Consumer.accept(((UIWrapper) ui).controller));
       player2UIs.forEach(ui -> player2Consumer.accept(((UIWrapper) ui).controller));
-
       return true;
    }
 

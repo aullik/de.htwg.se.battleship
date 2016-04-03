@@ -12,7 +12,8 @@ import java.util.function.BooleanSupplier;
  */
 public interface SelectPlayerControllable extends Controllable {
 
-   void initialize(BooleanSupplier setFinished, ReadOnlyListProperty<UI> availableUIs, ReadOnlyListProperty<UI> player1UIs, ReadOnlyListProperty<UI> player2UIs);
+   void initialize(final Runnable setFinished, BooleanSupplier checkFinished, ReadOnlyListProperty<UI> availableUIs, ReadOnlyListProperty<UI>
+         player1UIs, ReadOnlyListProperty<UI> player2UIs);
 
    void setUI(SingleUseBiConsumer<PlayerNumber, UI> uiSetter);
 

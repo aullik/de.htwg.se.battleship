@@ -2,13 +2,14 @@ package de.htwg.se.battleship.aview.tui;
 
 import de.htwg.se.battleship.aview.tui.command.Command;
 import de.htwg.se.battleship.aview.tui.command.impl.ExitGame;
-import de.htwg.se.battleship.aview.tui.command.impl.NewSharedScreenGame;
+import de.htwg.se.battleship.aview.tui.command.impl.NewGameCommand;
 import de.htwg.se.battleship.aview.tui.view.TUIView;
 import de.htwg.se.battleship.aview.tui.view.TuiJob;
 import de.htwg.se.battleship.controller.ControllerFactory;
 import de.htwg.se.battleship.controller.GameStateControllable;
 import de.htwg.se.battleship.controller.GameStateController;
 import de.htwg.se.battleship.controller.gamemode.GamemodeControllable;
+import de.htwg.se.battleship.controller.selectPlayer.SelectPlayerControllable;
 import de.htwg.se.battleship.util.platform.ThreadPlatform;
 import de.htwg.se.battleship.util.singleton.SingletonSupplier;
 
@@ -34,12 +35,13 @@ public class TUIMain implements GameStateControllable {
    private final MyThreadPlatform platform;
    private final TUIView tuiView;
 
+   private int setGamemodeControllables = 0;
 
 
    private TUIMain() {
       this.gsController = ControllerFactory.getController();
       gsController.registerControllable(this);
-      //gsController.registerControllable(this);
+      gsController.registerControllable(this);
       platform = new MyThreadPlatform();
       tuiView = new TUIView(platform);
       this.mainMenu = createMainMenu();
@@ -47,7 +49,9 @@ public class TUIMain implements GameStateControllable {
       runMainMenu();
    }
 
-   private void resetGame() {       ;
+   private synchronized void resetGame() {
+      setGamemodeControllables = 0;
+
       tuiView.clearJobs();
       runMainMenu();
    }
@@ -59,16 +63,34 @@ public class TUIMain implements GameStateControllable {
    private TuiJob createMainMenu() {
       final List<Command> list = new LinkedList<>();
 
-      list.add(new NewSharedScreenGame(gsController));
+      list.add(new NewGameCommand(gsController));
       list.add(new ExitGame(this::exitGame));
 
       return new TuiJob.CommandOnlyJob(list);
    }
 
+   @Override
+   public void startNewUiVsUiGame(final Consumer<SelectPlayerControllable> consumer) {
+      platform.runOnPlatform(() -> _startNewUiVsUiGame(consumer));
+   }
+
+   private void _startNewUiVsUiGame(final Consumer<SelectPlayerControllable> consumer) {
+      final SelectUIsTUI selectUIsTUI = new SelectUIsTUI(platform, tuiView);
+      consumer.accept(selectUIsTUI);
+      //FIXME
+   }
 
    @Override
    public void startNewGame(final Consumer<GamemodeControllable> consumer) {
-      consumer.accept(new GameTUI(platform, tuiView, this::resetGame));
+      platform.runOnPlatform(() -> this._startNewGame(consumer));
+   }
+
+   private void _startNewGame(final Consumer<GamemodeControllable> consumer) {
+      if (setGamemodeControllables < 2) {
+         final GameTUI gameTUI = new GameTUI(platform, tuiView, this::resetGame);
+         consumer.accept(gameTUI);
+         setGamemodeControllables += 1;
+      }
    }
 
    @Override
@@ -78,6 +100,10 @@ public class TUIMain implements GameStateControllable {
 
 
    private void exitGame() {
+      platform.runOnPlatform(this::_exitGame);
+   }
+
+   private void _exitGame() {
       tuiView.close();
       gsController.unregisterControllable(this);
       gsController.unregisterControllable(this);

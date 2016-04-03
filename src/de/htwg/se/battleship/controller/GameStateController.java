@@ -10,7 +10,6 @@ import de.htwg.se.battleship.util.controller.Controller;
  */
 public interface GameStateController extends Controller<GameStateControllable> {
 
-
-   void startNewSharedScreenGame();
+   void startNewGame();
 
 }

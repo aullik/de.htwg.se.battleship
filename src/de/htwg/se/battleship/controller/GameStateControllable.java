@@ -1,6 +1,7 @@
 package de.htwg.se.battleship.controller;
 
 import de.htwg.se.battleship.controller.gamemode.GamemodeControllable;
+import de.htwg.se.battleship.controller.selectPlayer.SelectPlayerControllable;
 import de.htwg.se.battleship.util.controller.Controllable;
 
 import java.util.function.Consumer;
@@ -11,6 +12,8 @@ import java.util.function.Consumer;
 public interface GameStateControllable extends Controllable {
 
    void startNewGame(Consumer<GamemodeControllable> consumer);
+
+   void startNewUiVsUiGame(Consumer<SelectPlayerControllable> consumer);
 
    String getName();
 

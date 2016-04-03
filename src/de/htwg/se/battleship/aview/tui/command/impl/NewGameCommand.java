@@ -6,14 +6,14 @@ import de.htwg.se.battleship.controller.GameStateController;
 /**
  * @author aullik on 18.01.2016.
  */
-public class NewSharedScreenGame extends CommandBase {
+public class NewGameCommand extends CommandBase {
 
-   private final static String COMMAND = "newSharedGame";
-   private final static String DESC = "Starts a new Game with both Players playing on the same screen";
+   private final static String COMMAND = "newGame";
+   private final static String DESC = "Starts a new Game.";
 
    private final GameStateController gameStateController;
 
-   public NewSharedScreenGame(GameStateController gameStateController) {
+   public NewGameCommand(GameStateController gameStateController) {
       super(COMMAND, DESC);
       this.gameStateController = gameStateController;
    }
@@ -21,6 +21,6 @@ public class NewSharedScreenGame extends CommandBase {
 
    @Override
    public void doAction() {
-      gameStateController.startNewSharedScreenGame();
+      gameStateController.startNewGame();
    }
 }
