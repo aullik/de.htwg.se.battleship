@@ -1,9 +1,19 @@
 package de.htwg.se.battleship.controller.selectPlayer;
 
+import de.htwg.se.battleship.controller.selectPlayer.SelectPlayerController.PlayerNumber;
+import de.htwg.se.battleship.controller.selectPlayer.SelectPlayerController.UI;
 import de.htwg.se.battleship.util.controller.Controllable;
+import de.htwg.se.battleship.util.platform.SingleUseBiConsumer;
+import javafx.beans.property.ReadOnlyListProperty;
+
+import java.util.function.BooleanSupplier;
 
 /**
- * Created by niwehrle on 23.03.2016.
  */
 public interface SelectPlayerControllable extends Controllable {
+
+   void initialize(BooleanSupplier setFinished, ReadOnlyListProperty<UI> availableUIs, ReadOnlyListProperty<UI> player1UIs, ReadOnlyListProperty<UI> player2UIs);
+
+   void setUI(SingleUseBiConsumer<PlayerNumber, UI> uiSetter);
+
 }

@@ -56,17 +56,17 @@ public class GameStateControllerImpl implements
 
 
    @Override
-   public void registerControllable(final GameStateControllable cont) {
+   public synchronized void registerControllable(final GameStateControllable cont) {
       controllables.add(cont);
    }
 
    @Override
-   public void unregisterControllable(final GameStateControllable cont) {
+   public synchronized void unregisterControllable(final GameStateControllable cont) {
       controllables.remove(cont);
    }
 
    @Override
-   public void executeConsumerMethod(final Consumer<GameStateControllable> executor) {
+   public synchronized void executeConsumerMethod(final Consumer<GameStateControllable> executor) {
       controllables.forEach(executor);
    }
 }
