@@ -96,7 +96,7 @@ public class InGameTUI implements IngameControllable {
       }
 
       @Override
-      protected String getDescription() {
+      protected String createDescription() {
          return String.format(SHOOT_CELL, player.getName(), gridPainter.paintGrid());
       }
 

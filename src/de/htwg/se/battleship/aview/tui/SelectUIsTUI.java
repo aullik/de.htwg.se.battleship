@@ -10,7 +10,6 @@ import de.htwg.se.battleship.controller.selectPlayer.SelectPlayerController.UI;
 import de.htwg.se.battleship.util.platform.AlreadyExecutedException;
 import de.htwg.se.battleship.util.platform.NotUIThreadException;
 import de.htwg.se.battleship.util.platform.SingleUseBiConsumer;
-import de.htwg.se.battleship.util.platform.ThreadPlatform;
 import javafx.beans.property.ReadOnlyListProperty;
 
 import java.util.StringJoiner;
@@ -21,7 +20,6 @@ import java.util.function.Consumer;
  */
 public class SelectUIsTUI implements SelectPlayerControllable {
 
-   private final ThreadPlatform platform;
    private final TUIView tuiView;
 
    private Runnable setFinished;
@@ -30,8 +28,7 @@ public class SelectUIsTUI implements SelectPlayerControllable {
    private ReadOnlyListProperty<UI> player1UIs;
    private ReadOnlyListProperty<UI> player2UIs;
 
-   public SelectUIsTUI(final ThreadPlatform platform, final TUIView tuiView) {
-      this.platform = platform;
+   public SelectUIsTUI(final TUIView tuiView) {
       this.tuiView = tuiView;
    }
 
@@ -73,8 +70,8 @@ public class SelectUIsTUI implements SelectPlayerControllable {
 
    class Job extends TuiJob {
 
-      private static final String DESC = "available UIs: %s.\nUIs set for Player 1: %s.\n" +
-            "UIs set for Player 2: %s.\n\n" +
+      private static final String DESC = "available UIs: %s\nUIs set for Player 1: %s\n" +
+            "UIs set for Player 2: %s\n\n" +
             "Please set an UI for a Player (Example: 1, TUI):";
 
       private final SingleUseBiConsumer<PlayerNumber, UI> uiSetter;
@@ -118,7 +115,12 @@ public class SelectUIsTUI implements SelectPlayerControllable {
       }
 
       @Override
-      protected String getDescription() {
+      public String getInformation() {
+         return super.createInformation();
+      }
+
+      @Override
+      protected String createDescription() {
          final StringJoiner sjAvailables = new StringJoiner(", ");
          availableUIs.forEach(ui -> sjAvailables.add(ui.getName()));
 

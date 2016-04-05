@@ -12,7 +12,7 @@ public interface Command {
    String getCommandStripped();
 
    /**
-    * TUIMenu entry getDescription
+    * TUIMenu entry createDescription
     *
     * @return
     */

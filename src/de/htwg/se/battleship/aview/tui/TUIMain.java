@@ -75,7 +75,7 @@ public class TUIMain implements GameStateControllable {
    }
 
    private void _startNewUiVsUiGame(final Consumer<SelectPlayerControllable> consumer) {
-      final SelectUIsTUI selectUIsTUI = new SelectUIsTUI(platform, tuiView);
+      final SelectUIsTUI selectUIsTUI = new SelectUIsTUI(tuiView);
       consumer.accept(selectUIsTUI);
       //FIXME
    }

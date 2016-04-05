@@ -255,7 +255,7 @@ public class InitGameTUI implements InitGameControllable {
       }
 
       @Override
-      protected String getDescription() {
+      protected String createDescription() {
          return SET_PLAYER;
       }
 
@@ -364,7 +364,7 @@ public class InitGameTUI implements InitGameControllable {
       }
 
       @Override
-      protected String getDescription() {
+      protected String createDescription() {
          return String.format(SET_SHIP, gridPainter.paintGrid(), player.getName(), Integer.toString(size));
       }
 
@@ -405,7 +405,7 @@ public class InitGameTUI implements InitGameControllable {
 
 
       @Override
-      protected String getDescription() {
+      protected String createDescription() {
          return String.format(DECIDE_SHIP_SIZE, player.getName(), sizes);
       }
 

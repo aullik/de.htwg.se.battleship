@@ -91,8 +91,8 @@ public abstract class TuiJob {
       return information.get();
    }
 
-   private String createInformation() {
-      String desc = getDescription();
+   protected String createInformation() {
+      String desc = createDescription();
       boolean descValid = desc != null && !desc.isEmpty();
       StringBuilder sb = new StringBuilder();
       if (commandMap.get().size() > 0) {
@@ -114,7 +114,7 @@ public abstract class TuiJob {
 
    public abstract boolean doJob(String input);
 
-   protected abstract String getDescription();
+   protected abstract String createDescription();
 
    protected abstract boolean isExecuted();
 
@@ -146,7 +146,7 @@ public abstract class TuiJob {
 
 
       @Override
-      protected String getDescription() {
+      protected String createDescription() {
          return null;
       }
 
@@ -180,7 +180,7 @@ public abstract class TuiJob {
       }
 
       @Override
-      protected String getDescription() {
+      protected String createDescription() {
          return description;
       }
 
