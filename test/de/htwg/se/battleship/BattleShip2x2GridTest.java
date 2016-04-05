@@ -83,9 +83,6 @@ public class BattleShip2x2GridTest {
       commands.add("2, TUI");
       commands.add("-finish");
 
-      //FIXME
-      commands.add("lostInput");
-
       commands.add("p1");
       commands.add("p2");
 
