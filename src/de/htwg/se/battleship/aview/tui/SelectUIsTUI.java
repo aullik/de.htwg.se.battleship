@@ -10,6 +10,8 @@ import de.htwg.se.battleship.controller.selectPlayer.SelectPlayerController.UI;
 import de.htwg.se.battleship.util.platform.AlreadyExecutedException;
 import de.htwg.se.battleship.util.platform.NotUIThreadException;
 import de.htwg.se.battleship.util.platform.SingleUseBiConsumer;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.beans.property.ReadOnlyListProperty;
 
 import java.util.StringJoiner;
@@ -76,8 +78,10 @@ public class SelectUIsTUI implements SelectPlayerControllable {
 
       private final SingleUseBiConsumer<PlayerNumber, UI> uiSetter;
 
+
       public Job(final SingleUseBiConsumer<PlayerNumber, UI> uiSetter) {
          this.uiSetter = uiSetter;
+
       }
 
       @Override
@@ -118,6 +122,42 @@ public class SelectUIsTUI implements SelectPlayerControllable {
       public String getInformation() {
          return super.createInformation();
       }
+
+      @Override
+      public void onInformationInvalidation(final Runnable oneTimeRunnable) {
+         InvalidationListener informationInvalidated = new OneTimeInvalidationListener(oneTimeRunnable);
+
+         availableUIs.addListener(informationInvalidated);
+         player1UIs.addListener(informationInvalidated);
+         player2UIs.addListener(informationInvalidated);
+      }
+
+      class OneTimeInvalidationListener implements InvalidationListener {
+
+         private final Runnable runnable;
+         private volatile boolean run;
+
+         private OneTimeInvalidationListener(Runnable runnable) {
+            this.runnable = runnable;
+            this.run = false;
+         }
+
+         @Override
+         public void invalidated(final Observable observable) {
+            synchronized (this) {
+               if (run)
+                  return;
+               run = true;
+            }
+
+            runnable.run();
+            availableUIs.removeListener(this);
+            player1UIs.removeListener(this);
+            player2UIs.removeListener(this);
+         }
+      }
+
+
 
       @Override
       protected String createDescription() {

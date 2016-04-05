@@ -82,17 +82,27 @@ public class TUIView {
 
    private void printInformation() {
       final TuiJob job = getFirstJob();
-      final String info;
-      if (job != null)
-         info = job.getInformation();
-      else
-         info = null;
+      if (job == null)
+         return;
+
+      printInformation(job);
+   }
+
+   private void printInformation(TuiJob job) {
+      job.onInformationInvalidation(() -> platform.runOnPlatform(() -> refreshInformation(job)));
+
+      String info = job.getInformation();
 
       if (info == null)
          return;
 
       output(header);
       output(info);
+   }
+
+   private void refreshInformation(TuiJob oldJob) {
+      if (oldJob == getFirstJob())
+         printInformation(oldJob);
    }
 
 

@@ -87,6 +87,14 @@ public abstract class TuiJob {
       return String.format(MENU_FORMAT, c.getCommand(), c.getDescription());
    }
 
+   /**
+    * This method has no default Implementation but can be overridden.
+    *
+    * @param oneTimeRunnable will be executed on information invalidation
+    */
+   public void onInformationInvalidation(final Runnable oneTimeRunnable) {
+   }
+
    public String getInformation() {
       return information.get();
    }
@@ -117,6 +125,8 @@ public abstract class TuiJob {
    protected abstract String createDescription();
 
    protected abstract boolean isExecuted();
+
+
 
 
    /*
