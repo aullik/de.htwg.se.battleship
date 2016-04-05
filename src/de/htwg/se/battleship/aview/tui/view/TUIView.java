@@ -76,7 +76,7 @@ public class TUIView {
       }
 
       printInformation();
-      console.getInputLine(this::awaitInputPlatformSave);
+      console.getInput(this::awaitInputPlatformSave);
    }
 
 
@@ -108,20 +108,18 @@ public class TUIView {
       return null;
    }
 
-   private void awaitInputPlatformSave(final String inp) {
-      platform.runLater(() -> awaitInput(inp));
+   private void awaitInputPlatformSave(final String inp, final Runnable returnInput) {
+      platform.runLater(() -> awaitInput(inp, returnInput));
    }
 
-   private void awaitInput(final String inp) {
+   private void awaitInput(final String inp, final Runnable returnInput) {
       //TODO REMOVE
       output("###INPUT:" + inp);
 
       final TuiJob job = getFirstJob();
 
       if (job == null) {
-         //TODO return input to console and buffer it.
-         output("Input lost: " + inp);
-
+         returnInput.run();
          running = false;
          return;
       }
